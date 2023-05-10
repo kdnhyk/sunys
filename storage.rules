@@ -1,0 +1,13 @@
+rules_version = '2';
+service firebase.storage {
+  match /b/{bucket}/o {
+      function isAdmin(userId) {
+  		return firestore.exists(/databases/(default)/documents/admin/$(userId));
+  	}
+    match /{allPaths=**} {
+    	allow read: if true;
+      allow write: if isAdmin(request.auth.uid);
+      allow delete: if false;
+    }
+  }
+}

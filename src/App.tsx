@@ -1,26 +1,72 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { Outlet } from "react-router-dom";
+import { createGlobalStyle } from "styled-components";
+import Layout from "./common/Layout";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <GlobalStyle />
+      <Layout>
+        <Outlet />
+      </Layout>
+    </>
   );
 }
 
-export default App;
+const GlobalStyle = createGlobalStyle`
+  body {
+    padding: 0;
+    margin: 0;
+    font-size: 16px;
+    background-color: #eeeeee;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: montserrat;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  a:hover {
+    text-decoration: none;
+  }
+
+  li {
+    list-style: none;
+  }
+
+  button {
+    background-color: white;
+    border: none;
+  }
+
+  input {
+    border: none;
+  }
+
+  h1 {
+    font-size: 16px;
+  }
+  h2 {
+    font-size: 15px;
+    font-weight: 600;
+  }
+  h3 {
+    font-size: 14px;
+    font-weight:600;
+  }
+  p {
+    font-size: 13px;
+  }
+
+  @font-face {
+      font-family: "montserrat";
+      src: url("../font/Montserrat-VariableFont_wght.ttf");
+    }
+`;

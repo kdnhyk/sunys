@@ -1,0 +1,130 @@
+import {
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  getDocs,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+  setDoc,
+  startAfter,
+  where,
+} from "firebase/firestore";
+import { store, timestamp } from "../../firebase";
+import { useState } from "react";
+import { IsArticle } from "../../types/article";
+
+export const useArticleStore = () => {
+  const [documents, setDocuments] = useState<IsArticle[]>();
+  const collectionRef = collection(store, "article");
+
+  const getAllDocuments = async () => {
+    const q = query(
+      collection(store, "article"),
+      where("isVisible", "==", true),
+      orderBy("createdTime", "desc"),
+      limit(10)
+    );
+    console.log("FireStore Access");
+
+    const data = await getDocs(q);
+    let result: any[] = [];
+    data.forEach((doc) => {
+      result.push({ ...doc.data(), id: doc.id });
+    });
+
+    // 나중에 페이지네이션 구현
+    // const last = data.docs[data.docs.length - 1];
+    // setLastVisible(last);
+
+    // const next = query(
+    //   collectionRef,
+    //   startAfter(lastVisible),
+    //   where("isVisible", "==", true),
+    //   orderBy("createdTime", "desc"),
+    //   limit(10)
+    // );
+
+    // const nextData = await getDocs(next);
+    // const newData = data.docs.map((doc) => ({ ...doc.data() }));
+
+    return result;
+  };
+
+  const getDocumentByRealTime = () => {
+    const q = query(
+      collection(store, "article"),
+      orderBy("createdTime", "desc")
+      // limit(22)
+    );
+    console.log("FireStore Access");
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        let result: any[] = [];
+        querySnapshot.forEach((doc) => {
+          result.push({ ...doc.data(), id: doc.id });
+        });
+
+        setDocuments(result);
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    );
+  };
+
+  const getDocumentById = async (id: string) => {
+    const q = query(
+      collection(store, "article"),
+      where("id", "==", id),
+      limit(1)
+    );
+
+    console.log("FireStore Access");
+    const data = await getDocs(q);
+
+    let result: any[] = [];
+    data.forEach((doc) => {
+      result.push({ ...doc.data(), id: doc.id });
+    });
+    return result;
+  };
+
+  const addDocument = async (collection: IsArticle) => {
+    const createdTime = timestamp.fromDate(new Date());
+
+    const doc = await addDoc(collectionRef, {
+      ...collection,
+      createdTime,
+    });
+    return doc.id;
+  };
+
+  const updateDocument = async (id: string, collection: IsArticle) => {
+    await setDoc(
+      doc(collectionRef, id),
+      {
+        ...collection,
+      },
+      { merge: true }
+    );
+  };
+
+  const deleteDocument = async (id: string) => {
+    console.log("Del: " + id);
+    await deleteDoc(doc(collectionRef, id));
+  };
+
+  return {
+    documents,
+    getAllDocuments,
+    getDocumentByRealTime,
+    getDocumentById,
+    addDocument,
+    updateDocument,
+    deleteDocument,
+  };
+};

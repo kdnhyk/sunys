@@ -22,14 +22,12 @@ export default function Brands() {
     handleSaleBrandList();
   }, []);
 
-  console.log(newBrandList);
-
   return (
     <BrandsWrap>
       {/* <div className="SearchInputArea">
         <SearchInput />
       </div> */}
-      <UnderLineBox>NEW</UnderLineBox>
+      <UnderLineBox>NEW BRAND</UnderLineBox>
       <div className="NewBrandWrap">
         {user.admin && (
           <Link to={`/brandform`}>

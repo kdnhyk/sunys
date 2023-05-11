@@ -2,19 +2,25 @@ import { useEffect } from "react";
 import { useRecoilState } from "recoil";
 
 import { useCollectionStore } from "./firestore/useCollectionStore";
-import { upcommingCollectionListSelector } from "../store/collection";
+import {
+  currentColletionSelector,
+  recentCollectionListSelector,
+  upcommingCollectionListSelector,
+} from "../store/collection";
 
 export const useCollection = () => {
+  const [currentCollection, setCurrentCollection] = useRecoilState(
+    currentColletionSelector
+  );
   const [upcommingList, setUpcommingList] = useRecoilState(
     upcommingCollectionListSelector
   );
   const [recentList, setRecentList] = useRecoilState(
-    upcommingCollectionListSelector
+    recentCollectionListSelector
   );
-
+  console.log(recentList);
   const {
     documents,
-    getRecentCollectionList,
     getRealTimeCollectionById,
     getCollectionByBrandName,
     getCollectionByBrandNameAdmin,
@@ -26,24 +32,20 @@ export const useCollection = () => {
 
   useEffect(() => {
     if (!documents) return;
-    setRecentList(documents);
+    setCurrentCollection(documents);
   }, [documents]);
 
-  const handleRecentCollectionList = async () => {
-    setUpcommingList(await getRecentCollectionList());
-  };
-
-  const handleRealTimeCollectionById = async (id: string) => {
-    getRealTimeCollectionById(id);
+  const handleRealTimeCollectionById = async (cid: string) => {
+    getRealTimeCollectionById(cid);
   };
 
   //
   const getCollectionListByBrandName = async (brandName: string) => {
-    setRecentList(await getCollectionByBrandName(brandName));
+    setCurrentCollection(await getCollectionByBrandName(brandName));
   };
 
   const getCollectionListByBrandNameAdmin = async (brandName: string) => {
-    setRecentList(await getCollectionByBrandNameAdmin(brandName));
+    setCurrentCollection(await getCollectionByBrandNameAdmin(brandName));
   };
 
   const getCollectionListByUpcomming = async () => {
@@ -60,9 +62,10 @@ export const useCollection = () => {
   //
 
   return {
+    currentCollection,
     upcommingList,
     recentList,
-    handleRecentCollectionList,
+
     handleRealTimeCollectionById,
     getCollectionListByBrandName,
     getCollectionListByBrandNameAdmin,

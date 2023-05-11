@@ -17,6 +17,7 @@ import {
 import { store, timestamp } from "../../firebase";
 import { useState } from "react";
 import { IsCollection } from "../../types/collection";
+import { toStringByFormatting } from "../../util";
 
 export const useCollectionStore = () => {
   const [documents, setDocuments] = useState<IsCollection[]>();
@@ -105,9 +106,8 @@ export const useCollectionStore = () => {
   const getCollectionByBrandName = async (brandName: string) => {
     const q = query(
       collection(store, "collection"),
-      where("isVisible", "==", true),
       where("brandName", "==", brandName),
-      // orderBy("createdTime", "desc"),
+      where("isVisible", "==", true),
       limit(10)
     );
 
@@ -118,6 +118,7 @@ export const useCollectionStore = () => {
     data.forEach((doc) => {
       result.push({ ...doc.data(), id: doc.id });
     });
+    console.log(result);
     return result;
   };
 
@@ -125,7 +126,6 @@ export const useCollectionStore = () => {
     const q = query(
       collection(store, "collection"),
       where("brandName", "==", brandName),
-      // orderBy("createdTime", "desc"),
       limit(10)
     );
 
@@ -143,7 +143,7 @@ export const useCollectionStore = () => {
     const q = query(
       collection(store, "collection"),
       where("isVisible", "==", true),
-      orderBy("releaseDate", "desc"),
+      where("releaseDate", ">", toStringByFormatting(new Date())),
       limit(10)
     );
 
@@ -161,7 +161,7 @@ export const useCollectionStore = () => {
     const q = query(
       collection(store, "collection"),
       where("isVisible", "==", true),
-      orderBy("createdTime", "desc"),
+      where("releaseDate", "<=", toStringByFormatting(new Date())),
       limit(10)
     );
 

@@ -17,6 +17,7 @@ export default function Brand() {
 
   const { id } = useParams();
   const { getBrandByBrandName } = useBrandStore();
+  const { currentCollection, getCollectionListByBrandName } = useCollection();
   const { user, setUser } = useAuth();
   const { updateScrapBrand } = useCloudUser();
   const [currentBrand, setCurrentBrand] = useState<IsBrand>({
@@ -33,7 +34,6 @@ export default function Brand() {
     officialOfflineStore: [],
     storeList: [],
   });
-  const { recentList, getCollectionListByBrandName } = useCollection();
 
   const onScrapBrand = async () => {
     if (!id) return;
@@ -71,18 +71,15 @@ export default function Brand() {
           storeList: currentBrand.storeList,
         }));
       });
+
+      getCollectionListByBrandName(id);
     }
   }, [id]);
 
   useEffect(() => {
     if (!id) return;
-    getCollectionListByBrandName(id);
-  }, [id]);
-
-  useEffect(() => {
-    if (!id) return;
     setScrapOn(user.scrapBrandList.includes(id));
-  }, [user]);
+  }, [id, user]);
 
   return (
     <BrandWrap>
@@ -141,7 +138,7 @@ export default function Brand() {
 
       <UnderLineBox>COLLECTION</UnderLineBox>
       <div className="CollectionWrap">
-        {recentList.map((e, i) => (
+        {currentCollection.map((e, i) => (
           <Link to={`/collection/${e.id}`} key={i}>
             <Collection collection={e} />
           </Link>

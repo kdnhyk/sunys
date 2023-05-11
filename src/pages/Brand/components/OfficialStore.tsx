@@ -32,9 +32,7 @@ export default function OfficialStore({ officialStore }: IsOfficialStoreStyle) {
 
       <CoverBox exit={exitCoverBox} isSelected={isSelected}>
         <a href={officialStore.storeUrl} target="_blank" rel="noreferrer">
-          {`${officialStore.storeUrl.split(".")[1]}.${
-            officialStore.storeUrl.split(".")[2]
-          }`}
+          {`${officialStore.storeUrl.split("/")[2]}`}
         </a>
       </CoverBox>
     </OfficialStoreWrap>

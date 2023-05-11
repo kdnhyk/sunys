@@ -11,8 +11,9 @@ interface IsCollectionArea {
 }
 
 export default function CollectionArea({ id }: IsCollectionArea) {
-  const { recentList, getCollectionListByBrandNameAdmin } = useCollection();
-  console.log(recentList);
+  const { currentCollection, getCollectionListByBrandNameAdmin } =
+    useCollection();
+
   useEffect(() => {
     getCollectionListByBrandNameAdmin(id);
   }, []);
@@ -27,7 +28,7 @@ export default function CollectionArea({ id }: IsCollectionArea) {
         >
           <CreateCollection />
         </Link>
-        {recentList.map((e, i) => (
+        {currentCollection.map((e, i) => (
           <Link to={`/brandform/${id}/collectionform/${e.id}`} key={i}>
             <Collection collection={e} />
           </Link>

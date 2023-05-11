@@ -2,16 +2,19 @@ import styled from "styled-components";
 import Button from "./components/Button";
 import { useAuth } from "../hooks/useAuth";
 import UnderLineBox from "./components/UnderLineBox";
+import { useNavigate } from "react-router-dom";
 
 interface IsLoginModal {
   exitModal: () => void;
 }
 
 export default function LoginModal({ exitModal }: IsLoginModal) {
+  const nav = useNavigate();
   const { loginWithGoogle } = useAuth();
   const onGoogleLogin = () => {
     loginWithGoogle();
     exitModal();
+    nav("/");
   };
 
   return (

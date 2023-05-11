@@ -74,7 +74,7 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
     await setInput((prev) => {
       return { ...prev, isVisible: !prev.isVisible };
     });
-  }, []);
+  }, [input.isVisible]);
 
   const onSubmit = async () => {
     if (!isEnterButtonOn) return;
@@ -97,11 +97,13 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
         images: currentCollection.images,
 
         brandName: currentCollection.brandName,
+
+        isVisible: currentCollection.isVisible,
       }));
 
       setIsEnterButtonOn(() => true);
     }
-  }, [id, cid]);
+  }, [id, cid, currentCollection]);
 
   useEffect(() => {
     if (
@@ -124,7 +126,7 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
           images: input.images,
 
           brandName: input.brandName,
-          isVisible: input.isVisible || false,
+          isVisible: input.isVisible,
         });
       } else if (!cid) {
         addCollection({
@@ -133,7 +135,7 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
           images: input.images,
 
           brandName: input.brandName,
-          isVisible: false,
+          isVisible: input.isVisible,
         });
       }
 
@@ -174,6 +176,7 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
           onChange={(date) => onChangeInputReleaseDate(date)}
         />
       </div>
+
       <Button onClick={onSubmit} isActivated={isEnterButtonOn}>
         CONFIRM
       </Button>

@@ -37,8 +37,6 @@ export default function Collection() {
     handleArticleByCid(currentCollection.id || "");
   }, [currentCollection]);
 
-  console.log(currentCollection);
-
   return (
     <CollectionWrap>
       <div className="ImageWrap">

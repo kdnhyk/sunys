@@ -23,8 +23,12 @@ export default function Home() {
 
   useEffect(() => {
     handleNewBrandList();
-    getCollectionListByUpcomming();
-    getCollectionListByRecent();
+    if (upcommingList.length === 0) {
+      getCollectionListByUpcomming();
+    }
+    if (recentList.length === 0) {
+      getCollectionListByRecent();
+    }
   }, []);
 
   return (
@@ -45,7 +49,7 @@ export default function Home() {
           </Link>
         ))}
       </div>
-      <UnderLineBox>MAGAZINE</UnderLineBox>
+      {/* <UnderLineBox>MAGAZINE</UnderLineBox> */}
     </HomeWrap>
   );
 }

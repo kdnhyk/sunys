@@ -54,26 +54,43 @@ export const useArticleStore = () => {
     return result;
   };
 
-  const getArticleByIdRealTime = (id: string) => {
+  // const getArticleByIdRealTime = (id: string) => {
+  //   const q = query(
+  //     collection(store, "article"),
+  //     where(documentId(), "==", id)
+  //   );
+  //   console.log("FireStore Access");
+  //   const unsubscribe = onSnapshot(
+  //     q,
+  //     (querySnapshot) => {
+  //       let result: any[] = [];
+  //       querySnapshot.forEach((doc) => {
+  //         result.push({ ...doc.data(), id: doc.id });
+  //       });
+
+  //       setDocuments(result);
+  //     },
+  //     (error) => {
+  //       console.log(error.message);
+  //     }
+  //   );
+  // };
+
+  const getArticleByCid = async (cid: string) => {
     const q = query(
       collection(store, "article"),
-      where(documentId(), "==", id)
+      where("collectionId", "==", cid),
+      limit(20)
     );
     console.log("FireStore Access");
-    const unsubscribe = onSnapshot(
-      q,
-      (querySnapshot) => {
-        let result: any[] = [];
-        querySnapshot.forEach((doc) => {
-          result.push({ ...doc.data(), id: doc.id });
-        });
 
-        setDocuments(result);
-      },
-      (error) => {
-        console.log(error.message);
-      }
-    );
+    const data = await getDocs(q);
+    let result: any[] = [];
+    data.forEach((doc) => {
+      result.push({ ...doc.data(), id: doc.id });
+    });
+
+    return result;
   };
 
   const getArticleByCidRealtime = async (cid: string) => {
@@ -129,7 +146,7 @@ export const useArticleStore = () => {
   return {
     documents,
     getAllDocuments,
-    getArticleByIdRealTime,
+    getArticleByCid,
     getArticleByCidRealtime,
     addArticle,
     updateArticle,

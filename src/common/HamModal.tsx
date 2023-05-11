@@ -81,7 +81,7 @@ const HamModalBlock = styled.div`
     display: flex;
     border-bottom: 1px solid #dddddd;
     /* border-top: none; */
-    z-index: 10;
+    z-index: 1000;
 
     a {
       width: 100%;
@@ -93,8 +93,7 @@ const HamModalBlock = styled.div`
         background-color: #d9d9d9;
       }
       p {
-        font-size: 11px;
-        /* font-weight: 600; */
+        font-size: 12px;
       }
     }
     .Login {

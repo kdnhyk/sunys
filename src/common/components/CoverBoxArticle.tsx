@@ -42,7 +42,7 @@ const CoverBoxArticleWrap = styled.div<{ isSelected: boolean }>`
     top: 0px;
     left: 0px;
     width: 100%;
-    height: calc(100% - 43px);
+    height: calc(100% - 42px);
     background-color: black;
     opacity: 0.3;
   }
@@ -56,7 +56,7 @@ const CoverBoxArticleWrap = styled.div<{ isSelected: boolean }>`
     position: absolute;
     top: 0px;
     width: 100%;
-    height: 100%;
+    height: calc(100% - 44px);
     color: white;
     font-size: 16px;
     font-weight: 600;

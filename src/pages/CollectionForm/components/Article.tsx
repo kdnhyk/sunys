@@ -34,6 +34,7 @@ const ArticleWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-bottom: 4px;
     img {
       width: 100%;
       height: 100%;

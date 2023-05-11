@@ -159,7 +159,7 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
   display: flex;
   flex-direction: column;
   color: #314af3;
-  z-index: 10;
+  z-index: 1000;
   background-color: #eeeeee;
 
   /* ${({ isOpenMenu }) =>
@@ -175,7 +175,7 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    z-index: 20;
+    z-index: 1000;
     cursor: pointer;
     a {
       svg {
@@ -200,7 +200,7 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      z-index: 20;
+      z-index: 2000;
       p {
         width: fit-content;
         padding: 0px 12px;
@@ -223,7 +223,7 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
     position: ${({ isFixHeader }) => (isFixHeader ? "fixed" : "absolute")};
     width: 100%;
     background-color: #eeeeee;
-    z-index: 10;
+    z-index: 1000;
     top: ${({ isFixHeader }) => (isFixHeader ? "0px" : "96px")};
     height: 50px;
     display: flex;

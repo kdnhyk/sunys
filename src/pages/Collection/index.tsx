@@ -5,7 +5,7 @@ import { useCollection } from "../../hooks/useCollection";
 import { useParams } from "react-router-dom";
 import { IsCollection } from "../../types/collection";
 import { useArticle } from "../../hooks/useArticle";
-import Article from "./components/Article";
+import Article from "../../common/components/Article";
 
 export default function Collection() {
   const { cid } = useParams();
@@ -31,11 +31,8 @@ export default function Collection() {
     handleCollectionById(cid).then((collectoin) => {
       setCurrentCollection(collectoin[0]);
     });
-  }, []);
-
-  useEffect(() => {
-    handleArticleByCid(currentCollection.id || "");
-  }, [currentCollection]);
+    handleArticleByCid(cid);
+  }, [cid]);
 
   return (
     <CollectionWrap>

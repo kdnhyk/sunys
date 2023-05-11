@@ -7,7 +7,6 @@ import { useImage } from "../../../hooks/storage/useImage";
 import { IsArticle } from "../../../types/article";
 import { useArticleStore } from "../../../hooks/firestore/useArticleStore";
 import { IsCollection } from "../../../types/collection";
-import { useCollectionStore } from "../../../hooks/firestore/useCollectionStore";
 
 interface IsWindowModal {
   exitModal: () => void;
@@ -17,14 +16,15 @@ interface IsWindowModal {
   onChangeInput: (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => void;
+  onResetInput: () => void;
 }
 
 export default function WindowModal({
   exitModal,
   input,
-  currentCollection,
   setInput,
   onChangeInput,
+  onResetInput,
 }: IsWindowModal) {
   const [image, setImage] = useState<File | null>(null);
   const [isEnterButtonOn, setIsEnterButtonOn] = useState(false);
@@ -69,6 +69,9 @@ export default function WindowModal({
       updateArticle(`${input.collectionId}-${input.articleName}`, {
         ...input,
       });
+
+      onResetInput();
+
       exitModal();
     }
   }, [isUpload]);

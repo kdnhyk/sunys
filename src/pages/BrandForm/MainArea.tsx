@@ -12,6 +12,8 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Toggle from "../../common/components/SaleToggle";
 import { useNavigate } from "react-router-dom";
+import { useBrandListStore } from "../../hooks/firestore/useBrandListStore";
+import { useBrandList } from "../../hooks/useBrandList";
 
 export type IsModalSort =
   | "officialOnlineStore"
@@ -50,6 +52,8 @@ export default function MainArea({
 }: IsMainArea) {
   const { upload, deleteImage } = useImage("logo");
   const { addBrand, updateBrand } = useBrandStore();
+  const { addBrandToList } = useBrandListStore();
+  const { brandList } = useBrandList();
   const nav = useNavigate();
 
   const [isUpload, setIsUpload] = useState(false);
@@ -127,6 +131,10 @@ export default function MainArea({
       if (id && input.logo !== lastImageUrl) {
         deleteImage(lastImageUrl);
       }
+
+      console.log(brandList);
+      if (!brandList) return;
+      addBrandToList(brandList, input.brandName);
 
       nav("/brand");
     }

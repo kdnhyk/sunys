@@ -118,7 +118,7 @@ export const useCollectionStore = () => {
     data.forEach((doc) => {
       result.push({ ...doc.data(), id: doc.id });
     });
-    console.log(result);
+
     return result;
   };
 
@@ -197,7 +197,6 @@ export const useCollectionStore = () => {
     await addDoc(collectionRef, {
       ...collection,
       createdTime,
-      isVisible: false,
     });
     return;
   };

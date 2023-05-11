@@ -14,13 +14,13 @@ interface IsArticleArea {
 }
 
 export default function ArticleArea({ currentCollection }: IsArticleArea) {
-  const { articleList, handleArticleByCid } = useArticle();
+  const { articleList, handleArticleByCidRealtime } = useArticle();
   const { deleteArticle } = useArticleStore();
   const { deleteImage } = useImage("article");
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const [input, setInput] = useState<IsArticle>({
+  const initState = {
     articleName: "",
     price: "",
     collectionId: currentCollection.id || "",
@@ -28,7 +28,12 @@ export default function ArticleArea({ currentCollection }: IsArticleArea) {
     images: [],
 
     brandName: currentCollection.brandName,
-  });
+  };
+  const [input, setInput] = useState<IsArticle>(initState);
+
+  const onResetInput = () => {
+    setInput({ ...initState });
+  };
 
   const handleIsOpenModal = () => {
     setIsOpenModal((prev) => !prev);
@@ -57,7 +62,7 @@ export default function ArticleArea({ currentCollection }: IsArticleArea) {
 
   //
   useEffect(() => {
-    handleArticleByCid(currentCollection.id || "");
+    handleArticleByCidRealtime(currentCollection.id || "");
   }, [currentCollection]);
 
   return (
@@ -85,6 +90,7 @@ export default function ArticleArea({ currentCollection }: IsArticleArea) {
           currentCollection={currentCollection}
           setInput={setInput}
           onChangeInput={onChangeInput}
+          onResetInput={onResetInput}
         />
       )}
     </ArticleAreaWrap>

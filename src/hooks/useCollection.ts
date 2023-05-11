@@ -18,7 +18,7 @@ export const useCollection = () => {
   const [recentList, setRecentList] = useRecoilState(
     recentCollectionListSelector
   );
-  console.log(recentList);
+
   const {
     documents,
     getRealTimeCollectionById,

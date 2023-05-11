@@ -1,42 +1,183 @@
 import styled, { css } from "styled-components";
-import { IsBrand } from "../../../types/brand";
+import { ChangeEvent, useEffect, useRef, useState } from "react";
+import { useBrandList } from "../../../hooks/useBrandList";
+import { Link } from "react-router-dom";
 
 interface IsSearchInput {
-  // brand: IsBrand;
+  placeholder: string;
 }
 
-export default function SearchInput({}: IsSearchInput) {
+export default function SearchInput({ placeholder }: IsSearchInput) {
+  const { getBrandList } = useBrandList();
+  const { brandList } = useBrandList();
+  const searchInputRef = useRef<HTMLInputElement>(null);
+
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const [searchInput, setSearchInput] = useState("");
+
+  const onOpenModal = () => {
+    setIsOpenModal(() => true);
+  };
+
+  const onCloseModal = () => {
+    setIsOpenModal(() => false);
+  };
+
+  const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setSearchInput((prev) => value);
+  };
+
+  const onResetSearchInput = () => {
+    setSearchInput(() => "");
+    setIsOpenModal(false);
+    searchInputRef.current?.focus();
+  };
+
+  const resultBrandList = brandList.filter((e) => {
+    return e
+      .replace(" ", "")
+      .toLocaleLowerCase()
+      .includes(searchInput.toLocaleLowerCase().replace(" ", ""));
+  });
+
+  useEffect(() => {
+    if (brandList.length === 0) {
+      getBrandList();
+    }
+  }, []);
+
+  useEffect(() => {
+    if (searchInput) {
+      setIsOpenModal(true);
+    }
+  }, [searchInput]);
+
   return (
-    <SearchInputWrap>
-      <div className="IconWrap">
-        <svg
-          width="20"
-          height="20"
-          viewBox="0 0 20 20"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M19.6714 18.0942L15.8949 14.3287C17.1134 12.7764 17.7745 10.8595 17.7721 8.88603C17.7721 7.12854 17.2509 5.41052 16.2745 3.94922C15.2981 2.48792 13.9103 1.34897 12.2866 0.676412C10.6629 0.00385016 8.87617 -0.172123 7.15245 0.170746C5.42873 0.513616 3.84539 1.35993 2.60266 2.60266C1.35993 3.84539 0.513616 5.42873 0.170746 7.15245C-0.172123 8.87617 0.00385016 10.6629 0.676412 12.2866C1.34897 13.9103 2.48792 15.2981 3.94922 16.2745C5.41052 17.2509 7.12854 17.7721 8.88603 17.7721C10.8595 17.7745 12.7764 17.1134 14.3287 15.8949L18.0942 19.6714C18.1974 19.7755 18.3203 19.8582 18.4556 19.9146C18.591 19.971 18.7362 20 18.8828 20C19.0294 20 19.1746 19.971 19.31 19.9146C19.4453 19.8582 19.5682 19.7755 19.6714 19.6714C19.7755 19.5682 19.8582 19.4453 19.9146 19.31C19.971 19.1746 20 19.0294 20 18.8828C20 18.7362 19.971 18.591 19.9146 18.4556C19.8582 18.3203 19.7755 18.1974 19.6714 18.0942ZM2.22151 8.88603C2.22151 7.56791 2.61238 6.2794 3.34468 5.18342C4.07699 4.08745 5.11785 3.23324 6.33563 2.72882C7.55341 2.22439 8.89342 2.09242 10.1862 2.34957C11.479 2.60672 12.6665 3.24145 13.5986 4.1735C14.5306 5.10555 15.1653 6.29306 15.4225 7.58585C15.6796 8.87864 15.5477 10.2186 15.0432 11.4364C14.5388 12.6542 13.6846 13.6951 12.5886 14.4274C11.4927 15.1597 10.2041 15.5505 8.88603 15.5505C7.11849 15.5505 5.42334 14.8484 4.1735 13.5986C2.92366 12.3487 2.22151 10.6536 2.22151 8.88603Z"
-            fill="black"
-          />
-        </svg>
+    <SearchInputStyle value={searchInput}>
+      <div className="InputWrap">
+        <input
+          className="SearchInput"
+          placeholder={placeholder}
+          value={searchInput}
+          onChange={onChangeSearchInput}
+          ref={searchInputRef}
+          onClick={onOpenModal}
+        ></input>
+        {searchInput && (
+          <div className="DeleteBtn" onClick={onResetSearchInput}>
+            <svg
+              width="17"
+              height="17"
+              viewBox="0 0 17 17"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M2.65685 2.65687C-0.468102 5.78182 -0.468102 10.8456 2.65685 13.9706C5.78181 17.0955 10.8456 17.0955 13.9706 13.9706C17.0955 10.8456 17.0955 5.78182 13.9706 2.65687C10.8456 -0.468089 5.78181 -0.468089 2.65685 2.65687ZM12.237 5.66777C12.3876 5.81832 12.3876 6.06467 12.237 6.21521L10.1385 8.31372L12.237 10.4122C12.3876 10.5628 12.3876 10.8091 12.237 10.9597L10.9597 12.237C10.8091 12.3876 10.5628 12.3876 10.4122 12.237L8.31371 10.1385L6.2152 12.237C6.06465 12.3876 5.81831 12.3876 5.66776 12.237L4.39041 10.9597C4.23986 10.8091 4.23986 10.5628 4.39041 10.4122L6.48892 8.31372L4.39041 6.21521C4.23986 6.06467 4.23986 5.81832 4.39041 5.66777L5.66776 4.39042C5.81831 4.23987 6.06465 4.23987 6.2152 4.39042L8.31371 6.48893L10.4122 4.39042C10.5628 4.23987 10.8091 4.23987 10.9597 4.39042L12.237 5.66777Z"
+                fill="#666666"
+              />
+            </svg>
+          </div>
+        )}
       </div>
-    </SearchInputWrap>
+      {isOpenModal && (
+        <>
+          <div className="ModalWrap">
+            {resultBrandList.map((e, i) => (
+              <div className="BrandNameInner" key={i}>
+                <Link to={`/brand/${e}`}>
+                  <p>{e}</p>
+                </Link>
+              </div>
+            ))}
+          </div>
+          <div className="Background" onClick={onCloseModal}></div>
+        </>
+      )}
+    </SearchInputStyle>
   );
 }
 
-const SearchInputWrap = styled.div`
-  height: 50px;
-  width: 100%;
-  background-color: #d9d9d9;
-  cursor: pointer;
+const SearchInputStyle = styled.div<{ value: string }>`
+  position: relative;
+  height: 40px;
+  .InputWrap {
+    position: relative;
+    height: 100%;
+    z-index: 20;
+    .SearchInput {
+      transition: width 0.1s ease-out;
+      width: 100%;
+      height: 100%;
+      background-color: #dfdfdf;
+      padding: 0px 12px;
 
-  .IconWrap {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+      &:focus {
+        outline: none;
+      }
+    }
+    .DeleteBtn {
+      position: absolute;
+      right: 12px;
+      top: 12px;
+      cursor: pointer;
+    }
   }
+
+  .ModalWrap {
+    display: none;
+    position: absolute;
+    top: 40px;
+    width: 100%;
+    height: fit-content;
+    max-height: 300px;
+    background-color: #ffffff;
+    margin-bottom: 1px;
+    overflow-y: auto;
+    z-index: 20;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    .BrandNameInner {
+      height: 36px;
+      border-top: 1px solid #dfdfdf;
+
+      padding: 0px 12px;
+      cursor: pointer;
+      &:hover {
+        background-color: #dfdfdf;
+      }
+      a {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+    }
+  }
+
+  .Background {
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: 100%;
+    cursor: default;
+    z-index: 10;
+
+    background-color: transparent;
+  }
+
+  ${({ value }) =>
+    value &&
+    css`
+      .InputWrap {
+        .SearchInput {
+        }
+      }
+      .ModalWrap {
+        display: block;
+      }
+    `}
 `;

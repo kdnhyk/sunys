@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
-import { IsArticle } from "../../../types/article";
-import CoverBoxArticle from "../../../common/components/CoverBoxArticle";
+import { IsArticle } from "../../types/article";
+import CoverBoxArticle from "./CoverBoxArticle";
 import { useState } from "react";
 
 interface IsArticleWrap {
@@ -19,14 +19,18 @@ export default function Article({ article, selectedId }: IsArticleWrap) {
     setIsSelected(false);
   };
 
+  const onCart = () => {
+    alert("아직 준비중입니다");
+  };
+
   return (
     <ArticleWrap isSelected={selectedId === article.id}>
-      <div className="ArticleInner" onClick={openCoverBox}>
-        <div className="ImageWrap">
+      <div className="ArticleInner">
+        <div className="ImageWrap" onClick={openCoverBox}>
           <img src={article.images[0]} alt="" />
         </div>
-        <h3>{article.articleName}</h3>
-        <div className="PriceWrap">
+        <div className="TextWrap">
+          <h3>{article.articleName}</h3>
           <p>
             {Number(article.price).toLocaleString("ko-KR", {
               maximumFractionDigits: 4,
@@ -35,7 +39,11 @@ export default function Article({ article, selectedId }: IsArticleWrap) {
         </div>
       </div>
 
-      <CoverBoxArticle exit={exitCoverBox} isSelected={isSelected}>
+      <CoverBoxArticle
+        exit={exitCoverBox}
+        isSelected={isSelected}
+        onClick={onCart}
+      >
         <svg
           width="24"
           height="24"
@@ -64,17 +72,20 @@ const ArticleWrap = styled.div<{ isSelected: boolean }>`
       display: flex;
       justify-content: center;
       align-items: center;
+      margin-bottom: 4px;
       img {
         width: 100%;
         height: 100%;
         object-fit: contain;
       }
     }
-    h3 {
-      font-weight: 400;
-      margin-bottom: 4px;
-    }
-    .PriceWrap {
+    .TextWrap {
+      height: 38px;
+
+      h3 {
+        font-weight: 400;
+        margin-bottom: 4px;
+      }
       p {
         font-size: 13px;
       }

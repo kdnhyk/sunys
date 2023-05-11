@@ -23,7 +23,6 @@ export const useBrandStore = () => {
   const getNewBrandList = async () => {
     const q = query(
       collection(store, "brand"),
-      where("isVisible", "==", true),
       orderBy("createdTime", "desc"),
       limit(10)
     );
@@ -56,7 +55,6 @@ export const useBrandStore = () => {
   const getSaleBrandList = async () => {
     const q = query(
       collection(store, "brand"),
-      where("isVisible", "==", true),
       where("saleEndDate", "!=", ""),
       // orderBy("createdTime", "desc"),
       limit(10)

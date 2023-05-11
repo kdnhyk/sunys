@@ -7,6 +7,7 @@ import CreateBrand from "../../common/components/CreateBrand";
 import { useBrand } from "../../hooks/useBrand";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect } from "react";
+import SearchInput from "./components/SearchInput";
 
 export default function Brands() {
   const {
@@ -18,15 +19,19 @@ export default function Brands() {
   const { user } = useAuth();
 
   useEffect(() => {
-    handleNewBrandList();
-    handleSaleBrandList();
+    if (newBrandList.length === 0) {
+      handleNewBrandList();
+    }
+    if (saleBrandList.length === 0) {
+      handleSaleBrandList();
+    }
   }, []);
 
   return (
     <BrandsWrap>
-      {/* <div className="SearchInputArea">
-        <SearchInput />
-      </div> */}
+      <div className="SearchInputArea">
+        <SearchInput placeholder="Search by brand" />
+      </div>
       <UnderLineBox>NEW BRAND</UnderLineBox>
       <div className="NewBrandWrap">
         {user.admin && (
@@ -48,7 +53,7 @@ export default function Brands() {
           </Link>
         ))}
       </div>
-      <UnderLineBox>RECOMMEND</UnderLineBox>
+      {/* <UnderLineBox>RECOMMEND</UnderLineBox> */}
     </BrandsWrap>
   );
 }
@@ -74,27 +79,10 @@ const BrandsWrap = styled.div`
   }
   .SaleBrandWrap {
     display: flex;
-    flex-direction: column;
-    align-content: start;
-    flex-wrap: wrap;
     gap: 10px;
     overflow-x: auto;
     padding-bottom: 12px;
     margin-bottom: 40px;
-
-    /* display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 10px;
-            
-                @media (min-width: 605px) {
-                  grid-template-columns: 1fr 1fr 1fr;
-                }
-                @media (min-width: 885px) {
-                  grid-template-columns: 1fr 1fr 1fr 1fr;
-                }
-                @media (min-width: 1165px) {
-                  grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-                } */
 
     &::-webkit-scrollbar {
       display: none;

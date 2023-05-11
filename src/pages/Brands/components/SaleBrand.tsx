@@ -31,6 +31,7 @@ const SaleBrandWrap = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: white;
     img {
       width: 100%;
       height: 100%;

@@ -6,13 +6,8 @@ import { articleSelector } from "../store/article";
 export const useArticle = () => {
   const [articleList, setArticleList] = useRecoilState(articleSelector);
 
-  const {
-    documents,
-    getAllDocuments,
-    getArticleByIdRealTime,
-    getArticleByCidRealtime,
-    deleteArticle,
-  } = useArticleStore();
+  const { documents, getArticleByCid, getArticleByCidRealtime } =
+    useArticleStore();
 
   useEffect(() => {
     if (!documents) return;
@@ -26,13 +21,17 @@ export const useArticle = () => {
   // const getRealTimeArticles = async () => {
   //   getArticleByIdRealTime();
   // };
-
   const handleArticleByCid = async (cid: string) => {
+    setArticleList(await getArticleByCid(cid));
+  };
+
+  const handleArticleByCidRealtime = async (cid: string) => {
     getArticleByCidRealtime(cid);
   };
 
   return {
     articleList,
     handleArticleByCid,
+    handleArticleByCidRealtime,
   };
 };

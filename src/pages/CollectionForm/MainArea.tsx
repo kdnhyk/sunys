@@ -81,7 +81,7 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
     if (!isEnterButtonOn) return;
     await upload(
       logoFile,
-      `${input.brandName}-${input.releaseDate}`,
+      `${input.brandName}-${input.collectionName}-${input.releaseDate}`,
       setImageUrl
     );
     setIsUpload(true);

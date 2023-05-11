@@ -2,7 +2,6 @@ import styled from "styled-components";
 import UnderLineBox from "../../common/components/UnderLineBox";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useCollection } from "../../hooks/useCollection";
 import { IsCollection } from "../../types/collection";
 import Button from "../../common/components/Button";
 import ImgageUploader from "../../common/components/ImageUploader";
@@ -11,16 +10,17 @@ import { useCollectionStore } from "../../hooks/firestore/useCollectionStore";
 import { useImage } from "../../hooks/storage/useImage";
 import ReactDatePicker from "react-datepicker";
 import { toStringByFormatting } from "../../util";
+import VisibleToggle from "../../common/components/VisibleToggle";
 
 interface IsMainWrap {
-  currentCollection: IsCollection;
+  currentCollection?: IsCollection;
 }
 
 export default function MainArea({ currentCollection }: IsMainWrap) {
   const { id, cid } = useParams();
 
   const { updateCollection, addCollection } = useCollectionStore();
-  const { upload, deleteImage } = useImage();
+  const { upload, deleteImage } = useImage("collection");
   const nav = useNavigate();
 
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -30,10 +30,11 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
     id: "",
     collectionName: "",
     releaseDate: "",
-    articleList: [],
     images: [],
 
     brandName: id || "",
+
+    isVisible: false,
   });
 
   const setImageUrl = useCallback(async (url: string) => {
@@ -69,8 +70,19 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
     []
   );
 
+  const onChangeInputIsVisible = useCallback(async () => {
+    await setInput((prev) => {
+      return { ...prev, isVisible: !prev.isVisible };
+    });
+  }, []);
+
   const onSubmit = async () => {
-    await upload(logoFile, setImageUrl);
+    if (!isEnterButtonOn) return;
+    await upload(
+      logoFile,
+      `${input.brandName}-${input.releaseDate}`,
+      setImageUrl
+    );
     setIsUpload(true);
   };
 
@@ -82,7 +94,6 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
         id: currentCollection.id,
         collectionName: currentCollection.collectionName,
         releaseDate: currentCollection.releaseDate,
-        articleList: currentCollection.articleList,
         images: currentCollection.images,
 
         brandName: currentCollection.brandName,
@@ -91,14 +102,6 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
       setIsEnterButtonOn(() => true);
     }
   }, [id, cid]);
-
-  // useEffect(() => {
-  //   let result: any[] = [];
-  //   collectionList[0]?.articleList.forEach(async (aid) => {
-  //     const newArticle = await getArticleById(aid);
-  //     result.push(newArticle);
-  //   });
-  // }, [collectionList]);
 
   useEffect(() => {
     if (
@@ -118,7 +121,6 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
         updateCollection(cid, {
           collectionName: input.collectionName,
           releaseDate: input.releaseDate,
-          articleList: input.articleList,
           images: input.images,
 
           brandName: input.brandName,
@@ -128,7 +130,6 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
         addCollection({
           collectionName: input.collectionName,
           releaseDate: input.releaseDate,
-          articleList: input.articleList,
           images: input.images,
 
           brandName: input.brandName,
@@ -149,9 +150,13 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
   return (
     <MainAreaWrap>
       <div className="InfoWrap">
+        <VisibleToggle
+          isActivated={input.isVisible || false}
+          onClick={onChangeInputIsVisible}
+        />
         <UnderLineBox isBold={true}>{id}</UnderLineBox>
         <ImgageUploader
-          defaultImageUrl={currentCollection.images[0] || ""}
+          defaultImageUrl={currentCollection?.images[0] || ""}
           setImageFile={setImageFile}
         />
         <Input

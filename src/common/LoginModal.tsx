@@ -88,7 +88,7 @@ const LoginModalBlock = styled.form`
   }
 
   .MainWrap {
-    padding: 16px 16px;
+    padding: 40px 16px 16px 16px;
     display: flex;
     flex-direction: column;
     align-items: center;

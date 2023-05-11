@@ -33,7 +33,7 @@ export default function Brand() {
     officialOfflineStore: [],
     storeList: [],
   });
-  const { collectionList, getCollectionListByBrandName } = useCollection();
+  const { recentList, getCollectionListByBrandName } = useCollection();
 
   const onScrapBrand = async () => {
     if (!id) return;
@@ -141,7 +141,7 @@ export default function Brand() {
 
       <UnderLineBox>COLLECTION</UnderLineBox>
       <div className="CollectionWrap">
-        {collectionList.map((e, i) => (
+        {recentList.map((e, i) => (
           <Link to={`/collection/${e.id}`} key={i}>
             <Collection collection={e} />
           </Link>

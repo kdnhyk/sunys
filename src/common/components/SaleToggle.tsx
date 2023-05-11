@@ -1,30 +1,34 @@
 import styled, { css } from "styled-components";
 
-interface IsToggle {
+interface IsSaleToggle {
   isActivated: boolean;
   onClick: () => void;
   label?: string;
 }
 
-export default function Toggle({ isActivated, onClick, label }: IsToggle) {
+export default function SaleToggle({
+  isActivated,
+  onClick,
+  label,
+}: IsSaleToggle) {
   return (
-    <ToggleWrap isActivated={isActivated}>
-      <div className="Toggle" onClick={onClick}>
+    <SaleToggleWrap isActivated={isActivated}>
+      <div className="SaleToggle" onClick={onClick}>
         <div className="Circle"></div>
         <p className="Label">{label}</p>
       </div>
-    </ToggleWrap>
+    </SaleToggleWrap>
   );
 }
 
-const ToggleWrap = styled.div<{ isActivated: boolean }>`
+const SaleToggleWrap = styled.div<{ isActivated: boolean }>`
   position: relative;
   width: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .Toggle {
+  .SaleToggle {
     width: 60px;
     height: 24px;
     background-color: white;

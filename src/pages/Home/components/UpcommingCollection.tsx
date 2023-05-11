@@ -6,6 +6,13 @@ interface IsCollectionStyle {
 }
 
 export default function UpcommingCollection({ collection }: IsCollectionStyle) {
+  const diff = Math.ceil(
+    Math.abs(
+      new Date(collection.releaseDate).getTime() - new Date().getTime()
+    ) /
+      (1000 * 60 * 60 * 24)
+  );
+
   return (
     <UpcommingCollectionWrap>
       <div className="ImageWrap">
@@ -19,7 +26,7 @@ export default function UpcommingCollection({ collection }: IsCollectionStyle) {
 
       <div className="Background"></div>
       <div className="DDayWrap">
-        <p>D - 3</p>
+        <p>{`D - ${diff}`}</p>
       </div>
     </UpcommingCollectionWrap>
   );

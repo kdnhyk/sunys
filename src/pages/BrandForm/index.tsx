@@ -164,14 +164,7 @@ export default function BrandForm() {
               onChangeInputOfficialOnlineStoreImage
             }
           />
-          <StoreArea1
-            input={input}
-            lastImageUrl={lastImageUrl.officialOnlineStoreImage}
-            onChangeInputOfficialOnlineStore={onChangeInputOfficialOnlineStore}
-            onChangeInputOfficialOnlineStoreImage={
-              onChangeInputOfficialOnlineStoreImage
-            }
-          />
+          <StoreArea1 input={input} />
           <CollectionArea id={id} />
         </>
       )}

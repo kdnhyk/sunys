@@ -7,8 +7,9 @@ import { useEffect } from "react";
 
 export default function CollectionForm() {
   const { cid } = useParams();
-  const { collectionList, handleRealTimeCollectionById } = useCollection();
+  const { recentList, handleRealTimeCollectionById } = useCollection();
 
+  console.log(recentList);
   useEffect(() => {
     if (!cid) return;
     handleRealTimeCollectionById(cid);
@@ -16,10 +17,14 @@ export default function CollectionForm() {
 
   return (
     <CollectionFormWrap>
-      {collectionList[0] && <MainArea currentCollection={collectionList[0]} />}
+      {recentList[0] ? (
+        <MainArea currentCollection={recentList[0]} />
+      ) : (
+        <MainArea />
+      )}
 
-      {cid && collectionList[0] && (
-        <ArticleArea currentCollection={collectionList[0]} />
+      {cid && recentList[0] && (
+        <ArticleArea currentCollection={recentList[0]} />
       )}
     </CollectionFormWrap>
   );

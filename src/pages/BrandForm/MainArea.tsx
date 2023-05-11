@@ -10,7 +10,7 @@ import { useImage } from "../../hooks/storage/useImage";
 import { useBrandStore } from "../../hooks/firestore/useBrandStore";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Toggle from "./components/Toggle";
+import Toggle from "../../common/components/SaleToggle";
 
 export type IsModalSort =
   | "officialOnlineStore"
@@ -47,7 +47,7 @@ export default function MainArea({
   handleIsEnterButtonToTrue,
   handleIsEnterButtonToFalse,
 }: IsMainArea) {
-  const { upload, deleteImage } = useImage();
+  const { upload, deleteImage } = useImage("logo");
   const { addBrand, updateBrand } = useBrandStore();
 
   const [isUpload, setIsUpload] = useState(false);
@@ -59,7 +59,7 @@ export default function MainArea({
   }, []);
 
   const onSubmit = async () => {
-    await upload(logoFile, setImageUrl);
+    await upload(logoFile, input.brandName, setImageUrl);
     setIsUpload(true);
   };
 

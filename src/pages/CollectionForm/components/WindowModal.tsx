@@ -30,9 +30,8 @@ export default function WindowModal({
   const [isEnterButtonOn, setIsEnterButtonOn] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
 
-  const { upload } = useImage();
+  const { upload } = useImage("article");
   const { updateArticle } = useArticleStore();
-  const { updateCollection } = useCollectionStore();
 
   const setImageUrl = (url: string) => {
     setInput((prev) => ({
@@ -49,7 +48,11 @@ export default function WindowModal({
     e.preventDefault();
     if (!isEnterButtonOn) return;
 
-    await upload(image, setImageUrl);
+    await upload(
+      image,
+      `${input.brandName}-${input.collectionId}-${input.articleName}`,
+      setImageUrl
+    );
     setIsUpload(true);
   };
 
@@ -66,12 +69,6 @@ export default function WindowModal({
       updateArticle(input.articleName, {
         ...input,
       });
-
-      updateCollection(input.collectionId, {
-        ...currentCollection,
-        articleList: [...currentCollection.articleList, input.articleName],
-      });
-
       exitModal();
     }
   }, [isUpload]);

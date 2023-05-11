@@ -28,7 +28,7 @@ export default function WindowModal0({
   const [isEnterButton, setIsEnterButton] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
 
-  const { upload, deleteImage } = useImage();
+  const { upload, deleteImage } = useImage("store");
   const { updateBrand } = useBrandStore();
 
   const setImageFile = (file: File | null) => {
@@ -39,7 +39,11 @@ export default function WindowModal0({
     e.preventDefault();
     if (!isEnterButton) return;
 
-    await upload(image, onChangeInputOfficialOnlineStoreImage);
+    await upload(
+      image,
+      `${input.brandName}-${input.officialOnlineStore.storeName}`,
+      onChangeInputOfficialOnlineStoreImage
+    );
     setIsUpload(true);
   };
 

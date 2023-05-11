@@ -8,19 +8,9 @@ import OfflineStore from "../Brand/components/OfflineStore";
 
 interface IsStoreArea1 {
   input: IsBrand;
-  lastImageUrl: string;
-  onChangeInputOfficialOnlineStore: (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => Promise<void>;
-  onChangeInputOfficialOnlineStoreImage: (url: string) => void;
 }
 
-export default function StoreArea1({
-  input,
-  lastImageUrl,
-  onChangeInputOfficialOnlineStore,
-  onChangeInputOfficialOnlineStoreImage,
-}: IsStoreArea1) {
+export default function StoreArea1({ input }: IsStoreArea1) {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleModalOpen = () => {

@@ -6,14 +6,16 @@ import {
   uploadBytes,
 } from "firebase/storage";
 
-export const useImage = () => {
-  const upload = async (file: any, setImageURL: any) => {
+type IsTransaction = "logo" | "store" | "collection" | "article";
+
+export const useImage = (transaction: IsTransaction) => {
+  const upload = async (file: any, name: string, setImageURL: any) => {
     if (!file) return;
     const newName = file.name
       .replace(/[~`!#$%^&*+=\-[\]\\';,/{}()|\\":<>?]/g, "")
       .split(" ")
       .join("");
-    const storageRef = ref(storage, `images/${newName + file.lastModified}`);
+    const storageRef = ref(storage, `${transaction}/${name}`);
 
     if (file === null) {
       console.log("File is not found");

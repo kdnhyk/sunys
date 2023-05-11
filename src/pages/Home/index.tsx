@@ -8,7 +8,12 @@ import { useBrand } from "../../hooks/useBrand";
 import { useEffect } from "react";
 
 export default function Home() {
-  const { collectionList, handleRecentCollectionList } = useCollection();
+  const {
+    upcommingList,
+    recentList,
+    getCollectionListByUpcomming,
+    getCollectionListByRecent,
+  } = useCollection();
   const { handleNewBrandList } = useBrand();
   const nav = useNavigate();
 
@@ -18,14 +23,15 @@ export default function Home() {
 
   useEffect(() => {
     handleNewBrandList();
-    handleRecentCollectionList();
+    getCollectionListByUpcomming();
+    getCollectionListByRecent();
   }, []);
 
   return (
     <HomeWrap>
       <UnderLineBox>UPCOMMING</UnderLineBox>
       <div className="UpcommingWrap">
-        {collectionList.map((e, i) => (
+        {upcommingList.map((e, i) => (
           <Link to={`/collection/${e.id}`} className="Collection" key={i}>
             <UpcommingCollection collection={e} />
           </Link>
@@ -33,7 +39,7 @@ export default function Home() {
       </div>
       <UnderLineBox>RECENT</UnderLineBox>
       <div className="RecentWrap">
-        {collectionList.map((e, i) => (
+        {recentList.map((e, i) => (
           <Link to={`/collection/${e.id}`} className="Collection" key={i}>
             <Collection collection={e} />
           </Link>

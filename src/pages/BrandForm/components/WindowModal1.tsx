@@ -22,7 +22,7 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
   const [isEnterButton, setIsEnterButton] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
 
-  const { upload } = useImage();
+  const { upload } = useImage("store");
   const { updateBrand } = useBrandStore();
 
   const onChangeInput = async (
@@ -48,7 +48,11 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
     e.preventDefault();
     if (!isEnterButton) return;
 
-    await upload(image, setImageUrl);
+    await upload(
+      image,
+      `${input.brandName}-${newStore.storeName}`,
+      setImageUrl
+    );
     setIsUpload(true);
   };
 

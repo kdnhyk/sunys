@@ -15,7 +15,6 @@ export default function Collection() {
     id: "",
     collectionName: "",
     releaseDate: "",
-    articleList: [],
     images: [],
 
     brandName: "",

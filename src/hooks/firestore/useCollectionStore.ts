@@ -212,7 +212,7 @@ export const useCollectionStore = () => {
     );
   };
 
-  const deleteDocument = async (id: string) => {
+  const deleteCollection = async (id: string) => {
     console.log("Del: " + id);
     await deleteDoc(doc(collectionRef, id));
   };
@@ -239,6 +239,6 @@ export const useCollectionStore = () => {
     getCollectionById,
     addCollection,
     updateCollection,
-    deleteDocument,
+    deleteCollection,
   };
 };

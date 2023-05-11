@@ -121,7 +121,7 @@ export const useArticleStore = () => {
     );
   };
 
-  const deleteDocument = async (id: string) => {
+  const deleteArticle = async (id: string) => {
     console.log("Del: " + id);
     await deleteDoc(doc(collectionRef, id));
   };
@@ -133,6 +133,6 @@ export const useArticleStore = () => {
     getArticleByCidRealtime,
     addArticle,
     updateArticle,
-    deleteDocument,
+    deleteArticle,
   };
 };

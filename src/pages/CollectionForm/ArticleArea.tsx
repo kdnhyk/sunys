@@ -6,6 +6,8 @@ import { IsArticle } from "../../types/article";
 import { IsCollection } from "../../types/collection";
 import { useArticle } from "../../hooks/useArticle";
 import Article from "./components/Article";
+import { useArticleStore } from "../../hooks/firestore/useArticleStore";
+import { useImage } from "../../hooks/storage/useImage";
 
 interface IsArticleArea {
   currentCollection: IsCollection;
@@ -13,8 +15,9 @@ interface IsArticleArea {
 
 export default function ArticleArea({ currentCollection }: IsArticleArea) {
   const { articleList, handleArticleByCid } = useArticle();
+  const { deleteArticle } = useArticleStore();
+  const { deleteImage } = useImage("article");
 
-  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const [input, setInput] = useState<IsArticle>({
@@ -43,6 +46,15 @@ export default function ArticleArea({ currentCollection }: IsArticleArea) {
     []
   );
 
+  const onDeleteArticle = (id: string) => {
+    if (!articleList && !id) return;
+
+    const delValue = articleList.find((e) => e.id === id);
+
+    deleteImage(delValue?.images[0] || "");
+    deleteArticle(delValue?.id || "");
+  };
+
   //
   useEffect(() => {
     handleArticleByCid(currentCollection.id || "");
@@ -56,8 +68,12 @@ export default function ArticleArea({ currentCollection }: IsArticleArea) {
         </div>
 
         {articleList.map((article, i) => (
-          <div className="ArticleWrap" key={i} onClick={handleIsOpenModal}>
-            <Article article={article} selectedId={selectedId} />
+          <div
+            className="ArticleWrap"
+            key={i}
+            onClick={() => onDeleteArticle(article.id || "")}
+          >
+            <Article article={article} />
           </div>
         ))}
       </div>

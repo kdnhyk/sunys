@@ -27,7 +27,7 @@ export const useCollection = () => {
     getCollectionByUpcomming,
     getCollectionByRecent,
     getCollectionById,
-    deleteDocument,
+    deleteCollection,
   } = useCollectionStore();
 
   useEffect(() => {

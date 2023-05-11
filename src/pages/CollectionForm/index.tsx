@@ -17,12 +17,16 @@ export default function CollectionForm() {
   return (
     <CollectionFormWrap>
       {cid ? (
-        <MainArea currentCollection={currentCollection[0]} />
+        currentCollection[0] && (
+          <MainArea currentCollection={currentCollection[0]} />
+        )
       ) : (
         <MainArea />
       )}
 
-      {cid && <ArticleArea currentCollection={currentCollection[0]} />}
+      {cid && currentCollection[0] && (
+        <ArticleArea currentCollection={currentCollection[0]} />
+      )}
     </CollectionFormWrap>
   );
 }

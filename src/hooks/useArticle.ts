@@ -11,7 +11,7 @@ export const useArticle = () => {
     getAllDocuments,
     getArticleByIdRealTime,
     getArticleByCidRealtime,
-    deleteDocument,
+    deleteArticle,
   } = useArticleStore();
 
   useEffect(() => {

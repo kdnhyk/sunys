@@ -66,7 +66,7 @@ export default function WindowModal({
 
   useEffect(() => {
     if (isUpload) {
-      updateArticle(input.articleName, {
+      updateArticle(`${input.collectionId}-${input.articleName}`, {
         ...input,
       });
       exitModal();

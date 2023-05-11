@@ -29,7 +29,7 @@ export default function WindowModal0({
   const [isUpload, setIsUpload] = useState(false);
 
   const { upload, deleteImage } = useImage();
-  const { updateDocument } = useBrandStore();
+  const { updateBrand } = useBrandStore();
 
   const setImageFile = (file: File | null) => {
     setImage(() => file);
@@ -53,7 +53,7 @@ export default function WindowModal0({
 
   useEffect(() => {
     if (input.id && isUpload) {
-      updateDocument(input.id, {
+      updateBrand(input.id, {
         ...input,
         officialOnlineStore: input.officialOnlineStore,
       });

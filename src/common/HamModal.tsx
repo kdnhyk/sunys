@@ -1,6 +1,8 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
 import { useAuth } from "../hooks/useAuth";
+import { useState } from "react";
+import LoginModal from "./LoginModal";
 
 interface IsHamModal {
   closeModal: () => void;
@@ -9,6 +11,13 @@ interface IsHamModal {
 export default function HamModal({ closeModal }: IsHamModal) {
   const path = useLocation().pathname.split("/")[1] || "main";
   const { user } = useAuth();
+
+  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
+
+  const handleIsLoginModal = () => {
+    setIsOpenLoginModal((prev) => !prev);
+  };
+
   const menu = [
     {
       id: 0,
@@ -22,11 +31,6 @@ export default function HamModal({ closeModal }: IsHamModal) {
     },
     {
       id: 2,
-      name: user.uid ? "ACCOUNT" : "LOGIN",
-      path: user.uid ? "/account" : "/login",
-    },
-    {
-      id: 3,
       name: "EMPTY",
       path: "/",
     },
@@ -48,7 +52,17 @@ export default function HamModal({ closeModal }: IsHamModal) {
             <p>{e.name}</p>
           </Link>
         ))}
+        {user.uid ? (
+          <Link to="/account">
+            <p>ACCOUNT</p>
+          </Link>
+        ) : (
+          <div className="Login" onClick={handleIsLoginModal}>
+            <p>LOGIN</p>
+          </div>
+        )}
       </div>
+      {isOpenLoginModal && <LoginModal exitModal={handleIsLoginModal} />}
       <div className="Background" onClick={closeModal}></div>
     </HamModalBlock>
   );
@@ -80,6 +94,22 @@ const HamModalBlock = styled.div`
       }
       p {
         font-size: 11px;
+        /* font-weight: 600; */
+      }
+    }
+    .Login {
+      width: 100%;
+      padding: 14px 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      &:hover {
+        background-color: #d9d9d9;
+      }
+      p {
+        font-size: 11px;
+        /* font-weight: 600; */
       }
     }
   }

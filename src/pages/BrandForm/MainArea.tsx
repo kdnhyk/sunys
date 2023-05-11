@@ -48,7 +48,7 @@ export default function MainArea({
   handleIsEnterButtonToFalse,
 }: IsMainArea) {
   const { upload, deleteImage } = useImage();
-  const { addDocument, updateDocument } = useBrandStore();
+  const { addBrand, updateBrand } = useBrandStore();
 
   const [isUpload, setIsUpload] = useState(false);
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -91,7 +91,7 @@ export default function MainArea({
   useEffect(() => {
     if (isUpload && input.logo) {
       if (id) {
-        updateDocument(id, {
+        updateBrand(id, {
           logo: input.logo,
           brandName: input.brandName,
           description: input.description,
@@ -106,7 +106,7 @@ export default function MainArea({
           storeList: input.storeList,
         });
       } else if (!id) {
-        addDocument(input.brandName, {
+        addBrand(input.brandName, {
           logo: input.logo,
           brandName: input.brandName,
           description: input.description,

@@ -1,5 +1,7 @@
 import styled, { css } from "styled-components";
 import { IsArticle } from "../../../types/article";
+import CoverBoxArticle from "../../../common/components/CoverBoxArticle";
+import { useState } from "react";
 
 interface IsArticleWrap {
   article: IsArticle;
@@ -7,13 +9,23 @@ interface IsArticleWrap {
 }
 
 export default function Article({ article, selectedId }: IsArticleWrap) {
+  const [isSelected, setIsSelected] = useState(false);
+
+  const openCoverBox = () => {
+    setIsSelected(true);
+  };
+
+  const exitCoverBox = () => {
+    setIsSelected(false);
+  };
+
   return (
     <ArticleWrap isSelected={selectedId === article.id}>
-      <div className="ImageWrap">
-        <img src={article.images[0]} alt="" />
-      </div>
-      <h3>{article.articleName}</h3>
-      <div className="DetailWrap">
+      <div className="ArticleInner" onClick={openCoverBox}>
+        <div className="ImageWrap">
+          <img src={article.images[0]} alt="" />
+        </div>
+        <h3>{article.articleName}</h3>
         <div className="PriceWrap">
           <p>
             {Number(article.price).toLocaleString("ko-KR", {
@@ -22,7 +34,8 @@ export default function Article({ article, selectedId }: IsArticleWrap) {
           </p>
         </div>
       </div>
-      <div className="SelectArea">
+
+      <CoverBoxArticle exit={exitCoverBox} isSelected={isSelected}>
         <svg
           width="24"
           height="24"
@@ -35,53 +48,39 @@ export default function Article({ article, selectedId }: IsArticleWrap) {
             fill="white"
           />
         </svg>
-      </div>
+      </CoverBoxArticle>
     </ArticleWrap>
   );
 }
 
 const ArticleWrap = styled.div<{ isSelected: boolean }>`
+  height: 100%;
   position: relative;
   cursor: pointer;
-  .ImageWrap {
-    height: 300px;
-    width: auto;
-    background-color: #d9d9d9;
-    margin-bottom: 4px;
-    img {
+  .ArticleInner {
+    .ImageWrap {
       width: 100%;
-      height: auto;
-      object-fit: cover;
+      height: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      img {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+      }
     }
-  }
-  h3 {
-    font-weight: 400;
-    margin-bottom: 4px;
-  }
-  .DetailWrap {
-    display: flex;
-    gap: 10px;
-    padding: 0px 12px 0px 0px;
+    h3 {
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
     .PriceWrap {
       p {
         font-size: 13px;
       }
     }
   }
-  .ArticleWrap {
-    position: relative;
-  }
-  .SelectArea {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: absolute;
-    top: 0px;
-    width: 100%;
-    height: calc(100% - 50px);
-    background-color: black;
-    transition: opacity 0.1s ease-out;
-    opacity: ${({ isSelected }) => (isSelected ? "0.4" : "0")};
+  svg {
     cursor: pointer;
   }
 `;

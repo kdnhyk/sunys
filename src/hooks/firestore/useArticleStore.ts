@@ -3,6 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  documentId,
   getDocs,
   limit,
   onSnapshot,
@@ -53,11 +54,10 @@ export const useArticleStore = () => {
     return result;
   };
 
-  const getDocumentByRealTime = () => {
+  const getArticleByIdRealTime = (id: string) => {
     const q = query(
       collection(store, "article"),
-      orderBy("createdTime", "desc")
-      // limit(22)
+      where(documentId(), "==", id)
     );
     console.log("FireStore Access");
     const unsubscribe = onSnapshot(
@@ -76,24 +76,32 @@ export const useArticleStore = () => {
     );
   };
 
-  const getDocumentById = async (id: string) => {
+  const getArticleByCidRealtime = async (cid: string) => {
     const q = query(
       collection(store, "article"),
-      where("id", "==", id),
-      limit(1)
+      where("collectionId", "==", cid)
     );
 
     console.log("FireStore Access");
     const data = await getDocs(q);
 
-    let result: any[] = [];
-    data.forEach((doc) => {
-      result.push({ ...doc.data(), id: doc.id });
-    });
-    return result;
+    const unsubscribe = onSnapshot(
+      q,
+      (querySnapshot) => {
+        let result: any[] = [];
+        querySnapshot.forEach((doc) => {
+          result.push({ ...doc.data(), id: doc.id });
+        });
+
+        setDocuments(result);
+      },
+      (error) => {
+        console.log(error.message);
+      }
+    );
   };
 
-  const addDocument = async (collection: IsArticle) => {
+  const addArticle = async (collection: IsArticle) => {
     const createdTime = timestamp.fromDate(new Date());
 
     const doc = await addDoc(collectionRef, {
@@ -103,7 +111,7 @@ export const useArticleStore = () => {
     return doc.id;
   };
 
-  const updateDocument = async (id: string, collection: IsArticle) => {
+  const updateArticle = async (id: string, collection: IsArticle) => {
     await setDoc(
       doc(collectionRef, id),
       {
@@ -121,10 +129,10 @@ export const useArticleStore = () => {
   return {
     documents,
     getAllDocuments,
-    getDocumentByRealTime,
-    getDocumentById,
-    addDocument,
-    updateDocument,
+    getArticleByIdRealTime,
+    getArticleByCidRealtime,
+    addArticle,
+    updateArticle,
     deleteDocument,
   };
 };

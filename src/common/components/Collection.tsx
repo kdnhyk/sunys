@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { IsCollection } from "../../../types/collection";
+import { IsCollection } from "../../types/collection";
 
 interface IsCollectionStyle {
   collection: IsCollection;
@@ -21,20 +21,17 @@ export default function Collection({ collection }: IsCollectionStyle) {
 }
 
 const CollectionWrap = styled.div`
-  width: 200px;
+  width: 180px;
   position: relative;
   cursor: pointer;
   .ImageWrap {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
-    width: 200px;
-    padding: 20px;
     background-color: white;
     img {
-      width: 100%;
-      height: 100%;
+      width: 180px;
+      height: 240px;
       object-fit: contain;
     }
   }

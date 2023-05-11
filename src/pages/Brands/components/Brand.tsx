@@ -1,5 +1,6 @@
 import styled, { css } from "styled-components";
 import { IsBrand } from "../../../types/brand";
+import { useState } from "react";
 
 interface IsBrandStyle {
   brand: IsBrand;

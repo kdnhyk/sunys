@@ -2,16 +2,15 @@ import styled from "styled-components";
 import UnderLineBox from "../../common/components/UnderLineBox";
 import { Link, useParams } from "react-router-dom";
 import OfficialStore from "./components/OfficialStore";
-import Store from "./components/Store";
-import { useBrand } from "../../hooks/useBrand";
 import { Scrap, ScrapOn } from "../../asset/Icon";
 import { useAuth } from "../../hooks/useAuth";
 import { useCloudUser } from "../../hooks/firestore/useCloudUser";
 import { useEffect, useState } from "react";
 import { useCollection } from "../../hooks/useCollection";
-import Collection from "./components/Collection";
 import { useBrandStore } from "../../hooks/firestore/useBrandStore";
 import { IsBrand } from "../../types/brand";
+import Collection from "../../common/components/Collection";
+import OfflineStore from "./components/OfflineStore";
 
 export default function Brand() {
   const [scrapOn, setScrapOn] = useState(false);
@@ -124,34 +123,30 @@ export default function Brand() {
       )}
 
       <UnderLineBox>STORE</UnderLineBox>
+      {currentBrand.officialOnlineStore.storeUrl && (
+        <OfficialStore officialStore={currentBrand.officialOnlineStore} />
+      )}
       <div className="StoreWrap">
-        {currentBrand.officialOnlineStore.storeUrl && (
-          <a
-            href={currentBrand.officialOnlineStore.storeUrl}
-            target="_blank"
-            rel="noreferrer"
-          >
-            <OfficialStore officialStore={currentBrand.officialOnlineStore} />
-          </a>
-        )}
         {currentBrand.officialOfflineStore.map((e, i) => (
           <div key={i}>
-            <Store store={e} />
+            <OfflineStore store={e} />
           </div>
         ))}
-        {currentBrand.storeList.map((e, i) => (
+        {/* {currentBrand.storeList.map((e, i) => (
           <Link to={`/collection/${e.id}`} key={i}>
             <Store store={e} />
           </Link>
-        ))}
+        ))} */}
       </div>
 
       <UnderLineBox>COLLECTION</UnderLineBox>
-      {collectionList.map((e, i) => (
-        <Link to={`/collection/${e.id}`} key={i}>
-          <Collection collection={e} />
-        </Link>
-      ))}
+      <div className="CollectionWrap">
+        {collectionList.map((e, i) => (
+          <Link to={`/collection/${e.id}`} key={i}>
+            <Collection collection={e} />
+          </Link>
+        ))}
+      </div>
     </BrandWrap>
   );
 }
@@ -207,12 +202,26 @@ const BrandWrap = styled.div`
   }
 
   .StoreWrap {
-    margin-bottom: 40px;
     display: flex;
-    flex-direction: column;
-    row-gap: 8px;
-    a {
-      width: fit-content;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    margin-bottom: 40px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  .CollectionWrap {
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    padding-bottom: 12px;
+    margin-bottom: 40px;
+
+    &::-webkit-scrollbar {
+      display: none;
     }
   }
 `;

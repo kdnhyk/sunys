@@ -29,7 +29,11 @@ export default function CreateArticle({}: IsCreateArticleStyle) {
 }
 
 const CreateArticleWrap = styled.div`
-  width: 200px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   position: relative;
   cursor: pointer;
   .ImageWrap {
@@ -37,12 +41,11 @@ const CreateArticleWrap = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #d9d9d9;
-    height: 200px;
-    width: 200px;
-    img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
+
+    padding: 70px 0px;
+    width: 100%;
+    height: auto;
+    svg {
     }
   }
   .TextlWrap {

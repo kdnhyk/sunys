@@ -17,7 +17,8 @@ export default function UpcommingCollection({ collection }: IsCollectionStyle) {
         <p>{collection.collectionName}</p>
       </div>
 
-      <div className="SelectArea">
+      <div className="Background"></div>
+      <div className="DDayWrap">
         <p>D - 3</p>
       </div>
     </UpcommingCollectionWrap>
@@ -25,20 +26,16 @@ export default function UpcommingCollection({ collection }: IsCollectionStyle) {
 }
 
 const UpcommingCollectionWrap = styled.div`
-  width: 200px;
   position: relative;
   cursor: pointer;
   .ImageWrap {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 200px;
-    width: 200px;
-    padding: 20px;
     background-color: white;
     img {
-      width: 100%;
-      height: 100%;
+      width: 180px;
+      height: 240px;
       object-fit: contain;
     }
   }
@@ -52,7 +49,22 @@ const UpcommingCollectionWrap = styled.div`
     }
   }
 
-  .SelectArea {
+  .DDayWrap {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0px;
+    width: 100%;
+    height: calc(100% - 43px);
+    cursor: pointer;
+    p {
+      color: white;
+      font-size: 16px;
+      font-weight: 600;
+    }
+  }
+  .Background {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -62,11 +74,5 @@ const UpcommingCollectionWrap = styled.div`
     height: calc(100% - 43px);
     background-color: black;
     opacity: 0.3;
-    cursor: pointer;
-    p {
-      color: white;
-      font-size: 20px;
-      font-weight: 600;
-    }
   }
 `;

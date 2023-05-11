@@ -9,8 +9,8 @@ export const useArticle = () => {
   const {
     documents,
     getAllDocuments,
-    getDocumentByRealTime,
-    getDocumentById,
+    getArticleByIdRealTime,
+    getArticleByCidRealtime,
     deleteDocument,
   } = useArticleStore();
 
@@ -19,33 +19,20 @@ export const useArticle = () => {
     setArticleList(documents);
   }, [documents]);
 
-  const getArticleList = async () => {
-    setArticleList(await getAllDocuments());
-  };
+  // const getArticleList = async () => {
+  //   setArticleList(await getAllDocuments());
+  // };
 
-  const getRealTimeArticles = async () => {
-    getDocumentByRealTime();
-  };
+  // const getRealTimeArticles = async () => {
+  //   getArticleByIdRealTime();
+  // };
 
-  const getArticleById = async (id: string) => {
-    return getDocumentById(id);
-  };
-
-  const searchFilter = (userVocalList: string[], value: string) => {
-    const result = userVocalList.filter((e) => {
-      return e
-        .replace(" ", "")
-        .toLocaleLowerCase()
-        .includes(value.toLocaleLowerCase().replace(" ", ""));
-    });
-    return result;
+  const handleArticleByCid = async (cid: string) => {
+    getArticleByCidRealtime(cid);
   };
 
   return {
     articleList,
-    getArticleList,
-    getRealTimeArticles,
-    getArticleById,
-    searchFilter,
+    handleArticleByCid,
   };
 };

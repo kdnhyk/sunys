@@ -23,7 +23,7 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
   const [isUpload, setIsUpload] = useState(false);
 
   const { upload } = useImage();
-  const { updateDocument } = useBrandStore();
+  const { updateBrand } = useBrandStore();
 
   const onChangeInput = async (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -62,7 +62,7 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
 
   useEffect(() => {
     if (input.id && isUpload) {
-      updateDocument(input.id, {
+      updateBrand(input.id, {
         ...input,
         officialOfflineStore: [
           ...input.officialOfflineStore,

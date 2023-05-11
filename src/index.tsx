@@ -8,7 +8,6 @@ import { RecoilRoot } from "recoil";
 import NotFound from "./pages/NotFound";
 import Collection from "./pages//Collection";
 import Brand from "./pages/Brand";
-import Login from "./pages/Login";
 import Brands from "./pages/Brands";
 import BrandForm from "./pages/BrandForm";
 import Account from "./pages/Account";
@@ -51,11 +50,6 @@ const router = createBrowserRouter([
       {
         path: "/brandform/:id/collectionform/:cid",
         element: <CollectionForm />,
-      },
-
-      {
-        path: "/login",
-        element: <Login />, // 로그인시 없어져야함
       },
       {
         path: "/account",

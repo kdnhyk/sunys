@@ -41,17 +41,19 @@ export default function Article({ article, selectedId }: IsArticleWrap) {
 }
 
 const ArticleWrap = styled.div<{ isSelected: boolean }>`
+  height: 100%;
   position: relative;
   cursor: pointer;
   .ImageWrap {
-    height: 300px;
-    width: auto;
-    background-color: #d9d9d9;
-    margin-bottom: 4px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     img {
       width: 100%;
-      height: auto;
-      object-fit: cover;
+      height: 100%;
+      object-fit: contain;
     }
   }
   h3 {

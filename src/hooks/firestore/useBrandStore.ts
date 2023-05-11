@@ -112,7 +112,7 @@ export const useBrandStore = () => {
     return result[0];
   };
 
-  const addDocument = async (id: string, brand: IsBrand) => {
+  const addBrand = async (id: string, brand: IsBrand) => {
     const createdTime = timestamp.fromDate(new Date());
 
     await setDoc(
@@ -125,7 +125,7 @@ export const useBrandStore = () => {
     );
   };
 
-  const updateDocument = async (id: string, brand: IsBrand) => {
+  const updateBrand = async (id: string, brand: IsBrand) => {
     await setDoc(
       doc(collectionRef, id),
       {
@@ -156,8 +156,8 @@ export const useBrandStore = () => {
     getBrandByBrandNameRealTime,
     getBrandByBrandName,
     getSaleBrandList,
-    addDocument,
-    updateDocument,
+    addBrand,
+    updateBrand,
     deleteDocument,
   };
 };

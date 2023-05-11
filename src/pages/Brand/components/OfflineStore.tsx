@@ -1,13 +1,13 @@
 import styled from "styled-components";
-import { IsStore } from "../../../types/brand";
+import { IsOfflineStore, IsStore } from "../../../types/brand";
 import CoverBox from "../../../common/components/CoverBox";
 import { useState } from "react";
 
-interface IsOfficialStoreStyle {
-  officialStore: IsStore;
+interface IsStoreStyle {
+  store: IsOfflineStore;
 }
 
-export default function OfficialStore({ officialStore }: IsOfficialStoreStyle) {
+export default function OfflineStore({ store }: IsStoreStyle) {
   const [isSelected, setIsSelected] = useState(false);
 
   const openCoverBox = () => {
@@ -19,44 +19,33 @@ export default function OfficialStore({ officialStore }: IsOfficialStoreStyle) {
   };
 
   return (
-    <OfficialStoreWrap>
+    <OfflineStoreWrap>
       <div onClick={openCoverBox}>
         <div className="ImageWrap">
-          <img src={officialStore.image} alt="" />
+          <img src={store.image} alt="" />
         </div>
 
         <div className="TextlWrap">
-          <h3>{officialStore.storeName || "Official Store"}</h3>
+          <h3>{store.storeName}</h3>
         </div>
       </div>
-
       <CoverBox exit={exitCoverBox} isSelected={isSelected}>
-        <a href={officialStore.storeUrl} target="_blank" rel="noreferrer">
-          {`${officialStore.storeUrl.split(".")[1]}.${
-            officialStore.storeUrl.split(".")[2]
-          }`}
-        </a>
+        <p>{store.storeLocation}</p>
       </CoverBox>
-    </OfficialStoreWrap>
+    </OfflineStoreWrap>
   );
 }
 
-const OfficialStoreWrap = styled.div`
-  width: fit-content;
+const OfflineStoreWrap = styled.div`
   position: relative;
   cursor: pointer;
   .ImageWrap {
-    position: relative;
     width: 200px;
     height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
     img {
       width: 100%;
       height: 100%;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
   .TextlWrap {

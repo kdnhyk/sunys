@@ -4,7 +4,7 @@ import OfficialStore from "./components/OfficialStore";
 import { IsBrand } from "../../types/brand";
 import WindowModal0 from "./components/WindowModal0";
 import "react-datepicker/dist/react-datepicker.css";
-import Store from "../Brand/components/Store";
+import Store from "../Brand/components/OfflineStore";
 
 interface IsStoreArea0 {
   input: IsBrand;
@@ -36,12 +36,6 @@ export default function StoreArea0({
       <div className="OfficialStoreWrap" onClick={handleModalOpen}>
         <OfficialStore officialStore={input.officialOnlineStore} />
       </div>
-
-      {input.storeList.map((e, i) => (
-        <div className="StoreInner" key={i} onClick={handleModalOpen}>
-          <Store store={e} />
-        </div>
-      ))}
 
       <div className="WindowModalWrap">
         {isOpenModal && (

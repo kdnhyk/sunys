@@ -4,7 +4,7 @@ import { IsBrand } from "../../types/brand";
 import "react-datepicker/dist/react-datepicker.css";
 import WindowModal1 from "./components/WindowModal1";
 import CreateBrand from "../../common/components/CreateBrand";
-import Store from "../Brand/components/Store";
+import OfflineStore from "../Brand/components/OfflineStore";
 
 interface IsStoreArea1 {
   input: IsBrand;
@@ -38,7 +38,7 @@ export default function StoreArea1({
       </div>
       {input.officialOfflineStore.map((e, i) => (
         <div className="StoreInner" key={i}>
-          <Store store={e} />
+          <OfflineStore store={e} />
         </div>
       ))}
 

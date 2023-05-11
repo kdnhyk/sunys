@@ -12,10 +12,14 @@ import { useImage } from "../../hooks/storage/useImage";
 import ReactDatePicker from "react-datepicker";
 import { toStringByFormatting } from "../../util";
 
-export default function MainArea() {
+interface IsMainWrap {
+  currentCollection: IsCollection;
+}
+
+export default function MainArea({ currentCollection }: IsMainWrap) {
   const { id, cid } = useParams();
-  const { collectionList, handleRealTimeCollectionById } = useCollection();
-  const { updateDocument, addDocument } = useCollectionStore();
+
+  const { updateCollection, addCollection } = useCollectionStore();
   const { upload, deleteImage } = useImage();
   const nav = useNavigate();
 
@@ -72,8 +76,6 @@ export default function MainArea() {
 
   useEffect(() => {
     if (cid) {
-      handleRealTimeCollectionById(cid);
-      const currentCollection = collectionList[0];
       if (!currentCollection) return;
       setInput((prev) => ({
         ...prev,
@@ -113,7 +115,7 @@ export default function MainArea() {
   useEffect(() => {
     if (isUpload && input.images[0]) {
       if (cid) {
-        updateDocument(cid, {
+        updateCollection(cid, {
           collectionName: input.collectionName,
           releaseDate: input.releaseDate,
           articleList: input.articleList,
@@ -123,7 +125,7 @@ export default function MainArea() {
           isVisible: input.isVisible || false,
         });
       } else if (!cid) {
-        addDocument({
+        addCollection({
           collectionName: input.collectionName,
           releaseDate: input.releaseDate,
           articleList: input.articleList,
@@ -134,7 +136,6 @@ export default function MainArea() {
         });
       }
 
-      const currentCollection = collectionList[0];
       if (currentCollection) {
         if (id && currentCollection.images[0] !== input.images[0]) {
           deleteImage(currentCollection.images[0]);
@@ -150,7 +151,7 @@ export default function MainArea() {
       <div className="InfoWrap">
         <UnderLineBox isBold={true}>{id}</UnderLineBox>
         <ImgageUploader
-          defaultImageUrl={collectionList[0]?.images[0] || ""}
+          defaultImageUrl={currentCollection.images[0] || ""}
           setImageFile={setImageFile}
         />
         <Input
@@ -176,7 +177,6 @@ export default function MainArea() {
 }
 
 const MainAreaWrap = styled.div`
-  padding: 20px 16px 0px 16px;
   .InfoWrap {
     display: flex;
     flex-direction: column;

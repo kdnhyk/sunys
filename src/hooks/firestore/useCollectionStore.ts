@@ -3,6 +3,7 @@ import {
   collection,
   deleteDoc,
   doc,
+  documentId,
   getDoc,
   getDocs,
   limit,
@@ -78,11 +79,10 @@ export const useCollectionStore = () => {
     );
   };
 
-  const getRealTimeCollectionById = (id: string) => {
+  const getRealTimeCollectionById = async (id: string) => {
     const q = query(
       collection(store, "collection"),
-      where("id", "==", id),
-      orderBy("createdTime", "desc"),
+      where(documentId(), "==", id),
       limit(1)
     );
     console.log("FireStore Access");
@@ -176,14 +176,22 @@ export const useCollectionStore = () => {
   };
 
   const getCollectionById = async (id: string) => {
+    const q = query(
+      collection(store, "collection"),
+      where(documentId(), "==", id)
+    );
+
+    console.log("FireStore Access");
+    const data = await getDocs(q);
+
     let result: any[] = [];
-    const docRef = doc(store, "collection", id);
-    const docSnap = await getDoc(docRef);
-    result.push(docSnap.data());
+    data.forEach((doc) => {
+      result.push({ ...doc.data(), id: doc.id });
+    });
     return result;
   };
 
-  const addDocument = async (collection: IsCollection) => {
+  const addCollection = async (collection: IsCollection) => {
     const createdTime = timestamp.fromDate(new Date());
 
     await addDoc(collectionRef, {
@@ -194,7 +202,7 @@ export const useCollectionStore = () => {
     return;
   };
 
-  const updateDocument = async (id: string, collection: IsCollection) => {
+  const updateCollection = async (id: string, collection: IsCollection) => {
     await setDoc(
       doc(collectionRef, id),
       {
@@ -229,8 +237,8 @@ export const useCollectionStore = () => {
     getCollectionByUpcomming,
     getCollectionByRecent,
     getCollectionById,
-    addDocument,
-    updateDocument,
+    addCollection,
+    updateCollection,
     deleteDocument,
   };
 };

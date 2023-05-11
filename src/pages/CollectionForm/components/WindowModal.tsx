@@ -5,15 +5,14 @@ import ImgageUploader from "../../../common/components/ImageUploader";
 import Button from "../../../common/components/Button";
 import { useImage } from "../../../hooks/storage/useImage";
 import { IsArticle } from "../../../types/article";
-import { IsCollection } from "../../../types/collection";
 import { useArticleStore } from "../../../hooks/firestore/useArticleStore";
+import { IsCollection } from "../../../types/collection";
+import { useCollectionStore } from "../../../hooks/firestore/useCollectionStore";
 
 interface IsWindowModal {
   exitModal: () => void;
-  currentCollection: IsCollection | undefined;
-  addInputArticleList: any;
-  handleIsUpload: any;
   input: IsArticle;
+  currentCollection: IsCollection;
   setInput: React.Dispatch<React.SetStateAction<IsArticle>>;
   onChangeInput: (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -22,10 +21,8 @@ interface IsWindowModal {
 
 export default function WindowModal({
   exitModal,
-  currentCollection,
-  addInputArticleList,
   input,
-  handleIsUpload,
+  currentCollection,
   setInput,
   onChangeInput,
 }: IsWindowModal) {
@@ -33,8 +30,9 @@ export default function WindowModal({
   const [isEnterButtonOn, setIsEnterButtonOn] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
 
-  const { upload, deleteImage } = useImage();
-  const { addDocument, updateDocument } = useArticleStore();
+  const { upload } = useImage();
+  const { updateArticle } = useArticleStore();
+  const { updateCollection } = useCollectionStore();
 
   const setImageUrl = (url: string) => {
     setInput((prev) => ({
@@ -65,18 +63,14 @@ export default function WindowModal({
 
   useEffect(() => {
     if (isUpload) {
-      addDocument({
+      updateArticle(input.articleName, {
         ...input,
-      }).then((id) => {
-        addInputArticleList(id);
-        handleIsUpload();
       });
 
-      // if (currentCollection) {
-      //   if (currentCollection.images[0] !== input.images[0]) {
-      //     deleteImage(currentCollection.images[0]);
-      //   }
-      // }
+      updateCollection(input.collectionId, {
+        ...currentCollection,
+        articleList: [...currentCollection.articleList, input.articleName],
+      });
 
       exitModal();
     }

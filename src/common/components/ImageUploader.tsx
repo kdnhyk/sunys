@@ -1,11 +1,44 @@
 import { useEffect } from "react";
 import { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
+import imageCompression from "browser-image-compression";
+import heic2any from "heic2any";
 
 interface IsImageUploader {
   defaultImageUrl: string;
   setImageFile: (file: File | null) => void;
 }
+
+const handleImage = async (file: File) => {
+  const options = {
+    maxSizeMB: 0.2, // 이미지 최대 용량
+    maxWidthOrHeight: 1920, // 최대 넓이(혹은 높이)
+    useWebWorker: true,
+  };
+
+  const newFile = await imageCompression(file, options);
+  const result = new File([newFile], file.name.split(".")[0] + ".webp", {
+    type: "image/webp",
+    lastModified: new Date().getTime(),
+  });
+
+  // if (
+  //   file.name.split(".")[1] === "heic" ||
+  //   file.name.split(".")[1] === "HEIC"
+  // ) {
+  //   const blob = new Blob([newFile], { type: file.type });
+
+  //   heic2any({ blob, toType: "image/webp" }).then((resultBlob) => {
+  // file = new File([resultBlob], file.name.split(".")[0] + ".webp", {
+  //   type: "image/webp",
+  //   lastModified: new Date().getTime(),
+  // });
+  //   });
+  // }
+
+  return result;
+};
+
 export default function ImgageUploader({
   defaultImageUrl,
   setImageFile,
@@ -23,17 +56,12 @@ export default function ImgageUploader({
   const onUploadImage = useCallback(
     async (event: React.ChangeEvent<HTMLInputElement>) => {
       const { files, value } = event.target;
-      console.log(files);
+
       if (!files) {
         return;
       }
       // console.log(files[0].name);
-      const theFile = files[0];
-
-      if (theFile.size > 5 * 1024 * 1024) {
-        alert("5MB 이하 이미지만 사용 가능합니다");
-        return;
-      }
+      const theFile = await handleImage(files[0]);
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -45,7 +73,6 @@ export default function ImgageUploader({
       // 개선
       setFile(theFile);
       await setImageFile(theFile);
-      console.log(theFile);
     },
     []
   );

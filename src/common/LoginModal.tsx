@@ -14,7 +14,7 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
   const onGoogleLogin = () => {
     loginWithGoogle();
     exitModal();
-    nav("/");
+    // nav("/");
   };
 
   return (

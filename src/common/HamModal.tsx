@@ -31,8 +31,8 @@ export default function HamModal({ closeModal }: IsHamModal) {
     },
     {
       id: 2,
-      name: "EMPTY",
-      path: "/",
+      name: "SCRAP",
+      path: "/scrap",
     },
   ];
 

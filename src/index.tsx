@@ -1,8 +1,12 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import {
+  RouterProvider,
+  createBrowserRouter,
+  useLocation,
+} from "react-router-dom";
 import Home from "./pages/Home";
 import { RecoilRoot } from "recoil";
 import NotFound from "./pages/NotFound";
@@ -12,6 +16,8 @@ import Brands from "./pages/Brands";
 import BrandForm from "./pages/BrandForm";
 import Account from "./pages/Account";
 import CollectionForm from "./pages/CollectionForm";
+import Cart from "./pages/Cart/Cart";
+import Scrap from "./pages/Scrap";
 
 const router = createBrowserRouter([
   {
@@ -52,6 +58,14 @@ const router = createBrowserRouter([
         element: <CollectionForm />,
       },
       {
+        path: "/scrap",
+        element: <Scrap />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+      {
         path: "/account",
         element: <Account />,
       },
@@ -66,6 +80,7 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
+
 root.render(
   <RecoilRoot>
     <RouterProvider router={router} />

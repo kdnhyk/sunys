@@ -6,8 +6,6 @@ import { IsArticle } from "../types/article";
 
 export const useUser = () => {
   const [user, setUser] = useRecoilState(userSelector);
-  const resetUser = useResetRecoilState(userSelector);
-  const { getCloudUser } = useCloudUser();
 
   useEffect(() => {
     // 새로고침
@@ -34,9 +32,12 @@ export const useUser = () => {
   // }, [success]);
 
   const handleUserCart = (newArticle: IsArticle) => {
+    console.log(user.cart);
     const result = user.cart.find((e) => e.id === newArticle.id)
       ? user.cart.filter((e) => e.id !== newArticle.id)
       : user.cart.concat(newArticle);
+    console.log(result);
+
     setUser((prev) => ({ ...prev, cart: result }));
   };
 

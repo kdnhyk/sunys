@@ -16,10 +16,14 @@ export default function Article({ article, isSelected }: IsArticleWrap) {
   const { handleUserCart } = useUser();
 
   const onCart = () => {
-    // if (user.cart.find((e) => article.id)) {
-    //   alert("이미 담은 상품입니다");
-    //   return;
-    // }
+    if (!user.uid) {
+      alert("로그인 후 이용 가능합니다");
+      return;
+    }
+    if (user.cart.find((e) => e.id === article.id)) {
+      alert("이미 담은 상품입니다");
+      return;
+    }
     updateCart(user.uid, user.cart, article);
     handleUserCart(article);
   };

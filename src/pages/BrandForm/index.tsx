@@ -16,6 +16,7 @@ export default function BrandForm() {
   const [input, setInput] = useState<IsBrand>({
     logo: "",
     brandName: "",
+    tag: [],
     saleStartDate: "",
     saleEndDate: "",
     description: "",

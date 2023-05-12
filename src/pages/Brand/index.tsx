@@ -24,6 +24,7 @@ export default function Brand() {
     logo: "",
     brandName: "",
     description: "",
+    tag: [],
     saleStartDate: "",
     saleEndDate: "",
     officialOnlineStore: {
@@ -38,7 +39,7 @@ export default function Brand() {
   const onScrapBrand = async () => {
     if (!id) return;
     if (!user.uid) {
-      alert("로그인 후에 사용 가능합니다");
+      alert("로그인 후 이용 가능합니다");
       return;
     }
     setScrapOn((prev) => !prev);
@@ -59,6 +60,7 @@ export default function Brand() {
           id,
           logo: currentBrand.logo,
           brandName: currentBrand.brandName,
+          tag: currentBrand.tag,
           description: currentBrand.description,
           saleStartDate: currentBrand.saleStartDate,
           saleEndDate: currentBrand.saleEndDate,
@@ -92,6 +94,13 @@ export default function Brand() {
         </div>
         <h1>{currentBrand.brandName.toUpperCase()}</h1>
         <p>{currentBrand.description}</p>
+        <div className="TagWrap">
+          {currentBrand.tag.map((e, i) => (
+            <div className="TagInner" key={i}>
+              <p>{e}</p>
+            </div>
+          ))}
+        </div>
         {user.admin && (
           <Link to={`/brandform/${currentBrand.brandName}`} className="Setting">
             <svg
@@ -177,7 +186,19 @@ const BrandWrap = styled.div`
     }
     h1 {
     }
+    .TagWrap {
+      .TagInner {
+        padding: 6px 12px;
+        background-color: black;
+        color: #eeeeee;
+        border-radius: 20px;
+        cursor: pointer;
+        p {
+        }
+      }
+    }
     p {
+      max-width: 600px;
       text-align: center;
     }
     .Setting {

@@ -30,7 +30,7 @@ export const useAuth = () => {
         return;
       }
       await setUser(cloudUser);
-      localStorage.setItem("user", JSON.stringify(cloudUser));
+      // localStorage.setItem("user", JSON.stringify(cloudUser));
       return;
     });
   }, [currentUser, user.uid]);
@@ -59,7 +59,6 @@ export const useAuth = () => {
         // User deleted.
         delUser(user.uid);
         resetUser();
-        localStorage.removeItem("user");
         setSuccess(true);
       })
       .catch((error) => {
@@ -142,7 +141,6 @@ export const useAuth = () => {
         //   createdTime: null,
         // });
         resetUser();
-        localStorage.removeItem("user");
         setSuccess(true);
       })
       .catch((error) => {

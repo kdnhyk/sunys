@@ -28,7 +28,6 @@ export const useImage = (transaction: IsTransaction) => {
     });
 
     await getDownloadURL(storageRef).then(async (url) => {
-      console.log(url);
       await setImageURL(url);
     });
   };

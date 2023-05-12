@@ -3,7 +3,7 @@ import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
 export default function Account() {
-  const { signout } = useAuth();
+  const { user, signout } = useAuth();
   const nav = useNavigate();
 
   const onSignout = () => {
@@ -12,17 +12,19 @@ export default function Account() {
   };
   return (
     <AccountWrap>
+      <p>{user.username}</p>
       <p onClick={onSignout}>Logout</p>
     </AccountWrap>
   );
 }
 
 const AccountWrap = styled.div`
-  padding: 40px 16px 20px 16px;
+  padding: 60px 16px 24px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
   p {
+    margin-bottom: 30px;
     cursor: pointer;
   }
 `;

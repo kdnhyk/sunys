@@ -99,6 +99,7 @@ export default function MainArea({
         updateBrand(id, {
           logo: input.logo,
           brandName: input.brandName,
+          tag: input.tag,
           description: input.description,
           saleStartDate: input.saleStartDate,
           saleEndDate: input.saleEndDate,
@@ -114,6 +115,7 @@ export default function MainArea({
         addBrand(input.brandName, {
           logo: input.logo,
           brandName: input.brandName,
+          tag: input.tag,
           description: input.description,
           saleStartDate: input.saleStartDate,
           saleEndDate: input.saleEndDate,
@@ -134,7 +136,9 @@ export default function MainArea({
 
       console.log(brandList);
       if (!brandList) return;
-      addBrandToList(brandList, input.brandName);
+      if (!brandList.includes(input.brandName)) {
+        addBrandToList(brandList, input.brandName);
+      }
 
       nav("/brand");
     }

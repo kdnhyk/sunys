@@ -15,6 +15,7 @@ export interface IsStore {
 export interface IsBrand {
   logo: string;
   brandName: string;
+  tag: string[];
   saleStartDate: string;
   saleEndDate: string;
 

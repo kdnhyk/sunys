@@ -14,7 +14,6 @@ export default function BrandForm() {
   const { id } = useParams();
   const { currentBrandList, handleBrandByBrandNameRealtime } = useBrand();
   const [input, setInput] = useState<IsBrand>({
-    id: "",
     logo: "",
     brandName: "",
     saleStartDate: "",

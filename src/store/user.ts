@@ -6,8 +6,8 @@ export const userState = atom<IsUser>({
   default: {
     uid: "",
     username: "",
-    scrapBrandList: [""],
-    cart: [""],
+    scrapBrandList: [],
+    cart: [],
     createdTime: "",
   },
 });

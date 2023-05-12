@@ -81,7 +81,7 @@ const HamModalBlock = styled.div`
     display: flex;
     border-bottom: 1px solid #dddddd;
     /* border-top: none; */
-    z-index: 1000;
+    z-index: 100;
 
     a {
       width: 100%;

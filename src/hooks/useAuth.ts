@@ -1,13 +1,7 @@
 import {
   GoogleAuthProvider,
-  createUserWithEmailAndPassword,
   deleteUser,
-  getRedirectResult,
-  sendEmailVerification,
-  sendPasswordResetEmail,
-  signInWithEmailAndPassword,
   signInWithPopup,
-  signInWithRedirect,
   signOut,
 } from "firebase/auth";
 import { auth, provider } from "../firebase";
@@ -28,91 +22,18 @@ export const useAuth = () => {
   // console.log(currentUser);
 
   useEffect(() => {
-    // 새로고침
-    if (currentUser && !user.uid) {
-      getCloudUser(currentUser.uid).then(async (cloudUser) => {
-        await setUser(cloudUser);
-        localStorage.setItem("user", JSON.stringify(cloudUser));
-      });
-    }
+    if (!currentUser || user.uid) return;
+
+    getCloudUser(currentUser.uid).then(async (cloudUser) => {
+      if (!cloudUser) {
+        await setCloudUser(currentUser.uid, currentUser.displayName || "");
+        return;
+      }
+      await setUser(cloudUser);
+      localStorage.setItem("user", JSON.stringify(cloudUser));
+      return;
+    });
   }, [currentUser, user.uid]);
-
-  useEffect(() => {
-    // 회원가입 | 로그인
-    // user에 firebase auth 할당
-    if (!success) return;
-    if (currentUser && !user.uid) {
-      getCloudUser(currentUser.uid).then(async (cloudUser) => {
-        // console.log(cloudUser);
-        if (!cloudUser) {
-          setCloudUser(currentUser.uid, currentUser.displayName || "");
-          return;
-        }
-        await setUser(() => cloudUser);
-        localStorage.setItem("user", JSON.stringify(cloudUser));
-      });
-    }
-  }, [success]);
-
-  const signup = (username: string, email: string, password: string) => {
-    createUserWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        await updateProfile(user, { displayName: username }).catch((err) =>
-          console.log(err)
-        );
-        sendEmailVerification(user).then(() => {});
-        await setCloudUser(user.uid, user.displayName || "");
-        setSuccess(true);
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case "auth/weak-password":
-            setError("비밀번호는 6자리 이상이어야 합니다");
-            break;
-          case "auth/invalid-email":
-            setError("잘못된 이메일 주소입니다");
-            break;
-          case "auth/email-already-in-use":
-            setError("이미 가입되어 있는 계정입니다");
-            break;
-        }
-      });
-  };
-
-  const login = (email: string, password: string) => {
-    signInWithEmailAndPassword(auth, email, password)
-      .then(async (userCredential) => {
-        const user = userCredential.user;
-        setSuccess(true);
-      })
-      .catch((error) => {
-        switch (error.code) {
-          case "auth/invalid-email":
-            setError("옳지않은 이메일 입니다");
-            break;
-          case "auth/user-not-found":
-            setError("존재하지 않는 이메일이거나 잘못된 비밀번호 입니다");
-            break;
-          case "auth/wrong-password":
-            setError("존재하지 않는 이메일이거나 잘못된 비밀번호 입니다");
-            break;
-        }
-      });
-  };
-
-  const updatePassword = (email: string) => {
-    sendPasswordResetEmail(auth, email)
-      .then(() => {
-        // Password reset email sent!
-        // ..
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        // ..
-      });
-  };
 
   const updateUser = (username: string) => {
     if (!auth.currentUser) return;
@@ -232,12 +153,8 @@ export const useAuth = () => {
   return {
     user,
     setUser,
-    // updateCurrentUser,
-    signup,
-    login,
     signout,
     updateUser,
-    updatePassword,
     removeUser,
     loginWithGoogle,
     error,

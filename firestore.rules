@@ -6,8 +6,12 @@ service cloud.firestore {
   	}
     match /{document=**} {
     	allow read: if true;
-      allow write: if isAdmin(request.auth.uid);
+      allow write, update: if isAdmin(request.auth.uid);
       allow delete: if false;
+  	}
+    match /user/{user} {
+      allow write: if true;
+    	allow update: if true;
   	}
   }
 }

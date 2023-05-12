@@ -203,6 +203,7 @@ const BrandWrap = styled.div`
     gap: 10px;
     overflow-x: auto;
     padding-bottom: 12px;
+    margin-top: 10px;
     margin-bottom: 40px;
 
     &::-webkit-scrollbar {

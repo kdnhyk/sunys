@@ -61,7 +61,7 @@ const LoginModalBlock = styled.form`
 
   color: black;
 
-  z-index: 10;
+  z-index: 1000;
 
   .HeaderWrap {
     padding: 10px 10px 10px 16px;
@@ -69,7 +69,7 @@ const LoginModalBlock = styled.form`
     display: flex;
     justify-content: space-between;
     background-color: #eeeeee;
-    z-index: 10;
+    z-index: 1000;
     h2 {
       font-weight: 400;
     }
@@ -97,7 +97,7 @@ const LoginModalBlock = styled.form`
     align-items: center;
     gap: 10px;
     background-color: #eeeeee;
-    z-index: 10;
+    z-index: 1000;
     .LoginWrap {
       width: 100%;
       margin-bottom: 40px;
@@ -119,5 +119,6 @@ const LoginModalBlock = styled.form`
     left: 0px;
     width: 100%;
     height: 100%;
+    z-index: 100;
   }
 `;

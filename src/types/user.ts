@@ -1,3 +1,5 @@
+import { IsArticle } from "./article";
+
 export interface IsUserFirebase {
   uid: string;
   email: string;
@@ -20,7 +22,7 @@ export interface IsUser {
   username: string;
 
   scrapBrandList: string[];
-  cart: string[];
+  cart: IsArticle[];
   createdTime: any;
 
   admin?: boolean;

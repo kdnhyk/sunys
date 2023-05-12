@@ -40,7 +40,7 @@ export default function Brands() {
           </Link>
         )}
         {newBrandList.map((e, i) => (
-          <Link to={`/brand/${e.id}`} className="Brand" key={i}>
+          <Link to={`/brand/${e.brandName}`} className="Brand" key={i}>
             <Brand brand={e} />
           </Link>
         ))}
@@ -48,7 +48,7 @@ export default function Brands() {
       <UnderLineBox color="#F33131">SALE</UnderLineBox>
       <div className="SaleBrandWrap">
         {saleBrandList.map((e, i) => (
-          <Link to={`/brand/${e.id}`} className="Brand" key={i}>
+          <Link to={`/brand/${e.brandName}`} className="Brand" key={i}>
             <SaleBrand brand={e} />
           </Link>
         ))}

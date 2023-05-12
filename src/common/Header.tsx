@@ -9,13 +9,15 @@ import {
   useState,
 } from "react";
 import HamModal from "./HamModal";
+import { useAuth } from "../hooks/useAuth";
 
 interface IsHeader {}
 
 export default function Header({}: IsHeader) {
+  const { user } = useAuth();
+
   const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isFixHeader, setIsFixHeader] = useState(false);
-  const { cart } = useCart();
   const path = useLocation().pathname.toUpperCase().split("/")[1] || "MAIN";
 
   const targetRef = useRef(null);
@@ -143,7 +145,7 @@ export default function Header({}: IsHeader) {
               fill="#314af3"
             />
           </svg>
-          <span>{cart.length === 0 ? "" : cart.length}</span>
+          <span>{user.cart.length === 0 ? "" : user.cart.length}</span>
         </div>
         <div className="ModalWrap">
           {isOpenMenu && <HamModal closeModal={handleIsOpenModal} />}
@@ -159,7 +161,7 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
   display: flex;
   flex-direction: column;
   color: #314af3;
-  z-index: 1000;
+  z-index: 100;
   background-color: #eeeeee;
 
   /* ${({ isOpenMenu }) =>
@@ -175,7 +177,7 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
     flex-direction: column;
     align-items: center;
     width: 100%;
-    z-index: 1000;
+    z-index: 100;
     cursor: pointer;
     a {
       svg {
@@ -200,7 +202,7 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
       flex-direction: column;
       align-items: center;
       gap: 8px;
-      z-index: 2000;
+      z-index: 110;
       p {
         width: fit-content;
         padding: 0px 12px;
@@ -223,7 +225,7 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
     position: ${({ isFixHeader }) => (isFixHeader ? "fixed" : "absolute")};
     width: 100%;
     background-color: #eeeeee;
-    z-index: 1000;
+    z-index: 100;
     top: ${({ isFixHeader }) => (isFixHeader ? "0px" : "96px")};
     height: 50px;
     display: flex;

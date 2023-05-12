@@ -6,11 +6,13 @@ import { useParams } from "react-router-dom";
 import { IsCollection } from "../../types/collection";
 import { useArticle } from "../../hooks/useArticle";
 import Article from "../../common/components/Article";
+import { Link } from "react-router-dom";
 
 export default function Collection() {
   const { cid } = useParams();
   const { articleList, handleArticleByCid } = useArticle();
 
+  const [success, setSuccess] = useState(false);
   const [currentCollection, setCurrentCollection] = useState<IsCollection>({
     id: "",
     collectionName: "",
@@ -20,19 +22,26 @@ export default function Collection() {
     brandName: "",
   });
   const { handleCollectionById } = useCollection();
-  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const onClickArticle = (id: string) => {
+  const onClickArticle = (id: number) => {
     setSelectedId((prev) => (prev === id ? null : id));
+  };
+
+  const onResetSelectedId = () => {
+    setSelectedId(null);
   };
 
   useEffect(() => {
     if (!cid) return;
-    handleCollectionById(cid).then((collectoin) => {
-      setCurrentCollection(collectoin[0]);
+    handleCollectionById(cid).then(async (collectoin) => {
+      await setCurrentCollection(collectoin[0]);
+      await handleArticleByCid(cid);
+      setSuccess(true);
     });
-    handleArticleByCid(cid);
   }, [cid]);
+
+  if (!success) return <div></div>;
 
   return (
     <CollectionWrap>
@@ -40,7 +49,12 @@ export default function Collection() {
         <img src={currentCollection.images[0]} alt="" />
       </div>
       <div className="InfoWrap">
-        <UnderLineBox isBold={true}>{currentCollection.brandName}</UnderLineBox>
+        <Link to={`/brand/${currentCollection.brandName}`}>
+          <UnderLineBox isBold={true}>
+            {currentCollection.brandName}
+          </UnderLineBox>
+        </Link>
+
         <p className="Text">{currentCollection.collectionName}</p>
         <p className="Text">
           {`${currentCollection.releaseDate.replaceAll("-", ". ")}`}
@@ -48,8 +62,12 @@ export default function Collection() {
       </div>
       <div className="ArticleListWrap">
         {articleList.map((article, i) => (
-          <div className="ArticleWrap" key={i}>
-            <Article article={article} selectedId={selectedId} />
+          <div
+            className="ArticleWrap"
+            key={i}
+            onClick={() => onClickArticle(i)}
+          >
+            <Article article={article} isSelected={selectedId === i} />
           </div>
         ))}
       </div>

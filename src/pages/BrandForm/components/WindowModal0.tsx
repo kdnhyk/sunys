@@ -56,8 +56,8 @@ export default function WindowModal0({
   }, [input]);
 
   useEffect(() => {
-    if (input.id && isUpload) {
-      updateBrand(input.id, {
+    if (input.brandName && isUpload) {
+      updateBrand(input.brandName, {
         ...input,
         officialOnlineStore: input.officialOnlineStore,
       });

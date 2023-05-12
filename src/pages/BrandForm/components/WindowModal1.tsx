@@ -65,8 +65,8 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
   }, [newStore]);
 
   useEffect(() => {
-    if (input.id && isUpload) {
-      updateBrand(input.id, {
+    if (input.brandName && isUpload) {
+      updateBrand(input.brandName, {
         ...input,
         officialOfflineStore: [
           ...input.officialOfflineStore,

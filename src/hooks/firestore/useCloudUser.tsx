@@ -9,6 +9,7 @@ import {
   where,
 } from "firebase/firestore";
 import { store, timestamp } from "../../firebase";
+import { IsArticle } from "../../types/article";
 
 export const useCloudUser = () => {
   const collectionRef = collection(store, "user");
@@ -28,16 +29,13 @@ export const useCloudUser = () => {
 
   const setCloudUser = async (uid: string, username: string) => {
     const createdTime = timestamp.fromDate(new Date());
-    const cloudUser = await getCloudUser(uid);
-    if (!cloudUser) {
-      setDoc(doc(collectionRef, uid), {
-        uid,
-        username,
-        scrapBrandList: [],
-        cart: [],
-        createdTime,
-      });
-    }
+    setDoc(doc(collectionRef, uid), {
+      uid,
+      username,
+      scrapBrandList: [],
+      cart: [],
+      createdTime,
+    });
   };
 
   const delUser = async (uid: string) => {
@@ -47,11 +45,11 @@ export const useCloudUser = () => {
   const updateScrapBrand = (
     uid: string,
     oldScrapBrandList: string[],
-    brandId: string
+    brandName: string
   ) => {
-    const result = oldScrapBrandList.includes(brandId)
-      ? oldScrapBrandList.filter((e) => e !== brandId)
-      : oldScrapBrandList.concat(brandId);
+    const result = oldScrapBrandList.includes(brandName)
+      ? oldScrapBrandList.filter((e) => e !== brandName)
+      : oldScrapBrandList.concat(brandName);
 
     setDoc(
       doc(collectionRef, uid),
@@ -65,5 +63,26 @@ export const useCloudUser = () => {
     return result;
   };
 
-  return { getCloudUser, setCloudUser, delUser, updateScrapBrand };
+  const updateCart = (
+    uid: string,
+    oldCart: IsArticle[],
+    newArticle: IsArticle
+  ) => {
+    const result = oldCart.find((e) => e.id === newArticle.id)
+      ? oldCart.filter((e) => e.id !== newArticle.id)
+      : oldCart.concat(newArticle);
+
+    setDoc(
+      doc(collectionRef, uid),
+      {
+        cart: result,
+      },
+      {
+        merge: true,
+      }
+    );
+    return result;
+  };
+
+  return { getCloudUser, setCloudUser, delUser, updateScrapBrand, updateCart };
 };

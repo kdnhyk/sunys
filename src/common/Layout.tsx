@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import styled from "styled-components";
 import Header from "./Header";
+import NavBar from "./NavBar";
 import Footer from "./Footer";
 
 interface IsLayout {
@@ -15,6 +16,7 @@ export default function Layout({ children }: IsLayout) {
       <Header />
       <main>{children}</main>
       <Footer />
+      <NavBar />
     </LayoutWrap>
   );
 }
@@ -22,11 +24,9 @@ export default function Layout({ children }: IsLayout) {
 const LayoutWrap = styled.div<{ vh: number }>`
   width: 100%;
   height: ${({ vh }) => `calc(${vh} * 100px)`};
-  /* position: fixed; */
 
   color: black;
   background-color: #eeeeee;
   main {
-    /* overflow-y: auto; */
   }
 `;

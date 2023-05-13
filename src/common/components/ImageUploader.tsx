@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
 import imageCompression from "browser-image-compression";
-import heic2any from "heic2any";
 
 interface IsImageUploader {
   defaultImageUrl: string;
@@ -21,20 +20,6 @@ const handleImage = async (file: File) => {
     type: "image/webp",
     lastModified: new Date().getTime(),
   });
-
-  // if (
-  //   file.name.split(".")[1] === "heic" ||
-  //   file.name.split(".")[1] === "HEIC"
-  // ) {
-  //   const blob = new Blob([newFile], { type: file.type });
-
-  //   heic2any({ blob, toType: "image/webp" }).then((resultBlob) => {
-  // file = new File([resultBlob], file.name.split(".")[0] + ".webp", {
-  //   type: "image/webp",
-  //   lastModified: new Date().getTime(),
-  // });
-  //   });
-  // }
 
   return result;
 };

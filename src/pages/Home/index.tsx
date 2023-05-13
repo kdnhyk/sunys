@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Collection from "../../common/components/Collection";
 import { Link, useNavigate } from "react-router-dom";
-import UnderLineBox from "../../common/components/UnderLineBox";
+import UnderLineBox from "../../common/components/TitleBox";
 import UpcommingCollection from "./components/UpcommingCollection";
 import { useCollection } from "../../hooks/useCollection";
 import { useBrand } from "../../hooks/useBrand";
@@ -33,49 +33,65 @@ export default function Home() {
 
   return (
     <HomeWrap>
-      <UnderLineBox>UPCOMMING</UnderLineBox>
       <div className="UpcommingWrap">
-        {upcommingList.map((e, i) => (
-          <Link to={`/collection/${e.id}`} className="Collection" key={i}>
-            <UpcommingCollection collection={e} />
-          </Link>
-        ))}
+        <UnderLineBox subTitle="발매 예정">Upcomming</UnderLineBox>
+        <div className="UpcommingList">
+          {upcommingList.map((e, i) => (
+            <Link to={`/collection/${e.id}`} className="Collection" key={i}>
+              <UpcommingCollection collection={e} />
+            </Link>
+          ))}
+        </div>
       </div>
-      <UnderLineBox>RECENT</UnderLineBox>
+
       <div className="RecentWrap">
-        {recentList.map((e, i) => (
-          <Link to={`/collection/${e.id}`} className="Collection" key={i}>
-            <Collection collection={e} />
-          </Link>
-        ))}
+        <UnderLineBox subTitle="최근 컬렉션">Recent</UnderLineBox>
+        <div className="RecentList">
+          {recentList.map((e, i) => (
+            <Link to={`/collection/${e.id}`} className="Collection" key={i}>
+              <Collection collection={e} />
+            </Link>
+          ))}
+        </div>
       </div>
+
       {/* <UnderLineBox>MAGAZINE</UnderLineBox> */}
     </HomeWrap>
   );
 }
 
 const HomeWrap = styled.div`
-  padding: 64px 16px 24px 16px;
-  .UpcommingWrap {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 12px;
-    margin-bottom: 40px;
+  padding-top: 20px;
 
-    &::-webkit-scrollbar {
-      display: none;
+  .UpcommingWrap {
+    padding: 0px 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dddddd;
+    .UpcommingList {
+      height: 320px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
-  .RecentWrap {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 12px;
-    margin-bottom: 40px;
 
-    &::-webkit-scrollbar {
-      display: none;
+  .RecentWrap {
+    padding: 0px 16px;
+    border-bottom: 1px solid #dddddd;
+
+    .RecentList {
+      height: 320px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 `;

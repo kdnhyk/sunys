@@ -8,7 +8,6 @@ import {
   useRef,
   useState,
 } from "react";
-import HamModal from "./HamModal";
 import { useAuth } from "../hooks/useAuth";
 import CartModal from "../pages/Cart/Cart";
 
@@ -17,7 +16,6 @@ interface IsHeader {}
 export default function Header({}: IsHeader) {
   const { user } = useAuth();
 
-  const [isOpenMenu, setIsOpenMenu] = useState(false);
   const [isFixHeader, setIsFixHeader] = useState(false);
   const path = useLocation().pathname.toUpperCase().split("/")[1] || "MAIN";
 
@@ -43,16 +41,8 @@ export default function Header({}: IsHeader) {
     };
   }, []);
 
-  const handleIsOpenMenu = () => {
-    setIsOpenMenu((prev) => !prev);
-  };
-
-  useEffect(() => {
-    setIsOpenMenu(false);
-  }, [path]);
-
   return (
-    <HeaderWrap isOpenMenu={isOpenMenu} isFixHeader={isFixHeader}>
+    <HeaderWrap isFixHeader={isFixHeader}>
       <div className="LogoArea">
         <Link to={"/"}>
           <svg
@@ -79,29 +69,7 @@ export default function Header({}: IsHeader) {
       </div>
 
       <div className="HeaderArea" ref={targetRef}>
-        <div className="Hambager" onClick={handleIsOpenMenu}>
-          {isOpenMenu ? (
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M1 1L19 19M1 19L19 1" stroke="#314AF3" />
-            </svg>
-          ) : (
-            <svg
-              width="24"
-              height="18"
-              viewBox="0 0 24 18"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <path d="M0 1H24M0 9H24M0 17H24" stroke="#314AF3" />
-            </svg>
-          )}
-        </div>
+        <div className="Hambager"></div>
         <div className="SmallLogo">
           {isFixHeader ? (
             <Link to={"/"}>
@@ -150,16 +118,12 @@ export default function Header({}: IsHeader) {
             <span>{user.cart.length === 0 ? "" : user.cart.length}</span>
           </div>
         </Link>
-
-        <div className="ModalWrap">
-          {isOpenMenu && <HamModal closeModal={handleIsOpenMenu} />}
-        </div>
       </div>
     </HeaderWrap>
   );
 }
 
-const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
+const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
   position: relative;
   height: 146px;
   display: flex;
@@ -167,14 +131,6 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
   color: #314af3;
   z-index: 100;
   background-color: #eeeeee;
-
-  /* ${({ isOpenMenu }) =>
-    isOpenMenu &&
-    css`
-      width: 100%;
-      position: sticky;
-      top: 0px;
-    `} */
 
   .LogoArea {
     display: flex;
@@ -260,10 +216,6 @@ const HeaderWrap = styled.div<{ isOpenMenu: boolean; isFixHeader: boolean }>`
         right: -7px;
         font-size: 11px;
       }
-    }
-    .ModalWrap {
-      position: absolute;
-      top: 50px;
     }
   }
 `;

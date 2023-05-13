@@ -1,4 +1,4 @@
-import styled, { css } from "styled-components";
+import styled from "styled-components";
 import { IsCollection } from "../../types/collection";
 
 interface IsCollectionStyle {
@@ -16,18 +16,35 @@ export default function Collection({ collection }: IsCollectionStyle) {
         <h3>{collection.brandName}</h3>
         <p>{collection.collectionName}</p>
       </div>
+
+      <div className="HoverWrap">
+        <svg
+          width="35"
+          height="10"
+          viewBox="0 0 35 10"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M0 9H32L25.2903 1" stroke="white" stroke-width="2" />
+        </svg>
+      </div>
     </CollectionWrap>
   );
 }
 
 const CollectionWrap = styled.div`
-  width: 180px;
   position: relative;
-  cursor: pointer;
+
+  &:hover {
+    .HoverWrap {
+      background-color: rgba(0, 0, 0, 0.3);
+      svg {
+        display: block;
+      }
+    }
+  }
+
   .ImageWrap {
-    display: flex;
-    align-items: center;
-    justify-content: center;
     img {
       width: 180px;
       height: 240px;
@@ -35,12 +52,29 @@ const CollectionWrap = styled.div`
     }
   }
   .TextlWrap {
-    padding: 4px 4px;
+    padding: 4px 0px;
     h3 {
       margin-bottom: 2px;
     }
     p {
-      font-size: 13px;
+    }
+  }
+
+  .HoverWrap {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: calc(100% - 43px);
+    transition: all 0.1s ease-out;
+    background-color: transparent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    svg {
+      display: none;
+      cursor: pointer;
     }
   }
 `;

@@ -3,19 +3,11 @@ import styled, { css } from "styled-components";
 interface IsCollectionStyle {
   children: any;
   onClick?: () => void;
-  exit: () => void;
-  isSelected: boolean;
 }
 
-export default function CoverBox({
-  children,
-  onClick,
-  exit,
-  isSelected,
-}: IsCollectionStyle) {
+export default function CoverBox({ children, onClick }: IsCollectionStyle) {
   return (
-    <CoverBoxWrap isSelected={isSelected}>
-      <div className="Background" onClick={exit}></div>
+    <CoverBoxWrap>
       <div className="BoxBackground"></div>
       <div className="CoverBoxInner" onClick={onClick}>
         {children}
@@ -24,20 +16,9 @@ export default function CoverBox({
   );
 }
 
-const CoverBoxWrap = styled.div<{ isSelected: boolean }>`
-  display: none;
-  .Background {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    cursor: default;
-    z-index: 100;
-
-    background-color: transparent;
-  }
+const CoverBoxWrap = styled.div`
   .BoxBackground {
+    display: none;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -47,6 +28,7 @@ const CoverBoxWrap = styled.div<{ isSelected: boolean }>`
     opacity: 0.3;
   }
   .CoverBoxInner {
+    display: none;
     position: absolute;
     top: 0px;
     left: 0px;
@@ -65,9 +47,10 @@ const CoverBoxWrap = styled.div<{ isSelected: boolean }>`
     z-index: 200;
   }
 
-  ${({ isSelected }) =>
-    isSelected &&
-    css`
+  &:hover {
+    .BoxBackground,
+    .CoverBoxInner {
       display: block;
-    `}
+    }
+  }
 `;

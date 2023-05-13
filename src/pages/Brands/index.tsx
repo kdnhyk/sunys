@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UnderLineBox from "../../common/components/UnderLineBox";
+import UnderLineBox from "../../common/components/TitleBox";
 import { Link } from "react-router-dom";
 import Brand from "./components/Brand";
 import SaleBrand from "./components/SaleBrand";
@@ -32,62 +32,75 @@ export default function Brands() {
       <div className="SearchInputArea">
         <SearchInput placeholder="Search by brand" />
       </div>
-      <UnderLineBox>NEW BRAND</UnderLineBox>
       <div className="NewBrandWrap">
-        {user.admin && (
-          <Link to={`/brandform`}>
-            <CreateBrand />
-          </Link>
-        )}
-        {newBrandList.map((e, i) => (
-          <Link to={`/brand/${e.brandName}`} className="Brand" key={i}>
-            <Brand brand={e} />
-          </Link>
-        ))}
+        <UnderLineBox subTitle="새로운 브랜드">New Brand</UnderLineBox>
+        <div className="NewBrandList">
+          {user.admin && (
+            <Link to={`/brandform`}>
+              <CreateBrand />
+            </Link>
+          )}
+          {newBrandList.map((e, i) => (
+            <Link to={`/brand/${e.brandName}`} className="Brand" key={i}>
+              <Brand brand={e} />
+            </Link>
+          ))}
+        </div>
       </div>
-      <UnderLineBox color="#F33131">SALE</UnderLineBox>
       <div className="SaleBrandWrap">
-        {saleBrandList.map((e, i) => (
-          <Link to={`/brand/${e.brandName}`} className="Brand" key={i}>
-            <SaleBrand brand={e} />
-          </Link>
-        ))}
+        <UnderLineBox color="#F33131" subTitle="세일 중인 브랜드">
+          Sale
+        </UnderLineBox>
+        <div className="SaleBrandList">
+          {saleBrandList.map((e, i) => (
+            <Link to={`/brand/${e.brandName}`} className="Brand" key={i}>
+              <SaleBrand brand={e} />
+            </Link>
+          ))}
+        </div>
       </div>
+
       {/* <UnderLineBox>RECOMMEND</UnderLineBox> */}
     </BrandsWrap>
   );
 }
 
 const BrandsWrap = styled.div`
-  padding: 20px 16px 0px 16px;
+  padding-top: 20px;
+
   .SearchInputArea {
+    padding: 0px 16px;
     margin-bottom: 40px;
   }
   .NewBrandWrap {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 12px;
-    margin-bottom: 40px;
+    padding: 0px 16px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid #dddddd;
+    .NewBrandList {
+      height: 280px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    .Collection {
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
-  .SaleBrandWrap {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 12px;
-    margin-bottom: 40px;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    .Brand {
+  .SaleBrandWrap {
+    padding: 0px 16px;
+    border-bottom: 1px solid #dddddd;
+
+    .SaleBrandList {
+      height: 240px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
     }
   }
 `;

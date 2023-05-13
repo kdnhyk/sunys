@@ -5,7 +5,7 @@ import ImgageUploader from "../../../common/components/ImageUploader";
 import Button from "../../../common/components/Button";
 import { useImage } from "../../../hooks/storage/useImage";
 import { useBrandStore } from "../../../hooks/firestore/useBrandStore";
-import { IsBrand, IsOfflineStore, IsStore } from "../../../types/brand";
+import { IsBrand, IsOfficialStore } from "../../../types/brand";
 
 interface IsWindowModal1 {
   exitModal: () => void;
@@ -13,7 +13,7 @@ interface IsWindowModal1 {
 }
 
 export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
-  const [newStore, setNewStore] = useState<IsOfflineStore>({
+  const [newStore, setNewStore] = useState<IsOfficialStore>({
     image: "",
     storeName: "",
     storeLocation: "",
@@ -68,8 +68,8 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
     if (input.brandName && isUpload) {
       updateBrand(input.brandName, {
         ...input,
-        officialOfflineStore: [
-          ...input.officialOfflineStore,
+        officialStoreList: [
+          ...input.officialStoreList,
           { ...newStore, id: newStore.storeName },
         ],
       });

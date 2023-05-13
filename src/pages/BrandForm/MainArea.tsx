@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UnderLineBox from "../../common/components/UnderLineBox";
+import UnderLineBox from "../../common/components/TitleBox";
 import Input from "../../common/components/Input";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import ImgageUploader from "../../common/components/ImageUploader";
@@ -17,13 +17,13 @@ import { useBrandList } from "../../hooks/useBrandList";
 
 export type IsModalSort =
   | "officialOnlineStore"
-  | "officialOfflineStore"
+  | "officialStoreList"
   | "storeList";
 
 interface IsMainArea {
   id: string;
   input: IsBrand;
-  lastImageUrl: string;
+  lastLogoUrl: string;
   isEnterButton: boolean;
   onChangeInput: (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -41,7 +41,7 @@ interface IsMainArea {
 export default function MainArea({
   id,
   input,
-  lastImageUrl,
+  lastLogoUrl,
   isEnterButton,
   onChangeInput,
   setImageUrl,
@@ -98,40 +98,35 @@ export default function MainArea({
       if (id) {
         updateBrand(id, {
           logo: input.logo,
+          officialUrl: input.officialUrl,
           brandName: input.brandName,
           tag: input.tag,
           description: input.description,
+          saleName: input.saleName,
           saleStartDate: input.saleStartDate,
           saleEndDate: input.saleEndDate,
-          officialOnlineStore: {
-            image: input.officialOnlineStore.image,
-            storeName: input.officialOnlineStore.storeName,
-            storeUrl: input.officialOnlineStore.storeUrl,
-          },
-          officialOfflineStore: input.officialOfflineStore,
+          officialStoreList: input.officialStoreList,
           storeList: input.storeList,
         });
       } else if (!id) {
         addBrand(input.brandName, {
           logo: input.logo,
+          officialUrl: input.officialUrl,
           brandName: input.brandName,
           tag: input.tag,
           description: input.description,
+          saleName: input.saleName,
           saleStartDate: input.saleStartDate,
           saleEndDate: input.saleEndDate,
-          officialOnlineStore: {
-            image: input.officialOnlineStore.image,
-            storeName: input.officialOnlineStore.storeName,
-            storeUrl: input.officialOnlineStore.storeUrl,
-          },
-          officialOfflineStore: input.officialOfflineStore,
+
+          officialStoreList: input.officialStoreList,
           storeList: input.storeList,
           isVisible: true,
         });
       }
 
-      if (id && input.logo !== lastImageUrl) {
-        deleteImage(lastImageUrl);
+      if (id && input.logo !== lastLogoUrl) {
+        deleteImage(lastLogoUrl);
       }
 
       console.log(brandList);
@@ -150,6 +145,12 @@ export default function MainArea({
         <ImgageUploader
           defaultImageUrl={input.logo}
           setImageFile={setImageFile}
+        />
+        <Input
+          name="officialUrl"
+          value={input.officialUrl}
+          placeholder="Official Url"
+          onChange={onChangeInput}
         />
         <Input
           name="brandName"

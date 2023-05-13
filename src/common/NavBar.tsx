@@ -4,11 +4,9 @@ import { useAuth } from "../hooks/useAuth";
 import { useState } from "react";
 import LoginModal from "./LoginModal";
 
-interface IsHamModal {
-  closeModal: () => void;
-}
+interface IsNavBar {}
 
-export default function HamModal({ closeModal }: IsHamModal) {
+export default function NavBar({}: IsNavBar) {
   const path = useLocation().pathname.split("/")[1] || "main";
   const { user } = useAuth();
 
@@ -37,8 +35,8 @@ export default function HamModal({ closeModal }: IsHamModal) {
   ];
 
   return (
-    <HamModalBlock>
-      <div className="ModalInner">
+    <NavBarBlock>
+      <nav className="ModalInner">
         {menu.map((e, i) => (
           <Link
             to={e.path}
@@ -61,25 +59,25 @@ export default function HamModal({ closeModal }: IsHamModal) {
             <p>LOGIN</p>
           </div>
         )}
-      </div>
+      </nav>
       {isOpenLoginModal && <LoginModal exitModal={handleIsLoginModal} />}
-      <div className="Background" onClick={closeModal}></div>
-    </HamModalBlock>
+    </NavBarBlock>
   );
 }
 
-const HamModalBlock = styled.div`
+const NavBarBlock = styled.div`
+  position: fixed;
+  bottom: 0px;
   background-color: #eeeeee;
-  color: #314af3;
+  z-index: 1000;
+
   .ModalInner {
-    position: absolute;
-    left: -16px;
     width: calc(100vw);
 
-    height: 40px;
+    height: 48px;
     background-color: #eeeeee;
     display: flex;
-    border-bottom: 1px solid #dddddd;
+    border-top: 1px solid #dddddd;
     /* border-top: none; */
     z-index: 100;
 
@@ -94,6 +92,7 @@ const HamModalBlock = styled.div`
       }
       p {
         font-size: 12px;
+        font-weight: 600;
       }
     }
     .Login {
@@ -107,8 +106,8 @@ const HamModalBlock = styled.div`
         background-color: #d9d9d9;
       }
       p {
-        font-size: 11px;
-        /* font-weight: 600; */
+        font-size: 12px;
+        font-weight: 600;
       }
     }
   }

@@ -1,4 +1,4 @@
-export interface IsOfflineStore {
+export interface IsOfficialStore {
   id?: string;
   image: string;
   storeName: string;
@@ -14,15 +14,31 @@ export interface IsStore {
 
 export interface IsBrand {
   logo: string;
+  officialUrl: string;
+
   brandName: string;
+  description: string;
   tag: string[];
+
+  saleName: string;
   saleStartDate: string;
   saleEndDate: string;
 
-  description: string;
-  officialOnlineStore: IsStore;
-  officialOfflineStore: IsOfflineStore[];
+  officialStoreList: IsOfficialStore[];
   storeList: IsStore[];
 
   isVisible?: boolean;
 }
+
+export const initBrand = {
+  logo: "",
+  officialUrl: "",
+  brandName: "",
+  description: "",
+  tag: [],
+  saleName: "",
+  saleStartDate: "",
+  saleEndDate: "",
+  officialStoreList: [],
+  storeList: [],
+};

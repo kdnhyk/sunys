@@ -4,24 +4,34 @@ interface IsTitleBox {
   children: any;
   color?: string;
   isBold?: boolean;
+  subTitle?: string;
 }
 
-export default function UnderLineBox({ children, color, isBold }: IsTitleBox) {
+export default function TitleBox({
+  children,
+  color,
+  isBold,
+  subTitle,
+}: IsTitleBox) {
   return (
     <TitleBoxBlock color={color} isBold={isBold}>
       <h3 className="MainTitle">{children}</h3>
+      <p className="SubTitle">{subTitle}</p>
     </TitleBoxBlock>
   );
 }
 
 const TitleBoxBlock = styled.div<{ colol?: string; isBold?: boolean }>`
   width: fit-content;
-  padding: 4px 4px;
-  border-bottom: 1px solid black;
+  padding: 8px 0px;
+  /* border-bottom: 1px solid black; */
   cursor: pointer;
   .MainTitle {
     color: ${({ color }) => color || "black"};
     margin-bottom: 4px;
-    font-weight: 400;
+  }
+  .SubTitle {
+    color: #999999;
+    font-size: 12px;
   }
 `;

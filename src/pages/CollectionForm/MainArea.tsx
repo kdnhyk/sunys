@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import UnderLineBox from "../../common/components/UnderLineBox";
+import UnderLineBox from "../../common/components/TitleBox";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IsCollection } from "../../types/collection";

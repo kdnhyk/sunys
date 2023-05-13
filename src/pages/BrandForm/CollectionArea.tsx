@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import UnderLineBox from "../../common/components/UnderLineBox";
+import UnderLineBox from "../../common/components/TitleBox";
 import CreateCollection from "./components/CreateCollection";
 import { Link } from "react-router-dom";
-import Collection from "./components/Collection";
 import { useCollection } from "../../hooks/useCollection";
 import { useEffect } from "react";
+import Collection from "../../common/components/Collection";
 
 interface IsCollectionArea {
   id: string;

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import Button from "./components/Button";
 import { useAuth } from "../hooks/useAuth";
-import UnderLineBox from "./components/UnderLineBox";
+import UnderLineBox from "./components/TitleBox";
 import { useNavigate } from "react-router-dom";
 
 interface IsLoginModal {

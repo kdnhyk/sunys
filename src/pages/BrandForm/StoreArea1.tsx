@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { IsBrand } from "../../types/brand";
 import "react-datepicker/dist/react-datepicker.css";
 import WindowModal1 from "./components/WindowModal1";
@@ -26,7 +26,7 @@ export default function StoreArea1({ input }: IsStoreArea1) {
       <div className="CreateStoreWrap" onClick={handleModalOpen}>
         <CreateBrand />
       </div>
-      {input.officialOfflineStore.map((e, i) => (
+      {input.officialStoreList.map((e, i) => (
         <div className="StoreInner" key={i}>
           <OfflineStore store={e} />
         </div>

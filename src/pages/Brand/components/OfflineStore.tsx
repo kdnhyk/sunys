@@ -1,44 +1,44 @@
 import styled from "styled-components";
-import { IsOfflineStore, IsStore } from "../../../types/brand";
-import CoverBox from "../../../common/components/CoverBox";
-import { useState } from "react";
+import { IsOfficialStore } from "../../../types/brand";
 
 interface IsStoreStyle {
-  store: IsOfflineStore;
+  store: IsOfficialStore;
 }
 
 export default function OfflineStore({ store }: IsStoreStyle) {
-  const [isSelected, setIsSelected] = useState(false);
-
-  const openCoverBox = () => {
-    setIsSelected(true);
-  };
-
-  const exitCoverBox = () => {
-    setIsSelected(false);
-  };
-
   return (
     <OfflineStoreWrap>
-      <div onClick={openCoverBox}>
-        <div className="ImageWrap">
-          <img src={store.image} alt="" />
-        </div>
-
-        <div className="TextlWrap">
-          <h3>{store.storeName}</h3>
-        </div>
+      <div className="ImageWrap">
+        <img src={store.image} alt="" />
       </div>
-      <CoverBox exit={exitCoverBox} isSelected={isSelected}>
+
+      <div className="TextlWrap">
+        <h3>{store.storeName}</h3>
+      </div>
+
+      <div className="HoverWrap">
+        <div className="Background"></div>
         <p>{store.storeLocation}</p>
-      </CoverBox>
+      </div>
     </OfflineStoreWrap>
   );
 }
 
 const OfflineStoreWrap = styled.div`
   position: relative;
-  cursor: pointer;
+  &:hover {
+    .HoverWrap {
+      background-color: rgba(0, 0, 0, 0.3);
+      p {
+        display: block;
+      }
+    }
+  }
+  &:hover {
+    .HoverWrap {
+      display: flex;
+    }
+  }
   .ImageWrap {
     width: 200px;
     height: 200px;
@@ -53,6 +53,25 @@ const OfflineStoreWrap = styled.div`
     h3 {
       font-weight: 400;
       margin-bottom: 2px;
+    }
+  }
+
+  .HoverWrap {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100%;
+    height: calc(100% - 27px);
+    transition: all 0.1s ease-out;
+    background-color: transparent;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    p {
+      display: none;
+      position: absolute;
+      color: white;
     }
   }
 `;

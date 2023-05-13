@@ -2,36 +2,18 @@ import styled from "styled-components";
 import MainArea from "./MainArea";
 import { useParams } from "react-router-dom";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { IsBrand } from "../../types/brand";
+import { IsBrand, initBrand } from "../../types/brand";
 import { toStringByFormatting } from "../../util";
-import StoreArea0 from "./StoreArea0";
 import StoreArea1 from "./StoreArea1";
-import UnderLineBox from "../../common/components/UnderLineBox";
+import UnderLineBox from "../../common/components/TitleBox";
 import { useBrand } from "../../hooks/useBrand";
 import CollectionArea from "./CollectionArea";
 
 export default function BrandForm() {
   const { id } = useParams();
   const { currentBrandList, handleBrandByBrandNameRealtime } = useBrand();
-  const [input, setInput] = useState<IsBrand>({
-    logo: "",
-    brandName: "",
-    tag: [],
-    saleStartDate: "",
-    saleEndDate: "",
-    description: "",
-    officialOnlineStore: {
-      image: "",
-      storeName: "",
-      storeUrl: "",
-    },
-    officialOfflineStore: [],
-    storeList: [],
-  });
-  const [lastImageUrl, setLastImageUrl] = useState({
-    logo: "",
-    officialOnlineStoreImage: "",
-  });
+  const [input, setInput] = useState<IsBrand>(initBrand);
+  const [lastLogoUrl, setLastLogoUrl] = useState("");
   const [isEnterButton, setIsEnterButton] = useState(false);
 
   const onChangeInput = useCallback(
@@ -77,32 +59,6 @@ export default function BrandForm() {
     setIsEnterButton(false);
   };
 
-  // Store Area 0
-  const onChangeInputOfficialOnlineStore = useCallback(
-    async (
-      e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-    ) => {
-      const { name, value } = e.target;
-      await setInput((prev) => {
-        return {
-          ...prev,
-          officialOnlineStore: { ...prev.officialOnlineStore, [name]: value },
-        };
-      });
-    },
-    []
-  );
-
-  const onChangeInputOfficialOnlineStoreImage = (url: string) => {
-    setInput((prev) => ({
-      ...prev,
-      officialOnlineStore: {
-        ...prev.officialOnlineStore,
-        image: url,
-      },
-    }));
-  };
-
   useEffect(() => {
     if (id) {
       handleBrandByBrandNameRealtime(id);
@@ -117,23 +73,17 @@ export default function BrandForm() {
         ...prev,
         id,
         logo: currentBrand.logo,
+        officialUrl: currentBrand.officialUrl,
         brandName: currentBrand.brandName,
         description: currentBrand.description,
+        saleName: currentBrand.saleName,
         saleStartDate: currentBrand.saleStartDate,
         saleEndDate: currentBrand.saleEndDate,
-        officialOnlineStore: {
-          image: currentBrand.officialOnlineStore.image,
-          storeName: currentBrand.officialOnlineStore.storeName,
-          storeUrl: currentBrand.officialOnlineStore.storeUrl,
-        },
-        officialOfflineStore: currentBrand.officialOfflineStore,
+        officialStoreList: currentBrand.officialStoreList,
         storeList: currentBrand.storeList,
       }));
 
-      setLastImageUrl({
-        logo: currentBrand.logo,
-        officialOnlineStoreImage: currentBrand.officialOnlineStore.image,
-      });
+      setLastLogoUrl(currentBrand.logo);
 
       setIsEnterButton(() => true);
     }
@@ -145,7 +95,7 @@ export default function BrandForm() {
         id={id || ""}
         input={input}
         isEnterButton={isEnterButton}
-        lastImageUrl={lastImageUrl.logo}
+        lastLogoUrl={lastLogoUrl}
         onChangeInput={onChangeInput}
         setImageUrl={setImageUrl}
         onChangeInputSaleDate={onChangeInputSaleDate}
@@ -156,14 +106,6 @@ export default function BrandForm() {
       {id && (
         <>
           <UnderLineBox>STORE</UnderLineBox>
-          <StoreArea0
-            input={input}
-            lastImageUrl={lastImageUrl.officialOnlineStoreImage}
-            onChangeInputOfficialOnlineStore={onChangeInputOfficialOnlineStore}
-            onChangeInputOfficialOnlineStoreImage={
-              onChangeInputOfficialOnlineStoreImage
-            }
-          />
           <StoreArea1 input={input} />
           <CollectionArea id={id} />
         </>

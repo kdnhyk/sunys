@@ -15,7 +15,7 @@ export default function TitleBox({
 }: IsTitleBox) {
   return (
     <TitleBoxBlock color={color} isBold={isBold}>
-      <h3 className="MainTitle">{children}</h3>
+      <h1 className="MainTitle">{children}</h1>
       <p className="SubTitle">{subTitle}</p>
     </TitleBoxBlock>
   );
@@ -32,6 +32,6 @@ const TitleBoxBlock = styled.div<{ colol?: string; isBold?: boolean }>`
   }
   .SubTitle {
     color: #999999;
-    font-size: 12px;
+    font-size: 13px;
   }
 `;

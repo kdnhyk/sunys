@@ -23,7 +23,6 @@ export type IsModalSort =
 interface IsMainArea {
   id: string;
   input: IsBrand;
-  lastLogoUrl: string;
   isEnterButton: boolean;
   onChangeInput: (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -41,7 +40,6 @@ interface IsMainArea {
 export default function MainArea({
   id,
   input,
-  lastLogoUrl,
   isEnterButton,
   onChangeInput,
   setImageUrl,
@@ -56,9 +54,12 @@ export default function MainArea({
   const { brandList } = useBrandList();
   const nav = useNavigate();
 
+  const [tagInput, setTagInput] = useState<string[]>([]);
   const [isUpload, setIsUpload] = useState(false);
   const [logoFile, setLogoFile] = useState<File | null>(null);
-  const [isSale, setIsSale] = useState(input.saleEndDate ? true : false);
+  const [isSale, setIsSale] = useState(
+    input.saleEndDate && input.saleStartDate ? true : false
+  );
 
   const setImageFile = useCallback(async (file: File | null) => {
     await setLogoFile(file);
@@ -100,6 +101,7 @@ export default function MainArea({
           logo: input.logo,
           officialUrl: input.officialUrl,
           brandName: input.brandName,
+          brandNameKo: input.brandNameKo,
           tag: input.tag,
           description: input.description,
           saleName: input.saleName,
@@ -113,6 +115,7 @@ export default function MainArea({
           logo: input.logo,
           officialUrl: input.officialUrl,
           brandName: input.brandName,
+          brandNameKo: input.brandNameKo,
           tag: input.tag,
           description: input.description,
           saleName: input.saleName,
@@ -125,17 +128,14 @@ export default function MainArea({
         });
       }
 
-      if (id && input.logo !== lastLogoUrl) {
-        deleteImage(lastLogoUrl);
+      if (brandList.filter((e) => e.default === input.brandName).length === 0) {
+        addBrandToList(brandList, {
+          default: input.brandName,
+          korean: input.brandNameKo,
+        });
       }
 
-      console.log(brandList);
-      if (!brandList) return;
-      if (!brandList.includes(input.brandName)) {
-        addBrandToList(brandList, input.brandName);
-      }
-
-      nav("/brand");
+      nav("/search");
     }
   }, [isUpload]);
 
@@ -159,6 +159,13 @@ export default function MainArea({
           onChange={onChangeInput}
           disabled={id ? true : false}
         />
+        <Input
+          name="brandNameKo"
+          value={input.brandNameKo}
+          placeholder="Brand Name Korean"
+          onChange={onChangeInput}
+          disabled={id ? true : false}
+        />
       </div>
       <div className="DescriptionWrap">
         <Textarea
@@ -171,6 +178,14 @@ export default function MainArea({
       </div>
       <div className="SaleHeader">
         <UnderLineBox color="#F33131">SALE</UnderLineBox>
+        {isSale && (
+          <Input
+            name="saleName"
+            value={input.saleName}
+            placeholder="Sale Name"
+            onChange={onChangeInput}
+          />
+        )}
         <div className="ToggleWrap">
           <Toggle isActivated={isSale} onClick={handleIsSale} />
         </div>

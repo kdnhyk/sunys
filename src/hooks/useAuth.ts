@@ -15,7 +15,8 @@ export const useAuth = () => {
   const currentUser = auth.currentUser;
   const [user, setUser] = useRecoilState(userSelector);
   const resetUser = useResetRecoilState(userSelector);
-  const [success, setSuccess] = useState(false);
+  const [isPending, setIsPending] = useState(false);
+  const [successs, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const { getCloudUser, setCloudUser, delUser } = useCloudUser();
 
@@ -23,17 +24,21 @@ export const useAuth = () => {
 
   useEffect(() => {
     if (!currentUser || user.uid) return;
-
+    setIsPending(true);
     getCloudUser(currentUser.uid).then(async (cloudUser) => {
       if (!cloudUser) {
         await setCloudUser(currentUser.uid, currentUser.displayName || "");
         return;
       }
       await setUser(cloudUser);
+
       // localStorage.setItem("user", JSON.stringify(cloudUser));
       return;
     });
-  }, [currentUser, user.uid]);
+    setIsPending(false);
+  }, [currentUser, user.uid, successs]);
+
+  const handleCloudUserRealTime = () => {};
 
   const updateUser = (username: string) => {
     if (!auth.currentUser) return;
@@ -59,7 +64,6 @@ export const useAuth = () => {
         // User deleted.
         delUser(user.uid);
         resetUser();
-        setSuccess(true);
       })
       .catch((error) => {
         console.log(error.message);
@@ -141,7 +145,6 @@ export const useAuth = () => {
         //   createdTime: null,
         // });
         resetUser();
-        setSuccess(true);
       })
       .catch((error) => {
         console.log(error);
@@ -155,7 +158,7 @@ export const useAuth = () => {
     updateUser,
     removeUser,
     loginWithGoogle,
+    isPending,
     error,
-    success,
   };
 };

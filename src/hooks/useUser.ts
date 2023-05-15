@@ -3,9 +3,12 @@ import { useRecoilState, useResetRecoilState } from "recoil";
 import { useCloudUser } from "./firestore/useCloudUser";
 import { userSelector } from "../store/user";
 import { IsArticle } from "../types/article";
+import { IsBrand, IsBrandName } from "../types/brand";
 
 export const useUser = () => {
   const [user, setUser] = useRecoilState(userSelector);
+
+  const { getCloudUser } = useCloudUser();
 
   useEffect(() => {
     // 새로고침
@@ -31,8 +34,18 @@ export const useUser = () => {
   //   }
   // }, [success]);
 
+  const handleUseScrapList = (newBrandName: IsBrandName) => {
+    const result = user.scrapBrandList.find(
+      (e) => e.default === newBrandName.default
+    )
+      ? user.scrapBrandList.filter((e) => e.default !== newBrandName.default)
+      : user.scrapBrandList.concat(newBrandName);
+    console.log(result);
+
+    setUser((prev) => ({ ...prev, scrapBrandList: result }));
+  };
+
   const handleUserCart = (newArticle: IsArticle) => {
-    console.log(user.cart);
     const result = user.cart.find((e) => e.id === newArticle.id)
       ? user.cart.filter((e) => e.id !== newArticle.id)
       : user.cart.concat(newArticle);
@@ -44,6 +57,7 @@ export const useUser = () => {
   return {
     user,
     setUser,
+    handleUseScrapList,
     handleUserCart,
   };
 };

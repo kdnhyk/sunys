@@ -5,6 +5,8 @@ interface IsButton {
   onClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
   isRed?: boolean;
   isActivated?: boolean;
+  width?: string;
+  disable?: boolean;
 }
 
 export default function Button({
@@ -12,9 +14,17 @@ export default function Button({
   onClick,
   isRed,
   isActivated,
+  width,
+  disable,
 }: IsButton) {
   return (
-    <ButtonWrap onClick={onClick} isRed={isRed} isActivated={isActivated}>
+    <ButtonWrap
+      onClick={!disable ? onClick : () => {}}
+      isRed={isRed}
+      isActivated={isActivated}
+      width={width}
+      disable={disable}
+    >
       {children}
     </ButtonWrap>
   );
@@ -23,10 +33,12 @@ export default function Button({
 interface IsButtonWrap {
   isRed?: boolean;
   isActivated?: boolean;
+  width?: string;
+  disable?: boolean;
 }
 
 const ButtonWrap = styled.button<IsButtonWrap>`
-  width: 100%;
+  width: ${({ width }) => (width ? width : "100%")};
   height: 40px;
   background-color: inherit;
   color: black;
@@ -39,6 +51,10 @@ const ButtonWrap = styled.button<IsButtonWrap>`
       background-color: black;
       color: white;
       border: none;
+    `}
+  ${({ disable }) =>
+    !disable &&
+    css`
       cursor: pointer;
     `}
   ${({ isRed }) =>

@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
 import { IsBrand } from "../../types/brand";
 
-interface IsCreateBrandStyle {}
+interface IsCreateBoxStyle {}
 
-export default function CreateBrand({}: IsCreateBrandStyle) {
+export default function CreateBox({}: IsCreateBoxStyle) {
   return (
-    <CreateBrandWrap>
+    <CreateBoxWrap>
       <div className="ImageWrap">
         <svg
           width="40"
@@ -20,15 +20,11 @@ export default function CreateBrand({}: IsCreateBrandStyle) {
           />
         </svg>
       </div>
-
-      <div className="TextlWrap">
-        <h3>Crate Brand</h3>
-      </div>
-    </CreateBrandWrap>
+    </CreateBoxWrap>
   );
 }
 
-const CreateBrandWrap = styled.div`
+const CreateBoxWrap = styled.div`
   position: relative;
   cursor: pointer;
   .ImageWrap {
@@ -42,13 +38,6 @@ const CreateBrandWrap = styled.div`
       width: 100%;
       height: auto;
       object-fit: cover;
-    }
-  }
-  .TextlWrap {
-    padding: 4px 0px;
-    h3 {
-      font-weight: 400;
-      margin-bottom: 2px;
     }
   }
 `;

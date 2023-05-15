@@ -4,15 +4,39 @@ import {
   doc,
   getDocs,
   limit,
+  onSnapshot,
   query,
   setDoc,
   where,
 } from "firebase/firestore";
 import { store, timestamp } from "../../firebase";
 import { IsArticle } from "../../types/article";
+import { IsBrandName } from "../../types/brand";
 
 export const useCloudUser = () => {
   const collectionRef = collection(store, "user");
+
+  // const getCloudUser = async (uid: string) => {
+  //   const q = query(collectionRef, where("uid", "==", uid), limit(1));
+
+  //   console.log("FireStore Access");
+
+  //   const unsubscribe = onSnapshot(
+  //     q,
+  //     (querySnapshot) => {
+  //       let result: any[] = [];
+  //       querySnapshot.forEach((doc) => {
+  //         result.push({ ...doc.data() });
+  //         console.log(result);
+  //         return result[0];
+  //       });
+  //     },
+  //     (error) => {
+  //       console.log(error.message);
+  //     }
+  //   );
+  //   return null;
+  // };
 
   const getCloudUser = async (uid: string) => {
     const q = query(collectionRef, where("uid", "==", uid), limit(1));
@@ -44,11 +68,13 @@ export const useCloudUser = () => {
 
   const updateScrapBrand = (
     uid: string,
-    oldScrapBrandList: string[],
-    brandName: string
+    oldScrapBrandList: IsBrandName[],
+    brandName: IsBrandName
   ) => {
-    const result = oldScrapBrandList.includes(brandName)
-      ? oldScrapBrandList.filter((e) => e !== brandName)
+    const result = oldScrapBrandList.find(
+      (e) => e.default === brandName.default
+    )
+      ? oldScrapBrandList.filter((e) => e.default !== brandName.default)
       : oldScrapBrandList.concat(brandName);
 
     setDoc(
@@ -84,5 +110,11 @@ export const useCloudUser = () => {
     return result;
   };
 
-  return { getCloudUser, setCloudUser, delUser, updateScrapBrand, updateCart };
+  return {
+    getCloudUser,
+    setCloudUser,
+    delUser,
+    updateScrapBrand,
+    updateCart,
+  };
 };

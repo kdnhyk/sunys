@@ -1,23 +1,19 @@
-import React, { useEffect } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import {
-  RouterProvider,
-  createBrowserRouter,
-  useLocation,
-} from "react-router-dom";
-import Home from "./pages/Home";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { RecoilRoot } from "recoil";
 import NotFound from "./pages/NotFound";
 import Collection from "./pages//Collection";
 import Brand from "./pages/Brand";
-import Brands from "./pages/Brands";
 import BrandForm from "./pages/BrandForm";
 import Account from "./pages/Account";
 import CollectionForm from "./pages/CollectionForm";
-import Cart from "./pages/Cart/Cart";
+import Cart from "./pages/Cart";
 import Scrap from "./pages/Scrap";
+import Search from "./pages/Search";
+import News from "./pages/News";
+import Magazine from "./pages/Magazine";
 
 const router = createBrowserRouter([
   {
@@ -27,11 +23,15 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home />,
+        element: <News />,
+      },
+      {
+        path: "/magazine",
+        element: <Magazine />,
       },
       {
         path: "/brand",
-        element: <Brands />,
+        element: <Search />,
       },
       {
         path: "/brand/:id",

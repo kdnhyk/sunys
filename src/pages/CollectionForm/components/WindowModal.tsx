@@ -120,7 +120,7 @@ const WindowModalBlock = styled.form`
   position: fixed;
   left: calc(50% - 150px);
   top: calc(50% - 150px - 50px);
-  background-color: #eeeeee;
+  background-color: #fcfcfc;
 
   display: flex;
   flex-direction: column;
@@ -137,7 +137,7 @@ const WindowModalBlock = styled.form`
     border-bottom: 1px solid grey;
     display: flex;
     justify-content: space-between;
-    background-color: #eeeeee;
+    background-color: #fcfcfc;
     z-index: 10;
     h2 {
       font-weight: 400;
@@ -163,7 +163,7 @@ const WindowModalBlock = styled.form`
     display: flex;
     flex-direction: column;
     gap: 10px;
-    background-color: #eeeeee;
+    background-color: #fcfcfc;
     z-index: 10;
     .ImageWrap {
       /* border: 1px solid white; */

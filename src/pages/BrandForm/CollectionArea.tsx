@@ -1,10 +1,10 @@
 import styled from "styled-components";
 import UnderLineBox from "../../common/components/TitleBox";
-import CreateCollection from "./components/CreateCollection";
 import { Link } from "react-router-dom";
 import { useCollection } from "../../hooks/useCollection";
 import { useEffect } from "react";
 import Collection from "../../common/components/Collection";
+import CreateBoxCollection from "../../common/components/CreateBoxCollection";
 
 interface IsCollectionArea {
   id: string;
@@ -26,7 +26,7 @@ export default function CollectionArea({ id }: IsCollectionArea) {
           to={`/brandform/${id}/collectionform`}
           className="CreateCollectionWrap"
         >
-          <CreateCollection />
+          <CreateBoxCollection />
         </Link>
         {currentCollection.map((e, i) => (
           <Link to={`/brandform/${id}/collectionform/${e.id}`} key={i}>

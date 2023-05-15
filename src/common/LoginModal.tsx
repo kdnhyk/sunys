@@ -1,20 +1,17 @@
 import styled from "styled-components";
 import Button from "./components/Button";
 import { useAuth } from "../hooks/useAuth";
-import UnderLineBox from "./components/TitleBox";
-import { useNavigate } from "react-router-dom";
+import TitleBox from "./components/TitleBox";
 
 interface IsLoginModal {
   exitModal: () => void;
 }
 
 export default function LoginModal({ exitModal }: IsLoginModal) {
-  const nav = useNavigate();
   const { loginWithGoogle } = useAuth();
   const onGoogleLogin = () => {
     loginWithGoogle();
     exitModal();
-    // nav("/");
   };
 
   return (
@@ -28,16 +25,16 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
         </div>
       </div>
       <div className="MainWrap">
-        <UnderLineBox>LOGIN</UnderLineBox>
+        <TitleBox>LOGIN</TitleBox>
         <div className="LoginWrap">
           <div className="Google" onClick={onGoogleLogin}>
             <p>LOGIN WITH GOOGLE</p>
           </div>
         </div>
 
-        <Button onClick={exitModal} isActivated={false}>
+        {/* <Button onClick={exitModal} isActivated={false}>
           CANCEL
-        </Button>
+        </Button> */}
       </div>
       <div className="Background" onClick={exitModal}></div>
     </LoginModalBlock>
@@ -48,8 +45,8 @@ const LoginModalBlock = styled.form`
   width: 300px;
   position: fixed;
   left: calc(50% - 150px);
-  top: calc(50% - 150px - 50px);
-  background-color: #eeeeee;
+  top: calc(50% - 150px);
+  background-color: #fcfcfc;
 
   display: flex;
   flex-direction: column;
@@ -68,7 +65,7 @@ const LoginModalBlock = styled.form`
     border-bottom: 1px solid grey;
     display: flex;
     justify-content: space-between;
-    background-color: #eeeeee;
+    background-color: #fcfcfc;
     z-index: 1000;
     h2 {
       font-weight: 400;
@@ -96,7 +93,7 @@ const LoginModalBlock = styled.form`
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    background-color: #eeeeee;
+    background-color: #fcfcfc;
     z-index: 1000;
     .LoginWrap {
       width: 100%;
@@ -120,5 +117,6 @@ const LoginModalBlock = styled.form`
     width: 100%;
     height: 100%;
     z-index: 100;
+    /* background-color: rgb(0, 0, 0, 0.1); */
   }
 `;

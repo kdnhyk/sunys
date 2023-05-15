@@ -1,3 +1,17 @@
+export const initBrand = {
+  logo: "",
+  officialUrl: "",
+  brandName: "",
+  brandNameKo: "",
+  description: "",
+  tag: [],
+  saleName: "",
+  saleStartDate: "",
+  saleEndDate: "",
+  officialStoreList: [],
+  storeList: [],
+};
+
 export interface IsOfficialStore {
   id?: string;
   image: string;
@@ -12,11 +26,18 @@ export interface IsStore {
   storeUrl: string;
 }
 
+export interface IsBrandName {
+  default: string;
+  korean: string;
+}
+
 export interface IsBrand {
   logo: string;
   officialUrl: string;
 
   brandName: string;
+  brandNameKo: string;
+
   description: string;
   tag: string[];
 
@@ -29,16 +50,3 @@ export interface IsBrand {
 
   isVisible?: boolean;
 }
-
-export const initBrand = {
-  logo: "",
-  officialUrl: "",
-  brandName: "",
-  description: "",
-  tag: [],
-  saleName: "",
-  saleStartDate: "",
-  saleEndDate: "",
-  officialStoreList: [],
-  storeList: [],
-};

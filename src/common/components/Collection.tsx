@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { IsCollection } from "../../types/collection";
+import { Arrow } from "../../asset/Icon";
 
 interface IsCollectionStyle {
   collection: IsCollection;
@@ -9,7 +10,7 @@ export default function Collection({ collection }: IsCollectionStyle) {
   return (
     <CollectionWrap>
       <div className="ImageWrap">
-        <img src={collection.images[0]} alt="" />
+        <img src={collection.images[0]} alt="" width={180} height={240} />
       </div>
 
       <div className="TextlWrap">
@@ -18,15 +19,7 @@ export default function Collection({ collection }: IsCollectionStyle) {
       </div>
 
       <div className="HoverWrap">
-        <svg
-          width="35"
-          height="10"
-          viewBox="0 0 35 10"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path d="M0 9H32L25.2903 1" stroke="white" stroke-width="2" />
-        </svg>
+        <Arrow />
       </div>
     </CollectionWrap>
   );
@@ -48,15 +41,16 @@ const CollectionWrap = styled.div`
     img {
       width: 180px;
       height: 240px;
-      object-fit: contain;
+      object-fit: cover;
     }
   }
   .TextlWrap {
-    padding: 4px 0px;
+    height: 43px;
     h3 {
       margin-bottom: 2px;
     }
     p {
+      color: #8e8e8e;
     }
   }
 
@@ -65,8 +59,8 @@ const CollectionWrap = styled.div`
     top: 0px;
     left: 0px;
     width: 100%;
-    height: calc(100% - 43px);
-    transition: all 0.1s ease-out;
+    height: calc(100% - 47px);
+    transition: all 0.16s ease-out;
     background-color: transparent;
 
     display: flex;

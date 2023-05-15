@@ -13,7 +13,7 @@ export default function BrandForm() {
   const { id } = useParams();
   const { currentBrandList, handleBrandByBrandNameRealtime } = useBrand();
   const [input, setInput] = useState<IsBrand>(initBrand);
-  const [lastLogoUrl, setLastLogoUrl] = useState("");
+
   const [isEnterButton, setIsEnterButton] = useState(false);
 
   const onChangeInput = useCallback(
@@ -69,21 +69,20 @@ export default function BrandForm() {
     if (id) {
       const currentBrand = currentBrandList[0];
       if (!currentBrand) return;
-      setInput((prev) => ({
-        ...prev,
+      setInput(() => ({
         id,
         logo: currentBrand.logo,
         officialUrl: currentBrand.officialUrl,
         brandName: currentBrand.brandName,
+        brandNameKo: currentBrand.brandNameKo,
         description: currentBrand.description,
+        tag: currentBrand.tag,
         saleName: currentBrand.saleName,
         saleStartDate: currentBrand.saleStartDate,
         saleEndDate: currentBrand.saleEndDate,
         officialStoreList: currentBrand.officialStoreList,
         storeList: currentBrand.storeList,
       }));
-
-      setLastLogoUrl(currentBrand.logo);
 
       setIsEnterButton(() => true);
     }
@@ -95,7 +94,6 @@ export default function BrandForm() {
         id={id || ""}
         input={input}
         isEnterButton={isEnterButton}
-        lastLogoUrl={lastLogoUrl}
         onChangeInput={onChangeInput}
         setImageUrl={setImageUrl}
         onChangeInputSaleDate={onChangeInputSaleDate}

@@ -1,11 +1,11 @@
 import styled, { css } from "styled-components";
-import { IsBrand } from "../../../types/brand";
+import { IsBrand } from "../../types/brand";
 
-interface IsCreateCollectionStyle {}
+interface IsCreateBoxCollectionStyle {}
 
-export default function CreateCollection({}: IsCreateCollectionStyle) {
+export default function CreateBoxCollection({}: IsCreateBoxCollectionStyle) {
   return (
-    <CreateCollectionWrap>
+    <CreateBoxCollectionWrap>
       <div className="ImageWrap">
         <svg
           width="40"
@@ -20,16 +20,11 @@ export default function CreateCollection({}: IsCreateCollectionStyle) {
           />
         </svg>
       </div>
-
-      <div className="TextlWrap">
-        <h3>Create Collection</h3>
-      </div>
-    </CreateCollectionWrap>
+    </CreateBoxCollectionWrap>
   );
 }
 
-const CreateCollectionWrap = styled.div`
-  width: 200px;
+const CreateBoxCollectionWrap = styled.div`
   position: relative;
   cursor: pointer;
   .ImageWrap {
@@ -37,19 +32,12 @@ const CreateCollectionWrap = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #d9d9d9;
-    height: 200px;
-    width: 200px;
+    width: 180px;
+    height: 240px;
     img {
       width: 100%;
       height: auto;
       object-fit: cover;
-    }
-  }
-  .TextlWrap {
-    padding: 4px 4px;
-    h3 {
-      font-weight: 400;
-      margin-bottom: 2px;
     }
   }
 `;

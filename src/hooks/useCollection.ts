@@ -22,6 +22,7 @@ export const useCollection = () => {
   const {
     documents,
     getRealTimeCollectionById,
+    getCollectionByBrandNameList,
     getCollectionByBrandName,
     getCollectionByBrandNameAdmin,
     getCollectionByUpcomming,
@@ -40,6 +41,11 @@ export const useCollection = () => {
   };
 
   //
+
+  const getCollectionListByBrandNameList = async (brandNameList: string[]) => {
+    return await getCollectionByBrandNameList(brandNameList);
+  };
+
   const getCollectionListByBrandName = async (brandName: string) => {
     setCurrentCollection(await getCollectionByBrandName(brandName));
   };
@@ -67,6 +73,7 @@ export const useCollection = () => {
     recentList,
 
     handleRealTimeCollectionById,
+    getCollectionListByBrandNameList,
     getCollectionListByBrandName,
     getCollectionListByBrandNameAdmin,
     getCollectionListByUpcomming,

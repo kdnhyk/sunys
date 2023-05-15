@@ -138,16 +138,6 @@ export const useBrandStore = () => {
     await deleteDoc(doc(collectionRef, id));
   };
 
-  const handleSoldout = async (id: string, nextIsSoldout: boolean) => {
-    await setDoc(
-      doc(collectionRef, id),
-      {
-        isSoldout: nextIsSoldout,
-      },
-      { merge: true }
-    );
-  };
-
   return {
     documents,
     getNewBrandList,

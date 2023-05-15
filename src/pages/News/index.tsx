@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import Collection from "../../common/components/Collection";
 import { Link, useNavigate } from "react-router-dom";
-import UnderLineBox from "../../common/components/TitleBox";
+import TitleBox from "../../common/components/TitleBox";
 import UpcommingCollection from "./components/UpcommingCollection";
 import { useCollection } from "../../hooks/useCollection";
 import { useBrand } from "../../hooks/useBrand";
 import { useEffect } from "react";
 
-export default function Home() {
+export default function News() {
   const {
     upcommingList,
     recentList,
@@ -32,9 +32,9 @@ export default function Home() {
   }, []);
 
   return (
-    <HomeWrap>
+    <NewsWrap>
       <div className="UpcommingWrap">
-        <UnderLineBox subTitle="발매 예정">Upcomming</UnderLineBox>
+        <TitleBox subTitle="발매 예정">Upcomming</TitleBox>
         <div className="UpcommingList">
           {upcommingList.map((e, i) => (
             <Link to={`/collection/${e.id}`} className="Collection" key={i}>
@@ -45,7 +45,7 @@ export default function Home() {
       </div>
 
       <div className="RecentWrap">
-        <UnderLineBox subTitle="최근 컬렉션">Recent</UnderLineBox>
+        <TitleBox subTitle="최근 컬렉션">Recent</TitleBox>
         <div className="RecentList">
           {recentList.map((e, i) => (
             <Link to={`/collection/${e.id}`} className="Collection" key={i}>
@@ -55,14 +55,12 @@ export default function Home() {
         </div>
       </div>
 
-      {/* <UnderLineBox>MAGAZINE</UnderLineBox> */}
-    </HomeWrap>
+      {/* <TitleBox>MAGAZINE</TitleBox> */}
+    </NewsWrap>
   );
 }
 
-const HomeWrap = styled.div`
-  padding-top: 20px;
-
+const NewsWrap = styled.div`
   .UpcommingWrap {
     padding: 0px 16px;
     margin-bottom: 20px;

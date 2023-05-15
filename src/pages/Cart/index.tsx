@@ -2,16 +2,14 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
 import CartArticle from "./components/CartArticle";
+import { useNavigate } from "react-router-dom";
+import LoginModal from "../../common/LoginModal";
 
 interface IsCart {}
 
 export default function Cart({}: IsCart) {
   const { user } = useAuth();
   const [total, setTotal] = useState(0);
-
-  const onCheckout = () => {
-    alert("현장에서만 구매 가능합니다");
-  };
 
   useEffect(() => {
     // window.scrollTo(0, 0);

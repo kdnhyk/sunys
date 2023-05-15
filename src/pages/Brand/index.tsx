@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import UnderLineBox from "../../common/components/UnderLineBox";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Scrap, ScrapOn } from "../../asset/Icon";
 import { useAuth } from "../../hooks/useAuth";
 import { useCloudUser } from "../../hooks/firestore/useCloudUser";
@@ -11,42 +11,47 @@ import { IsBrand, initBrand } from "../../types/brand";
 import Collection from "../../common/components/Collection";
 import OfflineStore from "./components/OfflineStore";
 import Logo from "./components/Logo";
+import { useUser } from "../../hooks/useUser";
 
 export default function Brand() {
   const [scrapOn, setScrapOn] = useState(false);
 
   const { id } = useParams();
+  const nav = useNavigate();
   const { getBrandByBrandName } = useBrandStore();
   const { currentCollection, getCollectionListByBrandName } = useCollection();
   const { user, setUser } = useAuth();
   const { updateScrapBrand } = useCloudUser();
+  const { handleUseScrapList } = useUser();
   const [currentBrand, setCurrentBrand] = useState<IsBrand>(initBrand);
 
   const onScrapBrand = async () => {
     if (!id) return;
     if (!user.uid) {
-      alert("로그인 후 이용 가능합니다");
-      return;
+      nav("/account");
     }
-    setScrapOn((prev) => !prev);
+    // setScrapOn((prev) => !prev);
     const newScrapBrandList = await updateScrapBrand(
       user.uid,
       user.scrapBrandList,
-      id
+      { default: currentBrand.brandName, korean: currentBrand.brandNameKo }
     );
-    setUser((prev) => ({ ...prev, scrapBrandList: newScrapBrandList }));
+    handleUseScrapList({
+      default: currentBrand.brandName,
+      korean: currentBrand.brandNameKo,
+    });
   };
 
   useEffect(() => {
     if (id) {
       getBrandByBrandName(id).then((currentBrand) => {
         if (!currentBrand) return;
-        setCurrentBrand((prev) => ({
-          ...prev,
+        setCurrentBrand(() => ({
           id,
           logo: currentBrand.logo,
           officialUrl: currentBrand.officialUrl,
           brandName: currentBrand.brandName,
+          brandNameKo: currentBrand.brandNameKo,
           tag: currentBrand.tag,
           description: currentBrand.description,
           saleName: currentBrand.saleName,
@@ -63,7 +68,7 @@ export default function Brand() {
 
   useEffect(() => {
     if (!id) return;
-    setScrapOn(user.scrapBrandList.includes(id));
+    // setScrapOn(user.scrapBrandList.forEach((e) => e === id));
   }, [id, user]);
 
   return (
@@ -77,7 +82,20 @@ export default function Brand() {
         </div>
 
         <div className="TextWrap">
-          <h1>{currentBrand.brandName.toUpperCase()}</h1>
+          <a href={currentBrand.officialUrl} target="_blank" rel="noreferrer">
+            <h1>{currentBrand.brandName.toUpperCase()}</h1>
+          </a>
+          {user.scrapBrandList.find(
+            (e) => e.default === currentBrand.brandName
+          ) ? (
+            <div className="ScrapWrap" onClick={onScrapBrand}>
+              <ScrapOn />
+            </div>
+          ) : (
+            <div className="ScrapWrap" onClick={onScrapBrand}>
+              <Scrap />
+            </div>
+          )}
           <p>{currentBrand.description}</p>
           <div className="TagWrap">
             {currentBrand.tag.map((e, i) => (
@@ -139,16 +157,18 @@ export default function Brand() {
         </div>
       )}
 
-      <div className="CollectionWrap">
-        <UnderLineBox>COLLECTION</UnderLineBox>
-        <div className="CollectionList">
-          {currentCollection.map((e, i) => (
-            <Link to={`/collection/${e.id}`} key={i}>
-              <Collection collection={e} />
-            </Link>
-          ))}
+      {currentCollection.length > 0 && (
+        <div className="CollectionWrap">
+          <UnderLineBox>COLLECTION</UnderLineBox>
+          <div className="CollectionList">
+            {currentCollection.map((e, i) => (
+              <Link to={`/collection/${e.id}`} key={i}>
+                <Collection collection={e} />
+              </Link>
+            ))}
+          </div>
         </div>
-      </div>
+      )}
     </BrandWrap>
   );
 }
@@ -174,6 +194,9 @@ const BrandWrap = styled.div`
       align-items: center;
       padding: 0px 16px;
       h1 {
+      }
+      .ScrapWrap {
+        cursor: pointer;
       }
       p {
         max-width: 600px;
@@ -213,15 +236,13 @@ const BrandWrap = styled.div`
 
   .StoreWrap {
     padding: 0px 16px;
+    margin-bottom: 20px;
     border-bottom: 1px solid #dddddd;
     .StoreList {
-      height: 240px;
+      height: 280px;
       display: flex;
       gap: 10px;
       overflow-x: auto;
-      padding-bottom: 12px;
-      margin-top: 10px;
-      margin-bottom: 40px;
 
       &::-webkit-scrollbar {
         display: none;
@@ -231,13 +252,13 @@ const BrandWrap = styled.div`
 
   .CollectionWrap {
     padding: 0px 16px;
+    margin-bottom: 20px;
     border-bottom: 1px solid #dddddd;
     .CollectionList {
+      height: 320px;
       display: flex;
       gap: 10px;
       overflow-x: auto;
-      padding-bottom: 12px;
-      margin-bottom: 40px;
 
       &::-webkit-scrollbar {
         display: none;

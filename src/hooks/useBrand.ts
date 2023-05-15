@@ -6,7 +6,6 @@ import {
   newBrandSelector,
   saleBrandSelector,
 } from "../store/brand";
-import { IsBrand } from "../types/brand";
 
 export const useBrand = () => {
   const [currentBrandList, setCurrentBrandList] =
@@ -18,9 +17,7 @@ export const useBrand = () => {
     documents,
     getNewBrandList,
     getBrandByBrandNameRealTime,
-    getBrandByBrandName,
     getSaleBrandList,
-    deleteDocument,
   } = useBrandStore();
 
   useEffect(() => {
@@ -28,26 +25,18 @@ export const useBrand = () => {
     setCurrentBrandList(documents);
   }, [documents]);
 
+  // Search - New Brand
   const handleNewBrandList = async () => {
     setNewBrandList(await getNewBrandList());
   };
 
-  const handleBrandByBrandNameRealtime = async (brandName: string) => {
-    getBrandByBrandNameRealTime(brandName);
-  };
-
+  // Search - Sale
   const handleSaleBrandList = async () => {
     setSaleBrandList(await getSaleBrandList());
   };
 
-  const searchFilter = (userVocalList: string[], value: string) => {
-    const result = userVocalList.filter((e) => {
-      return e
-        .replace(" ", "")
-        .toLocaleLowerCase()
-        .includes(value.toLocaleLowerCase().replace(" ", ""));
-    });
-    return result;
+  const handleBrandByBrandNameRealtime = async (brandName: string) => {
+    getBrandByBrandNameRealTime(brandName);
   };
 
   return {
@@ -57,6 +46,5 @@ export const useBrand = () => {
     handleNewBrandList,
     handleBrandByBrandNameRealtime,
     handleSaleBrandList,
-    searchFilter,
   };
 };

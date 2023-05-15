@@ -1,66 +1,65 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { useAuth } from "../hooks/useAuth";
-import { useState } from "react";
-import LoginModal from "./LoginModal";
+import { Admin, Brand, Home, Scrap, Search } from "../asset/Icon";
 
 interface IsNavBar {}
 
 export default function NavBar({}: IsNavBar) {
-  const path = useLocation().pathname.split("/")[1] || "main";
-  const { user } = useAuth();
-
-  const [isOpenLoginModal, setIsOpenLoginModal] = useState(false);
-
-  const handleIsLoginModal = () => {
-    setIsOpenLoginModal((prev) => !prev);
-  };
+  const path = useLocation().pathname.split("/")[1] || "news";
 
   const menu = [
     {
-      id: 0,
-      name: "MAIN",
+      name: "news",
       path: "/",
+      isSelected: path === "news",
+      icon: <Home isSelected={path === "news"} />,
     },
     {
-      id: 1,
-      name: "BRAND",
+      name: "Magaginze",
+      path: "/magazine",
+      isSelected: path === "magazine",
+      icon: <Brand isSelected={path === "magazine"} />,
+    },
+    {
+      name: "Brand",
       path: "/brand",
+      isSelected: ["brand", "collection"].includes(path),
+      icon: <Search isSelected={["brand", "collection"].includes(path)} />,
     },
     {
-      id: 2,
-      name: "SCRAP",
+      name: "Scrap",
       path: "/scrap",
+      isSelected: path === "scrap",
+      icon: <Brand isSelected={path === "scrap"} />,
+    },
+
+    {
+      name: "Account",
+      path: "/account",
+      isSelected: path === "account",
+      icon: <Admin isSelected={path === "account"} />,
     },
   ];
+
+  const scrollToTop = (currentPath: string) => {
+    if (path === currentPath.split("/")[1] || "news") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  };
 
   return (
     <NavBarBlock>
       <nav className="ModalInner">
         {menu.map((e, i) => (
-          <Link
-            to={e.path}
-            key={i}
-            style={
-              path.toUpperCase() === e.name
-                ? { backgroundColor: "#dddddd" }
-                : {}
-            }
-          >
-            <p>{e.name}</p>
+          <Link to={e.path} key={i} onClick={() => scrollToTop(e.path)}>
+            <div>{e.icon}</div>
+            <p style={e.isSelected ? { color: "#314af3" } : {}}>{e.name}</p>
           </Link>
         ))}
-        {user.uid ? (
-          <Link to="/account">
-            <p>ACCOUNT</p>
-          </Link>
-        ) : (
-          <div className="Login" onClick={handleIsLoginModal}>
-            <p>LOGIN</p>
-          </div>
-        )}
       </nav>
-      {isOpenLoginModal && <LoginModal exitModal={handleIsLoginModal} />}
     </NavBarBlock>
   );
 }
@@ -68,46 +67,32 @@ export default function NavBar({}: IsNavBar) {
 const NavBarBlock = styled.div`
   position: fixed;
   bottom: 0px;
-  background-color: #eeeeee;
+  background-color: #fcfcfc;
   z-index: 1000;
 
   .ModalInner {
     width: calc(100vw);
 
     height: 48px;
-    background-color: #eeeeee;
+    background-color: #fcfcfc;
     display: flex;
     border-top: 1px solid #dddddd;
     /* border-top: none; */
     z-index: 100;
 
-    a {
+    a,
+    .LoginWrap {
       width: 100%;
-      padding: 14px 14px;
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: center;
-      &:hover {
-        background-color: #d9d9d9;
-      }
-      p {
-        font-size: 12px;
-        font-weight: 600;
-      }
-    }
-    .Login {
-      width: 100%;
-      padding: 14px 14px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      justify-content: end;
+      padding-bottom: 2px;
       cursor: pointer;
-      &:hover {
-        background-color: #d9d9d9;
-      }
+
       p {
-        font-size: 12px;
-        font-weight: 600;
+        font-size: 10px;
+        color: #8e8e8e;
       }
     }
   }
@@ -118,6 +103,6 @@ const NavBarBlock = styled.div`
     left: 0px;
     width: 100%;
     height: 100%;
-    /* background-color: #eeeeee; */
+    /* background-color: #fcfcfc; */
   }
 `;

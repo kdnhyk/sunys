@@ -1,6 +1,6 @@
 import styled, { css } from "styled-components";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useBrandList } from "../../../hooks/useBrandList";
+import { useBrandList } from "../hooks/useBrandList";
 import { Link } from "react-router-dom";
 
 interface IsSearchInput {
@@ -8,7 +8,6 @@ interface IsSearchInput {
 }
 
 export default function SearchInput({ placeholder }: IsSearchInput) {
-  const { getBrandList } = useBrandList();
   const { brandList } = useBrandList();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
@@ -35,17 +34,16 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
   };
 
   const resultBrandList = brandList.filter((e) => {
-    return e
-      .replace(" ", "")
-      .toLocaleLowerCase()
-      .includes(searchInput.toLocaleLowerCase().replace(" ", ""));
+    return (
+      e.default
+        .replace(" ", "")
+        .toLocaleLowerCase()
+        .includes(searchInput.toLocaleLowerCase().replace(" ", "")) ||
+      e.korean
+        .replace(" ", "")
+        .includes(searchInput.toLocaleLowerCase().replace(" ", ""))
+    );
   });
-
-  useEffect(() => {
-    if (brandList.length === 0) {
-      getBrandList();
-    }
-  }, []);
 
   useEffect(() => {
     if (searchInput) {
@@ -86,8 +84,9 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
           <div className="ModalWrap">
             {resultBrandList.map((e, i) => (
               <div className="BrandNameInner" key={i}>
-                <Link to={`/brand/${e}`}>
-                  <p>{e}</p>
+                <Link to={`/brand/${e.default}`}>
+                  <p className="Default">{e.default}</p>
+                  <p className="Korean">{e.korean}</p>
                 </Link>
               </div>
             ))}
@@ -112,6 +111,7 @@ const SearchInputStyle = styled.div<{ value: string }>`
       height: 100%;
       background-color: #dfdfdf;
       padding: 0px 12px;
+      /* border-radius: 12px; */
 
       &:focus {
         outline: none;
@@ -133,26 +133,35 @@ const SearchInputStyle = styled.div<{ value: string }>`
     height: fit-content;
     max-height: 300px;
     background-color: #ffffff;
-    margin-bottom: 1px;
     overflow-y: auto;
     z-index: 20;
     &::-webkit-scrollbar {
       display: none;
     }
     .BrandNameInner {
-      height: 36px;
-      border-top: 1px solid #dfdfdf;
+      height: 44px;
+      border-bottom: 1px solid #dfdfdf;
 
       padding: 0px 12px;
       cursor: pointer;
       &:hover {
         background-color: #dfdfdf;
       }
+
       a {
         width: 100%;
         height: 100%;
         display: flex;
-        align-items: center;
+        flex-direction: column;
+        justify-content: center;
+        .Default {
+          font-size: 14px;
+          margin-bottom: 2px;
+        }
+        .Korean {
+          font-size: 12px;
+          color: #8e8e8e;
+        }
       }
     }
   }

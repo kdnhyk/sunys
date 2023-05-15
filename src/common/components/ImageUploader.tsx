@@ -10,7 +10,7 @@ interface IsImageUploader {
 
 const handleImage = async (file: File) => {
   const options = {
-    maxSizeMB: 0.2, // 이미지 최대 용량
+    maxSizeMB: 1, // 이미지 최대 용량
     maxWidthOrHeight: 1920, // 최대 넓이(혹은 높이)
     useWebWorker: true,
   };
@@ -47,6 +47,7 @@ export default function ImgageUploader({
       }
       // console.log(files[0].name);
       const theFile = await handleImage(files[0]);
+      console.log(theFile);
 
       const reader = new FileReader();
       reader.onload = () => {
@@ -143,7 +144,6 @@ const ImgageUploaderWrap = styled.div<{ attachment: string }>`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 20px;
     img {
       width: 100%;
       height: 100%;

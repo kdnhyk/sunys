@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import UnderLineBox from "../../common/components/TitleBox";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { IsCollection } from "../../types/collection";
 import Button from "../../common/components/Button";
@@ -100,8 +100,7 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
   useEffect(() => {
     if (cid) {
       if (!currentCollection) return;
-      setInput((prev) => ({
-        ...prev,
+      setInput(() => ({
         id: currentCollection.id,
         collectionName: currentCollection.collectionName,
         releaseDate: currentCollection.releaseDate,
@@ -148,12 +147,6 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
           brandName: input.brandName,
           isVisible: input.isVisible,
         });
-      }
-
-      if (currentCollection) {
-        if (id && currentCollection.images[0] !== input.images[0]) {
-          deleteImage(currentCollection.images[0]);
-        }
       }
 
       nav(`/brandform/${id}`);

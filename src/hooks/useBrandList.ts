@@ -2,8 +2,10 @@ import { useEffect } from "react";
 import { useBrandListStore } from "./firestore/useBrandListStore";
 import { useRecoilState } from "recoil";
 import { brandListSelector } from "../store/brandList";
+import { IsBrandName } from "../types/brand";
 export const useBrandList = () => {
-  const [brandList, setBrandList] = useRecoilState<string[]>(brandListSelector);
+  const [brandList, setBrandList] =
+    useRecoilState<IsBrandName[]>(brandListSelector);
   const { documents, getBrandListRealtime } = useBrandListStore();
 
   useEffect(() => {
@@ -11,13 +13,6 @@ export const useBrandList = () => {
       setBrandList(documents);
     }
   }, [documents]);
-  // const getBrandList = async () => {
-  //   setBrandList(await getAllDocuments());
-  // };
-
-  // const getRealTimeArticles = async () => {
-  //   getArticleByIdRealTime();
-  // };
 
   const getBrandList = async () => {
     getBrandListRealtime();

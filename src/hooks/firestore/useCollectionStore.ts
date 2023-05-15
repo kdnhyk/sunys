@@ -18,6 +18,7 @@ import { store, timestamp } from "../../firebase";
 import { useState } from "react";
 import { IsCollection } from "../../types/collection";
 import { toStringByFormatting } from "../../util";
+import { IsBrandName } from "../../types/brand";
 
 export const useCollectionStore = () => {
   const [documents, setDocuments] = useState<IsCollection[]>();
@@ -103,6 +104,26 @@ export const useCollectionStore = () => {
     );
   };
 
+  // Scrap - My News
+  const getCollectionByBrandNameList = async (brandNameList: string[]) => {
+    const q = query(
+      collection(store, "collection"),
+      where("brandName", "in", brandNameList),
+      where("isVisible", "==", true),
+      limit(10)
+    );
+
+    console.log("FireStore Access");
+    const data = await getDocs(q);
+
+    let result: any[] = [];
+    data.forEach((doc) => {
+      result.push({ ...doc.data(), id: doc.id });
+    });
+
+    return result;
+  };
+
   const getCollectionByBrandName = async (brandName: string) => {
     const q = query(
       collection(store, "collection"),
@@ -139,6 +160,7 @@ export const useCollectionStore = () => {
     return result;
   };
 
+  // News - Upcomming
   const getCollectionByUpcomming = async () => {
     const q = query(
       collection(store, "collection"),
@@ -157,6 +179,7 @@ export const useCollectionStore = () => {
     return result;
   };
 
+  // News - Recent
   const getCollectionByRecent = async () => {
     const q = query(
       collection(store, "collection"),
@@ -172,7 +195,7 @@ export const useCollectionStore = () => {
     data.forEach((doc) => {
       result.push({ ...doc.data(), id: doc.id });
     });
-    return result;
+    return result.reverse();
   };
 
   const getCollectionById = async (id: string) => {
@@ -231,6 +254,7 @@ export const useCollectionStore = () => {
     getRecentCollectionList,
     getRealTimeCollectionByBrandId,
     getRealTimeCollectionById,
+    getCollectionByBrandNameList,
     getCollectionByBrandName,
     getCollectionByBrandNameAdmin,
     getCollectionByUpcomming,

@@ -2,13 +2,23 @@ import { Outlet, useLocation } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Layout from "./common/Layout";
 import { useEffect } from "react";
+import { useBrandList } from "./hooks/useBrandList";
+import { useAuth } from "./hooks/useAuth";
 
 export default function App() {
   const { pathname } = useLocation();
+  // const { handleCloudUserRealTime } = useAuth();
+  const { getBrandList } = useBrandList();
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+
+  useEffect(() => {
+    getBrandList();
+  }, []);
+
+  useEffect(() => {}, []);
 
   return (
     <>
@@ -25,7 +35,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-size: 16px;
-    background-color: #eeeeee;
+    background-color: #fcfcfc;
   }
 
   * {
@@ -59,14 +69,15 @@ const GlobalStyle = createGlobalStyle`
 
   h1 {
     font-size: 16px;
+    font-weight: 500;
   }
   h2 {
     font-size: 15px;
-    font-weight: 600;
+    font-weight: 500;
   }
   h3 {
     font-size: 14px;
-    font-weight:600;
+    font-weight: 400;
   }
   p {
     font-size: 13px;
@@ -75,5 +86,6 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
       font-family: "montserrat";
       src: url("../font/Montserrat-VariableFont_wght.ttf");
+      font-display: swap;
     }
 `;

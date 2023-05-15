@@ -26,7 +26,7 @@ const LayoutWrap = styled.div<{ vh: number }>`
   height: ${({ vh }) => `calc(${vh} * 100px)`};
 
   color: black;
-  background-color: #eeeeee;
+  background-color: #fcfcfc;
   main {
   }
 `;

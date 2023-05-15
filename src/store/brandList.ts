@@ -1,11 +1,12 @@
 import { atom, selector } from "recoil";
+import { IsBrandName } from "../types/brand";
 
-export const brandListState = atom<string[]>({
+export const brandListState = atom<IsBrandName[]>({
   key: "brandList",
-  default: [] as string[],
+  default: [] as IsBrandName[],
 });
 
-export const brandListSelector = selector<string[]>({
+export const brandListSelector = selector<IsBrandName[]>({
   key: "brandListSelector",
   get: ({ get }) => {
     const originalState = get(brandListState);

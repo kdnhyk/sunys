@@ -3,7 +3,7 @@ import { useState } from "react";
 import { IsBrand } from "../../types/brand";
 import "react-datepicker/dist/react-datepicker.css";
 import WindowModal1 from "./components/WindowModal1";
-import CreateBrand from "../../common/components/CreateBrand";
+import CreateBrand from "../../common/components/CreateBox";
 import OfflineStore from "../Brand/components/OfflineStore";
 
 interface IsStoreArea1 {

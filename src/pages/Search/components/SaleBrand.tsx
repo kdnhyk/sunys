@@ -5,11 +5,12 @@ interface IsBrandStyle {
   brand: IsBrand;
 }
 
+//END
 export default function SaleBrand({ brand }: IsBrandStyle) {
   return (
     <SaleBrandWrap>
       <div className="ImageWrap">
-        <img src={brand.logo} alt="" />
+        <img src={brand.logo} alt="" width={120} height={120} />
       </div>
 
       <div className="TextlWrap">
@@ -21,31 +22,28 @@ export default function SaleBrand({ brand }: IsBrandStyle) {
 }
 
 const SaleBrandWrap = styled.div`
-  width: 150px;
   position: relative;
   cursor: pointer;
   .ImageWrap {
-    width: 150px;
-    height: 150px;
+    width: 160px;
+    height: 160px;
     padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: white;
     img {
-      width: 100%;
-      height: 100%;
       object-fit: contain;
     }
   }
   .TextlWrap {
+    height: 40px;
     padding: 4px 4px;
     h3 {
-      margin-bottom: 2px;
     }
     p {
-      font-size: 13px;
       text-align: end;
+      color: #8e8e8e;
     }
   }
 `;

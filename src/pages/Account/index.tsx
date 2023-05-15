@@ -1,8 +1,11 @@
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
+import LoginModal from "../../common/LoginModal";
 
-export default function Account() {
+interface IsCart {}
+
+export default function Account({}: IsCart) {
   const { user, signout } = useAuth();
   const nav = useNavigate();
 
@@ -10,21 +13,37 @@ export default function Account() {
     signout();
     nav("/");
   };
+
+  const exitPage = () => {};
+
+  if (!user.uid) {
+    return (
+      <div>
+        <LoginModal exitModal={exitPage} />
+      </div>
+    );
+  }
+
   return (
-    <AccountWrap>
+    <AccountBlock>
       <p>{user.username}</p>
-      <p onClick={onSignout}>Logout</p>
-    </AccountWrap>
+      <p>Scrap Brand | {user.scrapBrandList.length}</p>
+      <p className="Logout" onClick={onSignout}>
+        Logout
+      </p>
+    </AccountBlock>
   );
 }
 
-const AccountWrap = styled.div`
-  padding: 60px 16px 24px 16px;
+const AccountBlock = styled.div`
+  padding: 40px 16px 24px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  p {
-    margin-bottom: 30px;
+  gap: 16px;
+
+  .Logout {
+    color: #f33131;
     cursor: pointer;
   }
 `;

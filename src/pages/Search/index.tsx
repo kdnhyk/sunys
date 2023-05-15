@@ -3,13 +3,14 @@ import UnderLineBox from "../../common/components/TitleBox";
 import { Link } from "react-router-dom";
 import Brand from "./components/Brand";
 import SaleBrand from "./components/SaleBrand";
-import CreateBrand from "../../common/components/CreateBrand";
+import CreateBrand from "../../common/components/CreateBox";
 import { useBrand } from "../../hooks/useBrand";
 import { useAuth } from "../../hooks/useAuth";
 import { useEffect } from "react";
-import SearchInput from "./components/SearchInput";
+import SearchInput from "../../common/SearchInput";
 
-export default function Brands() {
+//END
+export default function Search() {
   const {
     newBrandList,
     saleBrandList,
@@ -28,9 +29,9 @@ export default function Brands() {
   }, []);
 
   return (
-    <BrandsWrap>
-      <div className="SearchInputArea">
-        <SearchInput placeholder="Search by brand" />
+    <SearchListWrap>
+      <div className="SearchInputWrap">
+        <SearchInput placeholder="Search By Brand" />
       </div>
       <div className="NewBrandWrap">
         <UnderLineBox subTitle="새로운 브랜드">New Brand</UnderLineBox>
@@ -48,7 +49,7 @@ export default function Brands() {
         </div>
       </div>
       <div className="SaleBrandWrap">
-        <UnderLineBox color="#F33131" subTitle="세일 중인 브랜드">
+        <UnderLineBox color="#F33131" subTitle="할인 중인 브랜드">
           Sale
         </UnderLineBox>
         <div className="SaleBrandList">
@@ -61,20 +62,22 @@ export default function Brands() {
       </div>
 
       {/* <UnderLineBox>RECOMMEND</UnderLineBox> */}
-    </BrandsWrap>
+    </SearchListWrap>
   );
 }
 
-const BrandsWrap = styled.div`
-  padding-top: 20px;
-
-  .SearchInputArea {
+const SearchListWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .SearchInputWrap {
     padding: 0px 16px;
-    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #dddddd;
   }
+
   .NewBrandWrap {
     padding: 0px 16px;
-    margin-bottom: 20px;
     border-bottom: 1px solid #dddddd;
     .NewBrandList {
       height: 280px;

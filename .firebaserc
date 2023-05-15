@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "sunys"
-  }
+    "default": "sunys",
+    "test": "sunys-1dcf2"
+  },
+  "targets": {},
+  "etags": {}
 }

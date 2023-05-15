@@ -9,7 +9,7 @@ export default function OfflineStore({ store }: IsStoreStyle) {
   return (
     <OfflineStoreWrap>
       <div className="ImageWrap">
-        <img src={store.image} alt="" />
+        <img src={store.image} alt="" width={200} height={200} />
       </div>
 
       <div className="TextlWrap">
@@ -43,8 +43,6 @@ const OfflineStoreWrap = styled.div`
     width: 200px;
     height: 200px;
     img {
-      width: 100%;
-      height: 100%;
       object-fit: cover;
     }
   }

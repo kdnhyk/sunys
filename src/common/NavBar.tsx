@@ -24,7 +24,7 @@ export default function NavBar({}: IsNavBar) {
       path: "/magazine",
     },
     {
-      name: "마이페이지",
+      name: user.uid ? "마이페이지" : "로그인",
       path: "/account",
     },
   ];

@@ -21,7 +21,6 @@ export default function Article({ article }: IsArticleWrap) {
   };
 
   const closeModal = () => {
-    console.log(isOpenModal);
     setIsOpenModal(false);
   };
 

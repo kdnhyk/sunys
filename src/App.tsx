@@ -2,16 +2,22 @@ import { Outlet, useLocation } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Layout from "./common/Layout";
 import { useEffect } from "react";
+import { useBrandList } from "./hooks/useBrandList";
 
 export default function App() {
   const { pathname } = useLocation();
+  const { brandList, getBrandList } = useBrandList();
 
+  //
+  useEffect(() => {
+    if (brandList.length === 0) {
+      getBrandList();
+    }
+  }, []);
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
-
- 
 
   useEffect(() => {}, []);
 

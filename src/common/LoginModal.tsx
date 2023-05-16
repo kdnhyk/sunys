@@ -65,7 +65,7 @@ const LoginModalBlock = styled.form`
     display: flex;
     justify-content: space-between;
     background-color: #fcfcfc;
-    z-index: 1000;
+    z-index: 100;
     h2 {
       font-weight: 400;
     }
@@ -115,7 +115,7 @@ const LoginModalBlock = styled.form`
     left: 0px;
     width: 100%;
     height: 100%;
-    z-index: 100;
-    /* background-color: rgb(0, 0, 0, 0.1); */
+    z-index: 10;
+    background-color: rgb(0, 0, 0, 0.1);
   }
 `;

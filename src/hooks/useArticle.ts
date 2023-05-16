@@ -21,6 +21,8 @@ export const useArticle = () => {
   // const getRealTimeArticles = async () => {
   //   getArticleByIdRealTime();
   // };
+
+  // Collection
   const handleArticleByCid = async (cid: string) => {
     setArticleList(await getArticleByCid(cid));
   };

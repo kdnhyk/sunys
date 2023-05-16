@@ -46,6 +46,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
   flex-direction: column;
   color: #314af3;
   background-color: #fcfcfc;
+  z-index: 1000;
 
   .FixedBar {
     width: 100%;
@@ -77,7 +78,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     flex-direction: row;
     position: fixed;
     top: 0px;
-    z-index: 1000;
+
     .FixedBar {
       position: relative;
       top: 0px;

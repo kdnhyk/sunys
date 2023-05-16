@@ -49,7 +49,7 @@ export const useUser = () => {
     const result = user.cart.find((e) => e.id === newArticle.id)
       ? user.cart.filter((e) => e.id !== newArticle.id)
       : user.cart.concat(newArticle);
-    console.log(result);
+    // console.log(result);
 
     setUser((prev) => ({ ...prev, cart: result }));
   };

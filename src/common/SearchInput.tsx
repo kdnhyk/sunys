@@ -1,15 +1,16 @@
 import styled, { css } from "styled-components";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useBrandList } from "../hooks/useBrandList";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface IsSearchInput {
   placeholder: string;
 }
 
 export default function SearchInput({ placeholder }: IsSearchInput) {
+  const width = window.innerWidth;
   const nav = useNavigate();
-  const { brandList, getBrandList } = useBrandList();
+  const { brandList } = useBrandList();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -46,13 +47,6 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
     );
   });
 
-  //
-  useEffect(() => {
-    if (brandList.length === 0) {
-      getBrandList();
-    }
-  }, []);
-
   useEffect(() => {
     if (searchInput) {
       setIsOpenModal(true);
@@ -61,10 +55,17 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
 
   useEffect(() => {
     if (isOpenModal) {
-      window.scrollTo({
-        top: 84,
-        behavior: "smooth",
-      });
+      if (width < 600) {
+        window.scrollTo({
+          top: 84,
+          behavior: "smooth",
+        });
+      } else {
+        window.scrollTo({
+          top: 0,
+          behavior: "smooth",
+        });
+      }
     }
   }, [isOpenModal]);
 

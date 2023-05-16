@@ -32,9 +32,10 @@ export default function Collection() {
     } else {
       handleCollectionById(collection.id).then(async (col) => {
         await setCurrentCollection(col[0]);
-        await handleArticleByCid(collection.id);
       });
     }
+
+    handleArticleByCid(collection.id);
   }, [collection]);
 
   return (

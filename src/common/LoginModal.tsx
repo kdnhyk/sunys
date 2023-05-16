@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import Button from "./components/Button";
 import { useAuth } from "../hooks/useAuth";
 import TitleBox from "./components/TitleBox";
+import Button from "./components/Button";
 
 interface IsLoginModal {
   exitModal: () => void;
@@ -11,7 +11,6 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
   const { loginWithGoogle } = useAuth();
   const onGoogleLogin = () => {
     loginWithGoogle();
-    exitModal();
   };
 
   return (
@@ -32,9 +31,9 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
           </div>
         </div>
 
-        {/* <Button onClick={exitModal} isActivated={false}>
+        <Button onClick={exitModal} isActivated={false}>
           CANCEL
-        </Button> */}
+        </Button>
       </div>
       <div className="Background" onClick={exitModal}></div>
     </LoginModalBlock>

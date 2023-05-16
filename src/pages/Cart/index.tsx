@@ -2,12 +2,8 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
 import CartArticle from "./components/CartArticle";
-import { useNavigate } from "react-router-dom";
-import LoginModal from "../../common/LoginModal";
 
-interface IsCart {}
-
-export default function Cart({}: IsCart) {
+export default function Cart() {
   const { user } = useAuth();
   const [total, setTotal] = useState(0);
 

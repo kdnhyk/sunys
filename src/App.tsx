@@ -2,21 +2,16 @@ import { Outlet, useLocation } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Layout from "./common/Layout";
 import { useEffect } from "react";
-import { useBrandList } from "./hooks/useBrandList";
-import { useAuth } from "./hooks/useAuth";
 
 export default function App() {
   const { pathname } = useLocation();
-  // const { handleCloudUserRealTime } = useAuth();
-  const { getBrandList } = useBrandList();
+
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
-  useEffect(() => {
-    getBrandList();
-  }, []);
+ 
 
   useEffect(() => {}, []);
 

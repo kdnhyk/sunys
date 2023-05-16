@@ -8,4 +8,5 @@ export interface IsArticle {
   brandName: string;
   collectionId: string;
   collectionName: string;
+  releaseDate: string;
 }

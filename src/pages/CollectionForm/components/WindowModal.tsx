@@ -10,21 +10,12 @@ import { IsCollection } from "../../../types/collection";
 
 interface IsWindowModal {
   exitModal: () => void;
-  input: IsArticle;
   currentCollection: IsCollection;
-  setInput: React.Dispatch<React.SetStateAction<IsArticle>>;
-  onChangeInput: (
-    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-  ) => void;
-  onResetInput: () => void;
 }
 
 export default function WindowModal({
   exitModal,
-  input,
-  setInput,
-  onChangeInput,
-  onResetInput,
+  currentCollection,
 }: IsWindowModal) {
   const [image, setImage] = useState<File | null>(null);
   const [isEnterButtonOn, setIsEnterButtonOn] = useState(false);
@@ -32,6 +23,30 @@ export default function WindowModal({
 
   const { upload } = useImage("article");
   const { updateArticle } = useArticleStore();
+  const initState = {
+    articleName: "",
+    price: "",
+    collectionId: currentCollection.id || "",
+    collectionName: currentCollection.collectionName,
+    images: [],
+
+    brandName: currentCollection.brandName,
+    releaseDate: currentCollection.releaseDate,
+  };
+  const [input, setInput] = useState<IsArticle>(initState);
+
+  const onResetInput = () => {
+    setInput({ ...initState });
+  };
+
+  const onChangeInput = async (
+    e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    await setInput((prev) => {
+      return { ...prev, [name]: value };
+    });
+  };
 
   const setImageUrl = (url: string) => {
     setInput((prev) => ({
@@ -57,12 +72,12 @@ export default function WindowModal({
   };
 
   useEffect(() => {
-    if (input.articleName && input.price) {
+    if (input.articleName && input.price && image) {
       setIsEnterButtonOn(() => true);
     } else {
       setIsEnterButtonOn(() => false);
     }
-  }, [input]);
+  }, [input, image]);
 
   useEffect(() => {
     if (isUpload) {

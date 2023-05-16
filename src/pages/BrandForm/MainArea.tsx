@@ -11,9 +11,9 @@ import { useBrandStore } from "../../hooks/firestore/useBrandStore";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Toggle from "../../common/components/SaleToggle";
-import { useNavigate } from "react-router-dom";
 import { useBrandListStore } from "../../hooks/firestore/useBrandListStore";
 import { useBrandList } from "../../hooks/useBrandList";
+import useLocationState from "../../hooks/useLocationState";
 
 export type IsModalSort =
   | "officialOnlineStore"
@@ -27,6 +27,7 @@ interface IsMainArea {
   onChangeInput: (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
   ) => Promise<void>;
+  onChangeInputTag: (newTag: string) => void;
   setImageUrl: (url: string) => Promise<void>;
   onChangeInputSaleDate: (
     name: string,
@@ -42,24 +43,29 @@ export default function MainArea({
   input,
   isEnterButton,
   onChangeInput,
+  onChangeInputTag,
   setImageUrl,
   onChangeInputSaleDate,
   onResetInputSaleDate,
   handleIsEnterButtonToTrue,
   handleIsEnterButtonToFalse,
 }: IsMainArea) {
+  const { onClickBarndByBrandName } = useLocationState();
   const { upload, deleteImage } = useImage("logo");
   const { addBrand, updateBrand } = useBrandStore();
   const { addBrandToList } = useBrandListStore();
   const { brandList } = useBrandList();
-  const nav = useNavigate();
 
-  const [tagInput, setTagInput] = useState<string[]>([]);
+  const [tagInput, setTagInput] = useState<string>("");
   const [isUpload, setIsUpload] = useState(false);
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [isSale, setIsSale] = useState(
     input.saleEndDate && input.saleStartDate ? true : false
   );
+
+  const onChangeTagInput = (e: ChangeEvent<HTMLInputElement>) => {
+    setTagInput(() => e.target.value);
+  };
 
   const setImageFile = useCallback(async (file: File | null) => {
     await setLogoFile(file);
@@ -135,7 +141,7 @@ export default function MainArea({
         });
       }
 
-      nav("/search");
+      onClickBarndByBrandName(input.brandName);
     }
   }, [isUpload]);
 
@@ -168,6 +174,29 @@ export default function MainArea({
         />
       </div>
       <div className="DescriptionWrap">
+        <div className="TagInputWrap">
+          <Input
+            name="tagInput"
+            value={tagInput}
+            placeholder="Tag"
+            onChange={onChangeTagInput}
+          />
+          <Button
+            onClick={() => onChangeInputTag(tagInput)}
+            isActivated={!input.tag.includes(tagInput)}
+            disable={input.tag.includes(tagInput)}
+          >
+            +
+          </Button>
+        </div>
+        <div className="TagWrap">
+          {input.tag.map((e, i) => (
+            <div key={i} onClick={() => onChangeInputTag(e)}>
+              <p>{e}</p>
+            </div>
+          ))}
+        </div>
+
         <Textarea
           name="description"
           value={input.description}
@@ -245,6 +274,26 @@ const MainAreaWrap = styled.div`
   }
   .DescriptionWrap {
     margin-bottom: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    .TagInputWrap {
+      display: flex;
+      gap: 12px;
+    }
+    .TagWrap {
+      display: flex;
+      gap: 8px;
+      div {
+        width: fit-content;
+        background-color: black;
+        color: white;
+        padding: 6px 12px;
+        border-radius: 12px;
+        cursor: pointer;
+      }
+    }
   }
   .SaleHeader {
     position: relative;

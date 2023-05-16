@@ -28,6 +28,14 @@ export default function BrandForm() {
     []
   );
 
+  const onChangeInputTag = (newTag: string) => {
+    setInput((prev) =>
+      prev.tag.includes(newTag)
+        ? { ...prev, tag: prev.tag.filter((e) => e !== newTag) }
+        : { ...prev, tag: prev.tag.concat(newTag) }
+    );
+  };
+
   const setImageUrl = useCallback(async (url: string) => {
     await setInput((prev) => {
       return { ...prev, logo: url };
@@ -95,6 +103,7 @@ export default function BrandForm() {
         input={input}
         isEnterButton={isEnterButton}
         onChangeInput={onChangeInput}
+        onChangeInputTag={onChangeInputTag}
         setImageUrl={setImageUrl}
         onChangeInputSaleDate={onChangeInputSaleDate}
         onResetInputSaleDate={onResetInputSaleDate}

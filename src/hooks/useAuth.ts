@@ -133,17 +133,7 @@ export const useAuth = () => {
   const signout = () => {
     signOut(auth)
       .then(() => {
-        // setUser({
-        //   uid: "",
-        //   username: "",
-        //   email: "",
-        //   emailVerified: false,
-        //   level: 0,
-        //   scrapAlbum: [""],
-        //   scrapUser: [""],
-        //   requestLevelUp: false,
-        //   createdTime: null,
-        // });
+        //
         resetUser();
       })
       .catch((error) => {

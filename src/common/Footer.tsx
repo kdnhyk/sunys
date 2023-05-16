@@ -21,7 +21,7 @@ export default function Footer() {
 
 const FooterWrap = styled.footer`
   width: 100%;
-  height: 140px;
+  height: 100px;
   display: flex;
   flex-direction: column;
   justify-content: end;
@@ -31,7 +31,7 @@ const FooterWrap = styled.footer`
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-bottom: 70px;
+    padding-bottom: 24px;
     p {
       font-size: 10px;
     }

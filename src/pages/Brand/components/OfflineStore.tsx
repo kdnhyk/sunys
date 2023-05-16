@@ -43,10 +43,12 @@ const OfflineStoreWrap = styled.div`
     width: 200px;
     height: 200px;
     img {
+      border-radius: 8px;
       object-fit: cover;
     }
   }
   .TextlWrap {
+    height: 23px;
     padding: 4px 0px;
     h3 {
       font-weight: 400;
@@ -60,12 +62,14 @@ const OfflineStoreWrap = styled.div`
     left: 0px;
     width: 100%;
     height: calc(100% - 27px);
-    transition: all 0.1s ease-out;
+    transition: all 0.2s ease-out;
     background-color: transparent;
 
     display: flex;
     justify-content: center;
     align-items: center;
+
+    border-radius: 8px;
     p {
       display: none;
       position: absolute;

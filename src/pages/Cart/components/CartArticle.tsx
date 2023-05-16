@@ -1,9 +1,11 @@
 import { useNavigate } from "react-router-dom";
 import { useUser } from "../../../hooks/useUser";
 import { IsArticle } from "../../../types/article";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useCloudUser } from "../../../hooks/firestore/useCloudUser";
+import { useEffect } from "react";
+import NotFound from "../../../asset/NotFound.png";
+import useLocationState from "../../../hooks/useLocationState";
 
 interface IsCartArticle {
   article: IsArticle;
@@ -13,6 +15,8 @@ export default function CartArticle({ article }: IsCartArticle) {
   const { user, handleUserCart } = useUser();
   const { updateCart } = useCloudUser();
   const nav = useNavigate();
+  const { onClickBarndByBrandName, onClickCollectionByCid } =
+    useLocationState();
 
   const onRemoveArticle = () => {
     handleUserCart(article);
@@ -23,17 +27,34 @@ export default function CartArticle({ article }: IsCartArticle) {
     nav(`/collection/${article.collectionId}`);
   };
 
+  const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
+    e.currentTarget.src = NotFound;
+  };
+
+  useEffect(() => {
+    // const img = new Image(article.images[0]);
+  }, []);
+
   return (
     <CartArticleBlock>
-      <div className="ImageWrap" onClick={onMoveCollection}>
-        <img alt={""} src={article.images[0]} width={110} height={110} />
+      <div
+        className="ImageWrap"
+        onClick={() => onClickCollectionByCid(article.collectionId)}
+      >
+        <img
+          alt={""}
+          src={article.images[0]}
+          width={110}
+          height={110}
+          onError={onErrorImg}
+        />
       </div>
       <div className="InfoWrapper">
         <div className="TextArea">
           <div className="TextHeader">
-            <Link to={`/brand/${article.brandName}`}>
+            <div onClick={() => onClickBarndByBrandName(article.brandName)}>
               <h2>{`${article.brandName}`}</h2>
-            </Link>
+            </div>
 
             <svg
               width="17"
@@ -50,8 +71,15 @@ export default function CartArticle({ article }: IsCartArticle) {
             </svg>
           </div>
 
-          <p className="ArticleName" onClick={onMoveCollection}>
+          <p
+            className="ArticleName"
+            onClick={() => onClickCollectionByCid(article.collectionId)}
+          >
             {article.articleName}
+          </p>
+
+          <p className="ReleaseDate">
+            {article.releaseDate.replaceAll("-", ". ")}
           </p>
         </div>
 
@@ -77,7 +105,8 @@ const CartArticleBlock = styled.div`
     width: 120px;
     height: 120px;
     img {
-      object-fit: contain;
+      border-radius: 8px;
+      object-fit: cover; //
       cursor: pointer;
     }
   }
@@ -90,7 +119,7 @@ const CartArticleBlock = styled.div`
     .TextArea {
       display: flex;
       flex-direction: column;
-      gap: 5px;
+      gap: 6px;
       .TextHeader {
         display: flex;
         justify-content: space-between;

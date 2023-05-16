@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useCloudUser } from "../../hooks/firestore/useCloudUser";
 import { useUser } from "../../hooks/useUser";
 import Button from "./Button";
+import { useNavigate } from "react-router-dom";
 
 interface IsWindowModalArticle {
   exitModal: () => void;
@@ -18,12 +19,17 @@ export default function WindowModalArticle({
   const { user } = useAuth();
   const { updateCart } = useCloudUser();
   const { handleUserCart } = useUser();
+  const nav = useNavigate();
 
   const [isCartOn, setIsCartOn] = useState(false);
 
   const isInCart = user.cart.find((e) => e.id === article.id) ? true : false;
 
   const onClickCart = () => {
+    if (!user.uid) {
+      nav("/account");
+      return;
+    }
     updateCart(user.uid, user.cart, article);
     handleUserCart(article);
   };
@@ -60,7 +66,11 @@ export default function WindowModalArticle({
             <img src={article.images[0]} alt="" />
           </div>
           <h3>{article.articleName}</h3>
-          <p>{article.price}</p>
+          <p>
+            {Number(article.price).toLocaleString("ko-KR", {
+              maximumFractionDigits: 4,
+            }) + " KRW"}
+          </p>
 
           <div className="ButtonWrap">
             <Button
@@ -136,7 +146,7 @@ const WindowModalArticleBlock = styled.div`
     }
 
     .MainWrap {
-      padding: 16px 16px;
+      padding: 12px 16px;
       display: flex;
       flex-direction: column;
       gap: 6px;

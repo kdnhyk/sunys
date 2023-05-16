@@ -1,14 +1,15 @@
 import styled, { css } from "styled-components";
 import { ChangeEvent, useEffect, useRef, useState } from "react";
 import { useBrandList } from "../hooks/useBrandList";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface IsSearchInput {
   placeholder: string;
 }
 
 export default function SearchInput({ placeholder }: IsSearchInput) {
-  const { brandList } = useBrandList();
+  const nav = useNavigate();
+  const { brandList, getBrandList } = useBrandList();
   const searchInputRef = useRef<HTMLInputElement>(null);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
@@ -45,11 +46,27 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
     );
   });
 
+  //
+  useEffect(() => {
+    if (brandList.length === 0) {
+      getBrandList();
+    }
+  }, []);
+
   useEffect(() => {
     if (searchInput) {
       setIsOpenModal(true);
     }
   }, [searchInput]);
+
+  useEffect(() => {
+    if (isOpenModal) {
+      window.scrollTo({
+        top: 84,
+        behavior: "smooth",
+      });
+    }
+  }, [isOpenModal]);
 
   return (
     <SearchInputStyle value={searchInput}>
@@ -84,10 +101,16 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
           <div className="ModalWrap">
             {resultBrandList.map((e, i) => (
               <div className="BrandNameInner" key={i}>
-                <Link to={`/brand/${e.default}`}>
+                <div
+                  onClick={() =>
+                    nav(`/brand/${e.default}`, {
+                      state: { brand: { brandName: e.default } },
+                    })
+                  }
+                >
                   <p className="Default">{e.default}</p>
                   <p className="Korean">{e.korean}</p>
-                </Link>
+                </div>
               </div>
             ))}
           </div>
@@ -101,6 +124,7 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
 const SearchInputStyle = styled.div<{ value: string }>`
   position: relative;
   height: 40px;
+  width: 100%;
   .InputWrap {
     position: relative;
     height: 100%;
@@ -111,7 +135,7 @@ const SearchInputStyle = styled.div<{ value: string }>`
       height: 100%;
       background-color: #dfdfdf;
       padding: 0px 12px;
-      /* border-radius: 12px; */
+      border-radius: 8px;
 
       &:focus {
         outline: none;
@@ -131,7 +155,7 @@ const SearchInputStyle = styled.div<{ value: string }>`
     top: 40px;
     width: 100%;
     height: fit-content;
-    max-height: 300px;
+    max-height: 200px;
     background-color: #ffffff;
     overflow-y: auto;
     z-index: 20;
@@ -148,12 +172,13 @@ const SearchInputStyle = styled.div<{ value: string }>`
         background-color: #dfdfdf;
       }
 
-      a {
+      div {
         width: 100%;
         height: 100%;
         display: flex;
         flex-direction: column;
         justify-content: center;
+
         .Default {
           font-size: 14px;
           margin-bottom: 2px;

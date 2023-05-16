@@ -3,6 +3,7 @@ import styled from "styled-components";
 import Header from "./Header";
 import NavBar from "./NavBar";
 import Footer from "./Footer";
+import { media } from "../media";
 
 interface IsLayout {
   children: any;
@@ -16,7 +17,6 @@ export default function Layout({ children }: IsLayout) {
       <Header />
       <main>{children}</main>
       <Footer />
-      <NavBar />
     </LayoutWrap>
   );
 }
@@ -26,7 +26,10 @@ const LayoutWrap = styled.div<{ vh: number }>`
   height: ${({ vh }) => `calc(${vh} * 100px)`};
 
   color: black;
-  background-color: #fcfcfc;
   main {
+    padding-top: 32px;
+    ${media.desktop`
+      padding-top: 80px;
+    `}
   }
 `;

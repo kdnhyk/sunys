@@ -11,45 +11,21 @@ import { useImage } from "../../hooks/storage/useImage";
 
 interface IsArticleArea {
   currentCollection: IsCollection;
+  articleList: IsArticle[];
 }
 
-export default function ArticleArea({ currentCollection }: IsArticleArea) {
-  const { articleList, handleArticleByCidRealtime } = useArticle();
+export default function ArticleArea({
+  currentCollection,
+  articleList,
+}: IsArticleArea) {
   const { deleteArticle } = useArticleStore();
   const { deleteImage } = useImage("article");
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
-  const initState = {
-    articleName: "",
-    price: "",
-    collectionId: currentCollection.id || "",
-    collectionName: currentCollection.collectionName,
-    images: [],
-
-    brandName: currentCollection.brandName,
-  };
-  const [input, setInput] = useState<IsArticle>(initState);
-
-  const onResetInput = () => {
-    setInput({ ...initState });
-  };
-
   const handleIsOpenModal = () => {
     setIsOpenModal((prev) => !prev);
   };
-
-  const onChangeInput = useCallback(
-    async (
-      e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
-    ) => {
-      const { name, value } = e.target;
-      await setInput((prev) => {
-        return { ...prev, [name]: value };
-      });
-    },
-    []
-  );
 
   const onDeleteArticle = (id: string) => {
     if (!articleList && !id) return;
@@ -59,11 +35,6 @@ export default function ArticleArea({ currentCollection }: IsArticleArea) {
     deleteImage(delValue?.images[0] || "");
     deleteArticle(delValue?.id || "");
   };
-
-  //
-  useEffect(() => {
-    handleArticleByCidRealtime(currentCollection.id || "");
-  }, [currentCollection]);
 
   return (
     <ArticleAreaWrap>
@@ -86,11 +57,7 @@ export default function ArticleArea({ currentCollection }: IsArticleArea) {
       {isOpenModal && (
         <WindowModal
           exitModal={handleIsOpenModal}
-          input={input}
           currentCollection={currentCollection}
-          setInput={setInput}
-          onChangeInput={onChangeInput}
-          onResetInput={onResetInput}
         />
       )}
     </ArticleAreaWrap>

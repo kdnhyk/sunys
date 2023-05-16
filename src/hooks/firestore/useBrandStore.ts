@@ -52,6 +52,7 @@ export const useBrandStore = () => {
     return result;
   };
 
+  //
   const getSaleBrandList = async () => {
     const q = query(
       collection(store, "brand"),

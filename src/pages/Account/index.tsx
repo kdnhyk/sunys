@@ -14,7 +14,9 @@ export default function Account({}: IsCart) {
     nav("/");
   };
 
-  const exitPage = () => {};
+  const exitPage = () => {
+    nav("/");
+  };
 
   if (!user.uid) {
     return (
@@ -27,7 +29,6 @@ export default function Account({}: IsCart) {
   return (
     <AccountBlock>
       <p>{user.username}</p>
-      <p>Scrap Brand | {user.scrapBrandList.length}</p>
       <p className="Logout" onClick={onSignout}>
         Logout
       </p>

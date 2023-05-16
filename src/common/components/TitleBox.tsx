@@ -25,7 +25,6 @@ const TitleBoxBlock = styled.div<{ colol?: string; isBold?: boolean }>`
   width: fit-content;
   padding: 8px 0px;
   /* border-bottom: 1px solid black; */
-  cursor: pointer;
   .MainTitle {
     color: ${({ color }) => color || "black"};
     margin-bottom: 4px;

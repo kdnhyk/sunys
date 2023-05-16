@@ -12,6 +12,7 @@ export const useCollection = () => {
   const [currentCollection, setCurrentCollection] = useRecoilState(
     currentColletionSelector
   );
+  const [myList, setMyList] = useRecoilState(upcommingCollectionListSelector);
   const [upcommingList, setUpcommingList] = useRecoilState(
     upcommingCollectionListSelector
   );
@@ -40,13 +41,8 @@ export const useCollection = () => {
     getRealTimeCollectionById(cid);
   };
 
-  //
-
-  const getCollectionListByBrandNameList = async (brandNameList: string[]) => {
-    return await getCollectionByBrandNameList(brandNameList);
-  };
-
-  const getCollectionListByBrandName = async (brandName: string) => {
+  // Brand
+  const getCurrentCollectionByBrandName = async (brandName: string) => {
     setCurrentCollection(await getCollectionByBrandName(brandName));
   };
 
@@ -54,11 +50,15 @@ export const useCollection = () => {
     setCurrentCollection(await getCollectionByBrandNameAdmin(brandName));
   };
 
-  const getCollectionListByUpcomming = async () => {
+  const getMyCollectionList = async (brandList: string[]) => {
+    setMyList(await getCollectionByBrandNameList(brandList));
+  };
+
+  const getUpcommingCollectionList = async () => {
     setUpcommingList(await getCollectionByUpcomming());
   };
 
-  const getCollectionListByRecent = async () => {
+  const getRecentCollectionList = async () => {
     setRecentList(await getCollectionByRecent());
   };
 
@@ -69,15 +69,17 @@ export const useCollection = () => {
 
   return {
     currentCollection,
+    myList,
     upcommingList,
     recentList,
 
     handleRealTimeCollectionById,
-    getCollectionListByBrandNameList,
-    getCollectionListByBrandName,
+    getCurrentCollectionByBrandName,
     getCollectionListByBrandNameAdmin,
-    getCollectionListByUpcomming,
-    getCollectionListByRecent,
+
+    getMyCollectionList,
+    getUpcommingCollectionList,
+    getRecentCollectionList,
     handleCollectionById,
   };
 };

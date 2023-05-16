@@ -3,12 +3,14 @@ import { IsCollection } from "../types/collection";
 
 export const collectionState = atom<{
   currentCollection: IsCollection[];
+  myCollection: IsCollection[];
   upcommingList: IsCollection[];
   recentList: IsCollection[];
 }>({
   key: "collectionState",
   default: {
     currentCollection: [] as IsCollection[],
+    myCollection: [] as IsCollection[],
     upcommingList: [] as IsCollection[],
     recentList: [] as IsCollection[],
   },
@@ -28,6 +30,24 @@ export const currentColletionSelector = selector<IsCollection[]>({
       newValue instanceof DefaultValue
         ? oldDocs
         : { ...oldDocs, currentCollection: newValue }
+    );
+  },
+});
+
+export const myCollectionListSelector = selector<IsCollection[]>({
+  key: "myCollectionListSelector",
+  get: ({ get }) => {
+    const originalState = get(collectionState);
+    return originalState.myCollection;
+  },
+  set: ({ set, get }, newValue) => {
+    const oldDocs = get(collectionState);
+
+    set(
+      collectionState,
+      newValue instanceof DefaultValue
+        ? oldDocs
+        : { ...oldDocs, myCollection: newValue }
     );
   },
 });

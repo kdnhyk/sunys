@@ -1,56 +1,74 @@
 import styled from "styled-components";
 import Collection from "../../common/components/Collection";
-import { Link, useNavigate } from "react-router-dom";
 import TitleBox from "../../common/components/TitleBox";
-import UpcommingCollection from "./components/UpcommingCollection";
 import { useCollection } from "../../hooks/useCollection";
-import { useBrand } from "../../hooks/useBrand";
 import { useEffect } from "react";
+import { useAuth } from "../../hooks/useAuth";
 
 export default function News() {
   const {
+    myList,
     upcommingList,
     recentList,
-    getCollectionListByUpcomming,
-    getCollectionListByRecent,
+    getMyCollectionList,
+    getUpcommingCollectionList,
+    getRecentCollectionList,
   } = useCollection();
-  const { handleNewBrandList } = useBrand();
-  const nav = useNavigate();
+  const { user } = useAuth();
 
-  const moveCollection = (id: string) => {
-    nav(`/collection/${id}`);
+  const getScrapBrandList = () => {
+    let result: string[] = [];
+    user.scrapBrandList.forEach((e) => {
+      result.push(e.default);
+    });
+    return result;
   };
 
   useEffect(() => {
-    handleNewBrandList();
+    if (user.uid && myList.length === 0) {
+      getMyCollectionList(getScrapBrandList());
+    }
     if (upcommingList.length === 0) {
-      getCollectionListByUpcomming();
+      getUpcommingCollectionList();
     }
     if (recentList.length === 0) {
-      getCollectionListByRecent();
+      getRecentCollectionList();
     }
   }, []);
 
   return (
     <NewsWrap>
-      <div className="UpcommingWrap">
-        <TitleBox subTitle="발매 예정">Upcomming</TitleBox>
-        <div className="UpcommingList">
-          {upcommingList.map((e, i) => (
-            <Link to={`/collection/${e.id}`} className="Collection" key={i}>
-              <UpcommingCollection collection={e} />
-            </Link>
+      {user.uid && (
+        <div className="NewCollectionArea">
+          <TitleBox subTitle="스크랩 브랜드">My News</TitleBox>
+          <div className="NewCollectionWrap">
+            {myList.map((e, i) => (
+              <div className="ScrapBrandInner" key={i}>
+                <Collection collection={e} />
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
+
+      <div className="RecentWrap">
+        <TitleBox subTitle="최근 출시된 컬렉션">Recent</TitleBox>
+        <div className="RecentList">
+          {recentList.map((e, i) => (
+            <div className="Collection" key={i}>
+              <Collection collection={e} />
+            </div>
           ))}
         </div>
       </div>
 
-      <div className="RecentWrap">
-        <TitleBox subTitle="최근 컬렉션">Recent</TitleBox>
-        <div className="RecentList">
-          {recentList.map((e, i) => (
-            <Link to={`/collection/${e.id}`} className="Collection" key={i}>
+      <div className="UpcommingWrap">
+        <TitleBox subTitle="발매 예정">Upcomming</TitleBox>
+        <div className="UpcommingList">
+          {upcommingList.map((e, i) => (
+            <div className="Collection" key={i}>
               <Collection collection={e} />
-            </Link>
+            </div>
           ))}
         </div>
       </div>
@@ -61,11 +79,14 @@ export default function News() {
 }
 
 const NewsWrap = styled.div`
-  .UpcommingWrap {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  .NewCollectionArea {
     padding: 0px 16px;
-    margin-bottom: 20px;
     border-bottom: 1px solid #dddddd;
-    .UpcommingList {
+
+    .NewCollectionWrap {
       height: 320px;
       display: flex;
       gap: 10px;
@@ -82,6 +103,22 @@ const NewsWrap = styled.div`
     border-bottom: 1px solid #dddddd;
 
     .RecentList {
+      height: 320px;
+      display: flex;
+      gap: 10px;
+      overflow-x: auto;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+    }
+  }
+
+  .UpcommingWrap {
+    padding: 0px 16px;
+
+    border-bottom: 1px solid #dddddd;
+    .UpcommingList {
       height: 320px;
       display: flex;
       gap: 10px;

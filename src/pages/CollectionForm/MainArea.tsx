@@ -11,12 +11,17 @@ import { useImage } from "../../hooks/storage/useImage";
 import ReactDatePicker from "react-datepicker";
 import { toStringByFormatting } from "../../util";
 import VisibleToggle from "../../common/components/VisibleToggle";
+import { IsArticle } from "../../types/article";
 
 interface IsMainWrap {
   currentCollection?: IsCollection;
+  articleList?: IsArticle[];
 }
 
-export default function MainArea({ currentCollection }: IsMainWrap) {
+export default function MainArea({
+  currentCollection,
+  articleList,
+}: IsMainWrap) {
   const { id, cid } = useParams();
 
   const { updateCollection, addCollection, deleteCollection } =
@@ -97,24 +102,24 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
     // deleteCollection(currentCollection.id);
   };
 
+  // Get CurrentCollection Data
   useEffect(() => {
-    if (cid) {
-      if (!currentCollection) return;
-      setInput(() => ({
-        id: currentCollection.id,
-        collectionName: currentCollection.collectionName,
-        releaseDate: currentCollection.releaseDate,
-        images: currentCollection.images,
+    if (!currentCollection) return;
+    setInput(() => ({
+      id: currentCollection.id,
+      collectionName: currentCollection.collectionName,
+      releaseDate: currentCollection.releaseDate,
+      images: currentCollection.images,
 
-        brandName: currentCollection.brandName,
+      brandName: currentCollection.brandName,
 
-        isVisible: currentCollection.isVisible,
-      }));
+      isVisible: currentCollection.isVisible,
+    }));
 
-      setIsEnterButtonOn(() => true);
-    }
-  }, [id, cid, currentCollection]);
+    setIsEnterButtonOn(() => true);
+  }, [id, currentCollection]);
 
+  // Check Confirm Button
   useEffect(() => {
     if (
       input.collectionName &&
@@ -127,6 +132,7 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
     }
   }, [input, logoFile]);
 
+  // Update & Upload
   useEffect(() => {
     if (isUpload && input.images[0]) {
       if (cid) {
@@ -195,6 +201,7 @@ export default function MainArea({ currentCollection }: IsMainWrap) {
             input.releaseDate ? new Date(input.releaseDate) : new Date()
           }
           onChange={(date) => onChangeInputReleaseDate(date)}
+          disabled={!articleList ? false : articleList?.length !== 0}
         />
       </div>
 

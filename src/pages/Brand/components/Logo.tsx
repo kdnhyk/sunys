@@ -22,6 +22,7 @@ const LogoWrap = styled.div`
     width: 160px;
     height: 160px;
     img {
+      border-radius: 8px;
       object-fit: contain;
     }
   }

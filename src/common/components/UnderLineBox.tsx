@@ -19,7 +19,6 @@ const TitleBoxBlock = styled.div<{ colol?: string; isBold?: boolean }>`
   padding: 4px 4px;
   border-bottom: 1px solid black;
   margin-bottom: 10px;
-  cursor: pointer;
   .MainTitle {
     color: ${({ color }) => color || "black"};
     margin-bottom: 4px;

@@ -1,11 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
+import { media } from "../media";
 
-interface IsLogoArea {}
-
-export default function LogoArea({}: IsLogoArea) {
-  const path = useLocation().pathname.toUpperCase().split("/")[1] || "NEWS";
-
+export default function LogoArea() {
   return (
     <LogoAreaWrap>
       <div className="LogoArea">
@@ -24,26 +21,16 @@ export default function LogoArea({}: IsLogoArea) {
           </svg>
         </Link>
       </div>
-
-      <div className="NavArea">
-        <div className="LineLeft"></div>
-        <div className="Menu">
-          <p className="Current">{path}</p>
-        </div>
-        <div className="LineRight"></div>
-      </div>
     </LogoAreaWrap>
   );
 }
 
 const LogoAreaWrap = styled.div`
   position: relative;
-  height: 146px;
   display: flex;
   flex-direction: column;
   color: #314af3;
   z-index: 100;
-  background-color: #fcfcfc;
 
   .LogoArea {
     display: flex;
@@ -51,6 +38,7 @@ const LogoAreaWrap = styled.div`
     align-items: center;
     width: 100%;
     z-index: 100;
+
     cursor: pointer;
     a {
       svg {
@@ -58,40 +46,19 @@ const LogoAreaWrap = styled.div`
         height: auto;
       }
     }
-  }
 
-  .NavArea {
-    position: relative;
-    display: flex;
-
-    .LineLeft {
-      margin-top: 8px;
-      width: 50%;
-      border-top: 1px solid #314af3;
-    }
-    .Menu {
-      height: fit-content;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 8px;
-
-      p {
-        width: fit-content;
-        padding: 0px 12px;
-        text-align: center;
-        font-size: 12px;
-        cursor: pointer;
+    ${media.desktop`
+    width: 220px;
+    height: 48px;
+    padding: 9px 0px;
+    border-bottom: 1px solid #dddddd;
+    border-right: 1px solid #dddddd;
+      a{
+        svg {
+          height: 28px;
+          width: auto;
+        }
       }
-      .Current {
-        font-style: italic;
-      }
-    }
-
-    .LineRight {
-      margin-top: 8px;
-      width: 50%;
-      border-top: 1px solid #314af3;
-    }
+    `}
   }
 `;

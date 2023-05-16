@@ -104,7 +104,7 @@ export const useCollectionStore = () => {
     );
   };
 
-  // Scrap - My News
+  // News - My News
   const getCollectionByBrandNameList = async (brandNameList: string[]) => {
     const q = query(
       collection(store, "collection"),

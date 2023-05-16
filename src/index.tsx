@@ -10,8 +10,7 @@ import BrandForm from "./pages/BrandForm";
 import Account from "./pages/Account";
 import CollectionForm from "./pages/CollectionForm";
 import Cart from "./pages/Cart";
-import Scrap from "./pages/Scrap";
-import Search from "./pages/Search";
+import Search from "./pages/BrandList";
 import News from "./pages/News";
 import Magazine from "./pages/Magazine";
 
@@ -56,10 +55,6 @@ const router = createBrowserRouter([
       {
         path: "/brandform/:id/collectionform/:cid",
         element: <CollectionForm />,
-      },
-      {
-        path: "/scrap",
-        element: <Scrap />,
       },
       {
         path: "/cart",

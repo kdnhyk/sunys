@@ -1,43 +1,31 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { Admin, Brand, Home, Scrap, Search } from "../asset/Icon";
+import { Admin, Brand, Home, Search } from "../asset/Icon";
+import { useAuth } from "../hooks/useAuth";
+import { media } from "../media";
 
 interface IsNavBar {}
 
 export default function NavBar({}: IsNavBar) {
+  const { user } = useAuth();
   const path = useLocation().pathname.split("/")[1] || "news";
 
   const menu = [
     {
-      name: "news",
+      name: "뉴스",
       path: "/",
-      isSelected: path === "news",
-      icon: <Home isSelected={path === "news"} />,
     },
     {
-      name: "Magaginze",
-      path: "/magazine",
-      isSelected: path === "magazine",
-      icon: <Brand isSelected={path === "magazine"} />,
-    },
-    {
-      name: "Brand",
+      name: "브랜드",
       path: "/brand",
-      isSelected: ["brand", "collection"].includes(path),
-      icon: <Search isSelected={["brand", "collection"].includes(path)} />,
     },
     {
-      name: "Scrap",
-      path: "/scrap",
-      isSelected: path === "scrap",
-      icon: <Brand isSelected={path === "scrap"} />,
+      name: "매거진",
+      path: "/magazine",
     },
-
     {
-      name: "Account",
+      name: "마이페이지",
       path: "/account",
-      isSelected: path === "account",
-      icon: <Admin isSelected={path === "account"} />,
     },
   ];
 
@@ -52,57 +40,73 @@ export default function NavBar({}: IsNavBar) {
 
   return (
     <NavBarBlock>
-      <nav className="ModalInner">
-        {menu.map((e, i) => (
-          <Link to={e.path} key={i} onClick={() => scrollToTop(e.path)}>
-            <div>{e.icon}</div>
-            <p style={e.isSelected ? { color: "#314af3" } : {}}>{e.name}</p>
-          </Link>
-        ))}
-      </nav>
+      <div className="Empty"></div>
+      {menu.map((e, i) => (
+        <Link to={e.path} key={i} onClick={() => scrollToTop(e.path)}>
+          <p>{e.name}</p>
+        </Link>
+      ))}
+      <Link
+        to={"/cart"}
+        onClick={() => scrollToTop("cart")}
+        className="CartWrap"
+      >
+        <div className="Cart">
+          <p>{user.cart.length}</p>
+        </div>
+      </Link>
     </NavBarBlock>
   );
 }
 
-const NavBarBlock = styled.div`
-  position: fixed;
-  bottom: 0px;
-  background-color: #fcfcfc;
-  z-index: 1000;
+const NavBarBlock = styled.nav`
+  width: 100%;
 
-  .ModalInner {
-    width: calc(100vw);
+  height: 48px;
+  display: flex;
 
-    height: 48px;
-    background-color: #fcfcfc;
+  border-bottom: 1px solid #dddddd;
+  color: black;
+
+  .Empty {
+    display: none;
+    flex-grow: 2;
+    border-right: 1px solid #dddddd;
+    ${media.desktop`
+      display: block
+    `}
+  }
+  a {
+    flex-grow: 1;
     display: flex;
-    border-top: 1px solid #dddddd;
-    /* border-top: none; */
-    z-index: 100;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    a,
-    .LoginWrap {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: end;
-      padding-bottom: 2px;
-      cursor: pointer;
+    border-right: 1px solid #dddddd;
+    cursor: pointer;
 
-      p {
-        font-size: 10px;
-        color: #8e8e8e;
-      }
+    &:hover {
+      background-color: #eeeeee;
+    }
+
+    P {
+      font-size: 13px;
+      font-weight: 500;
     }
   }
 
-  .Background {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    /* background-color: #fcfcfc; */
+  .CartWrap {
+    flex-basis: 50px;
+    flex-grow: 0;
+    border-right: none;
+    .Cart {
+      width: 24px;
+      height: 24px;
+      border: 1px solid black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
   }
 `;

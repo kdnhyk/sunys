@@ -9,6 +9,7 @@ export default function Magazine() {
 }
 
 const MagazineWrap = styled.div`
+  padding-top: 40px;
   display: flex;
   flex-direction: column;
   align-items: center;

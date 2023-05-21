@@ -5,15 +5,11 @@ import useLocationState from "../../hooks/useLocationState";
 
 interface IsCollectionStyle {
   collection: IsCollection;
-  isDisable?: boolean;
 }
 
 //
-export default function Collection({
-  collection,
-  isDisable,
-}: IsCollectionStyle) {
-  const { onClickCollection } = useLocationState();
+export default function CollectionSmall({ collection }: IsCollectionStyle) {
+  const { onClickCollection, onClickCollectionByCid } = useLocationState();
 
   const diff = Math.ceil(
     (new Date(collection.releaseDate).getTime() - new Date().getTime()) /
@@ -21,10 +17,7 @@ export default function Collection({
   );
 
   return (
-    <CollectionWrap
-      onClick={() => !isDisable && onClickCollection(collection)}
-      isRed={!collection.isVisible}
-    >
+    <CollectionSmallWrap onClick={() => onClickCollection(collection)}>
       <div className="ImageWrap">
         <img src={collection.images[0]} alt="" width={180} height={240} />
         {diff <= 0 ? (
@@ -42,11 +35,11 @@ export default function Collection({
         <h3>{collection.brandName}</h3>
         <p>{collection.collectionName}</p>
       </div>
-    </CollectionWrap>
+    </CollectionSmallWrap>
   );
 }
 
-const CollectionWrap = styled.div<{ isRed: boolean }>`
+const CollectionSmallWrap = styled.div`
   position: relative;
   cursor: pointer;
 
@@ -56,8 +49,7 @@ const CollectionWrap = styled.div<{ isRed: boolean }>`
     height: 100%;
     img {
       border-radius: 12px;
-      width: 100%;
-      height: 100%;
+
       object-fit: cover;
     }
 
@@ -107,7 +99,6 @@ const CollectionWrap = styled.div<{ isRed: boolean }>`
     height: 40px;
     h3 {
       margin-bottom: 4px;
-      color: ${({ isRed }) => isRed && "#F33131"};
     }
     p {
       color: #8e8e8e;

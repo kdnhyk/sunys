@@ -14,6 +14,7 @@ export default function Brand({ brand }: IsBrandStyle) {
 
       <div className="TextlWrap">
         <h3>{brand.brandName}</h3>
+        <p>{brand.brandNameKo}</p>
       </div>
     </BrandWrap>
   );
@@ -41,6 +42,10 @@ const BrandWrap = styled.div`
     padding: 4px 0px;
     cursor: pointer;
     h3 {
+      margin-bottom: 4px;
+    }
+    p {
+      color: #8e8e8e;
     }
   }
 `;

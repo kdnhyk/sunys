@@ -1,52 +1,106 @@
 import styled from "styled-components";
-import UnderLineBox from "../../common/components/TitleBox";
-import { Link } from "react-router-dom";
-import { useCollection } from "../../hooks/useCollection";
-import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { More } from "../../asset/Icon";
+import { useEffect, useState } from "react";
+import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../../common/components/Collection";
-import CreateBoxCollection from "../../common/components/CreateBoxCollection";
+import useBrandCollection from "../../api/useBrandCollection";
+import useLocationState from "../../hooks/useLocationState";
+import CreateBox from "../../common/components/CreateBox";
 
-interface IsCollectionArea {
-  id: string;
-}
+export default function CollectionArea() {
+  const width = window.innerWidth;
+  const { brand } = useLocation().state;
+  const { currentCollection, fetchNextPage, hasNextPage } = useBrandCollection(
+    brand.brandName
+  );
+  const { onClickCollectionSetting } = useLocationState();
 
-export default function CollectionArea({ id }: IsCollectionArea) {
-  const { currentCollection, getCollectionListByBrandNameAdmin } =
-    useCollection();
+  const [onLoad, setOnLoad] = useState(false);
+
+  const handleLoad = () => {
+    setOnLoad(true);
+  };
 
   useEffect(() => {
-    getCollectionListByBrandNameAdmin(id);
+    if (currentCollection.length === 0) {
+      fetchNextPage();
+    }
   }, []);
 
+  useEffect(() => {
+    if (onLoad && hasNextPage) {
+      fetchNextPage();
+    }
+    setOnLoad(false);
+  }, [hasNextPage, onLoad]);
+
   return (
-    <CollectionAreaWrap>
-      <UnderLineBox>COLLECTION</UnderLineBox>
-      <div className="CollectionWrap">
-        <Link
-          to={`/brandform/${id}/collectionform`}
-          className="CreateCollectionWrap"
-        >
-          <CreateBoxCollection />
-        </Link>
-        {currentCollection.map((e, i) => (
-          <Link to={`/brandform/${id}/collectionform/${e.id}`} key={i}>
-            <Collection collection={e} />
-          </Link>
-        ))}
-      </div>
-    </CollectionAreaWrap>
+    <CollectionAreaStyle>
+      {brand.brandName && (
+        <>
+          <ResponsiveMasonry
+            columnsCountBreakPoints={
+              width < 700
+                ? {
+                    300: 1,
+                    400: 2,
+                    660: 3,
+                    880: 4,
+                    1100: 5,
+                    1320: 6,
+                  }
+                : {
+                    660: 1,
+                    880: 2,
+                    1100: 3,
+                    1320: 4,
+                  }
+            }
+          >
+            <Masonry>
+              <div
+                className="ColInner"
+                onClick={() => onClickCollectionSetting(brand.brandName)}
+              >
+                <CreateBox />
+              </div>
+              {currentCollection.map((e, i) => (
+                <div
+                  className="ColInner"
+                  key={i}
+                  onClick={() => onClickCollectionSetting(e.brandName, e)}
+                >
+                  <Collection collection={e} isDisable={true} />
+                </div>
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+          {currentCollection.length > 0 && (
+            <div className="More" onClick={handleLoad}>
+              <More />
+            </div>
+          )}
+        </>
+      )}
+    </CollectionAreaStyle>
   );
 }
 
-const CollectionAreaWrap = styled.div`
-  .CollectionWrap {
-    display: flex;
-    gap: 10px;
-    overflow-x: auto;
-    padding-bottom: 12px;
+const CollectionAreaStyle = styled.div`
+  height: 100%;
+  position: relative;
+  padding: 16px 8px 0px 8px;
+  border-bottom: 1px solid #dddddd;
 
-    &::-webkit-scrollbar {
-      display: none;
-    }
+  .ColInner {
+    padding: 8px;
+  }
+
+  .More {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 16px;
+    cursor: pointer;
   }
 `;

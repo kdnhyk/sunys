@@ -116,6 +116,7 @@ const LoginModalBlock = styled.form`
     width: 100%;
     height: 100%;
     z-index: 10;
-    background-color: rgb(0, 0, 0, 0.1);
+    // 개선
+    /* background-color: rgb(0, 0, 0, 0.1); */
   }
 `;

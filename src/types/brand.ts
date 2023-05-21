@@ -5,6 +5,7 @@ export const initBrand = {
   brandNameKo: "",
   description: "",
   tag: [],
+  scrapNum: 0,
   saleName: "",
   saleStartDate: "",
   saleEndDate: "",
@@ -40,6 +41,7 @@ export interface IsBrand {
 
   description: string;
   tag: string[];
+  scrapNum: number;
 
   saleName: string;
   saleStartDate: string;

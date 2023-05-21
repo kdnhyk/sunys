@@ -42,7 +42,7 @@ const CreateArticleWrap = styled.div`
     align-items: center;
     background-color: #d9d9d9;
 
-    padding: 70px 0px;
+    padding: 80px 0px;
     width: 100%;
     height: auto;
     svg {

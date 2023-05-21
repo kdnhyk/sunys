@@ -1,7 +1,7 @@
 import { Outlet, useLocation } from "react-router-dom";
 import { createGlobalStyle } from "styled-components";
 import Layout from "./common/Layout";
-import { useEffect } from "react";
+import { Suspense, useEffect } from "react";
 import { useBrandList } from "./hooks/useBrandList";
 
 export default function App() {
@@ -25,7 +25,9 @@ export default function App() {
     <>
       <GlobalStyle />
       <Layout>
-        <Outlet />
+        <Suspense fallback={<div>Loading...</div>}>
+          <Outlet />
+        </Suspense>
       </Layout>
     </>
   );

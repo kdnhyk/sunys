@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { IsArticle } from "../../types/article";
 import { useAuth } from "../../hooks/useAuth";
-import { Arrow } from "../../asset/Icon";
+import { ArrowWhite } from "../../asset/Icon";
 import { useState } from "react";
 import WindowModalArticle from "./WindowModaArticlel";
 
@@ -41,7 +41,7 @@ export default function Article({ article }: IsArticleWrap) {
       </div>
 
       <div className="HoverWrap" onClick={openModal}>
-        <Arrow />
+        <ArrowWhite />
       </div>
 
       {isOpenModal && (

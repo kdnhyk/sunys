@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useCollection } from "../../hooks/useCollection";
 import { useLocation } from "react-router-dom";
 import { IsCollection, initCollection } from "../../types/collection";
 import { useArticle } from "../../hooks/useArticle";
@@ -13,11 +12,11 @@ export default function Collection() {
   const { user } = useAuth();
   const { articleList, handleArticleByCid } = useArticle();
   const { collection } = useLocation().state;
-  const { onClickBarndByBrandName } = useLocationState();
+  const { onClickBarndByBrandName, onClickCollectionSetting } =
+    useLocationState();
 
   const [currentCollection, setCurrentCollection] =
     useState<IsCollection>(initCollection);
-  const { handleCollectionById } = useCollection();
 
   const diff = Math.ceil(
     (new Date(currentCollection.releaseDate).getTime() - new Date().getTime()) /
@@ -30,9 +29,9 @@ export default function Collection() {
     if (collection.collectionName) {
       setCurrentCollection(collection);
     } else {
-      handleCollectionById(collection.id).then(async (col) => {
-        await setCurrentCollection(col[0]);
-      });
+      // handleCollectionById(collection.id).then(async (col) => {
+      //   await setCurrentCollection(col[0]);
+      // });
     }
 
     handleArticleByCid(collection.id);
@@ -67,9 +66,14 @@ export default function Collection() {
         <p className="CollectionName">{currentCollection.collectionName}</p>
 
         {user.admin && (
-          <Link
-            to={`/brandform/${currentCollection.brandName}/collectionform/${currentCollection.id}`}
+          <div
             className="Setting"
+            onClick={() =>
+              onClickCollectionSetting(
+                currentCollection.brandName,
+                currentCollection
+              )
+            }
           >
             <svg
               width="20"
@@ -83,7 +87,7 @@ export default function Collection() {
                 fill="black"
               />
             </svg>
-          </Link>
+          </div>
         )}
       </div>
       <div className="ArticleListWrap">

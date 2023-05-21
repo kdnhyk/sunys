@@ -34,10 +34,6 @@ const CreateBoxWrap = styled.div`
     background-color: #d9d9d9;
     width: 200px;
     height: 200px;
-    img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
+    border-radius: 12px;
   }
 `;

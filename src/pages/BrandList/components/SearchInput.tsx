@@ -1,6 +1,6 @@
-import styled, { css } from "styled-components";
-import { ChangeEvent, useEffect, useRef, useState } from "react";
-import { useBrandList } from "../hooks/useBrandList";
+import styled from "styled-components";
+import { ChangeEvent, useEffect, useState } from "react";
+import { useBrandList } from "../../../hooks/useBrandList";
 import { useNavigate } from "react-router-dom";
 
 interface IsSearchInput {
@@ -11,7 +11,6 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
   const width = window.innerWidth;
   const nav = useNavigate();
   const { brandList } = useBrandList();
-  const searchInputRef = useRef<HTMLInputElement>(null);
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [searchInput, setSearchInput] = useState("");
@@ -31,8 +30,6 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
 
   const onResetSearchInput = () => {
     setSearchInput(() => "");
-    setIsOpenModal(false);
-    searchInputRef.current?.focus();
   };
 
   const resultBrandList = brandList.filter((e) => {
@@ -49,7 +46,9 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
 
   useEffect(() => {
     if (searchInput) {
-      setIsOpenModal(true);
+      onOpenModal();
+    } else if (!searchInput) {
+      onCloseModal();
     }
   }, [searchInput]);
 
@@ -77,8 +76,8 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
           placeholder={placeholder}
           value={searchInput}
           onChange={onChangeSearchInput}
-          ref={searchInputRef}
           onClick={onOpenModal}
+          onBlur={onCloseModal}
         ></input>
         {searchInput && (
           <div className="DeleteBtn" onClick={onResetSearchInput}>
@@ -98,25 +97,22 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
         )}
       </div>
       {isOpenModal && (
-        <>
-          <div className="ModalWrap">
-            {resultBrandList.map((e, i) => (
-              <div className="BrandNameInner" key={i}>
-                <div
-                  onClick={() =>
-                    nav(`/brand/${e.default}`, {
-                      state: { brand: { brandName: e.default } },
-                    })
-                  }
-                >
-                  <p className="Default">{e.default}</p>
-                  <p className="Korean">{e.korean}</p>
-                </div>
+        <div className="ModalWrap">
+          {resultBrandList.map((e, i) => (
+            <div className="BrandNameInner" key={i}>
+              <div
+                onMouseDown={() =>
+                  nav(`/brand/${e.default}`, {
+                    state: { brand: { brandName: e.default } },
+                  })
+                }
+              >
+                <p className="Default">{e.default}</p>
+                <p className="Korean">{e.korean}</p>
               </div>
-            ))}
-          </div>
-          <div className="Background" onClick={onCloseModal}></div>
-        </>
+            </div>
+          ))}
+        </div>
       )}
     </SearchInputStyle>
   );
@@ -124,7 +120,7 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
 
 const SearchInputStyle = styled.div<{ value: string }>`
   position: relative;
-  height: 40px;
+  height: 44px;
   width: 100%;
   .InputWrap {
     position: relative;
@@ -145,15 +141,15 @@ const SearchInputStyle = styled.div<{ value: string }>`
     .DeleteBtn {
       position: absolute;
       right: 12px;
-      top: 12px;
+      top: 14px;
       cursor: pointer;
     }
   }
 
   .ModalWrap {
-    display: none;
+    display: ${({ value }) => (value ? "block" : "none")};
     position: absolute;
-    top: 40px;
+    top: 44px;
     width: 100%;
     height: fit-content;
     max-height: 200px;
@@ -191,28 +187,4 @@ const SearchInputStyle = styled.div<{ value: string }>`
       }
     }
   }
-
-  .Background {
-    position: fixed;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: 100%;
-    cursor: default;
-    z-index: 10;
-
-    background-color: transparent;
-  }
-
-  ${({ value }) =>
-    value &&
-    css`
-      .InputWrap {
-        .SearchInput {
-        }
-      }
-      .ModalWrap {
-        display: block;
-      }
-    `}
 `;

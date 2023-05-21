@@ -4,8 +4,8 @@ import { ChangeEvent, useEffect, useState } from "react";
 import ImgageUploader from "../../../common/components/ImageUploader";
 import Button from "../../../common/components/Button";
 import { useImage } from "../../../hooks/storage/useImage";
-import { useBrandStore } from "../../../hooks/firestore/useBrandStore";
 import { IsBrand, IsOfficialStore } from "../../../types/brand";
+import useMutationBrand from "../../../api/useMutationBrand";
 
 interface IsWindowModal1 {
   exitModal: () => void;
@@ -23,7 +23,7 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
   const [isUpload, setIsUpload] = useState(false);
 
   const { upload } = useImage("store");
-  const { updateBrand } = useBrandStore();
+  const { updateBrand } = useMutationBrand();
 
   const onChangeInput = async (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -66,12 +66,15 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
 
   useEffect(() => {
     if (input.brandName && isUpload) {
-      updateBrand(input.brandName, {
-        ...input,
-        officialStoreList: [
-          ...input.officialStoreList,
-          { ...newStore, id: newStore.storeName },
-        ],
+      updateBrand.mutate({
+        id: input.brandName,
+        brand: {
+          ...input,
+          officialStoreList: [
+            ...input.officialStoreList,
+            { ...newStore, id: newStore.storeName },
+          ],
+        },
       });
 
       exitModal();

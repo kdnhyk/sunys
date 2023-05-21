@@ -4,15 +4,13 @@ import { IsCollection } from "../types/collection";
 export const collectionState = atom<{
   currentCollection: IsCollection[];
   myCollection: IsCollection[];
-  upcommingList: IsCollection[];
-  recentList: IsCollection[];
+  recentCollection: IsCollection[];
 }>({
   key: "collectionState",
   default: {
     currentCollection: [] as IsCollection[],
     myCollection: [] as IsCollection[],
-    upcommingList: [] as IsCollection[],
-    recentList: [] as IsCollection[],
+    recentCollection: [] as IsCollection[],
   },
 });
 
@@ -52,29 +50,11 @@ export const myCollectionListSelector = selector<IsCollection[]>({
   },
 });
 
-export const upcommingCollectionListSelector = selector<IsCollection[]>({
-  key: "upcommingCollectionListSelector",
-  get: ({ get }) => {
-    const originalState = get(collectionState);
-    return originalState.upcommingList;
-  },
-  set: ({ set, get }, newValue) => {
-    const oldDocs = get(collectionState);
-
-    set(
-      collectionState,
-      newValue instanceof DefaultValue
-        ? oldDocs
-        : { ...oldDocs, upcommingList: newValue }
-    );
-  },
-});
-
 export const recentCollectionListSelector = selector<IsCollection[]>({
   key: "recentCollectionListSelector",
   get: ({ get }) => {
     const originalState = get(collectionState);
-    return originalState.recentList;
+    return originalState.recentCollection;
   },
   set: ({ set, get }, newValue) => {
     const oldDocs = get(collectionState);
@@ -83,7 +63,7 @@ export const recentCollectionListSelector = selector<IsCollection[]>({
       collectionState,
       newValue instanceof DefaultValue
         ? oldDocs
-        : { ...oldDocs, recentList: newValue }
+        : { ...oldDocs, recentCollection: newValue }
     );
   },
 });

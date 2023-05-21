@@ -10,7 +10,7 @@ interface IsImageUploader {
 
 const handleImage = async (file: File) => {
   const options = {
-    maxSizeMB: 1, // 이미지 최대 용량
+    maxSizeMB: 0.2, // 이미지 최대 용량
     maxWidthOrHeight: 1920, // 최대 넓이(혹은 높이)
     useWebWorker: true,
   };

@@ -78,9 +78,9 @@ export default function CartArticle({ article }: IsCartArticle) {
             {article.articleName}
           </p>
 
-          <p className="ReleaseDate">
+          {/* <p className="ReleaseDate">
             {article.releaseDate.replaceAll("-", ". ")}
-          </p>
+          </p> */}
         </div>
 
         <div className="PriceWrap">

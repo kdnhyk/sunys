@@ -6,16 +6,17 @@ import { IsCollection } from "../../types/collection";
 import Button from "../../common/components/Button";
 import ImgageUploader from "../../common/components/ImageUploader";
 import Input from "../../common/components/Input";
-import { useCollectionStore } from "../../hooks/firestore/useCollectionStore";
 import { useImage } from "../../hooks/storage/useImage";
 import ReactDatePicker from "react-datepicker";
 import { toStringByFormatting } from "../../util";
 import VisibleToggle from "../../common/components/VisibleToggle";
+import useMutationCollection from "../../api/useMutationCollection";
 import { IsArticle } from "../../types/article";
+import useLocationState from "../../hooks/useLocationState";
 
 interface IsMainWrap {
   currentCollection?: IsCollection;
-  articleList?: IsArticle[];
+  articleList: IsArticle[];
 }
 
 export default function MainArea({
@@ -24,10 +25,11 @@ export default function MainArea({
 }: IsMainWrap) {
   const { id, cid } = useParams();
 
-  const { updateCollection, addCollection, deleteCollection } =
-    useCollectionStore();
+  const { updateCollection, addCollection } = useMutationCollection();
   const { upload, deleteImage } = useImage("collection");
   const nav = useNavigate();
+  const { deleteCollection } = useMutationCollection();
+  const { onClickBrandSetting, onClickCollection } = useLocationState();
 
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [isUpload, setIsUpload] = useState(false);
@@ -97,9 +99,17 @@ export default function MainArea({
       alert("생성중엔 삭제할 수 없습니다");
       return;
     }
-    console.log(currentCollection.id);
 
-    // deleteCollection(currentCollection.id);
+    if (articleList.length > 0) {
+      alert("제품 먼저 삭제 해야합니다");
+    }
+
+    deleteCollection.mutate({
+      id: currentCollection.id,
+      imageUrl: currentCollection.images[0],
+    });
+
+    nav(-1);
   };
 
   // Get CurrentCollection Data
@@ -135,17 +145,34 @@ export default function MainArea({
   // Update & Upload
   useEffect(() => {
     if (isUpload && input.images[0]) {
-      if (cid) {
-        updateCollection(cid, {
-          collectionName: input.collectionName,
-          releaseDate: input.releaseDate,
-          images: input.images,
+      if (cid && currentCollection) {
+        updateCollection.mutate({
+          id: cid,
+          collection: {
+            collectionName: input.collectionName,
+            releaseDate: input.releaseDate,
+            images: input.images,
 
-          brandName: input.brandName,
-          isVisible: input.isVisible,
+            brandName: input.brandName,
+            isVisible: input.isVisible,
+          },
         });
+
+        onClickCollection(currentCollection);
+
+        // console.log(
+        //   "current: ",
+        //   currentCollection?.images[0],
+        //   "input",
+        //   input.images[0]
+        // );
+
+        // if (currentCollection.images[0] !== input.images[0]) {
+        //   console.log("Delete last image");
+        //   deleteImage(currentCollection?.images[0]);
+        // }
       } else if (!cid) {
-        addCollection({
+        addCollection.mutate({
           collectionName: input.collectionName,
           releaseDate: input.releaseDate,
           images: input.images,
@@ -153,9 +180,9 @@ export default function MainArea({
           brandName: input.brandName,
           isVisible: input.isVisible,
         });
-      }
 
-      nav(`/brandform/${id}`);
+        nav(-1);
+      }
     }
   }, [isUpload]);
 
@@ -163,7 +190,7 @@ export default function MainArea({
     <MainAreaWrap>
       <div className="InfoWrap">
         {currentCollection?.id && (
-          <div className="DeleteWrap">
+          <div className="DeleteWrap" onClick={onDeleteCollection}>
             <svg
               width="22"
               height="25"
@@ -183,7 +210,7 @@ export default function MainArea({
           isActivated={input.isVisible || false}
           onClick={onChangeInputIsVisible}
         />
-        <UnderLineBox isBold={true}>{id}</UnderLineBox>
+        <UnderLineBox>{id}</UnderLineBox>
         <ImgageUploader
           defaultImageUrl={currentCollection?.images[0] || ""}
           setImageFile={setImageFile}
@@ -193,7 +220,8 @@ export default function MainArea({
           value={input.collectionName}
           placeholder="Collection Name"
           onChange={onChange}
-          // disabled={id ? true : false}
+          disabled={cid ? true : false}
+          // disabled={articleList?.length !==0 || false}
         />
         <DatePickerWrap
           dateFormat="yyyy / MM / dd"
@@ -201,7 +229,8 @@ export default function MainArea({
             input.releaseDate ? new Date(input.releaseDate) : new Date()
           }
           onChange={(date) => onChangeInputReleaseDate(date)}
-          disabled={!articleList ? false : articleList?.length !== 0}
+          disabled={cid ? true : false}
+          // disabled={articleList?.length !== 0 || false}
         />
       </div>
 

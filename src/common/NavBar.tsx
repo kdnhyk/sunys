@@ -24,7 +24,7 @@ export default function NavBar({}: IsNavBar) {
       path: "/magazine",
     },
     {
-      name: user.uid ? "마이페이지" : "로그인",
+      name: user.uid ? "프로필" : "로그인",
       path: "/account",
     },
   ];
@@ -97,7 +97,7 @@ const NavBarBlock = styled.nav`
   }
 
   .CartWrap {
-    flex-basis: 50px;
+    flex-basis: 48px;
     flex-grow: 0;
     border-right: none;
     .Cart {

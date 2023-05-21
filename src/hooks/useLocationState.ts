@@ -17,6 +17,12 @@ export default function useLocationState() {
     });
   };
 
+  const onClickBrandSetting = (brand?: IsBrand) => {
+    nav(`/brandform/${brand ? brand.brandName : ""}`, {
+      state: { brand: brand ? brand : { brandName: "" } },
+    });
+  };
+
   const onClickCollection = (collection: IsCollection) => {
     nav(`/collection/${collection.id}`, {
       state: { collection: collection },
@@ -29,10 +35,26 @@ export default function useLocationState() {
     });
   };
 
+  const onClickCollectionSetting = (
+    brandName: string,
+    collection?: IsCollection
+  ) => {
+    nav(
+      `/brandform/${brandName}/collectionform/${
+        collection ? collection.id : ""
+      }`,
+      {
+        state: { collection: collection || null },
+      }
+    );
+  };
+
   return {
     onClickBarnd,
     onClickBarndByBrandName,
+    onClickBrandSetting,
     onClickCollection,
     onClickCollectionByCid,
+    onClickCollectionSetting,
   };
 }

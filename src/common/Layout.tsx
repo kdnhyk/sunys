@@ -27,9 +27,9 @@ const LayoutWrap = styled.div<{ vh: number }>`
 
   color: black;
   main {
-    padding-top: 32px;
+    padding-top: 0px;
     ${media.desktop`
-      padding-top: 80px;
+      padding-top: 50px;
     `}
   }
 `;

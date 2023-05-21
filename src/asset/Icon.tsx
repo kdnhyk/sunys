@@ -157,7 +157,7 @@ const Search = ({ isSelected }: IsIcon) => {
   );
 };
 
-const Arrow = () => {
+const ArrowWhite = () => {
   return (
     <svg
       width="35"
@@ -167,6 +167,20 @@ const Arrow = () => {
       xmlns="http://www.w3.org/2000/svg"
     >
       <path d="M0 9H32L25.2903 1" stroke="white" strokeWidth="2" />
+    </svg>
+  );
+};
+
+const ArrowBlack = () => {
+  return (
+    <svg
+      width="35"
+      height="10"
+      viewBox="0 0 35 10"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M0 9H32L25.2903 1" stroke="black" strokeWidth="2" />
     </svg>
   );
 };
@@ -189,6 +203,42 @@ const NotFoundImage = () => {
   );
 };
 
+const More = () => {
+  return (
+    <svg
+      width="19"
+      height="12"
+      viewBox="0 0 19 12"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M1 1.48523L9.48528 9.97051L17.9706 1.48523"
+        stroke="#8E8E8E"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+};
+
+const Reset = () => {
+  return (
+    <svg
+      width="20"
+      height="11"
+      viewBox="0 0 20 11"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M18.3137 10L9.82844 1.51472L1.34316 10"
+        stroke="#8E8E8E"
+        strokeWidth="2"
+      />
+    </svg>
+  );
+};
+
 export {
   Home,
   HomeOn,
@@ -199,6 +249,9 @@ export {
   Scrap,
   ScrapOn,
   Search,
-  Arrow,
+  ArrowWhite,
+  ArrowBlack,
   NotFoundImage,
+  More,
+  Reset,
 };

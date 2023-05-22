@@ -2,6 +2,7 @@ import styled from "styled-components";
 import { useAuth } from "../hooks/useAuth";
 import TitleBox from "./components/TitleBox";
 import Button from "./components/Button";
+import NaverLogin from "./components/NaverLogin";
 
 interface IsLoginModal {
   exitModal: () => void;
@@ -9,6 +10,7 @@ interface IsLoginModal {
 
 export default function LoginModal({ exitModal }: IsLoginModal) {
   const { loginWithGoogle } = useAuth();
+
   const onGoogleLogin = () => {
     loginWithGoogle();
   };
@@ -29,6 +31,7 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
           <div className="Google" onClick={onGoogleLogin}>
             <p>LOGIN WITH GOOGLE</p>
           </div>
+          <NaverLogin />
         </div>
 
         <Button onClick={exitModal} isActivated={false}>
@@ -96,7 +99,10 @@ const LoginModalBlock = styled.form`
     z-index: 1000;
     .LoginWrap {
       width: 100%;
-      margin-bottom: 40px;
+      margin-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
       .Google {
         width: 100%;
         height: 40px;

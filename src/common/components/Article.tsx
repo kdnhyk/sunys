@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { IsArticle } from "../../types/article";
 import { useAuth } from "../../hooks/useAuth";
-import { ArrowWhite } from "../../asset/Icon";
 import { useState } from "react";
 import WindowModalArticle from "./WindowModaArticlel";
 
@@ -26,7 +25,7 @@ export default function Article({ article }: IsArticleWrap) {
 
   return (
     <ArticleWrap isInCart={isInCart}>
-      <div className="ArticleInner">
+      <div className="ArticleInner" onClick={openModal}>
         <div className="ImageWrap">
           <img src={article.images[0]} alt="" />
         </div>
@@ -40,10 +39,6 @@ export default function Article({ article }: IsArticleWrap) {
         </div>
       </div>
 
-      <div className="HoverWrap" onClick={openModal}>
-        <ArrowWhite />
-      </div>
-
       {isOpenModal && (
         <WindowModalArticle exitModal={closeModal} article={article} />
       )}
@@ -54,15 +49,6 @@ export default function Article({ article }: IsArticleWrap) {
 const ArticleWrap = styled.div<{ isInCart: boolean }>`
   height: 100%;
   position: relative;
-
-  &:hover {
-    .HoverWrap {
-      background-color: rgba(0, 0, 0, 0.3);
-      svg {
-        display: block;
-      }
-    }
-  }
 
   .ArticleInner {
     .ImageWrap {
@@ -85,33 +71,14 @@ const ArticleWrap = styled.div<{ isInCart: boolean }>`
 
       h3 {
         margin-bottom: 2px;
+        display: -webkit-box;
+        -webkit-box-orient: vertical;
+        -webkit-line-clamp: 2;
+        overflow: hidden;
       }
       p {
         color: #8e8e8e;
       }
-    }
-  }
-  svg {
-    cursor: pointer;
-  }
-
-  .HoverWrap {
-    position: absolute;
-    top: 0px;
-    left: 0px;
-    width: 100%;
-    height: calc(100% - 42px);
-    transition: all 0.16s ease-out;
-    background-color: transparent;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    cursor: pointer;
-    svg {
-      display: none;
-      cursor: pointer;
     }
   }
 `;

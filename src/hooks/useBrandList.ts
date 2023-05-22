@@ -3,9 +3,12 @@ import { useBrandListStore } from "./firestore/useBrandListStore";
 import { useRecoilState } from "recoil";
 import { brandListSelector } from "../store/brandList";
 import { IsBrandName } from "../types/brand";
+
+//
 export const useBrandList = () => {
   const [brandList, setBrandList] =
     useRecoilState<IsBrandName[]>(brandListSelector);
+
   const { documents, getBrandListRealtime } = useBrandListStore();
 
   const sortUserBrandList = (brandList: IsBrandName[]) => {

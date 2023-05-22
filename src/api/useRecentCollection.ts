@@ -22,7 +22,7 @@ const useRecentCollection = () => {
       collection(store, "collection"),
       where("isVisible", "==", true),
       orderBy("createdTime", "desc"),
-      limit(2)
+      limit(6)
     );
 
     console.log("FireStore Access");
@@ -44,7 +44,7 @@ const useRecentCollection = () => {
       where("isVisible", "==", true),
       orderBy("createdTime", "desc"),
       startAfter(pageParam),
-      limit(2)
+      limit(6)
     );
 
     console.log("FireStore Access");
@@ -60,7 +60,7 @@ const useRecentCollection = () => {
     return querySnapshot;
   };
 
-  const { fetchNextPage, hasNextPage } = useInfiniteQuery(
+  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["recentCollection"],
     async ({ pageParam }) =>
       pageParam ? getRecentCollection(pageParam) : getRecentCollectionInit(),
@@ -77,7 +77,7 @@ const useRecentCollection = () => {
       refetchOnWindowFocus: false,
     }
   );
-
+  // console.log(data?.pages.map((e) => e.data()));
   return { recentCollection, fetchNextPage, hasNextPage };
 };
 

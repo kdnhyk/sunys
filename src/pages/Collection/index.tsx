@@ -7,6 +7,7 @@ import Article from "../../common/components/Article";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import useLocationState from "../../hooks/useLocationState";
+import useCollection from "../../api/useCollection";
 
 export default function Collection() {
   const { user } = useAuth();
@@ -14,6 +15,7 @@ export default function Collection() {
   const { collection } = useLocation().state;
   const { onClickBarndByBrandName, onClickCollectionSetting } =
     useLocationState();
+  const { data } = useCollection(collection.id);
 
   const [currentCollection, setCurrentCollection] =
     useState<IsCollection>(initCollection);
@@ -24,18 +26,15 @@ export default function Collection() {
   );
 
   useEffect(() => {
-    if (!collection.id) return;
-
-    if (collection.collectionName) {
+    if (!collection.collectionName) {
+      console.log("fetch");
+      setCurrentCollection(data);
+    } else if (collection.collectionName) {
       setCurrentCollection(collection);
-    } else {
-      // handleCollectionById(collection.id).then(async (col) => {
-      //   await setCurrentCollection(col[0]);
-      // });
     }
 
     handleArticleByCid(collection.id);
-  }, [collection]);
+  }, [collection, data]);
 
   return (
     <CollectionWrap>

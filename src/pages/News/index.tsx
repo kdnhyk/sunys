@@ -1,20 +1,18 @@
 import styled from "styled-components";
 import Collection from "../../common/components/Collection";
-import { Suspense, useEffect, useState } from "react";
+import { Suspense, useEffect, useRef, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import { More } from "../../asset/Icon";
 import useRecentCollection from "../../api/useRecentCollection";
+import useIntersectionObserver from "../../hooks/useIntersectionObserver";
+import { useInView } from "react-intersection-observer";
 
 //
 export default function News() {
   const { recentCollection, fetchNextPage, hasNextPage } =
     useRecentCollection(); // isLoading 추가
 
-  const [onLoad, setOnLoad] = useState(false);
-
-  const handleLoad = () => {
-    setOnLoad(true);
-  };
+  const [ref, inView] = useInView();
 
   useEffect(() => {
     if (recentCollection.length === 0) {
@@ -23,23 +21,22 @@ export default function News() {
   }, []);
 
   useEffect(() => {
-    if (onLoad && hasNextPage) {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
-    setOnLoad(false);
-  }, [hasNextPage, onLoad]);
+  }, [hasNextPage, inView]);
 
   return (
     <NewsWrap>
       <div className="NewColArea">
         <ResponsiveMasonry
           columnsCountBreakPoints={{
-            300: 1,
-            400: 2,
-            660: 3,
-            880: 4,
-            1100: 5,
-            1320: 6,
+            180: 1,
+            360: 2,
+            540: 3,
+            720: 4,
+            900: 5,
+            1080: 6,
           }}
         >
           <Masonry>
@@ -50,7 +47,7 @@ export default function News() {
             ))}
           </Masonry>
         </ResponsiveMasonry>
-        <div className="More" onClick={handleLoad}>
+        <div className="More" ref={ref}>
           <More />
         </div>
       </div>
@@ -59,13 +56,13 @@ export default function News() {
 }
 
 const NewsWrap = styled.div`
-  padding: 24px 0px;
+  padding: 9px 0px 24px 0px;
   .NewColArea {
-    padding: 0px 8px;
+    padding: 0px 6px;
     border-bottom: 1px solid #dddddd;
 
     .ColInner {
-      padding: 8px;
+      padding: 6px;
     }
 
     .More {

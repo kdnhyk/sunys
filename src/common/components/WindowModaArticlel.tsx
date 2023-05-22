@@ -146,7 +146,7 @@ const WindowModalArticleBlock = styled.div`
     }
 
     .MainWrap {
-      padding: 12px 16px;
+      padding: 16px 16px;
       display: flex;
       flex-direction: column;
       gap: 6px;

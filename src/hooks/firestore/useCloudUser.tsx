@@ -4,7 +4,6 @@ import {
   doc,
   getDocs,
   limit,
-  onSnapshot,
   query,
   setDoc,
   where,
@@ -15,28 +14,6 @@ import { IsBrandName } from "../../types/brand";
 
 export const useCloudUser = () => {
   const collectionRef = collection(store, "user");
-
-  // const getCloudUser = async (uid: string) => {
-  //   const q = query(collectionRef, where("uid", "==", uid), limit(1));
-
-  //   console.log("FireStore Access");
-
-  //   const unsubscribe = onSnapshot(
-  //     q,
-  //     (querySnapshot) => {
-  //       let result: any[] = [];
-  //       querySnapshot.forEach((doc) => {
-  //         result.push({ ...doc.data() });
-  //         console.log(result);
-  //         return result[0];
-  //       });
-  //     },
-  //     (error) => {
-  //       console.log(error.message);
-  //     }
-  //   );
-  //   return null;
-  // };
 
   const getCloudUser = async (uid: string) => {
     const q = query(collectionRef, where("uid", "==", uid), limit(1));

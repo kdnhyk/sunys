@@ -3,6 +3,7 @@ import { createGlobalStyle } from "styled-components";
 import Layout from "./common/Layout";
 import { Suspense, useEffect } from "react";
 import { useBrandList } from "./hooks/useBrandList";
+import Loading from "common/components/Loading";
 
 export default function App() {
   const { pathname } = useLocation();
@@ -25,7 +26,7 @@ export default function App() {
     <>
       <GlobalStyle />
       <Layout>
-        <Suspense fallback={<div>Loading...</div>}>
+        <Suspense fallback={<Loading />}>
           <Outlet />
         </Suspense>
       </Layout>

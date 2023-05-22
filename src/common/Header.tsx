@@ -10,7 +10,7 @@ export default function Header() {
   const targetRef = useRef(null);
   const handleScroll = useCallback(() => {
     // console.log(window.scrollY);
-    if (window.scrollY > 83) {
+    if (window.scrollY > 81) {
       setIsFixHeader(() => true);
     } else {
       setIsFixHeader(() => false);
@@ -41,7 +41,7 @@ export default function Header() {
 const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
   width: 100%;
   position: relative;
-  height: 132px;
+  height: 129px;
   display: flex;
   flex-direction: column;
   color: #314af3;
@@ -52,16 +52,14 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     width: 100%;
     position: absolute;
     z-index: 200;
-    top: 84px;
+    top: 81px;
     height: 48px;
     display: flex;
     flex-direction: column;
 
     align-items: center;
     transition: border 0.1s ease-out;
-    border-top: 1px solid #dddddd;
-    /* border-bottom: ${({ isFixHeader }) =>
-      isFixHeader ? "1px solid #dddddd" : "1px solid #fcfcfc"}; */
+
     background-color: #fcfcfc;
 
     ${({ isFixHeader }) =>
@@ -69,7 +67,6 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
       css`
         position: fixed;
         top: 0px;
-        border: none;
       `}
   }
 

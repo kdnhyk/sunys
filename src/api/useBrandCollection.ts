@@ -23,7 +23,7 @@ const useBrandCollection = (brandName: string) => {
       where("brandName", "==", brandName),
       where("isVisible", "==", true),
       orderBy("createdTime", "desc"),
-      limit(2)
+      limit(6)
     );
 
     console.log("FireStore Access");
@@ -46,7 +46,7 @@ const useBrandCollection = (brandName: string) => {
       where("isVisible", "==", true),
       orderBy("createdTime", "desc"),
       startAfter(pageParam),
-      limit(2)
+      limit(6)
     );
 
     console.log("FireStore Access");

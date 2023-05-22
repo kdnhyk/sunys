@@ -7,11 +7,11 @@ import CollectionArea from "./CollectionArea";
 export default function Brand() {
   return (
     <BrandWrap>
-      <div className="InfoWrap">
+      <div className="InfoArea">
         <InfoArea />
       </div>
 
-      <div className="CollectionWrap">
+      <div className="CollectionArea">
         <CollectionArea />
       </div>
     </BrandWrap>
@@ -23,15 +23,15 @@ const BrandWrap = styled.div`
   flex-direction: column;
   ${media.desktop`
     flex-direction: row;
-    .InfoWrap {
+    .InfoArea {
       width: 220px;
       flex-grow: 2;
       border-right: 1px solid #dddddd;
       .SaleWrap {
       }
     }
-    .CollectionWrap {
-      width: 173.5px;
+    .CollectionArea {
+      width: 174px;
       flex-grow: 4;
     }
   `}

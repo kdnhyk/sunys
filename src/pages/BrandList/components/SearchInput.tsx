@@ -56,7 +56,7 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
     if (isOpenModal) {
       if (width < 600) {
         window.scrollTo({
-          top: 84,
+          top: 81,
           behavior: "smooth",
         });
       } else {

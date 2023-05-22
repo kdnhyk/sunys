@@ -69,6 +69,7 @@ const NavBarBlock = styled.nav`
   color: black;
 
   .Empty {
+    height: 48px;
     display: none;
     flex-grow: 2;
     border-right: 1px solid #dddddd;
@@ -77,6 +78,7 @@ const NavBarBlock = styled.nav`
     `}
   }
   a {
+    height: 48px;
     flex-grow: 1;
     display: flex;
     flex-direction: column;

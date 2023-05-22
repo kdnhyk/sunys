@@ -14,13 +14,13 @@ export default function BrandList() {
 }
 
 const BrandListStyle = styled.div`
-  padding: 30px 0px;
+  padding: 24px 0px;
   display: flex;
   flex-direction: column;
   gap: 20px;
   .SearchInputWrap {
     padding: 0px 16px;
-    padding-bottom: 30px;
+    padding-bottom: 24px;
     border-bottom: 1px solid #dddddd;
     display: flex;
     justify-content: center;

@@ -1,17 +1,10 @@
 import {
-  addDoc,
   collection,
-  deleteDoc,
   doc,
-  documentId,
-  getDocs,
   limit,
   onSnapshot,
-  orderBy,
   query,
   setDoc,
-  startAfter,
-  where,
 } from "firebase/firestore";
 import { store } from "../../firebase";
 import { useState } from "react";
@@ -55,11 +48,6 @@ export const useBrandListStore = () => {
       { merge: true }
     );
   };
-
-  // const deleteBrandToList = async (id: string) => {
-  //   console.log("Del: " + id);
-  //   await deleteDoc(doc(collectionRef, id));
-  // };
 
   return {
     documents,

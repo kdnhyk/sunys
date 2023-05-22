@@ -14,15 +14,6 @@ export const useArticle = () => {
     setArticleList(documents);
   }, [documents]);
 
-  // const getArticleList = async () => {
-  //   setArticleList(await getAllDocuments());
-  // };
-
-  // const getRealTimeArticles = async () => {
-  //   getArticleByIdRealTime();
-  // };
-
-  // Collection
   const handleArticleByCid = async (cid: string) => {
     setArticleList(await getArticleByCid(cid));
   };

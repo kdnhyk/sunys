@@ -13,5 +13,8 @@ service cloud.firestore {
       allow write: if true;
     	allow update: if true;
   	}
+    match /brand/{brand} {
+    	allow update: if request.auth != null;
+  	}
   }
 }

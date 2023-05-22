@@ -27,12 +27,8 @@ export default function Collection({
     >
       <div className="ImageWrap">
         <img src={collection.images[0]} alt="" width={180} height={240} />
-        {diff <= 0 ? (
-          <div className="HoverWrap">
-            <ArrowWhite />
-          </div>
-        ) : (
-          <div className="DDayHoverWrap">
+        {diff > 0 && (
+          <div className="DDayWrap">
             <p>{`D - ${diff}`}</p>
           </div>
         )}
@@ -61,27 +57,7 @@ const CollectionWrap = styled.div<{ isRed: boolean }>`
       object-fit: cover;
     }
 
-    .HoverWrap {
-      position: absolute;
-      top: 0px;
-      left: 0px;
-      width: 100%;
-      height: calc(100% - 4px);
-      transition: all 0.2s ease-out;
-      background-color: transparent;
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      border-radius: 12px;
-
-      svg {
-        display: none;
-      }
-    }
-
-    .DDayHoverWrap {
+    .DDayWrap {
       position: absolute;
       top: 0px;
       left: 0px;
@@ -104,30 +80,18 @@ const CollectionWrap = styled.div<{ isRed: boolean }>`
     }
   }
   .TextlWrap {
-    height: 40px;
+    height: fit-content;
+
     h3 {
       margin-bottom: 4px;
       color: ${({ isRed }) => isRed && "#F33131"};
     }
     p {
       color: #8e8e8e;
-    }
-  }
-
-  &:hover {
-    .ImageWrap {
-      .HoverWrap {
-        background-color: rgba(0, 0, 0, 0.3);
-        svg {
-          display: block;
-        }
-      }
-      .DDayHoverWrap {
-        background-color: rgba(0, 0, 0, 0.5);
-        p {
-          display: block;
-        }
-      }
+      display: -webkit-box;
+      -webkit-box-orient: vertical;
+      -webkit-line-clamp: 2;
+      overflow: hidden;
     }
   }
 `;

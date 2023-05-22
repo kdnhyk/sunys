@@ -28,7 +28,6 @@ export default function InfoArea() {
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [isEnterButton, setIsEnterButton] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
-  
 
   const onChangeInput = (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -74,7 +73,6 @@ export default function InfoArea() {
       };
     });
   };
-  console.log(currentBrand.officialStoreList);
 
   const onSubmit = async () => {
     await upload(logoFile, currentBrand.brandName, setImageUrl);

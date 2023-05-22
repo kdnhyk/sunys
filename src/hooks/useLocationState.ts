@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { IsBrand } from "../types/brand";
 import { IsCollection } from "../types/collection";
 
+//
 export default function useLocationState() {
   const nav = useNavigate();
 

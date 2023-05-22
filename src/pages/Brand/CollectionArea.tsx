@@ -33,59 +33,64 @@ export default function CollectionArea() {
   }, [hasNextPage, onLoad]);
 
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <CollectionAreaStyle>
-        <ResponsiveMasonry
-          columnsCountBreakPoints={
-            width < 700
-              ? {
-                  300: 1,
-                  400: 2,
-                  660: 3,
-                  880: 4,
-                  1100: 5,
-                  1320: 6,
-                }
-              : {
-                  660: 1,
-                  880: 2,
-                  1100: 3,
-                  1320: 4,
-                }
-          }
-        >
-          <Masonry>
-            {currentCollection.map((e, i) => (
-              <div className="ColInner" key={i}>
-                <Collection collection={e} />
-              </div>
-            ))}
-          </Masonry>
-        </ResponsiveMasonry>
-        {currentCollection.length > 0 && (
-          <div className="More" onClick={handleLoad}>
-            <More />
-          </div>
-        )}
-      </CollectionAreaStyle>
-    </Suspense>
+    <CollectionAreaStyle>
+      {currentCollection.length > 0 && (
+        <div className="CollectionWrap">
+          <ResponsiveMasonry
+            columnsCountBreakPoints={
+              width < 700
+                ? {
+                    180: 1,
+                    360: 2,
+                    540: 3,
+                    720: 4,
+                    900: 5,
+                    1080: 6,
+                  }
+                : {
+                    540: 1,
+                    720: 2,
+                    900: 3,
+                    1080: 4,
+                  }
+            }
+          >
+            <Masonry>
+              {currentCollection.map((e, i) => (
+                <div className="ColInner" key={i}>
+                  <Collection collection={e} />
+                </div>
+              ))}
+            </Masonry>
+          </ResponsiveMasonry>
+          {currentCollection.length > 0 && (
+            <div className="More" onClick={handleLoad}>
+              <More />
+            </div>
+          )}
+        </div>
+      )}
+    </CollectionAreaStyle>
   );
 }
 
 const CollectionAreaStyle = styled.div`
   height: 100%;
-  position: relative;
-  padding: 16px 8px 0px 8px;
-  border-bottom: 1px solid #dddddd;
+  .CollectionWrap {
+    height: 100%;
+    position: relative;
+    padding: 8px 8px 0px 8px;
+    border-bottom: 1px solid #dddddd;
 
-  .ColInner {
-    padding: 8px;
-  }
+    .ColInner {
+      padding: 8px;
+    }
 
-  .More {
-    display: flex;
-    justify-content: center;
-    padding-bottom: 16px;
-    cursor: pointer;
+    .More {
+      display: flex;
+      justify-content: center;
+      padding-bottom: 16px;
+      cursor: pointer;
+    }
   }
 `;

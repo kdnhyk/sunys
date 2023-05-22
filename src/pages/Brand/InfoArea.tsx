@@ -105,7 +105,7 @@ export default function InfoArea() {
     <InfoAreaStyle>
       <div className="OfficialButtonWrap">
         <a href={currentBrand.officialUrl} target="_blank" rel="noreferrer">
-          <h3>공식 페이지로 이동</h3>
+          <p>공식 페이지로 이동</p>
         </a>
       </div>
       <div className="LogoWrap">
@@ -182,20 +182,20 @@ export default function InfoArea() {
 const InfoAreaStyle = styled.div`
   width: 100%;
   height: 100%;
-  padding-top: 20px;
+  padding-top: 16px;
   position: relative;
   display: flex;
   flex-direction: column;
   align-items: end;
 
   .OfficialButtonWrap {
-    height: 40px;
-    padding: 0px 40px;
+    height: 36px;
+    padding: 0px 32px;
     display: flex;
     align-items: center;
     border: 1px solid black;
     margin-right: 12px;
-    margin-bottom: 40px;
+    margin-bottom: 24px;
   }
 
   .LogoWrap {
@@ -210,14 +210,15 @@ const InfoAreaStyle = styled.div`
     position: relative;
     width: 100%;
     display: flex;
+    gap: 4px;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 12px 16px 16px;
+    padding: 16px 12px 16px 16px;
 
     border-bottom: 1px solid #dddddd;
     .BrandName {
       h1 {
-        font-size: 20px;
+        font-size: 17px;
         font-weight: 600;
       }
     }
@@ -251,8 +252,7 @@ const InfoAreaStyle = styled.div`
     height: 50px;
     display: flex;
     padding: 0px 16px;
-    margin-bottom: 20px;
-    justify-content: space-around;
+    justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid #dddddd;
 
@@ -267,10 +267,10 @@ const InfoAreaStyle = styled.div`
 
   .StoreWrap {
     width: 100%;
-    padding: 0px 16px;
+    padding: 16px 16px;
     border-bottom: 1px solid #dddddd;
     .StoreList {
-      height: 260px;
+      height: 240px;
       display: flex;
       gap: 10px;
       overflow-x: auto;

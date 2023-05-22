@@ -16,13 +16,12 @@ const NaverLogin = () => {
   const naverRef = useRef<any>(null);
 
   useEffect(() => {
-    console.log(user);
+    // 실행 안되게
     if (user.uid) return;
 
     const naverLogin = new naver.LoginWithNaverId({
       clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
-      // callbackUrl: process.env.REACT_APP_REDIRECT_URI,
-      callbackUrl: "http://localhost:3006/account",
+      callbackUrl: process.env.REACT_APP_REDIRECT_URI,
       isPopup: false,
       loginButton: { color: "green", type: 1, height: 50 },
     });

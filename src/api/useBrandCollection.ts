@@ -75,7 +75,7 @@ const useBrandCollection = (brandName: string) => {
         return lastPageParam;
       },
       staleTime: 0,
-      cacheTime: 0,
+      cacheTime: Infinity,
       refetchOnWindowFocus: false,
     }
   );

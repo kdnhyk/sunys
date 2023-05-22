@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { IsCollection } from "../../types/collection";
-import { ArrowWhite } from "../../asset/Icon";
 import useLocationState from "../../hooks/useLocationState";
 
 interface IsCollectionStyle {
@@ -22,7 +21,7 @@ export default function Collection({
 
   return (
     <CollectionWrap
-      onClick={() => !isDisable && onClickCollection(collection)}
+      onClick={() => !isDisable && onClickCollection(collection.id || "")}
       isRed={!collection.isVisible}
     >
       <div className="ImageWrap">

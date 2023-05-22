@@ -158,7 +158,7 @@ export default function MainArea({
           },
         });
 
-        onClickCollection(currentCollection);
+        onClickCollection(currentCollection.id || "");
 
         // console.log(
         //   "current: ",

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useCloudUser } from "../../hooks/firestore/useCloudUser";
 import OfflineStore from "./components/OfflineStore";
@@ -11,10 +11,12 @@ import { useEffect, useState } from "react";
 import useLocationState from "../../hooks/useLocationState";
 import useMutationBrand from "../../api/useMutationBrand";
 import { useBrandStore } from "../../hooks/firestore/useBrandStore";
+import useBrand from "api/useBrand";
 
 export default function InfoArea() {
+  const { id } = useParams();
   const nav = useNavigate();
-  const { brand } = useLocation().state;
+  const { data } = useBrand(id || "");
   const { user } = useAuth();
   const { updateScrapBrand } = useCloudUser();
   const { handleUseScrapList } = useUser();
@@ -31,25 +33,25 @@ export default function InfoArea() {
     : false;
 
   useEffect(() => {
-    if (currentBrand.brandName) return;
+    if (!data) return;
 
-    if (brand.brandNameKo) {
+    if (data.brandNameKo) {
       setCurrentBrand(() => ({
-        logo: brand.logo,
-        officialUrl: brand.officialUrl,
-        brandName: brand.brandName,
-        brandNameKo: brand.brandNameKo,
-        tag: brand.tag,
-        scrapNum: brand.scrapNum || 0,
-        description: brand.description,
-        saleName: brand.saleName,
-        saleStartDate: brand.saleStartDate,
-        saleEndDate: brand.saleEndDate,
-        officialStoreList: brand.officialStoreList,
-        storeList: brand.storeList,
+        logo: data.logo,
+        officialUrl: data.officialUrl,
+        brandName: data.brandName,
+        brandNameKo: data.brandNameKo,
+        tag: data.tag,
+        scrapNum: data.scrapNum || 0,
+        description: data.description,
+        saleName: data.saleName,
+        saleStartDate: data.saleStartDate,
+        saleEndDate: data.saleEndDate,
+        officialStoreList: data.officialStoreList,
+        storeList: data.storeList,
       }));
-    } else if (brand.brandName) {
-      getBrandByBrandName(brand.brandName).then((brand) => {
+    } else if (data.brandName) {
+      getBrandByBrandName(data.brandName).then((brand) => {
         if (!brand) return;
         setCurrentBrand(() => ({
           logo: brand.logo,
@@ -67,10 +69,10 @@ export default function InfoArea() {
         }));
       });
     }
-  }, [brand, currentBrand.brandName]);
+  }, []);
 
   const onScrapBrand = async () => {
-    if (!brand.brandName) return;
+    if (!data.brandName) return;
     if (!user.uid) {
       nav("/account");
     }
@@ -134,7 +136,7 @@ export default function InfoArea() {
         {user.admin && (
           <div
             className="Setting"
-            onClick={() => onClickBrandSetting(currentBrand)}
+            onClick={() => onClickBrandSetting(currentBrand.brandName)}
           >
             <svg
               width="20"
@@ -182,7 +184,7 @@ export default function InfoArea() {
 const InfoAreaStyle = styled.div`
   width: 100%;
   height: 100%;
-  padding-top: 16px;
+  padding-top: 20px;
   position: relative;
   display: flex;
   flex-direction: column;

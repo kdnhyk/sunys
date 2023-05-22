@@ -49,6 +49,7 @@ const router = createBrowserRouter([
       {
         path: "/collection/:cid",
         element: <Collection />,
+        errorElement: <News />,
       },
       {
         path: "/brandform/:id/collectionform",

@@ -1,21 +1,20 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { IsCollection, initCollection } from "../../types/collection";
 import { useArticle } from "../../hooks/useArticle";
 import Article from "../../common/components/Article";
-import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import useLocationState from "../../hooks/useLocationState";
 import useCollection from "../../api/useCollection";
 
 export default function Collection() {
+  const { cid } = useParams();
+  const { data } = useCollection(cid || "");
   const { user } = useAuth();
   const { articleList, handleArticleByCid } = useArticle();
-  const { collection } = useLocation().state;
-  const { onClickBarndByBrandName, onClickCollectionSetting } =
-    useLocationState();
-  const { data } = useCollection(collection.id);
+
+  const { onClickBarnd, onClickCollectionSetting } = useLocationState();
 
   const [currentCollection, setCurrentCollection] =
     useState<IsCollection>(initCollection);
@@ -26,15 +25,15 @@ export default function Collection() {
   );
 
   useEffect(() => {
-    if (!collection.collectionName) {
+    if (!data.collectionName) {
       console.log("fetch");
       setCurrentCollection(data);
-    } else if (collection.collectionName) {
-      setCurrentCollection(collection);
+    } else if (data.collectionName) {
+      setCurrentCollection(data);
     }
 
-    handleArticleByCid(collection.id);
-  }, [collection, data]);
+    handleArticleByCid(data.id);
+  }, [data]);
 
   return (
     <CollectionWrap>
@@ -57,7 +56,7 @@ export default function Collection() {
       <div className="InfoWrap">
         <div
           className="BrandName"
-          onClick={() => onClickBarndByBrandName(currentCollection.brandName)}
+          onClick={() => onClickBarnd(currentCollection.brandName)}
         >
           <h1>{currentCollection.brandName}</h1>
         </div>
@@ -70,7 +69,7 @@ export default function Collection() {
             onClick={() =>
               onClickCollectionSetting(
                 currentCollection.brandName,
-                currentCollection
+                currentCollection.id
               )
             }
           >

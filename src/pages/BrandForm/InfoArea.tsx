@@ -160,7 +160,7 @@ export default function InfoArea() {
         });
       }
 
-      onClickBarnd(currentBrand);
+      onClickBarnd(currentBrand.brandName);
     }
   }, [isUpload]);
 

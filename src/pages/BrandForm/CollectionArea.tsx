@@ -69,7 +69,7 @@ export default function CollectionArea() {
                 <div
                   className="ColInner"
                   key={i}
-                  onClick={() => onClickCollectionSetting(e.brandName, e)}
+                  onClick={() => onClickCollectionSetting(e.brandName, e.id)}
                 >
                   <Collection collection={e} isDisable={true} />
                 </div>

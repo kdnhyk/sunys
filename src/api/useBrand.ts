@@ -1,19 +1,12 @@
 import { useQuery } from "react-query";
 import { store } from "../firebase";
-import {
-  collection,
-  documentId,
-  getDocs,
-  limit,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, limit, query, where } from "firebase/firestore";
 
-const useCollection = (cid: string) => {
-  const getCollectionByCid = async (cid: string) => {
+const useBrand = (brandName: string) => {
+  const getBrandByBrandName = async (brandName: string) => {
     const q = query(
-      collection(store, "collection"),
-      where(documentId(), "==", cid),
+      collection(store, "brand"),
+      where("brandName", "==", brandName),
       limit(1)
     );
 
@@ -29,8 +22,8 @@ const useCollection = (cid: string) => {
   };
 
   const { data } = useQuery(
-    ["collection", cid],
-    async () => await getCollectionByCid(cid),
+    ["brand", brandName],
+    async () => await getBrandByBrandName(brandName),
     {
       staleTime: Infinity,
       cacheTime: Infinity,
@@ -41,4 +34,4 @@ const useCollection = (cid: string) => {
   return { data };
 };
 
-export default useCollection;
+export default useBrand;

@@ -31,7 +31,6 @@ const LogoAreaWrap = styled.div`
   flex-direction: column;
   color: #314af3;
   z-index: 100;
-  border-bottom: 1px solid #dddddd;
 
   .LogoArea {
     display: flex;
@@ -44,6 +43,7 @@ const LogoAreaWrap = styled.div`
     a {
       svg {
         width: 100%;
+        min-width: 375px;
         height: auto;
       }
     }
@@ -53,6 +53,7 @@ const LogoAreaWrap = styled.div`
     height: 48px;
     padding: 9px 0px;
 
+    border-bottom: 1px solid #dddddd;
     border-right: 1px solid #dddddd;
       a{
         svg {

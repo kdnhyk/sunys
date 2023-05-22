@@ -65,6 +65,7 @@ const NavBarBlock = styled.nav`
   height: 48px;
   display: flex;
 
+  border-top: 1px solid #dddddd;
   border-bottom: 1px solid #dddddd;
   color: black;
 

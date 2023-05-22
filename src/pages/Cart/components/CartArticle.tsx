@@ -15,8 +15,7 @@ export default function CartArticle({ article }: IsCartArticle) {
   const { user, handleUserCart } = useUser();
   const { updateCart } = useCloudUser();
   const nav = useNavigate();
-  const { onClickBarndByBrandName, onClickCollectionByCid } =
-    useLocationState();
+  const { onClickBarnd, onClickCollection } = useLocationState();
 
   const onRemoveArticle = () => {
     handleUserCart(article);
@@ -39,7 +38,7 @@ export default function CartArticle({ article }: IsCartArticle) {
     <CartArticleBlock>
       <div
         className="ImageWrap"
-        onClick={() => onClickCollectionByCid(article.collectionId)}
+        onClick={() => onClickCollection(article.collectionId)}
       >
         <img
           alt={""}
@@ -52,7 +51,7 @@ export default function CartArticle({ article }: IsCartArticle) {
       <div className="InfoWrapper">
         <div className="TextArea">
           <div className="TextHeader">
-            <div onClick={() => onClickBarndByBrandName(article.brandName)}>
+            <div onClick={() => onClickBarnd(article.brandName)}>
               <h2>{`${article.brandName}`}</h2>
             </div>
 
@@ -73,7 +72,7 @@ export default function CartArticle({ article }: IsCartArticle) {
 
           <p
             className="ArticleName"
-            onClick={() => onClickCollectionByCid(article.collectionId)}
+            onClick={() => onClickCollection(article.collectionId)}
           >
             {article.articleName}
           </p>

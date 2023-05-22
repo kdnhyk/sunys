@@ -9,7 +9,7 @@ interface IsCollectionStyle {
 
 //
 export default function CollectionSmall({ collection }: IsCollectionStyle) {
-  const { onClickCollection, onClickCollectionByCid } = useLocationState();
+  const { onClickCollection } = useLocationState();
 
   const diff = Math.ceil(
     (new Date(collection.releaseDate).getTime() - new Date().getTime()) /
@@ -17,7 +17,7 @@ export default function CollectionSmall({ collection }: IsCollectionStyle) {
   );
 
   return (
-    <CollectionSmallWrap onClick={() => onClickCollection(collection)}>
+    <CollectionSmallWrap onClick={() => onClickCollection(collection.id || "")}>
       <div className="ImageWrap">
         <img src={collection.images[0]} alt="" width={180} height={240} />
         {diff <= 0 ? (

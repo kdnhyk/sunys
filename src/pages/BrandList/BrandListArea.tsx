@@ -8,7 +8,7 @@ import Button from "../../common/components/Button";
 export default function BrandListArea() {
   const { sortUserBrandList, sortRestBrandList } = useBrandList();
   const { user } = useAuth();
-  const { onClickBarndByBrandName, onClickBrandSetting } = useLocationState();
+  const { onClickBarnd, onClickBrandSetting } = useLocationState();
 
   return (
     <BrandListAreaWrap>
@@ -26,7 +26,7 @@ export default function BrandListArea() {
             {sortUserBrandList(user.scrapBrandList).map((e, i) => (
               <div
                 className="ScrapBrandInner"
-                onClick={() => onClickBarndByBrandName(e.default)}
+                onClick={() => onClickBarnd(e.default)}
                 key={i}
               >
                 <h3>{e.default}</h3>
@@ -44,7 +44,7 @@ export default function BrandListArea() {
           <div
             className="DefaultBrandInner"
             key={i}
-            onClick={() => onClickBarndByBrandName(e.default)}
+            onClick={() => onClickBarnd(e.default)}
           >
             <h3>{e.default}</h3>
             <p>{e.korean}</p>

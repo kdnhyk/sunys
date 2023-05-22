@@ -1,16 +1,16 @@
 import styled from "styled-components";
-import { useLocation } from "react-router-dom";
 import { More } from "../../asset/Icon";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../../common/components/Collection";
 import useBrandCollection from "../../api/useBrandCollection";
+import { useParams } from "react-router-dom";
 
 export default function CollectionArea() {
+  const { id } = useParams();
   const width = window.innerWidth;
-  const { brand } = useLocation().state;
   const { currentCollection, fetchNextPage, hasNextPage } = useBrandCollection(
-    brand.brandName
+    id || ""
   );
 
   const [onLoad, setOnLoad] = useState(false);
@@ -20,6 +20,8 @@ export default function CollectionArea() {
   };
 
   useEffect(() => {
+    if (!currentCollection) return;
+
     if (currentCollection.length === 0) {
       fetchNextPage();
     }

@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { More } from "../../asset/Icon";
+import { More } from "@/asset/Icon";
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../Collection";
-import useBrandCollection from "../../pages/api/useBrandCollection";
-import useLocationState from "../../hooks/useLocationState";
+import useBrandCollection from "@/pages/api/useBrandCollection";
+import useLocationState from "@/hooks/useLocationState";
 import CreateBox from "../CreateBox";
 
 interface IsCollectionArea {

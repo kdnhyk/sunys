@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useState } from "react";
-import { IsBrand, IsOfficialStore } from "../../types/brand";
+import { IsBrand, IsOfficialStore } from "@/types/brand";
 import "react-datepicker/dist/react-datepicker.css";
 import WindowModal1 from "./WindowModal1";
 import CreateBox from "../CreateBox";
 import OfflineStore from "../brand/OfflineStore";
-import { useImage } from "../../hooks/storage/useImage";
-import { useBrandStore } from "../../hooks/firestore/useBrandStore";
+import { useImage } from "@/hooks/storage/useImage";
+import { useBrandStore } from "@/hooks/firestore/useBrandStore";
 
 interface IsStoreArea1 {
   input: IsBrand;

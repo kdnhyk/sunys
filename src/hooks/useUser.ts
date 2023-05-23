@@ -1,7 +1,7 @@
 import { useRecoilState } from "recoil";
-import { userSelector } from "../store/user";
-import { IsArticle } from "../types/article";
-import { IsBrandName } from "../types/brand";
+import { userSelector } from "@/store/user";
+import { IsArticle } from "@/types/article";
+import { IsBrandName } from "@/types/brand";
 
 //
 export const useUser = () => {

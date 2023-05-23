@@ -13,9 +13,9 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import { store, timestamp } from "../../firebase";
+import { store, timestamp } from "@/firebase";
 import { useState } from "react";
-import { IsArticle } from "../../types/article";
+import { IsArticle } from "@/types/article";
 
 export const useArticleStore = () => {
   const [documents, setDocuments] = useState<IsArticle[]>();

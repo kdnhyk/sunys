@@ -12,9 +12,9 @@ import {
   startAfter,
   where,
 } from "firebase/firestore";
-import { store, timestamp } from "../../firebase";
+import { store, timestamp } from "@/firebase";
 import { useState } from "react";
-import { IsBrand } from "../../types/brand";
+import { IsBrand } from "@/types/brand";
 
 export const useBrandStore = () => {
   const [documents, setDocuments] = useState<IsBrand[]>();

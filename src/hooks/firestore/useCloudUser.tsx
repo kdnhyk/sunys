@@ -8,9 +8,9 @@ import {
   setDoc,
   where,
 } from "firebase/firestore";
-import { store, timestamp } from "../../firebase";
-import { IsArticle } from "../../types/article";
-import { IsBrandName } from "../../types/brand";
+import { store, timestamp } from "@/firebase";
+import { IsArticle } from "@/types/article";
+import { IsBrandName } from "@/types/brand";
 
 export const useCloudUser = () => {
   const collectionRef = collection(store, "user");

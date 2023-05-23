@@ -9,7 +9,7 @@ import Loading from "@/components/Loading";
 
 export default function News() {
   const { recentCollection, fetchNextPage, hasNextPage } =
-    useRecentCollection(); // isLoading 추가
+    useRecentCollection();
 
   const [ref, inView] = useInView();
 
@@ -29,11 +29,17 @@ export default function News() {
     return <Loading />;
   }
 
+  if (!recentCollection) return <div></div>;
+
   return (
     <>
       <Head>
         <title>SUNYS | 뉴스</title>
         <meta name="description" content="브랜드 별 컬렉션 정보" />
+        <meta
+          name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=6.0, user-scalable=0"
+        />
       </Head>
       <NewsWrap>
         <div className="NewColArea">

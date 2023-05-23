@@ -4,8 +4,29 @@ import InfoArea from "../../../components/brand/InfoArea";
 import CollectionArea from "../../../components/brand/CollectionArea";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { getBrandByBrandName } from "@/pages/api/useBrand";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 
-//
+export const getServerSideProps = async (ctx: { params: { id: string } }) => {
+  const id = ctx.params.id;
+  console.log(id);
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    ["brand", id],
+    () => getBrandByBrandName(id),
+    {
+      staleTime: Infinity,
+    }
+  );
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+};
+
 export default function Brand() {
   const { id } = useRouter().query;
 

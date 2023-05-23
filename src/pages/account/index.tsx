@@ -17,11 +17,11 @@ export default function Account() {
     router.push("/");
   };
 
-  useEffect(() => {
-    if (!user.uid) {
-      router.push("/");
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (!localStorage.getItem("user")) {
+  //     router.push("/");
+  //   }
+  // }, []);
 
   return (
     <>

@@ -2,15 +2,11 @@ import { Html, Head, Main, NextScript } from "next/document";
 
 export default function Document() {
   return (
-    <Html lang="en">
+    <Html lang="ko">
       <Head>
         <meta charSet="utf-8" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=6.0, user-scalable=0"
-        />
 
-        <meta name="description" content="서니즈 - 패션 브랜드 정보 매거진" />
+        <meta name="description" content="서니즈 - 패션 정보 매거진" />
 
         <link rel="icon" href="/favicon.ico" />
         <link rel="shortcut icon" href="/favicon.ico" />
@@ -18,7 +14,7 @@ export default function Document() {
 
         <meta property="og:image" content="/SUNYS.png" />
         <meta property="og:site_name" content="서니즈(SUNYS)" />
-        <meta property="og:description" content="패션 브랜드 정보 매거진" />
+        <meta property="og:description" content="패션 정보 매거진" />
         <meta property="og:type" content="website" />
         <meta property="og:title" content="서니즈(SUNYS)" />
         <meta property="og:url" content="http://sunys.co.kr" />

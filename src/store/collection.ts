@@ -32,8 +32,8 @@ export const currentColletionSelector = selector<IsCollection[]>({
   },
 });
 
-export const myCollectionListSelector = selector<IsCollection[]>({
-  key: "myCollectionListSelector",
+export const myCollectionSelector = selector<IsCollection[]>({
+  key: "myCollectionSelector",
   get: ({ get }) => {
     const originalState = get(collectionState);
     return originalState.myCollection;
@@ -50,8 +50,8 @@ export const myCollectionListSelector = selector<IsCollection[]>({
   },
 });
 
-export const recentCollectionListSelector = selector<IsCollection[]>({
-  key: "recentCollectionListSelector",
+export const recentCollectionSelector = selector<IsCollection[]>({
+  key: "recentCollectionSelector",
   get: ({ get }) => {
     const originalState = get(collectionState);
     return originalState.recentCollection;

@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { useCallback, useLayoutEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import LogoArea from "./LogoArea";
 import NavBar from "./NavBar";
 import { media } from "@/media";
@@ -17,7 +17,7 @@ export default function Header() {
     }
   }, []);
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const timer = setInterval(() => {
       window.addEventListener("scroll", handleScroll);
     }, 300);

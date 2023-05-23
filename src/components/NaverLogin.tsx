@@ -1,21 +1,19 @@
 import { useAuth } from "@/hooks/useAuth";
+import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const NaverLogin = () => {
   const { naver } = window;
-  const { user, loginWithEmailAndPassword } = useAuth();
-
+  const { loginWithEmailAndPassword } = useAuth();
+  const router = useRouter();
   const naverRef = useRef<any>(null);
 
   useEffect(() => {
-    // 실행 안되게
-    if (user.uid || !naver) return;
-
     const naverLogin = new naver.LoginWithNaverId({
-      clientId: process.env.REACT_APP_NAVER_CLIENT_ID,
+      clientId: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
       // callbackUrl: process.env.REACT_APP_REDIRECT_URI,
-      callbackUrl: "http://localhost:3000/account",
+      callbackUrl: "http://localhost:3008/account",
       isPopup: false,
       loginButton: { color: "green", type: 1, height: 50 },
     });
@@ -23,16 +21,18 @@ const NaverLogin = () => {
     naverLogin.init();
     naverLogin.logout();
 
-    naverLogin.getLoginStatus((status: boolean) => {
-      console.log(naverLogin);
+    // if (naverLogin.accessToken) {
+    naverLogin.getLoginStatus(async (status: boolean) => {
+      console.log(status);
 
       if (status) {
         console.log(naverLogin.user);
-        loginWithEmailAndPassword({
+        await loginWithEmailAndPassword({
           email: `Naver_${naverLogin.user.id}@sunys.co.kr`,
           password: naverLogin.user.id,
           displayName: naverLogin.user.name,
         });
+        router.push("/account");
       } else {
         console.log("error");
       }
@@ -40,14 +40,14 @@ const NaverLogin = () => {
   }, []);
 
   const onClick = () => {
-    console.log("click");
-    console.log(naverRef);
-    naverRef.current?.children[0].click();
+    if (!naverRef || !naverRef.current || !naverRef.current.children) return;
+
+    naverRef.current?.children[0]?.click();
   };
 
   return (
     <NaverLoginStyle>
-      <div ref={naverRef} id="naverIdLogin"></div>
+      <div ref={naverRef} id="naverIdLogin" />
       <div onClick={onClick} className="LoginButton">
         <p>LOGIN WITH NAVER</p>
       </div>

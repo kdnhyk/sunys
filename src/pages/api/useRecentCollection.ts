@@ -10,11 +10,11 @@ import {
   where,
 } from "firebase/firestore";
 import { useRecoilState } from "recoil";
-import { recentCollectionListSelector } from "@/store/collection";
+import { recentCollectionSelector } from "@/store/collection";
 
 const useRecentCollection = () => {
   const [recentCollection, setRecentCollection] = useRecoilState(
-    recentCollectionListSelector
+    recentCollectionSelector
   );
 
   const getRecentCollectionInit = async () => {
@@ -78,7 +78,11 @@ const useRecentCollection = () => {
     }
   );
   // console.log(data?.pages.map((e) => e.data()));
-  return { recentCollection, fetchNextPage, hasNextPage };
+  return {
+    recentCollection,
+    fetchNextPage,
+    hasNextPage,
+  };
 };
 
 export default useRecentCollection;

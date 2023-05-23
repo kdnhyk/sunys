@@ -6,9 +6,9 @@ import {
   query,
   setDoc,
 } from "firebase/firestore";
-import { store } from "../../firebase";
+import { store } from "@/firebase";
 import { useState } from "react";
-import { IsBrandName } from "../../types/brand";
+import { IsBrandName } from "@/types/brand";
 
 export const useBrandListStore = () => {
   const [documents, setDocuments] = useState<IsBrandName[]>();

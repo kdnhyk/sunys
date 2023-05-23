@@ -3,11 +3,32 @@ import { useEffect, useState } from "react";
 import Article from "@/components/Article";
 import { useAuth } from "@/hooks/useAuth";
 import useLocationState from "@/hooks/useLocationState";
-import useCollection from "@/pages/api/useCollection";
+import useCollection, { getCollectionByCid } from "@/pages/api/useCollection";
 import useArticle from "@/pages/api/useArticle";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+
+export const getServerSideProps = async (ctx: { params: { cid: string } }) => {
+  const cid = ctx.params.cid;
+
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    ["collection", cid],
+    () => getCollectionByCid(cid),
+    {
+      staleTime: Infinity,
+    }
+  );
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+};
 
 export default function Collection() {
   const { cid } = useRouter().query;

@@ -7,7 +7,7 @@ import {
   signInWithPopup,
   signOut,
 } from "firebase/auth";
-import { auth, provider } from "../firebase";
+import { auth, provider } from "@/firebase";
 import { updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
@@ -24,18 +24,26 @@ export const useAuth = () => {
   const { getCloudUser, setCloudUser, delUser } = useCloudUser();
 
   useEffect(() => {
-    if (!currentUser || user.uid) return;
-    getCloudUser(currentUser.uid).then(async (cloudUser) => {
-      if (!cloudUser) {
-        console.log(currentUser.displayName);
-        await setCloudUser(currentUser.uid, currentUser.displayName || "");
-        return;
-      }
-      await setUser(cloudUser);
-
-      // localStorage.setItem("user", JSON.stringify(cloudUser));
+    const localUser = localStorage.getItem("user");
+    if (localUser) {
+      setUser(JSON.parse(localUser));
       return;
-    });
+    }
+
+    if (!currentUser) return;
+
+    if (successs) {
+      getCloudUser(currentUser.uid).then(async (cloudUser) => {
+        if (!cloudUser) {
+          console.log(currentUser.displayName);
+          await setCloudUser(currentUser.uid, currentUser.displayName || "");
+          return;
+        }
+        await setUser(cloudUser);
+        localStorage.setItem("user", JSON.stringify(cloudUser));
+        return;
+      });
+    }
   }, [currentUser, successs]);
 
   const updateUser = (username: string) => {
@@ -87,8 +95,6 @@ export const useAuth = () => {
     password: string;
     displayName: string;
   }) => {
-    console.log({ email, password });
-
     signInWithEmailAndPassword(auth, email, password)
       .then(async (userCredential) => {
         const user = userCredential.user;
@@ -107,7 +113,7 @@ export const useAuth = () => {
               updateProfile(user, { displayName }).catch((err) =>
                 console.log(err)
               );
-              console.log(user);
+
               console.log("New User");
               setSuccess(true);
             })
@@ -122,7 +128,7 @@ export const useAuth = () => {
   const signout = () => {
     signOut(auth)
       .then(() => {
-        //
+        localStorage.removeItem("user");
         resetUser();
       })
       .catch((error) => {
@@ -139,5 +145,6 @@ export const useAuth = () => {
     loginWithGoogle,
     loginWithEmailAndPassword,
     error,
+    successs,
   };
 };

@@ -3,17 +3,26 @@ import { useAuth } from "../hooks/useAuth";
 import TitleBox from "../components/TitleBox";
 import Button from "../components/Button";
 import NaverLogin from "../components/NaverLogin";
+import { useEffect } from "react";
 
 interface IsLoginModal {
   exitModal: () => void;
 }
 
 export default function LoginModal({ exitModal }: IsLoginModal) {
-  const { loginWithGoogle } = useAuth();
+  const { loginWithGoogle, successs } = useAuth();
 
-  const onGoogleLogin = () => {
-    loginWithGoogle();
+  const onGoogleLogin = async () => {
+    await loginWithGoogle();
   };
+
+  useEffect(() => {
+    if (successs) {
+      exitModal();
+    }
+  }, [successs]);
+
+  // if (isLoading) return <div>...</div>;
 
   return (
     <LoginModalBlock>

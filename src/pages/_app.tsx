@@ -5,7 +5,7 @@ import {
   QueryClient,
   QueryClientProvider,
 } from "@tanstack/react-query";
-import { RecoilRoot } from "recoil";
+import { RecoilRoot, RecoilEnv } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import Script from "next/script";
 import { useEffect, useState } from "react";
@@ -13,6 +13,8 @@ import { useRouter } from "next/router";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProps } from "next/app";
 import "react-datepicker/dist/react-datepicker.css";
+
+RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 declare global {
   interface Window {
@@ -69,6 +71,7 @@ export default function App({ Component, pageProps }: AppProps) {
           `,
         }}
       />
+      <Script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
       <QueryClientProvider client={client}>
         <ReactQueryDevtools />
         <Hydrate state={pageProps.dehydratedState}>

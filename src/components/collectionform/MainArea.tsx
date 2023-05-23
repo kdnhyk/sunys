@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import UnderLineBox from "../TitleBox";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { IsCollection, initCollection } from "../../types/collection";
+import { IsCollection, initCollection } from "@/types/collection";
 import Button from "../Button";
 import ImgageUploader from "../ImageUploader";
 import Input from "../Input";
-import { useImage } from "../../hooks/storage/useImage";
+import { useImage } from "@/hooks/storage/useImage";
 import ReactDatePicker from "react-datepicker";
-import { toStringByFormatting } from "../../util";
+import { toStringByFormatting } from "@/util";
 import VisibleToggle from "../VisibleToggle";
-import useMutationCollection from "../../pages/api/useMutationCollection";
-import { IsArticle } from "../../types/article";
-import useLocationState from "../../hooks/useLocationState";
+import useMutationCollection from "@/pages/api/useMutationCollection";
+import { IsArticle } from "@/types/article";
+import useLocationState from "@/hooks/useLocationState";
 import { useRouter } from "next/router";
 
 interface IsMainWrap {

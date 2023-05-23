@@ -6,7 +6,6 @@ import Collection from "../Collection";
 import useBrandCollection from "../../pages/api/useBrandCollection";
 import useLocationState from "../../hooks/useLocationState";
 import CreateBox from "../CreateBox";
-import useBrand from "@/pages/api/useBrand";
 
 interface IsCollectionArea {
   brandName: string;

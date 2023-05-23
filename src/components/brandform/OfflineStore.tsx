@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { IsOfficialStore } from "../../types/brand";
+import Image from "next/image";
 
 interface IsStoreStyle {
   store: IsOfficialStore;
@@ -9,7 +10,7 @@ export default function OfflineStore({ store }: IsStoreStyle) {
   return (
     <OfflineStoreWrap>
       <div className="ImageWrap">
-        <img src={store.image} alt="" width={200} height={200} />
+        <Image src={store.image} alt="" width={200} height={200} />
       </div>
 
       <div className="TextlWrap">

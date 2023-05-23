@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { IsArticle } from "../../types/article";
+import Image from "next/image";
 
 interface IsArticleWrap {
   article: IsArticle;
@@ -9,7 +10,7 @@ export default function Article({ article }: IsArticleWrap) {
   return (
     <ArticleWrap>
       <div className="ImageWrap">
-        <img src={article.images[0]} alt="" />
+        <Image src={article.images[0]} alt="" width={160} height={160} />
       </div>
       <h3>{article.articleName}</h3>
 

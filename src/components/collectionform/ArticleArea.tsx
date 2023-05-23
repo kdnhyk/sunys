@@ -4,7 +4,6 @@ import CreateArticle from "./CreateArticle";
 import WindowModal from "./WindowModal";
 import { IsArticle } from "../../types/article";
 import { IsCollection } from "../../types/collection";
-import { useArticle } from "../../hooks/useArticle";
 import Article from "./Article";
 import { useArticleStore } from "../../hooks/firestore/useArticleStore";
 import { useImage } from "../../hooks/storage/useImage";

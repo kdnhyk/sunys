@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /news
+Allow: /magazine
+Allow: /brand
+Allow: /collection
+
+Disallow: /scrap
+Disallow: /account

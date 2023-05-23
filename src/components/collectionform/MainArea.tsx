@@ -100,7 +100,7 @@ export default function MainArea({
       imageUrl: currentCollection.images[0],
     });
 
-    router.push(-1);
+    router.back;
   };
 
   // Get CurrentCollection Data

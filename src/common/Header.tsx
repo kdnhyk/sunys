@@ -2,7 +2,7 @@ import styled, { css } from "styled-components";
 import { useCallback, useLayoutEffect, useRef, useState } from "react";
 import LogoArea from "./LogoArea";
 import NavBar from "./NavBar";
-import { media } from "../media";
+import { media } from "@/media";
 
 export default function Header() {
   const [isFixHeader, setIsFixHeader] = useState(false);

@@ -1,10 +1,8 @@
 import styled from "styled-components";
 import Collection from "../../common/components/Collection";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import { More } from "../../asset/Icon";
 import useRecentCollection from "../../api/useRecentCollection";
-import useIntersectionObserver from "../../hooks/useIntersectionObserver";
 import { useInView } from "react-intersection-observer";
 
 //
@@ -47,9 +45,7 @@ export default function News() {
             ))}
           </Masonry>
         </ResponsiveMasonry>
-        <div className="More" ref={ref}>
-          <More />
-        </div>
+        <div className="More" ref={ref}></div>
       </div>
     </NewsWrap>
   );
@@ -58,7 +54,7 @@ export default function News() {
 const NewsWrap = styled.div`
   padding: 9px 0px 24px 0px;
   .NewColArea {
-    padding: 0px 6px;
+    padding: 0px 6px 24px 6px;
     border-bottom: 1px solid #dddddd;
 
     .ColInner {
@@ -68,7 +64,7 @@ const NewsWrap = styled.div`
     .More {
       display: flex;
       justify-content: center;
-      padding-bottom: 16px;
+
       cursor: pointer;
     }
   }

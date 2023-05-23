@@ -2,17 +2,17 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { IsCollection, initCollection } from "../../types/collection";
-import { useArticle } from "../../hooks/useArticle";
 import Article from "../../common/components/Article";
 import { useAuth } from "../../hooks/useAuth";
 import useLocationState from "../../hooks/useLocationState";
 import useCollection from "../../api/useCollection";
+import useArticle from "api/useArticle";
 
 export default function Collection() {
   const { cid } = useParams();
   const { data } = useCollection(cid || "");
   const { user } = useAuth();
-  const { articleList, handleArticleByCid } = useArticle();
+  const { data: articleData } = useArticle(cid || "");
 
   const { onClickBarnd, onClickCollectionSetting } = useLocationState();
 
@@ -31,8 +31,6 @@ export default function Collection() {
     } else if (data.collectionName) {
       setCurrentCollection(data);
     }
-
-    handleArticleByCid(data.id);
   }, [data]);
 
   return (
@@ -89,7 +87,7 @@ export default function Collection() {
         )}
       </div>
       <div className="ArticleListWrap">
-        {articleList.map((article, i) => (
+        {articleData?.map((article, i) => (
           <div className="ArticleWrap" key={i}>
             <Article article={article} />
           </div>

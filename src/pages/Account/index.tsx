@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
-import LoginModal from "../../common/LoginModal";
+import { useEffect } from "react";
 
-interface IsCart {}
-
-export default function Account({}: IsCart) {
+export default function Account() {
   const { user, signout } = useAuth();
   const nav = useNavigate();
 
@@ -18,13 +16,11 @@ export default function Account({}: IsCart) {
     nav("/");
   };
 
-  if (!user.uid) {
-    return (
-      <div>
-        <LoginModal exitModal={exitPage} />
-      </div>
-    );
-  }
+  useEffect(() => {
+    if (!user.uid) {
+      nav("/");
+    }
+  }, []);
 
   return (
     <AccountBlock>

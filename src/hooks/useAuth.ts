@@ -27,6 +27,7 @@ export const useAuth = () => {
     if (!currentUser || user.uid) return;
     getCloudUser(currentUser.uid).then(async (cloudUser) => {
       if (!cloudUser) {
+        console.log(currentUser.displayName);
         await setCloudUser(currentUser.uid, currentUser.displayName || "");
         return;
       }
@@ -35,7 +36,7 @@ export const useAuth = () => {
       // localStorage.setItem("user", JSON.stringify(cloudUser));
       return;
     });
-  }, [currentUser, user.uid, successs]);
+  }, [currentUser, successs]);
 
   const updateUser = (username: string) => {
     if (!auth.currentUser) return;
@@ -103,16 +104,15 @@ export const useAuth = () => {
             .then((userCredential) => {
               const user = userCredential.user;
 
-              updateProfile(user, { displayName: displayName }).catch((err) =>
+              updateProfile(user, { displayName }).catch((err) =>
                 console.log(err)
               );
-
+              console.log(user);
+              console.log("New User");
               setSuccess(true);
             })
             .catch((error) => {
-              const errorCode = error.code;
-              const errorMessage = error.message;
-              // ..
+              //
             });
         }
         //

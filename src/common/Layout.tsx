@@ -1,4 +1,3 @@
-import { useMemo } from "react";
 import styled from "styled-components";
 import Header from "./Header";
 import NavBar from "./NavBar";
@@ -10,10 +9,8 @@ interface IsLayout {
 }
 
 export default function Layout({ children }: IsLayout) {
-  const vh = useMemo(() => window.innerHeight * 0.01, []);
-
   return (
-    <LayoutWrap vh={vh}>
+    <LayoutWrap>
       <Header />
       <main>{children}</main>
       <Footer />
@@ -21,9 +18,8 @@ export default function Layout({ children }: IsLayout) {
   );
 }
 
-const LayoutWrap = styled.div<{ vh: number }>`
+const LayoutWrap = styled.div`
   width: 100%;
-  /* height: ${({ vh }) => `calc(${vh} * 100px)`}; */
 
   color: black;
   main {

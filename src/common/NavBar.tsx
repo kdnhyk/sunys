@@ -1,14 +1,18 @@
 import { Link, useLocation } from "react-router-dom";
 import styled from "styled-components";
-import { Admin, Brand, Home, Search } from "../asset/Icon";
 import { useAuth } from "../hooks/useAuth";
 import { media } from "../media";
+import { useEffect, useState } from "react";
+import LoginModal from "./LoginModal";
 
-interface IsNavBar {}
-
-export default function NavBar({}: IsNavBar) {
+export default function NavBar() {
   const { user } = useAuth();
   const path = useLocation().pathname.split("/")[1] || "news";
+  const [isOpenLogin, setIsOpenLogin] = useState(false);
+
+  const handleIsOpenLogin = () => {
+    setIsOpenLogin((prev) => !prev);
+  };
 
   const menu = [
     {
@@ -23,10 +27,6 @@ export default function NavBar({}: IsNavBar) {
       name: "매거진",
       path: "/magazine",
     },
-    {
-      name: user.uid ? "프로필" : "로그인",
-      path: "/account",
-    },
   ];
 
   const scrollToTop = (currentPath: string) => {
@@ -38,6 +38,10 @@ export default function NavBar({}: IsNavBar) {
     }
   };
 
+  useEffect(() => {
+    setIsOpenLogin(false);
+  }, [path]);
+
   return (
     <NavBarBlock>
       <div className="Empty"></div>
@@ -46,6 +50,15 @@ export default function NavBar({}: IsNavBar) {
           <p>{e.name}</p>
         </Link>
       ))}
+      {!user.uid ? (
+        <div className="AccountButtonWrap" onClick={handleIsOpenLogin}>
+          <p>로그인</p>
+        </div>
+      ) : (
+        <Link to="/account" onClick={() => scrollToTop("/account")}>
+          <p>프로필</p>
+        </Link>
+      )}
       <Link
         to={"/cart"}
         onClick={() => scrollToTop("cart")}
@@ -55,6 +68,7 @@ export default function NavBar({}: IsNavBar) {
           <p>{user.cart.length}</p>
         </div>
       </Link>
+      {isOpenLogin && <LoginModal exitModal={handleIsOpenLogin} />}
     </NavBarBlock>
   );
 }
@@ -78,7 +92,8 @@ const NavBarBlock = styled.nav`
       display: block
     `}
   }
-  a {
+  a,
+  .AccountButtonWrap {
     height: 48px;
     flex-grow: 1;
     display: flex;

@@ -7,6 +7,27 @@ import useRecentCollection from "@/pages/api/useRecentCollection";
 import { useInView } from "react-intersection-observer";
 import Loading from "@/components/Loading";
 
+// export const getStaticProps = async (ctx: { params: { cid: string } }) => {
+//   const cid = ctx.params.cid;
+
+//   const queryClient = new QueryClient();
+
+//   await queryClient.prefetchQuery(
+//     ["collection", cid],
+//     () => getCollectionByCid(cid),
+//     {
+//       staleTime: Infinity,
+//     }
+//   );
+
+//   return {
+//     fallback: true,
+//     props: {
+//       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//     },
+//   };
+// };
+
 export default function News() {
   const { recentCollection, isLoading, fetchNextPage, hasNextPage } =
     useRecentCollection();

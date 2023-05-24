@@ -12,6 +12,20 @@ import {
 } from "firebase/firestore";
 import { IsBrandName } from "@/types/brand";
 
+export const getBrandList = async () => {
+  const q = query(collection(store, "brandList"), limit(1));
+
+  console.log("FireStore Access");
+  const querySnapshot = await getDocs(q);
+
+  let result: any[] = [];
+  querySnapshot.forEach((doc) => {
+    result.push({ ...doc.data(), id: doc.id });
+  });
+
+  return result[0].brandList;
+};
+
 const useBrandList = () => {
   const queryClient = useQueryClient();
   const brandRef = collection(store, "brand");
@@ -41,20 +55,6 @@ const useBrandList = () => {
       },
     }
   );
-
-  const getBrandList = async () => {
-    const q = query(collection(store, "brandList"), limit(1));
-
-    console.log("FireStore Access");
-    const querySnapshot = await getDocs(q);
-
-    let result: any[] = [];
-    querySnapshot.forEach((doc) => {
-      result.push({ ...doc.data(), id: doc.id });
-    });
-
-    return result[0].brandList;
-  };
 
   const addDocs = async (
     oldBrandList: IsBrandName[],

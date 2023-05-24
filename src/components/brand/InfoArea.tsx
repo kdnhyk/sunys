@@ -26,7 +26,6 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   const { updateBrand } = useMutationBrand(brandName);
 
   const [currentBrand, setCurrentBrand] = useState<IsBrand>(initBrand);
-
   const isScrap = user.scrapBrandList.find(
     (e) => e.default === currentBrand.brandName
   )

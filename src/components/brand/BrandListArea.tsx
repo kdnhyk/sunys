@@ -4,13 +4,28 @@ import TitleBox from "../TitleBox";
 import useLocationState from "../../hooks/useLocationState";
 import Button from "../Button";
 import { toSortBrandList, toSortRestBrandList } from "@/util";
-import useBrandList from "@/pages/api/useBrandList";
+import useBrandList, { getBrandList } from "@/pages/api/useBrandList";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(["brandlist"], () => getBrandList(), {
+    staleTime: Infinity,
+  });
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+}
 
 export default function BrandListArea() {
   const { user } = useAuth();
   const { onClickBarnd, onClickBrandSetting } = useLocationState();
   const { data } = useBrandList();
-
+  console.log(data);
   return (
     <BrandListAreaWrap>
       {user.admin && (

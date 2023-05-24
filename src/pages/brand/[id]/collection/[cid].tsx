@@ -15,25 +15,25 @@ const Article = dynamic(() => import("@/components/Article"), {
   ssr: false,
 });
 
-export const getServerSideProps = async (ctx: { params: { cid: string } }) => {
-  const cid = ctx.params.cid;
+// export const getStaticProps = async (ctx: { params: { cid: string } }) => {
+//   const cid = ctx.params.cid;
 
-  const queryClient = new QueryClient();
+//   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(
-    ["collection", cid],
-    () => getCollectionByCid(cid),
-    {
-      staleTime: Infinity,
-    }
-  );
+//   await queryClient.prefetchQuery(
+//     ["collection", cid],
+//     () => getCollectionByCid(cid),
+//     {
+//       staleTime: Infinity,
+//     }
+//   );
 
-  return {
-    props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-};
+//   return {
+//     props: {
+//       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//     },
+//   };
+// };
 
 export default function Collection() {
   const { cid } = useRouter().query;

@@ -5,33 +5,38 @@ import Head from "next/head";
 import { getBrandByBrandName } from "@/pages/api/useBrand";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
+import { getBrandList } from "@/pages/api/useBrandList";
+import { IsBrandName } from "@/types/brand";
 
 const InfoArea = dynamic(() => import("@/components/brand/InfoArea"), {
   ssr: false,
 });
-const CollectionArea = dynamic(() => import("@/components/brand/CollectionArea"), {
-  ssr: false,
-});
+const CollectionArea = dynamic(
+  () => import("@/components/brand/CollectionArea"),
+  {
+    ssr: false,
+  }
+);
 
-export const getServerSideProps = async (ctx: { params: { id: string } }) => {
-  const id = ctx.params.id;
-  console.log(id);
-  const queryClient = new QueryClient();
+// export const getStaticProps = async ({}) => {
+//   const id = ctx.params.id;
+//   console.log(id);
+//   const queryClient = new QueryClient();
 
-  await queryClient.prefetchQuery(
-    ["brand", id],
-    () => getBrandByBrandName(id),
-    {
-      staleTime: Infinity,
-    }
-  );
+//   await queryClient.prefetchQuery(
+//     ["brand", id],
+//     () => getBrandByBrandName(id),
+//     {
+//       staleTime: Infinity,
+//     }
+//   );
 
-  return {
-    props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-};
+//   return {
+//     props: {
+//       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+//     },
+//   };
+// };
 
 export default function Brand() {
   const { id } = useRouter().query;

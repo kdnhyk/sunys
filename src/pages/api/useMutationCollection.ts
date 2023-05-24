@@ -1,10 +1,11 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { store, timestamp } from "@/firebase";
 import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { IsCollection } from "@/types/collection";
 import { useImage } from "@/hooks/storage/useImage";
 
 const useMutationCollection = () => {
+  const queryClient = useQueryClient();
   const CollectionRef = collection(store, "collection");
   const { deleteImage } = useImage("collection");
 
@@ -12,7 +13,9 @@ const useMutationCollection = () => {
     (collection: IsCollection) => addDocs(collection),
     {
       onMutate() {},
-      onSuccess() {},
+      onSuccess: () => {
+        queryClient.invalidateQueries(["brandCollection"]); // queryKey 유효성 제거
+      },
       onError() {},
     }
   );

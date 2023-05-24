@@ -1,12 +1,11 @@
 import styled from "styled-components";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 import CreateArticle from "./CreateArticle";
 import WindowModal from "./WindowModal";
-import { IsArticle } from "../../types/article";
-import { IsCollection } from "../../types/collection";
+import { IsArticle } from "@/types/article";
+import { IsCollection } from "@/types/collection";
 import Article from "./Article";
-import { useArticleStore } from "../../hooks/firestore/useArticleStore";
-import { useImage } from "../../hooks/storage/useImage";
+import useMutationArticle from "@/pages/api/useMutationArticle";
 
 interface IsArticleArea {
   currentCollection: IsCollection;
@@ -17,8 +16,7 @@ export default function ArticleArea({
   currentCollection,
   articleList,
 }: IsArticleArea) {
-  const { deleteArticle } = useArticleStore();
-  const { deleteImage } = useImage("article");
+  const { deleteArticle } = useMutationArticle(currentCollection.id || "");
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -31,8 +29,10 @@ export default function ArticleArea({
 
     const delValue = articleList.find((e) => e.id === id);
 
-    deleteImage(delValue?.images[0] || "");
-    deleteArticle(delValue?.id || "");
+    deleteArticle.mutate({
+      id: delValue?.id || "",
+      imageUrl: delValue?.images[0] || "",
+    });
   };
 
   return (

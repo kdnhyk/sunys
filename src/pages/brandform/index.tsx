@@ -1,18 +1,13 @@
 import styled from "styled-components";
 import { media } from "@/media";
 import InfoArea from "@/components/brandform/InfoArea";
-import CollectionArea from "@/components/brandform/CollectionArea";
 
 //
 export default function BrandForm() {
   return (
     <BrandWrap>
       <div className="InfoWrap">
-        <InfoArea brandName={""} />
-      </div>
-
-      <div className="CollectionWrap">
-        <CollectionArea brandName={""} />
+        <InfoArea />
       </div>
     </BrandWrap>
   );

@@ -19,6 +19,14 @@ export default function CartArticle({ article }: IsCartArticle) {
   const { onClickBarnd, onClickCollection } = useLocationState();
 
   const onRemoveArticle = () => {
+    if (!user) return;
+    localStorage.setItem(
+      "user",
+      JSON.stringify({
+        ...user,
+        cart: user.cart.filter((e) => e.id !== article.id),
+      })
+    );
     handleUserCart(article);
     updateCart(user.uid, user.cart, article);
   };
@@ -26,14 +34,6 @@ export default function CartArticle({ article }: IsCartArticle) {
   const onMoveCollection = () => {
     router.push(`/collection/${article.collectionId}`);
   };
-
-  // const onErrorImg = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
-  //   e.currentTarget.src = NotFound;
-  // };
-
-  useEffect(() => {
-    // const img = new Image(article.images[0]);
-  }, []);
 
   return (
     <CartArticleBlock>

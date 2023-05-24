@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import Article from "@/components/Article";
 import { useAuth } from "@/hooks/useAuth";
 import useLocationState from "@/hooks/useLocationState";
 import useCollection, { getCollectionByCid } from "@/pages/api/useCollection";
@@ -9,6 +8,12 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
+import Loading from "@/components/Loading";
+import dynamic from "next/dynamic";
+
+const Article = dynamic(() => import("@/components/Article"), {
+  ssr: false,
+});
 
 export const getServerSideProps = async (ctx: { params: { cid: string } }) => {
   const cid = ctx.params.cid;
@@ -51,8 +56,8 @@ export default function Collection() {
     );
   }, [data]);
 
-  if (isLoading) {
-    return <div></div>;
+  if (isLoading || !data) {
+    return <Loading />;
   }
 
   return (

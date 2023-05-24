@@ -1,4 +1,6 @@
-export const toStringByFormatting = (source: any, delimiter = "-") => {
+import { IsBrandName } from "@/types/brand";
+
+const toStringByFormatting = (source: any, delimiter = "-") => {
   const year = source.getFullYear();
   const month = source.getMonth() + 1;
   const day = source.getDate();
@@ -9,3 +11,31 @@ export const toStringByFormatting = (source: any, delimiter = "-") => {
     day >= 10 ? day : `0${day}`,
   ].join(delimiter);
 };
+
+const toSortBrandList = (brandList: IsBrandName[]) => {
+  const result = [...brandList];
+
+  return result.sort((a, b) => {
+    if (a.default.toUpperCase() < b.default.toUpperCase()) {
+      return -1;
+    }
+    if (a.default.toUpperCase() > b.default.toUpperCase()) {
+      return 1;
+    }
+
+    return 0;
+  });
+};
+
+const toSortRestBrandList = (
+  brandList: IsBrandName[],
+  notBrandList: IsBrandName[]
+) => {
+  const scrapList = [...notBrandList].map((e) => e.default);
+
+  return toSortBrandList(
+    brandList.filter((e) => !scrapList.includes(e.default))
+  );
+};
+
+export { toStringByFormatting, toSortBrandList, toSortRestBrandList };

@@ -6,7 +6,7 @@ import WindowModal1 from "./WindowModal1";
 import CreateBox from "../CreateBox";
 import OfflineStore from "../brand/OfflineStore";
 import { useImage } from "@/hooks/storage/useImage";
-import { useBrandStore } from "@/hooks/firestore/useBrandStore";
+import useMutationBrand from "@/pages/api/useMutationBrand";
 
 interface IsStoreArea1 {
   input: IsBrand;
@@ -18,7 +18,7 @@ export default function StoreArea1({
   onRemoveInputOfficialStore,
 }: IsStoreArea1) {
   const { deleteImage } = useImage("store");
-  const { updateBrand } = useBrandStore();
+  const { updateBrand } = useMutationBrand(input.brandName);
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const handleModalOpen = () => {
@@ -33,11 +33,14 @@ export default function StoreArea1({
     if (!input.brandName) return;
     deleteImage(store.image);
 
-    updateBrand(input.brandName, {
-      ...input,
-      officialStoreList: input.officialStoreList.filter(
-        (e) => e.id !== store.storeName
-      ),
+    updateBrand.mutate({
+      id: input.brandName,
+      brand: {
+        ...input,
+        officialStoreList: input.officialStoreList.filter(
+          (e) => e.id !== store.storeName
+        ),
+      },
     });
 
     onRemoveInputOfficialStore(store.storeName);

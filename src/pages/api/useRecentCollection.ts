@@ -60,7 +60,7 @@ const useRecentCollection = () => {
     return querySnapshot;
   };
 
-  const { data, fetchNextPage, hasNextPage } = useInfiniteQuery(
+  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["recentCollection"],
     async ({ pageParam }) =>
       pageParam ? getRecentCollection(pageParam) : getRecentCollectionInit(),
@@ -80,6 +80,7 @@ const useRecentCollection = () => {
   // console.log(data?.pages.map((e) => e.data()));
   return {
     recentCollection,
+    isLoading,
     fetchNextPage,
     hasNextPage,
   };

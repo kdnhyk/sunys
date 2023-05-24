@@ -1,7 +1,8 @@
 import styled from "styled-components";
 import { ChangeEvent, useEffect, useState } from "react";
-import { useBrandList } from "../../hooks/useBrandList";
 import { useRouter } from "next/router";
+import useBrandList from "@/pages/api/useBrandList";
+import { IsBrandName } from "@/types/brand";
 
 interface IsSearchInput {
   placeholder: string;
@@ -10,7 +11,7 @@ interface IsSearchInput {
 export default function SearchInput({ placeholder }: IsSearchInput) {
   const width = typeof window !== "undefined" ? window.innerWidth : 0;
   const router = useRouter();
-  const { brandList } = useBrandList();
+  const { data: brandList } = useBrandList();
 
   const [isOpenModal, setIsOpenModal] = useState(false);
   const [searchInput, setSearchInput] = useState("");
@@ -32,17 +33,19 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
     setSearchInput(() => "");
   };
 
-  const resultBrandList = brandList.filter((e) => {
-    return (
-      e.default
-        .replace(" ", "")
-        .toLocaleLowerCase()
-        .includes(searchInput.toLocaleLowerCase().replace(" ", "")) ||
-      e.korean
-        .replace(" ", "")
-        .includes(searchInput.toLocaleLowerCase().replace(" ", ""))
-    );
-  });
+  const resultBrandList = brandList
+    ? brandList.filter((e: IsBrandName) => {
+        return (
+          e.default
+            .replace(" ", "")
+            .toLocaleLowerCase()
+            .includes(searchInput.toLocaleLowerCase().replace(" ", "")) ||
+          e.korean
+            .replace(" ", "")
+            .includes(searchInput.toLocaleLowerCase().replace(" ", ""))
+        );
+      })
+    : [];
 
   useEffect(() => {
     if (searchInput) {
@@ -68,6 +71,7 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
     }
   }, [isOpenModal, width]);
 
+  if (!brandList) return <div></div>;
   return (
     <SearchInputStyle value={searchInput}>
       <div className="InputWrap">
@@ -98,7 +102,7 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
       </div>
       {isOpenModal && (
         <div className="ModalWrap">
-          {resultBrandList.map((e, i) => (
+          {resultBrandList.map((e: IsBrandName, i: number) => (
             <div className="BrandNameInner" key={i}>
               <div onMouseDown={() => router.push(`/brand/${e.default}`)}>
                 <p className="Default">{e.default}</p>

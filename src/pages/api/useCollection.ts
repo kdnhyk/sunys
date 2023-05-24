@@ -32,6 +32,7 @@ const useCollection = (cid: string) => {
     ["collection", cid],
     async () => await getCollectionByCid(cid),
     {
+      enabled: !!cid,
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,

@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import BrandListArea from "../../components/brand/BrandListArea";
-import SearchInput from "../../components/brand/SearchInput";
+import BrandListArea from "@/components/brand/BrandListArea";
+import SearchInput from "@/components/brand/SearchInput";
 import Head from "next/head";
 
 export default function BrandList() {

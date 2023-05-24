@@ -1,14 +1,15 @@
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
 import TitleBox from "../TitleBox";
-import { useBrandList } from "../../hooks/useBrandList";
 import useLocationState from "../../hooks/useLocationState";
 import Button from "../Button";
+import { toSortBrandList, toSortRestBrandList } from "@/util";
+import useBrandList from "@/pages/api/useBrandList";
 
 export default function BrandListArea() {
-  const { sortUserBrandList, sortRestBrandList } = useBrandList();
   const { user } = useAuth();
   const { onClickBarnd, onClickBrandSetting } = useLocationState();
+  const { data } = useBrandList();
 
   return (
     <BrandListAreaWrap>
@@ -23,7 +24,7 @@ export default function BrandListArea() {
         <>
           <div className="ScrapBrandWrap">
             <TitleBox>스크랩 브랜드</TitleBox>
-            {sortUserBrandList(user.scrapBrandList).map((e, i) => (
+            {toSortBrandList(user.scrapBrandList).map((e, i) => (
               <div
                 className="ScrapBrandInner"
                 onClick={() => onClickBarnd(e.default)}
@@ -40,16 +41,17 @@ export default function BrandListArea() {
       <div className="DefaultBrandWrap">
         <TitleBox>전체 브랜드</TitleBox>
 
-        {sortRestBrandList(user.scrapBrandList).map((e, i) => (
-          <div
-            className="DefaultBrandInner"
-            key={i}
-            onClick={() => onClickBarnd(e.default)}
-          >
-            <h3>{e.default}</h3>
-            <p>{e.korean}</p>
-          </div>
-        ))}
+        {data &&
+          toSortRestBrandList(data, user.scrapBrandList).map((e, i) => (
+            <div
+              className="DefaultBrandInner"
+              key={i}
+              onClick={() => onClickBarnd(e.default)}
+            >
+              <h3>{e.default}</h3>
+              <p>{e.korean}</p>
+            </div>
+          ))}
       </div>
     </BrandListAreaWrap>
   );

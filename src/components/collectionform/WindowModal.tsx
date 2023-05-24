@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import Input from "../Input";
-import { ChangeEvent, useCallback, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import ImgageUploader from "../ImageUploader";
 import Button from "../Button";
 import { useImage } from "../../hooks/storage/useImage";
 import { IsArticle } from "../../types/article";
-import { useArticleStore } from "../../hooks/firestore/useArticleStore";
 import { IsCollection } from "../../types/collection";
+import useMutationArticle from "@/pages/api/useMutationArticle";
 
 interface IsWindowModal {
   exitModal: () => void;
@@ -22,29 +22,22 @@ export default function WindowModal({
   const [isUpload, setIsUpload] = useState(false);
 
   const { upload } = useImage("article");
-  const { updateArticle } = useArticleStore();
-  const initState = useMemo(() => {
-    return {
-      articleName: "",
-      price: "",
-      collectionId: currentCollection.id || "",
-      collectionName: currentCollection.collectionName,
-      images: [],
+  const { updateArticle } = useMutationArticle(currentCollection.id || "");
+  const [input, setInput] = useState<IsArticle>({
+    images: [],
+    articleName: "",
+    description: "",
+    price: "",
+    collectionId: currentCollection.id || "",
+    collectionName: currentCollection.collectionName,
 
-      brandName: currentCollection.brandName,
-      releaseDate: currentCollection.releaseDate,
-    };
-  }, [
-    currentCollection.brandName,
-    currentCollection.collectionName,
-    currentCollection.id,
-    currentCollection.releaseDate,
-  ]);
-  const [input, setInput] = useState<IsArticle>(initState);
+    brandName: currentCollection.brandName,
+    releaseDate: currentCollection.releaseDate,
+  });
 
-  const onResetInput = useCallback(() => {
-    setInput(() => initState);
-  }, [initState]);
+  // const onResetInput = useCallback(() => {
+  //   setInput(() => initState);
+  // }, [initState]);
 
   const onChangeInput = async (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -78,14 +71,6 @@ export default function WindowModal({
     setIsUpload(true);
   };
 
-  const uploadArticle = useCallback(() => {
-    if (isUpload) {
-      updateArticle(`${input.collectionId}-${input.articleName}`, {
-        ...input,
-      });
-    }
-  }, [input, isUpload, updateArticle]);
-
   useEffect(() => {
     if (input.articleName && input.price && image) {
       setIsEnterButtonOn(() => true);
@@ -95,12 +80,18 @@ export default function WindowModal({
   }, [input, image]);
 
   useEffect(() => {
-    uploadArticle();
+    if (isUpload) {
+      updateArticle.mutate({
+        id: `${input.brandName}-${input.collectionId}-${input.articleName}`,
+        article: {
+          ...input,
+        },
+      });
 
-    onResetInput();
-
-    exitModal();
-  }, [exitModal, onResetInput, uploadArticle]);
+      exitModal();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpload]);
 
   return (
     <WindowModalBlock>

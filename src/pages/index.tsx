@@ -8,7 +8,7 @@ import { useInView } from "react-intersection-observer";
 import Loading from "@/components/Loading";
 
 export default function News() {
-  const { recentCollection, fetchNextPage, hasNextPage } =
+  const { recentCollection, isLoading, fetchNextPage, hasNextPage } =
     useRecentCollection();
 
   const [ref, inView] = useInView();
@@ -23,11 +23,9 @@ export default function News() {
     }
   }, [fetchNextPage, hasNextPage, inView]);
 
-  if (recentCollection.length === 0) {
+  if (isLoading && !recentCollection) {
     return <Loading />;
   }
-
-  if (!recentCollection) return <div></div>;
 
   return (
     <>

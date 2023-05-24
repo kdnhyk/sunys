@@ -11,13 +11,9 @@ type IsTransaction = "logo" | "store" | "collection" | "article";
 export const useImage = (transaction: IsTransaction) => {
   const upload = async (file: File | null, name: string, setImageURL: any) => {
     if (!file) return;
-    const newName = name
-      .replace(/[~`!#$%^&*+=\-[\]\\';,/{}()|\\":<>?]/g, "")
-      .split(" ")
-      .join("");
-    // 오류 던지는 방향으로? -> 특수문자 제거하라고 => 그러면 또 불편하긴 함
+
     console.log(transaction, name);
-    const storageRef = ref(storage, `${transaction}/${newName}`);
+    const storageRef = ref(storage, `${transaction}/${name}`);
 
     if (file === null) {
       console.log("File is not found");

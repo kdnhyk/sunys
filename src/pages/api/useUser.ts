@@ -2,7 +2,7 @@ import { useQuery } from "@tanstack/react-query";
 import { store } from "@/firebase";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
 
-const useArticle = (cid: string) => {
+const useUser = (cid: string) => {
   const getArticleByCid = async (cid: string) => {
     const q = query(
       collection(store, "article"),
@@ -35,4 +35,4 @@ const useArticle = (cid: string) => {
   return { data, isLoading };
 };
 
-export default useArticle;
+export default useUser;

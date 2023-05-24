@@ -2,22 +2,12 @@ import styled from "styled-components";
 import Header from "./Header";
 import Footer from "./Footer";
 import { media } from "@/media";
-import { useBrandList } from "@/hooks/useBrandList";
-import { useEffect } from "react";
 
 interface IsLayout {
   children: any;
 }
 
 export default function Layout({ children }: IsLayout) {
-  const { brandList, getBrandList } = useBrandList();
-
-  useEffect(() => {
-    if (brandList.length === 0) {
-      getBrandList();
-    }
-  }, [brandList.length, getBrandList]);
-
   return (
     <LayoutWrap>
       <Header />

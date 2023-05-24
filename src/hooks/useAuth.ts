@@ -25,14 +25,12 @@ export const useAuth = () => {
 
   useEffect(() => {
     const localUser = localStorage.getItem("user");
-    if (localUser) {
+    if (localUser && !user.uid) {
       setUser(JSON.parse(localUser));
       return;
     }
 
-    if (!currentUser) return;
-
-    if (successs) {
+    if (currentUser && successs) {
       getCloudUser(currentUser.uid).then(async (cloudUser) => {
         if (!cloudUser) {
           console.log(currentUser.displayName);
@@ -44,7 +42,7 @@ export const useAuth = () => {
         return;
       });
     }
-  }, [currentUser, getCloudUser, setCloudUser, setUser, successs]);
+  }, [currentUser, getCloudUser, setCloudUser, setUser, successs, user.uid]);
 
   const updateUser = (username: string) => {
     if (!auth.currentUser) return;

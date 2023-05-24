@@ -1,8 +1,15 @@
 import styled from "styled-components";
 import { media } from "@/media";
 import InfoArea from "../../../components/brandform/InfoArea";
-import CollectionArea from "../../../components/brandform/CollectionArea";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
+
+const CollectionArea = dynamic(
+  () => import("@/components/brandform/CollectionArea"),
+  {
+    ssr: false,
+  }
+);
 
 //
 export default function BrandForm() {

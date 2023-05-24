@@ -23,7 +23,7 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   const { updateScrapBrand } = useCloudUser();
   const { handleUseScrapList } = useUser();
   const { onClickBrandSetting } = useLocationState();
-  const { updateBrand } = useMutationBrand();
+  const { updateBrand } = useMutationBrand(brandName);
 
   const [currentBrand, setCurrentBrand] = useState<IsBrand>(initBrand);
 

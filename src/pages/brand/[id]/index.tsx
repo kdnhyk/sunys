@@ -1,11 +1,17 @@
 import styled from "styled-components";
-import { media } from "../../../media";
-import InfoArea from "../../../components/brand/InfoArea";
-import CollectionArea from "../../../components/brand/CollectionArea";
+import { media } from "@/media";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { getBrandByBrandName } from "@/pages/api/useBrand";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
+
+const InfoArea = dynamic(() => import("@/components/brand/InfoArea"), {
+  ssr: false,
+});
+const CollectionArea = dynamic(() => import("@/components/brand/CollectionArea"), {
+  ssr: false,
+});
 
 export const getServerSideProps = async (ctx: { params: { id: string } }) => {
   const id = ctx.params.id;

@@ -1,30 +1,29 @@
 import styled from "styled-components";
 import { IsBrand, initBrand } from "@/types/brand";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { useBrandStore } from "@/hooks/firestore/useBrandStore";
 import Input from "@/components/Input";
 import ImgageUploader from "@/components/ImageUploader";
 import ReactDatePicker from "react-datepicker";
 import { toStringByFormatting } from "@/util";
 import Button from "@/components/Button";
 import { useImage } from "@/hooks/storage/useImage";
-import { useBrandListStore } from "@/hooks/firestore/useBrandListStore";
-import { useBrandList } from "@/hooks/useBrandList";
 import useLocationState from "@/hooks/useLocationState";
 import StoreArea1 from "./StoreArea1";
 import useBrand from "@/pages/api/useBrand";
+import { useRouter } from "next/router";
+import useMutationBrand from "@/pages/api/useMutationBrand";
+import useBrandList from "@/pages/api/useBrandList";
 
 interface IsInfoArea {
-  brandName: string;
+  brandName?: string;
 }
 
 export default function InfoArea({ brandName }: IsInfoArea) {
-  const { data, isLoading } = useBrand(brandName);
+  const router = useRouter();
+  const { data, isLoading } = useBrand(brandName || "");
   const { upload } = useImage("logo");
-  const { addBrand, updateBrand } = useBrandStore();
-  const { addBrandToList } = useBrandListStore();
-  const { brandList } = useBrandList();
-  const { onClickBarnd } = useLocationState();
+  const { updateBrand } = useMutationBrand(brandName || "");
+  const { data: brandList, addBrandList } = useBrandList();
 
   const [currentBrand, setCurrentBrand] = useState<IsBrand>(initBrand);
   const [logoFile, setLogoFile] = useState<File | null>(null);
@@ -81,80 +80,6 @@ export default function InfoArea({ brandName }: IsInfoArea) {
     setIsUpload(true);
   };
 
-  const uploadBrand = useCallback(() => {
-    if (isUpload && currentBrand.logo) {
-      if (data.id) {
-        updateBrand(data.id, {
-          logo: currentBrand.logo,
-          officialUrl: currentBrand.officialUrl,
-          brandName: currentBrand.brandName,
-          brandNameKo: currentBrand.brandNameKo,
-          tag: currentBrand.tag,
-          scrapNum: currentBrand.scrapNum,
-          description: currentBrand.description,
-          saleName: currentBrand.saleName,
-          saleStartDate: currentBrand.saleName
-            ? currentBrand.saleStartDate
-            : "",
-          saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
-          officialStoreList: currentBrand.officialStoreList,
-          storeList: currentBrand.storeList,
-        });
-      } else if (!data.id) {
-        addBrand(currentBrand.brandName, {
-          logo: currentBrand.logo,
-          officialUrl: currentBrand.officialUrl,
-          brandName: currentBrand.brandName,
-          brandNameKo: currentBrand.brandNameKo,
-          tag: currentBrand.tag,
-          scrapNum: 0,
-          description: currentBrand.description,
-          saleName: currentBrand.saleName,
-          saleStartDate: currentBrand.saleName
-            ? currentBrand.saleStartDate
-            : "",
-          saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
-          officialStoreList: currentBrand.officialStoreList,
-          storeList: currentBrand.storeList,
-          isVisible: true,
-        });
-      }
-
-      // 새로운 브랜드만 리스트에 추가
-      if (
-        brandList.filter((e) => e.default === currentBrand.brandName).length ===
-        0
-      ) {
-        addBrandToList(brandList, {
-          default: currentBrand.brandName,
-          korean: currentBrand.brandNameKo,
-        });
-      }
-
-      onClickBarnd(currentBrand.brandName);
-    }
-  }, [
-    addBrand,
-    addBrandToList,
-    brandList,
-    currentBrand.brandName,
-    currentBrand.brandNameKo,
-    currentBrand.description,
-    currentBrand.logo,
-    currentBrand.officialStoreList,
-    currentBrand.officialUrl,
-    currentBrand.saleEndDate,
-    currentBrand.saleName,
-    currentBrand.saleStartDate,
-    currentBrand.scrapNum,
-    currentBrand.storeList,
-    currentBrand.tag,
-    data.id,
-    isUpload,
-    onClickBarnd,
-    updateBrand,
-  ]);
-
   useEffect(() => {
     if (!data) return;
 
@@ -187,10 +112,62 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   }, [currentBrand, logoFile]);
 
   useEffect(() => {
-    uploadBrand();
-  }, [uploadBrand]);
+    console.log("upload");
+    if (isUpload) {
+      updateBrand.mutate({
+        id: currentBrand.brandName,
+        brand: {
+          logo: currentBrand.logo,
+          officialUrl: currentBrand.officialUrl,
+          brandName: currentBrand.brandName,
+          brandNameKo: currentBrand.brandNameKo,
+          tag: currentBrand.tag,
+          scrapNum: currentBrand.scrapNum,
+          description: currentBrand.description,
+          saleName: currentBrand.saleName,
+          saleStartDate: currentBrand.saleName
+            ? currentBrand.saleStartDate
+            : "",
+          saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
+          officialStoreList: currentBrand.officialStoreList,
+          storeList: currentBrand.storeList,
+        },
+      });
 
-  if (isLoading) {
+      updateBrand.mutate({
+        id: currentBrand.brandName,
+        brand: {
+          logo: currentBrand.logo,
+          officialUrl: currentBrand.officialUrl,
+          brandName: currentBrand.brandName,
+          brandNameKo: currentBrand.brandNameKo,
+          tag: currentBrand.tag,
+          scrapNum: currentBrand.scrapNum,
+          description: currentBrand.description,
+          saleName: currentBrand.saleName,
+          saleStartDate: currentBrand.saleName
+            ? currentBrand.saleStartDate
+            : "",
+          saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
+          officialStoreList: currentBrand.officialStoreList,
+          storeList: currentBrand.storeList,
+        },
+      });
+
+      addBrandList.mutate({
+        oldBrandList: brandList,
+        newBrand: {
+          default: currentBrand.brandName,
+          korean: currentBrand.brandNameKo,
+        },
+      });
+
+      router.push("/brand", undefined, { shallow: true });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpload]);
+
+  if (brandName && isLoading) {
     return <div></div>;
   }
 
@@ -305,10 +282,12 @@ export default function InfoArea({ brandName }: IsInfoArea) {
         </div>
       )}
       <div className="StoreWrap">
-        <StoreArea1
-          input={currentBrand}
-          onRemoveInputOfficialStore={onRemoveInputOfficialStore}
-        />
+        {data && (
+          <StoreArea1
+            input={data}
+            onRemoveInputOfficialStore={onRemoveInputOfficialStore}
+          />
+        )}
       </div>
     </InfoAreaStyle>
   );

@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import UnderLineBox from "../TitleBox";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { IsCollection, initCollection } from "@/types/collection";
+import { IsCollection } from "@/types/collection";
 import Button from "../Button";
 import ImgageUploader from "../ImageUploader";
 import Input from "../Input";
@@ -29,11 +29,19 @@ export default function MainArea({
   const { upload, deleteImage } = useImage("collection");
   const router = useRouter();
   const { deleteCollection } = useMutationCollection();
-  const { onClickCollection } = useLocationState();
+  const { onClickCollection, onClickBrandSetting } = useLocationState();
 
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [isUpload, setIsUpload] = useState(false);
   const [isEnterButtonOn, setIsEnterButtonOn] = useState(false);
+  const initCollection: IsCollection = {
+    id: "",
+    collectionName: "",
+    releaseDate: "",
+    images: [],
+
+    brandName,
+  };
   const [input, setInput] = useState<IsCollection>(initCollection);
 
   const setImageUrl = useCallback(async (url: string) => {
@@ -100,57 +108,8 @@ export default function MainArea({
       imageUrl: currentCollection.images[0],
     });
 
-    router.back;
+    router.back();
   };
-
-  const uploadCollection = useCallback(() => {
-    if (isUpload && input.images[0]) {
-      if (currentCollection) {
-        updateCollection.mutate({
-          id: currentCollection.id || "",
-          collection: {
-            collectionName: input.collectionName,
-            releaseDate: input.releaseDate,
-            images: input.images,
-
-            brandName: input.brandName,
-            isVisible: input.isVisible,
-          },
-        });
-
-        onClickCollection(brandName, currentCollection.id || "");
-
-        // if (currentCollection.images[0] !== input.images[0]) {
-        //   console.log("Delete last image");
-        //   deleteImage(currentCollection?.images[0]);
-        // }
-      } else if (!currentCollection) {
-        addCollection.mutate({
-          collectionName: input.collectionName,
-          releaseDate: input.releaseDate,
-          images: input.images,
-
-          brandName: input.brandName,
-          isVisible: input.isVisible,
-        });
-
-        router.back;
-      }
-    }
-  }, [
-    addCollection,
-    brandName,
-    currentCollection,
-    input.brandName,
-    input.collectionName,
-    input.images,
-    input.isVisible,
-    input.releaseDate,
-    isUpload,
-    onClickCollection,
-    router.back,
-    updateCollection,
-  ]);
 
   // Get CurrentCollection Data
   useEffect(() => {
@@ -167,7 +126,7 @@ export default function MainArea({
     }));
 
     setIsEnterButtonOn(() => true);
-  }, [currentCollection]);
+  }, [brandName, currentCollection]);
 
   // Check Confirm Button
   useEffect(() => {
@@ -184,8 +143,39 @@ export default function MainArea({
 
   // Update & Upload
   useEffect(() => {
-    uploadCollection();
-  }, [uploadCollection]);
+    if (isUpload) {
+      if (currentCollection) {
+        updateCollection.mutate({
+          id: currentCollection.id || "",
+          collection: {
+            collectionName: input.collectionName,
+            releaseDate: input.releaseDate,
+            images: input.images,
+
+            brandName: input.brandName,
+            isVisible: input.isVisible,
+          },
+        });
+        onClickCollection(brandName, currentCollection.id || "");
+
+        // if (currentCollection.images[0] !== input.images[0]) {
+        //   console.log("Delete last image");
+        //   deleteImage(currentCollection?.images[0]);
+        // }
+      } else if (!currentCollection) {
+        addCollection.mutate({
+          collectionName: input.collectionName,
+          releaseDate: input.releaseDate,
+          images: input.images,
+
+          brandName: input.brandName,
+          isVisible: input.isVisible,
+        });
+        onClickBrandSetting(brandName);
+      }
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isUpload]);
 
   return (
     <MainAreaWrap>
@@ -235,7 +225,11 @@ export default function MainArea({
         />
       </div>
 
-      <Button onClick={onSubmit} isActivated={isEnterButtonOn}>
+      <Button
+        onClick={onSubmit}
+        isActivated={isEnterButtonOn}
+        disable={!isEnterButtonOn}
+      >
         CONFIRM
       </Button>
     </MainAreaWrap>

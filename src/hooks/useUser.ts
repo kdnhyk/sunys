@@ -15,6 +15,10 @@ export const useUser = () => {
       : user.scrapBrandList.concat(newBrandName);
     console.log(result);
 
+    localStorage.setItem(
+      "user",
+      JSON.stringify({ ...user, scrapBrandList: result })
+    );
     setUser((prev) => ({ ...prev, scrapBrandList: result }));
   };
 

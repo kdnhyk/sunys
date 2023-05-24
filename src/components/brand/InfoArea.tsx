@@ -34,7 +34,7 @@ export default function InfoArea({ brandName }: IsInfoArea) {
     : false;
 
   useEffect(() => {
-    if (isLoading) return;
+    if (!data) return;
 
     setCurrentBrand(() => ({
       logo: data.logo,

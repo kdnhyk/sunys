@@ -73,7 +73,7 @@ export default function MainArea({
     await setInput((prev) => {
       return { ...prev, isVisible: !prev.isVisible };
     });
-  }, [input.isVisible]);
+  }, []);
 
   const onSubmit = async () => {
     if (!isEnterButtonOn) return;
@@ -102,6 +102,55 @@ export default function MainArea({
 
     router.back;
   };
+
+  const uploadCollection = useCallback(() => {
+    if (isUpload && input.images[0]) {
+      if (currentCollection) {
+        updateCollection.mutate({
+          id: currentCollection.id || "",
+          collection: {
+            collectionName: input.collectionName,
+            releaseDate: input.releaseDate,
+            images: input.images,
+
+            brandName: input.brandName,
+            isVisible: input.isVisible,
+          },
+        });
+
+        onClickCollection(brandName, currentCollection.id || "");
+
+        // if (currentCollection.images[0] !== input.images[0]) {
+        //   console.log("Delete last image");
+        //   deleteImage(currentCollection?.images[0]);
+        // }
+      } else if (!currentCollection) {
+        addCollection.mutate({
+          collectionName: input.collectionName,
+          releaseDate: input.releaseDate,
+          images: input.images,
+
+          brandName: input.brandName,
+          isVisible: input.isVisible,
+        });
+
+        router.back;
+      }
+    }
+  }, [
+    addCollection,
+    brandName,
+    currentCollection,
+    input.brandName,
+    input.collectionName,
+    input.images,
+    input.isVisible,
+    input.releaseDate,
+    isUpload,
+    onClickCollection,
+    router.back,
+    updateCollection,
+  ]);
 
   // Get CurrentCollection Data
   useEffect(() => {
@@ -135,47 +184,8 @@ export default function MainArea({
 
   // Update & Upload
   useEffect(() => {
-    if (isUpload && input.images[0]) {
-      if (currentCollection) {
-        updateCollection.mutate({
-          id: currentCollection.id || "",
-          collection: {
-            collectionName: input.collectionName,
-            releaseDate: input.releaseDate,
-            images: input.images,
-
-            brandName: input.brandName,
-            isVisible: input.isVisible,
-          },
-        });
-
-        onClickCollection(brandName, currentCollection.id || "");
-
-        // console.log(
-        //   "current: ",
-        //   currentCollection?.images[0],
-        //   "input",
-        //   input.images[0]
-        // );
-
-        // if (currentCollection.images[0] !== input.images[0]) {
-        //   console.log("Delete last image");
-        //   deleteImage(currentCollection?.images[0]);
-        // }
-      } else if (!currentCollection) {
-        addCollection.mutate({
-          collectionName: input.collectionName,
-          releaseDate: input.releaseDate,
-          images: input.images,
-
-          brandName: input.brandName,
-          isVisible: input.isVisible,
-        });
-
-        router.back;
-      }
-    }
-  }, [isUpload]);
+    uploadCollection();
+  }, [uploadCollection]);
 
   return (
     <MainAreaWrap>

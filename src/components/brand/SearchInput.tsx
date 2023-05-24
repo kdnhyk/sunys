@@ -25,7 +25,7 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
 
   const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
-    setSearchInput((prev) => value);
+    setSearchInput(() => value);
   };
 
   const onResetSearchInput = () => {
@@ -66,7 +66,7 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
         });
       }
     }
-  }, [isOpenModal]);
+  }, [isOpenModal, width]);
 
   return (
     <SearchInputStyle value={searchInput}>

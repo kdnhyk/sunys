@@ -48,7 +48,7 @@ export const useBrandList = () => {
     if (documents) {
       setBrandList(documents);
     }
-  }, [documents]);
+  }, [documents, setBrandList]);
 
   const getBrandList = async () => {
     getBrandListRealtime();

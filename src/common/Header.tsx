@@ -25,7 +25,7 @@ export default function Header() {
       clearInterval(timer);
       window.removeEventListener("scroll", handleScroll);
     };
-  }, []);
+  }, [handleScroll]);
 
   return (
     <HeaderWrap isFixHeader={isFixHeader} ref={targetRef}>

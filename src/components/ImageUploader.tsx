@@ -61,7 +61,7 @@ export default function ImgageUploader({
       setFile(theFile);
       await setImageFile(theFile);
     },
-    []
+    [setImageFile]
   );
 
   const onClearAttachment = () => {

@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { IsBrand, initBrand } from "@/types/brand";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import { useBrandStore } from "@/hooks/firestore/useBrandStore";
-import Input from "../Input";
-import ImgageUploader from "../ImageUploader";
+import Input from "@/components/Input";
+import ImgageUploader from "@/components/ImageUploader";
 import ReactDatePicker from "react-datepicker";
 import { toStringByFormatting } from "@/util";
-import Button from "../Button";
+import Button from "@/components/Button";
 import { useImage } from "@/hooks/storage/useImage";
 import { useBrandListStore } from "@/hooks/firestore/useBrandListStore";
 import { useBrandList } from "@/hooks/useBrandList";
@@ -81,38 +81,7 @@ export default function InfoArea({ brandName }: IsInfoArea) {
     setIsUpload(true);
   };
 
-  useEffect(() => {
-    if (isLoading) return;
-
-    setCurrentBrand(() => ({
-      logo: data.logo,
-      officialUrl: data.officialUrl,
-      brandName: data.brandName,
-      brandNameKo: data.brandNameKo,
-      tag: data.tag,
-      scrapNum: data.scrapNum || 0,
-      description: data.description,
-      saleName: data.saleName,
-      saleStartDate: data.saleStartDate,
-      saleEndDate: data.saleEndDate,
-      officialStoreList: data.officialStoreList,
-      storeList: data.storeList,
-    }));
-  }, [data]);
-
-  useEffect(() => {
-    if (
-      currentBrand.brandName &&
-      currentBrand.brandNameKo &&
-      (currentBrand.logo || logoFile)
-    ) {
-      setIsEnterButton(true);
-    } else {
-      setIsEnterButton(false);
-    }
-  }, [currentBrand, logoFile]);
-
-  useEffect(() => {
+  const uploadBrand = useCallback(() => {
     if (isUpload && currentBrand.logo) {
       if (data.id) {
         updateBrand(data.id, {
@@ -164,7 +133,62 @@ export default function InfoArea({ brandName }: IsInfoArea) {
 
       onClickBarnd(currentBrand.brandName);
     }
-  }, [isUpload]);
+  }, [
+    addBrand,
+    addBrandToList,
+    brandList,
+    currentBrand.brandName,
+    currentBrand.brandNameKo,
+    currentBrand.description,
+    currentBrand.logo,
+    currentBrand.officialStoreList,
+    currentBrand.officialUrl,
+    currentBrand.saleEndDate,
+    currentBrand.saleName,
+    currentBrand.saleStartDate,
+    currentBrand.scrapNum,
+    currentBrand.storeList,
+    currentBrand.tag,
+    data.id,
+    isUpload,
+    onClickBarnd,
+    updateBrand,
+  ]);
+
+  useEffect(() => {
+    if (!data) return;
+
+    setCurrentBrand(() => ({
+      logo: data.logo,
+      officialUrl: data.officialUrl,
+      brandName: data.brandName,
+      brandNameKo: data.brandNameKo,
+      tag: data.tag,
+      scrapNum: data.scrapNum || 0,
+      description: data.description,
+      saleName: data.saleName,
+      saleStartDate: data.saleStartDate,
+      saleEndDate: data.saleEndDate,
+      officialStoreList: data.officialStoreList,
+      storeList: data.storeList,
+    }));
+  }, [data]);
+
+  useEffect(() => {
+    if (
+      currentBrand.brandName &&
+      currentBrand.brandNameKo &&
+      (currentBrand.logo || logoFile)
+    ) {
+      setIsEnterButton(true);
+    } else {
+      setIsEnterButton(false);
+    }
+  }, [currentBrand, logoFile]);
+
+  useEffect(() => {
+    uploadBrand();
+  }, [uploadBrand]);
 
   if (isLoading) {
     return <div></div>;

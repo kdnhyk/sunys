@@ -41,7 +41,7 @@ export default function Collection() {
   const [diff, setDiff] = useState(0);
 
   useEffect(() => {
-    if (isLoading) return;
+    if (!data) return;
 
     setDiff(() =>
       Math.ceil(

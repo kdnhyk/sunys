@@ -100,3 +100,7 @@ You're about to initialize a Firebase project in this directory:
 
   /Users/kdnhyk/Desktop/SUNYS/sunys
 
+[debug] [2023-05-23T19:41:05.841Z] Error: read EIO
+    at TTY.onStreamRead (node:internal/stream_base_commons:217:20)
+[debug] [2023-05-23T19:41:05.864Z] Error: read EIO
+    at TTY.onStreamRead (node:internal/stream_base_commons:217:20)

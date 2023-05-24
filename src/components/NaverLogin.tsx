@@ -37,7 +37,7 @@ const NaverLogin = () => {
         console.log("error");
       }
     });
-  }, []);
+  }, [loginWithEmailAndPassword, naver.LoginWithNaverId, router]);
 
   const onClick = () => {
     if (!naverRef || !naverRef.current || !naverRef.current.children) return;

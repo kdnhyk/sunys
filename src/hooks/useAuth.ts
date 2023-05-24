@@ -44,7 +44,7 @@ export const useAuth = () => {
         return;
       });
     }
-  }, [currentUser, successs]);
+  }, [currentUser, getCloudUser, setCloudUser, setUser, successs]);
 
   const updateUser = (username: string) => {
     if (!auth.currentUser) return;

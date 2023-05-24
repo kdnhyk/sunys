@@ -20,7 +20,7 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
     if (successs) {
       exitModal();
     }
-  }, [successs]);
+  }, [exitModal, successs]);
 
   // if (isLoading) return <div>...</div>;
 

@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Input from "../Input";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import ImgageUploader from "../ImageUploader";
 import Button from "../Button";
 import { useImage } from "../../hooks/storage/useImage";
@@ -56,15 +56,7 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
     setIsUpload(true);
   };
 
-  useEffect(() => {
-    if (newStore.storeName && newStore.storeLocation) {
-      setIsEnterButton(() => true);
-    } else {
-      setIsEnterButton(() => false);
-    }
-  }, [newStore]);
-
-  useEffect(() => {
+  const uploadBrand = useCallback(() => {
     if (input.brandName && isUpload) {
       updateBrand.mutate({
         id: input.brandName,
@@ -79,7 +71,19 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
 
       exitModal();
     }
-  }, [isUpload]);
+  }, [exitModal, input, isUpload, newStore, updateBrand]);
+
+  useEffect(() => {
+    if (newStore.storeName && newStore.storeLocation) {
+      setIsEnterButton(() => true);
+    } else {
+      setIsEnterButton(() => false);
+    }
+  }, [newStore]);
+
+  useEffect(() => {
+    uploadBrand();
+  }, [uploadBrand]);
 
   return (
     <WindowModal1Block>

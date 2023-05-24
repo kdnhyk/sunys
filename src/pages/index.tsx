@@ -14,16 +14,14 @@ export default function News() {
   const [ref, inView] = useInView();
 
   useEffect(() => {
-    if (recentCollection.length === 0) {
-      fetchNextPage();
-    }
-  }, []);
+    fetchNextPage();
+  }, [fetchNextPage]);
 
   useEffect(() => {
     if (inView && hasNextPage) {
       fetchNextPage();
     }
-  }, [hasNextPage, inView]);
+  }, [fetchNextPage, hasNextPage, inView]);
 
   if (recentCollection.length === 0) {
     return <Loading />;

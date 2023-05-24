@@ -23,19 +23,15 @@ export default function CollectionArea({ brandName }: IsCollectionArea) {
   };
 
   useEffect(() => {
-    if (!currentCollection) return;
-
-    if (currentCollection.length === 0) {
-      fetchNextPage();
-    }
-  }, []);
+    fetchNextPage();
+  }, [fetchNextPage]);
 
   useEffect(() => {
     if (onLoad && hasNextPage) {
       fetchNextPage();
     }
     setOnLoad(false);
-  }, [hasNextPage, onLoad]);
+  }, [fetchNextPage, hasNextPage, onLoad]);
 
   return (
     <CollectionAreaStyle>

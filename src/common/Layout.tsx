@@ -16,7 +16,7 @@ export default function Layout({ children }: IsLayout) {
     if (brandList.length === 0) {
       getBrandList();
     }
-  }, []);
+  }, [brandList.length, getBrandList]);
 
   return (
     <LayoutWrap>

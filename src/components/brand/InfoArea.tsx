@@ -7,17 +7,17 @@ import Button from "../Button";
 import { IsBrand, initBrand } from "@/types/brand";
 import { useEffect, useState } from "react";
 import useLocationState from "@/hooks/useLocationState";
-import useMutationBrand from "@/pages/api/useMutationBrand";
-import useBrand from "@/pages/api/useBrand";
-import { useRouter } from "next/router";
+import useMutationBrand from "@/api/useMutationBrand";
+import useBrand from "@/api/useBrand";
 import Image from "next/image";
+import useModal from "@/hooks/useModal";
 
 interface IsInfoArea {
   brandName: string;
 }
 
 export default function InfoArea({ brandName }: IsInfoArea) {
-  const router = useRouter();
+  const { onOpenModal } = useModal();
   const { data, isLoading } = useBrand(brandName);
   const { user } = useAuth();
   const { updateScrapBrand } = useCloudUser();
@@ -54,7 +54,8 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   const onScrapBrand = async () => {
     if (!data.brandName) return;
     if (!user.uid) {
-      router.push("/account");
+      onOpenModal();
+      return;
     }
 
     await updateScrapBrand(user.uid, user.scrapBrandList, {

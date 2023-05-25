@@ -3,25 +3,24 @@ import styled from "styled-components";
 import Collection from "@/components/Collection";
 import { useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import useRecentCollection from "@/pages/api/useRecentCollection";
+import useRecentCollection, {
+} from "@/api/useRecentCollection";
 import { useInView } from "react-intersection-observer";
 import Loading from "@/components/Loading";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 
-// export const getStaticProps = async (ctx: { params: { cid: string } }) => {
-//   const cid = ctx.params.cid;
-
+// export const getStaticProps = async () => {
 //   const queryClient = new QueryClient();
 
 //   await queryClient.prefetchQuery(
-//     ["collection", cid],
-//     () => getCollectionByCid(cid),
+//     ["recentCollection"],
+//     () => getRecentCollectionInit(),
 //     {
 //       staleTime: Infinity,
 //     }
 //   );
 
 //   return {
-//     fallback: true,
 //     props: {
 //       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
 //     },
@@ -29,9 +28,14 @@ import Loading from "@/components/Loading";
 // };
 
 export default function News() {
-  const { recentCollection, isLoading, fetchNextPage, hasNextPage } =
-    useRecentCollection();
-
+  const {
+    recentCollection,
+    result,
+    data,
+    isLoading,
+    fetchNextPage,
+    hasNextPage,
+  } = useRecentCollection();
   const [ref, inView] = useInView();
 
   useEffect(() => {
@@ -44,7 +48,7 @@ export default function News() {
     }
   }, [fetchNextPage, hasNextPage, inView]);
 
-  if (isLoading && !recentCollection) {
+  if (isLoading || !recentCollection) {
     return <Loading />;
   }
 
@@ -71,7 +75,7 @@ export default function News() {
             }}
           >
             <Masonry>
-              {recentCollection.map((e, i) => (
+              {recentCollection?.map((e, i) => (
                 <div className="ColInner" key={i}>
                   <Collection collection={e} />{" "}
                 </div>

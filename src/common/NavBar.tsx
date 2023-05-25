@@ -1,19 +1,16 @@
 import styled from "styled-components";
 import { useAuth } from "../hooks/useAuth";
 import { media } from "@/media";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import LoginModal from "./LoginModal";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import useModal from "@/hooks/useModal";
 
 export default function NavBar() {
   const { user } = useAuth();
+  const { isModal, onOpenModal, onCloseModal } = useModal();
   const path = useRouter().pathname.split("/")[1] || "news";
-  const [isOpenLogin, setIsOpenLogin] = useState(false);
-
-  const handleIsOpenLogin = () => {
-    setIsOpenLogin((prev) => !prev);
-  };
 
   const menu = [
     {
@@ -40,7 +37,8 @@ export default function NavBar() {
   };
 
   useEffect(() => {
-    setIsOpenLogin(false);
+    onCloseModal();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [path]);
 
   return (
@@ -52,7 +50,7 @@ export default function NavBar() {
         </Link>
       ))}
       {!user.uid ? (
-        <div className="AccountButtonWrap" onClick={handleIsOpenLogin}>
+        <div className="AccountButtonWrap" onClick={onOpenModal}>
           <p>로그인</p>
         </div>
       ) : (
@@ -69,7 +67,7 @@ export default function NavBar() {
           <p>{user.cart.length}</p>
         </div>
       </Link>
-      {isOpenLogin && <LoginModal exitModal={handleIsOpenLogin} />}
+      {isModal && <LoginModal exitModal={onCloseModal} />}
     </NavBarBlock>
   );
 }

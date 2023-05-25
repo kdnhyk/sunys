@@ -22,7 +22,7 @@ const useArticle = (cid: string) => {
   };
 
   const { data, isLoading } = useQuery(
-    ["article", cid],
+    ["collectionArticle", cid],
     async () => await getArticleByCid(cid),
     {
       enabled: !!cid,

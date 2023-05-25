@@ -6,13 +6,11 @@ import Button from "../Button";
 import ImgageUploader from "../ImageUploader";
 import Input from "../Input";
 import { useImage } from "@/hooks/storage/useImage";
-import ReactDatePicker from "react-datepicker";
 import { toStringByFormatting } from "@/util";
 import VisibleToggle from "../VisibleToggle";
-import useMutationCollection from "@/pages/api/useMutationCollection";
+import useMutationCollection from "@/api/useMutationCollection";
 import { IsArticle } from "@/types/article";
 import useLocationState from "@/hooks/useLocationState";
-import { useRouter } from "next/router";
 
 interface IsMainWrap {
   brandName: string;
@@ -26,8 +24,7 @@ export default function MainArea({
   articleList = [],
 }: IsMainWrap) {
   const { updateCollection, addCollection } = useMutationCollection();
-  const { upload, deleteImage } = useImage("collection");
-  const router = useRouter();
+  const { upload } = useImage("collection");
   const { deleteCollection } = useMutationCollection();
   const { onClickCollection, onClickBrandSetting } = useLocationState();
 
@@ -101,6 +98,7 @@ export default function MainArea({
 
     if (articleList.length > 0) {
       alert("제품 먼저 삭제 해야합니다");
+      return;
     }
 
     deleteCollection.mutate({
@@ -108,7 +106,7 @@ export default function MainArea({
       imageUrl: currentCollection.images[0],
     });
 
-    router.back();
+    onClickBrandSetting(brandName);
   };
 
   // Get CurrentCollection Data
@@ -214,14 +212,12 @@ export default function MainArea({
           disabled={currentCollection ? true : false}
           // disabled={articleList?.length !==0 || false}
         />
-        <DatePickerWrap
-          dateFormat="yyyy / MM / dd"
-          selected={
-            input.releaseDate ? new Date(input.releaseDate) : new Date()
-          }
-          onChange={(date) => onChangeInputReleaseDate(date)}
+        <Input
+          name="releaseDate"
+          value={input.releaseDate}
+          placeholder="Release Date"
+          onChange={onChange}
           disabled={currentCollection ? true : false}
-          // disabled={articleList?.length !== 0 || false}
         />
       </div>
 
@@ -268,13 +264,4 @@ const MainAreaWrap = styled.div`
       grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
     }
   }
-`;
-
-const DatePickerWrap = styled(ReactDatePicker)`
-  height: 40px;
-  width: 100%;
-  padding: 0px 12px;
-  background-color: transparent;
-  border-bottom: 1px solid grey;
-  cursor: pointer;
 `;

@@ -8,8 +8,9 @@ export default function Header() {
   const [isFixHeader, setIsFixHeader] = useState(false);
 
   const targetRef = useRef(null);
+
   const handleScroll = useCallback(() => {
-    // console.log(window.scrollY);
+    // console.log("scroll");
     if (window.scrollY > 81) {
       setIsFixHeader(() => true);
     } else {
@@ -18,11 +19,8 @@ export default function Header() {
   }, []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      window.addEventListener("scroll", handleScroll);
-    }, 300);
+    window.addEventListener("scroll", handleScroll);
     return () => {
-      clearInterval(timer);
       window.removeEventListener("scroll", handleScroll);
     };
   }, [handleScroll]);

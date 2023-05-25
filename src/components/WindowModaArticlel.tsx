@@ -7,6 +7,7 @@ import { useUser } from "../hooks/useUser";
 import Button from "./Button";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import useModal from "@/hooks/useModal";
 
 interface IsWindowModalArticle {
   exitModal: () => void;
@@ -20,7 +21,7 @@ export default function WindowModalArticle({
   const { user } = useAuth();
   const { updateCart } = useCloudUser();
   const { handleUserCart } = useUser();
-  const router = useRouter();
+  const { onOpenModal } = useModal();
 
   const [isCartOn, setIsCartOn] = useState(false);
 
@@ -28,7 +29,7 @@ export default function WindowModalArticle({
 
   const onClickCart = () => {
     if (!user.uid) {
-      router.push("/account");
+      onOpenModal();
       return;
     }
     updateCart(user.uid, user.cart, article);
@@ -101,7 +102,7 @@ const WindowModalArticleBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 100;
 
   .ModalInner {
     width: 300px;
@@ -117,7 +118,7 @@ const WindowModalArticleBlock = styled.div`
     border-color: grey;
     border-style: solid;
 
-    z-index: 1000;
+    z-index: 100;
 
     .HeaderWrap {
       padding: 10px 10px 10px 16px;
@@ -125,7 +126,7 @@ const WindowModalArticleBlock = styled.div`
       display: flex;
       justify-content: space-between;
       background-color: #fcfcfc;
-      z-index: 1000;
+      z-index: 100;
       h2 {
         font-weight: 400;
       }

@@ -14,7 +14,7 @@ const useMutationCollection = () => {
     {
       onMutate() {},
       onSuccess: () => {
-        queryClient.invalidateQueries(["brandCollection"]); // queryKey 유효성 제거
+        queryClient.invalidateQueries(["brandCollection"]);
       },
       onError() {},
     }
@@ -25,6 +25,9 @@ const useMutationCollection = () => {
       updateDocs(id, collection),
     {
       onMutate() {},
+      onSuccess() {
+        queryClient.invalidateQueries(["brandCollection"]);
+      },
     }
   );
 
@@ -35,6 +38,9 @@ const useMutationCollection = () => {
     },
     {
       onMutate() {},
+      onSuccess() {
+        queryClient.invalidateQueries(["brandCollection"]);
+      },
     }
   );
 

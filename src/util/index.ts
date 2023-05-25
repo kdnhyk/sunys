@@ -38,4 +38,17 @@ const toSortRestBrandList = (
   );
 };
 
-export { toStringByFormatting, toSortBrandList, toSortRestBrandList };
+const toCheckDateFormmat = (input: string) => {
+  const reg = /[0-9]{8}$/;
+  if (reg.test(input)) {
+    return true;
+  }
+  return false;
+};
+
+export {
+  toStringByFormatting,
+  toSortBrandList,
+  toSortRestBrandList,
+  toCheckDateFormmat,
+};

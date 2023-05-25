@@ -13,7 +13,7 @@ const NaverLogin = () => {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
       // callbackUrl: process.env.REACT_APP_REDIRECT_URI,
-      callbackUrl: "http://localhost:3008/account",
+      callbackUrl: "http://localhost:3000/account",
       isPopup: false,
       loginButton: { color: "green", type: 1, height: 50 },
     });

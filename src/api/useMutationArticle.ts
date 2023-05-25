@@ -15,7 +15,7 @@ const useMutationArticle = (cid: string) => {
     {
       onMutate() {},
       onSuccess() {
-        queryClient.invalidateQueries(["collection", cid]); // 컬렉션의 article 업데이트
+        queryClient.invalidateQueries(["collectionArticle", cid]);
       },
     }
   );
@@ -27,6 +27,9 @@ const useMutationArticle = (cid: string) => {
     },
     {
       onMutate() {},
+      onSuccess() {
+        queryClient.invalidateQueries(["collectionArticle", cid]);
+      },
     }
   );
 

@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { media } from "@/media";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { getBrandByBrandName } from "@/pages/api/useBrand";
+import { getBrandByBrandName } from "@/api/useBrand";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
-import { getBrandList } from "@/pages/api/useBrandList";
+import { getBrandList } from "@/api/useBrandList";
 import { IsBrandName } from "@/types/brand";
 
 const InfoArea = dynamic(() => import("@/components/brand/InfoArea"), {

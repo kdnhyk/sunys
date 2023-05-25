@@ -6,7 +6,7 @@ import Button from "../Button";
 import { useImage } from "../../hooks/storage/useImage";
 import { IsArticle } from "../../types/article";
 import { IsCollection } from "../../types/collection";
-import useMutationArticle from "@/pages/api/useMutationArticle";
+import useMutationArticle from "@/api/useMutationArticle";
 
 interface IsWindowModal {
   exitModal: () => void;

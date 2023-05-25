@@ -5,7 +5,7 @@ import ImgageUploader from "../ImageUploader";
 import Button from "../Button";
 import { useImage } from "../../hooks/storage/useImage";
 import { IsBrand, IsOfficialStore } from "../../types/brand";
-import useMutationBrand from "@/pages/api/useMutationBrand";
+import useMutationBrand from "@/api/useMutationBrand";
 
 interface IsWindowModal1 {
   exitModal: () => void;

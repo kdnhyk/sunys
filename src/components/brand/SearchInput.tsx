@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { ChangeEvent, useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import useBrandList from "@/pages/api/useBrandList";
+import useBrandList from "@/api/useBrandList";
 import { IsBrandName } from "@/types/brand";
 
 interface IsSearchInput {

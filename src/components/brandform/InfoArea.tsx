@@ -1,18 +1,16 @@
 import styled from "styled-components";
 import { IsBrand, initBrand } from "@/types/brand";
-import { ChangeEvent, useCallback, useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import Input from "@/components/Input";
 import ImgageUploader from "@/components/ImageUploader";
-import ReactDatePicker from "react-datepicker";
-import { toStringByFormatting } from "@/util";
+import { toCheckDateFormmat, toStringByFormatting } from "@/util";
 import Button from "@/components/Button";
 import { useImage } from "@/hooks/storage/useImage";
-import useLocationState from "@/hooks/useLocationState";
 import StoreArea1 from "./StoreArea1";
-import useBrand from "@/pages/api/useBrand";
+import useBrand from "@/api/useBrand";
 import { useRouter } from "next/router";
-import useMutationBrand from "@/pages/api/useMutationBrand";
-import useBrandList from "@/pages/api/useBrandList";
+import useMutationBrand from "@/api/useMutationBrand";
+import useBrandList from "@/api/useBrandList";
 
 interface IsInfoArea {
   brandName?: string;
@@ -100,15 +98,21 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   }, [data]);
 
   useEffect(() => {
-    if (
-      currentBrand.brandName &&
-      currentBrand.brandNameKo &&
-      (currentBrand.logo || logoFile)
-    ) {
-      setIsEnterButton(true);
-    } else {
-      setIsEnterButton(false);
-    }
+    const timer = setTimeout(() => {
+      if (
+        currentBrand.brandName &&
+        currentBrand.brandNameKo &&
+        (currentBrand.logo || logoFile)
+      ) {
+        setIsEnterButton(true);
+      } else {
+        setIsEnterButton(false);
+      }
+    }, 200);
+
+    return () => {
+      clearTimeout(timer);
+    };
   }, [currentBrand, logoFile]);
 
   useEffect(() => {
@@ -171,6 +175,8 @@ export default function InfoArea({ brandName }: IsInfoArea) {
     return <div></div>;
   }
 
+  console.log(toCheckDateFormmat("20020020"));
+
   return (
     <InfoAreaStyle>
       <div className="OfficialButtonWrap">
@@ -218,69 +224,35 @@ export default function InfoArea({ brandName }: IsInfoArea) {
           />
         </div>
       </div>
-      {currentBrand.saleStartDate && currentBrand.saleEndDate && (
-        <div className="SaleWrap">
-          <div className="SaleNameWrap">
-            <Input
-              name="saleName"
-              value={currentBrand.saleName}
-              placeholder="Sale Name"
-              onChange={onChangeInput}
-            />
-          </div>
 
-          <div className="SaleDatePickerWrap">
-            {currentBrand.saleName && (
-              <>
-                <DatePickerWrap
-                  dateFormat="yyyy / MM / dd"
-                  selectsStart
-                  selected={
-                    currentBrand.saleStartDate
-                      ? new Date(currentBrand.saleStartDate)
-                      : new Date()
-                  }
-                  onChange={(date) =>
-                    onChangeInputSaleDate("saleStartDate", date)
-                  }
-                  startDate={
-                    currentBrand.saleStartDate
-                      ? new Date(currentBrand.saleStartDate)
-                      : new Date()
-                  }
-                  endDate={
-                    currentBrand.saleEndDate
-                      ? new Date(currentBrand.saleEndDate)
-                      : new Date()
-                  }
-                />
-                <DatePickerWrap
-                  dateFormat="yyyy / MM / dd"
-                  selectsEnd
-                  selected={
-                    currentBrand.saleEndDate
-                      ? new Date(currentBrand.saleEndDate)
-                      : new Date()
-                  }
-                  onChange={(date) =>
-                    onChangeInputSaleDate("saleEndDate", date)
-                  }
-                  startDate={
-                    currentBrand.saleStartDate
-                      ? new Date(currentBrand.saleStartDate)
-                      : new Date()
-                  }
-                  endDate={
-                    currentBrand.saleEndDate
-                      ? new Date(currentBrand.saleEndDate)
-                      : new Date()
-                  }
-                />
-              </>
-            )}
-          </div>
+      <div className="SaleWrap">
+        <div className="SaleNameWrap">
+          <Input
+            name="saleName"
+            value={currentBrand.saleName}
+            placeholder="Sale Name"
+            onChange={onChangeInput}
+          />
         </div>
-      )}
+
+        <div className="SaleDatePickerWrap">
+            <Input
+              name="saleStartDate"
+              value={currentBrand.saleStartDate}
+              placeholder="Sale Start Date"
+              onChange={onChangeInput}
+              disabled={!currentBrand.saleName ? true : false}
+            />
+            <Input
+              name="saleEndDate"
+              value={currentBrand.saleEndDate}
+              placeholder="Sale End Date"
+              onChange={onChangeInput}
+              disabled={!currentBrand.saleName ? true : false}
+            />
+        </div>
+      </div>
+
       <div className="StoreWrap">
         {data && (
           <StoreArea1
@@ -366,13 +338,4 @@ const InfoAreaStyle = styled.div`
     padding: 0px 16px;
     border-bottom: 1px solid #dddddd;
   }
-`;
-
-const DatePickerWrap = styled(ReactDatePicker)`
-  height: 40px;
-  width: 100%;
-  padding: 0px 12px;
-  background-color: transparent;
-  border-bottom: 1px solid grey;
-  cursor: pointer;
 `;

@@ -5,7 +5,7 @@ import WindowModal from "./WindowModal";
 import { IsArticle } from "@/types/article";
 import { IsCollection } from "@/types/collection";
 import Article from "./Article";
-import useMutationArticle from "@/pages/api/useMutationArticle";
+import useMutationArticle from "@/api/useMutationArticle";
 
 interface IsArticleArea {
   currentCollection: IsCollection;

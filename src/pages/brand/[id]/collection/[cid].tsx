@@ -187,8 +187,8 @@ const CollectionWrap = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
-    row-gap: 20px;
-    column-gap: 10px;
+    row-gap: 10px;
+    column-gap: 1px;
     margin-bottom: 20px;
 
     @media (min-width: 600px) {

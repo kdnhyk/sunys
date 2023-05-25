@@ -67,7 +67,7 @@ const ArticleWrap = styled.div<{ isInCart: boolean }>`
       }
     }
     .TextWrap {
-      height: 38px;
+      height: fit-content;
       padding: 0px 8px;
 
       h3 {

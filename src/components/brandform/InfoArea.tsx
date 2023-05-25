@@ -108,9 +108,11 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   useEffect(() => {
     if (
       currentBrand.brandName &&
-      !brandList
-        .map((e: IsBrandName) => e.default.toLowerCase())
-        .includes(currentBrand.brandName.toLowerCase()) &&
+      (brandName
+        ? !brandList
+            .map((e: IsBrandName) => e.default.toLowerCase())
+            .includes(currentBrand.brandName.toLowerCase())
+        : true) &&
       currentBrand.brandNameKo &&
       (currentBrand.logo || logoFile) &&
       (currentBrand.saleName

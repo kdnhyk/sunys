@@ -46,6 +46,7 @@ export default function Collection() {
         <title>{data.collectionName}</title>
         <meta name="description" content="컬렉션 별 전체 상품" />
       </Head>
+
       <CollectionWrap>
         <div className="MainArea">
           <div className="ImageWrap">
@@ -103,6 +104,7 @@ export default function Collection() {
             )}
           </div>
         </div>
+        <div className="Position"></div>
 
         <div className="ArticleListWrap">
           {articleData?.map((article, i) => (
@@ -119,6 +121,7 @@ export default function Collection() {
 const CollectionWrap = styled.div`
   display: flex;
   flex-direction: column;
+
   .MainArea {
     display: flex;
     flex-direction: column;
@@ -184,29 +187,40 @@ const CollectionWrap = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: start;
+    row-gap: 20px;
+    column-gap: 10px;
 
-    column-gap: 1px;
-    row-gap: 12px;
-
-    padding-bottom: 40px;
-    border-bottom: 1px solid #dddddd;
-
-    @media (min-width: 960px) {
+    @media (min-width: 600px) {
+      grid-template-columns: repeat(1, 1fr);
+    }
+    @media (min-width: 680px) {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    @media (min-width: 940px) {
       grid-template-columns: repeat(3, 1fr);
     }
-    @media (min-width: 1340px) {
+    @media (min-width: 1320px) {
       grid-template-columns: repeat(4, 1fr);
     }
   }
 
   ${media.desktop`
   flex-direction: row;
+
   .MainArea {
-    width: 220px;
-    flex-grow: 2;
+    position: fixed;
+    top: 48px;
+    width: calc(220px + 33.33% - 131.33px);
     border-right: 1px solid #dddddd;
     border-bottom: 1px solid #dddddd;
   }
+  
+  .Position {
+    position: relative;
+    width: 220px;
+    flex-grow: 2;
+  }
+
   .ArticleListWrap {
     width: 174px;
     flex-grow: 4;

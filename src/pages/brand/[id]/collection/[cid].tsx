@@ -53,8 +53,8 @@ export default function Collection() {
             <Image
               src={data.images[0]}
               alt=""
-              width={400}
-              height={400}
+              width={600}
+              height={600}
               priority
             />
 
@@ -189,6 +189,7 @@ const CollectionWrap = styled.div`
     align-items: start;
     row-gap: 20px;
     column-gap: 10px;
+    margin-bottom: 20px;
 
     @media (min-width: 600px) {
       grid-template-columns: repeat(1, 1fr);
@@ -223,7 +224,9 @@ const CollectionWrap = styled.div`
 
   .ArticleListWrap {
     width: 174px;
+    height: 100%;
     flex-grow: 4;
+    min-height: calc(100vh - 160px)
   }
 `}
 `;

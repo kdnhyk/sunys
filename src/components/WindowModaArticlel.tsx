@@ -1,11 +1,10 @@
 import styled from "styled-components";
 import { IsArticle } from "../types/article";
 import { useAuth } from "../hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useCloudUser } from "../hooks/firestore/useCloudUser";
 import { useUser } from "../hooks/useUser";
 import Button from "./Button";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
 
@@ -22,8 +21,6 @@ export default function WindowModalArticle({
   const { updateCart } = useCloudUser();
   const { handleUserCart } = useUser();
   const { onOpenModal } = useModal();
-
-  const [isCartOn, setIsCartOn] = useState(false);
 
   const isInCart = user.cart.find((e) => e.id === article.id) ? true : false;
 
@@ -43,14 +40,6 @@ export default function WindowModalArticle({
   //   };
   // }, []);
 
-  useEffect(() => {
-    if (isInCart) {
-      setIsCartOn(false);
-    } else {
-      setIsCartOn(true);
-    }
-  }, [isInCart]);
-
   return (
     <WindowModalArticleBlock>
       <div className="ModalInner">
@@ -65,7 +54,7 @@ export default function WindowModalArticle({
 
         <div className="MainWrap">
           <div className="ImageWrap">
-            <Image src={article.images[0]} alt="" width={200} height={200} />
+            <Image src={article.images[0]} alt="" width={266} height={266} />
           </div>
           <h3>{article.articleName}</h3>
           <p>
@@ -156,9 +145,14 @@ const WindowModalArticleBlock = styled.div`
       z-index: 10;
 
       .ImageWrap {
+        position: relative;
         width: 100%;
         height: 100%;
-        /* border: 1px solid white; */
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
       h3 {
       }

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { IsBrand, initBrand } from "@/types/brand";
+import { IsBrand, IsBrandName, initBrand } from "@/types/brand";
 import { ChangeEvent, useEffect, useState } from "react";
 import Input from "@/components/Input";
 import ImgageUploader from "@/components/ImageUploader";
@@ -11,6 +11,8 @@ import useBrand from "@/api/useBrand";
 import { useRouter } from "next/router";
 import useMutationBrand from "@/api/useMutationBrand";
 import useBrandList from "@/api/useBrandList";
+import Loading from "../Loading";
+import Textarea from "../Textarea";
 
 interface IsInfoArea {
   brandName?: string;
@@ -98,25 +100,31 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   }, [data]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      if (
-        currentBrand.brandName &&
-        currentBrand.brandNameKo &&
-        (currentBrand.logo || logoFile)
-      ) {
-        setIsEnterButton(true);
-      } else {
-        setIsEnterButton(false);
-      }
-    }, 200);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [currentBrand, logoFile]);
+    if (!currentBrand.saleName) {
+      onResetInputSaleDate();
+    }
+  }, [currentBrand.saleName]);
 
   useEffect(() => {
-    console.log("upload");
+    if (
+      currentBrand.brandName &&
+      !brandList
+        .map((e: IsBrandName) => e.default.toLowerCase())
+        .includes(currentBrand.brandName.toLowerCase()) &&
+      currentBrand.brandNameKo &&
+      (currentBrand.logo || logoFile) &&
+      (currentBrand.saleName
+        ? toCheckDateFormmat(currentBrand.saleStartDate) &&
+          toCheckDateFormmat(currentBrand.saleEndDate)
+        : true)
+    ) {
+      setIsEnterButton(true);
+    } else {
+      setIsEnterButton(false);
+    }
+  }, [brandList, currentBrand, logoFile]);
+
+  useEffect(() => {
     if (isUpload) {
       updateBrand.mutate({
         id: currentBrand.brandName,
@@ -171,12 +179,6 @@ export default function InfoArea({ brandName }: IsInfoArea) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isUpload]);
 
-  if (brandName && isLoading) {
-    return <div></div>;
-  }
-
-  console.log(toCheckDateFormmat("20020020"));
-
   return (
     <InfoAreaStyle>
       <div className="OfficialButtonWrap">
@@ -202,6 +204,14 @@ export default function InfoArea({ brandName }: IsInfoArea) {
         <ImgageUploader
           defaultImageUrl={currentBrand.logo}
           setImageFile={setImageFile}
+        />
+      </div>
+      <div className="DescriptionWrap">
+        <Textarea
+          name="description"
+          value={currentBrand.description}
+          placeholder="Description"
+          onChange={onChangeInput}
         />
       </div>
       <div className="TitleWrap">
@@ -236,20 +246,20 @@ export default function InfoArea({ brandName }: IsInfoArea) {
         </div>
 
         <div className="SaleDatePickerWrap">
-            <Input
-              name="saleStartDate"
-              value={currentBrand.saleStartDate}
-              placeholder="Sale Start Date"
-              onChange={onChangeInput}
-              disabled={!currentBrand.saleName ? true : false}
-            />
-            <Input
-              name="saleEndDate"
-              value={currentBrand.saleEndDate}
-              placeholder="Sale End Date"
-              onChange={onChangeInput}
-              disabled={!currentBrand.saleName ? true : false}
-            />
+          <Input
+            name="saleStartDate"
+            value={currentBrand.saleStartDate}
+            placeholder="Sale Start Date"
+            onChange={onChangeInput}
+            disabled={!currentBrand.saleName ? true : false}
+          />
+          <Input
+            name="saleEndDate"
+            value={currentBrand.saleEndDate}
+            placeholder="Sale End Date"
+            onChange={onChangeInput}
+            disabled={!currentBrand.saleName ? true : false}
+          />
         </div>
       </div>
 
@@ -285,6 +295,7 @@ const InfoAreaStyle = styled.div`
       width: 120px;
     }
     .OfficialUrlWrap {
+      width: 200px;
     }
   }
 
@@ -296,6 +307,11 @@ const InfoAreaStyle = styled.div`
     margin-bottom: 50px;
   }
 
+  .DescriptionWrap {
+    width: 100%;
+    padding: 12px 16px;
+  }
+
   .TitleWrap {
     position: relative;
     width: 100%;
@@ -303,13 +319,12 @@ const InfoAreaStyle = styled.div`
     justify-content: space-between;
     align-items: center;
     padding: 0px 12px 16px 16px;
+    gap: 12px;
 
     border-bottom: 1px solid #dddddd;
     .BrandName {
-      //
     }
     .BrandNameKo {
-      //
     }
   }
   .SaleWrap {

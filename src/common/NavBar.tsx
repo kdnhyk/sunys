@@ -74,12 +74,8 @@ export default function NavBar() {
 
 const NavBarBlock = styled.nav`
   width: 100%;
-
   height: 48px;
   display: flex;
-
-  border-top: 1px solid #dddddd;
-  border-bottom: 1px solid #dddddd;
   color: black;
 
   .Empty {

@@ -4,6 +4,7 @@ import ArticleArea from "@/components/collectionform/ArticleArea";
 import { useRouter } from "next/router";
 import useCollection from "@/api/useCollection";
 import useArticle from "@/api/useArticle";
+import Loading from "@/components/Loading";
 
 export default function CollectionForm() {
   const { cid } = useRouter().query;
@@ -12,7 +13,7 @@ export default function CollectionForm() {
     typeof cid === "string" ? cid : ""
   );
 
-  if (isLoading || !articleList) return <div></div>;
+  if (isLoading || !articleList) return <Loading />;
 
   return (
     <CollectionFormWrap>

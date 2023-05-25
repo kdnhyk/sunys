@@ -28,16 +28,13 @@ const CreateBoxCollectionWrap = styled.div`
   position: relative;
   cursor: pointer;
   .ImageWrap {
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
     display: flex;
     justify-content: center;
     align-items: center;
     background-color: #d9d9d9;
-    width: 180px;
-    height: 240px;
-    img {
-      width: 100%;
-      height: auto;
-      object-fit: cover;
-    }
+    border-radius: 12px;
   }
 `;

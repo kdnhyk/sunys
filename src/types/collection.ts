@@ -6,5 +6,5 @@ export interface IsCollection {
 
   brandName: string;
 
-  isVisible?: boolean;
+  isVisible: boolean;
 }

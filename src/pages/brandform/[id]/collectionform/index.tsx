@@ -1,12 +1,13 @@
 import styled from "styled-components";
 import MainArea from "@/components/collectionform/MainArea";
 import { useRouter } from "next/router";
+import Loading from "@/components/Loading";
 
 export default function CollectionForm() {
   const { id } = useRouter().query;
 
   if (!id) {
-    return <div></div>;
+    return <Loading />;
   }
 
   return (

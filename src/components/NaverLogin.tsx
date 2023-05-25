@@ -1,19 +1,17 @@
 import { useAuth } from "@/hooks/useAuth";
-import { useRouter } from "next/router";
 import { useEffect, useRef } from "react";
 import styled from "styled-components";
 
 const NaverLogin = () => {
   const { naver } = window;
   const { loginWithEmailAndPassword } = useAuth();
-  const router = useRouter();
   const naverRef = useRef<any>(null);
 
   useEffect(() => {
     const naverLogin = new naver.LoginWithNaverId({
       clientId: process.env.NEXT_PUBLIC_NAVER_CLIENT_ID,
       // callbackUrl: process.env.REACT_APP_REDIRECT_URI,
-      callbackUrl: "http://localhost:3000/account",
+      callbackUrl: "http://localhost:3002/account",
       isPopup: false,
       loginButton: { color: "green", type: 1, height: 50 },
     });
@@ -32,12 +30,18 @@ const NaverLogin = () => {
           password: naverLogin.user.id,
           displayName: naverLogin.user.name,
         });
-        router.push("/account");
       } else {
         console.log("error");
       }
     });
-  }, [loginWithEmailAndPassword, naver.LoginWithNaverId, router]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  // let naver_api_url = `https://nid.naver.com/oauth2.0/authorize?response_type=code&client_id=${
+  //   process.env.NEXT_PUBLIC_NAVER_CLIENT_ID
+  // }&redirect_uri=${encodeURI(
+  //   "http://localhost:3002/account"
+  // )}&state=${Math.random().toString(36).substr(3, 14)}`;
 
   const onClick = () => {
     if (!naverRef || !naverRef.current || !naverRef.current.children) return;

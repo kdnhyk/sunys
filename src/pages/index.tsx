@@ -3,8 +3,7 @@ import styled from "styled-components";
 import Collection from "@/components/Collection";
 import { useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import useRecentCollection, {
-} from "@/api/useRecentCollection";
+import useRecentCollection from "@/api/useRecentCollection";
 import { useInView } from "react-intersection-observer";
 import Loading from "@/components/Loading";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
@@ -28,14 +27,8 @@ import { QueryClient, dehydrate } from "@tanstack/react-query";
 // };
 
 export default function News() {
-  const {
-    recentCollection,
-    result,
-    data,
-    isLoading,
-    fetchNextPage,
-    hasNextPage,
-  } = useRecentCollection();
+  const { recentCollection, data, isLoading, fetchNextPage, hasNextPage } =
+    useRecentCollection();
   const [ref, inView] = useInView();
 
   useEffect(() => {

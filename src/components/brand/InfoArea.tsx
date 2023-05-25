@@ -91,10 +91,18 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   return (
     <InfoAreaStyle>
       <div className="OfficialButtonWrap">
-        <a href={currentBrand.officialUrl} target="_blank" rel="noreferrer">
-          <p>공식 페이지로 이동</p>
-        </a>
+        {currentBrand.officialUrl && (
+          <a
+            className="OfficialButtonLink"
+            href={currentBrand.officialUrl}
+            target="_blank"
+            rel="noreferrer"
+          >
+            <p>공식 페이지로 이동</p>
+          </a>
+        )}
       </div>
+
       <div className="LogoWrap">
         {currentBrand.logo && (
           <Image
@@ -105,6 +113,9 @@ export default function InfoArea({ brandName }: IsInfoArea) {
             priority
           />
         )}
+      </div>
+      <div className="DescriptionWrap">
+        <p>{currentBrand.description}</p>
       </div>
       <div className="TitleWrap">
         <div className="BrandName">
@@ -185,12 +196,15 @@ const InfoAreaStyle = styled.div`
 
   .OfficialButtonWrap {
     height: 36px;
-    padding: 0px 32px;
-    display: flex;
-    align-items: center;
-    border: 1px solid black;
     margin-right: 12px;
     margin-bottom: 24px;
+    .OfficialButtonLink {
+      height: 36px;
+      padding: 0px 32px;
+      display: flex;
+      align-items: center;
+      border: 1px solid black;
+    }
   }
 
   .LogoWrap {
@@ -198,10 +212,21 @@ const InfoAreaStyle = styled.div`
     display: flex;
     justify-content: center;
     position: relative;
-    margin-bottom: 50px;
+    margin-bottom: 40px;
     img {
       border-radius: 8px;
       object-fit: contain;
+    }
+  }
+
+  .DescriptionWrap {
+    width: 100%;
+    padding: 0px 32px;
+    display: flex;
+    justify-content: center;
+    margin-bottom: 12px;
+    p {
+      text-align: center;
     }
   }
 

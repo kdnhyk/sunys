@@ -5,6 +5,10 @@ export default function Document() {
     <Html lang="ko">
       <Head>
         <meta charSet="utf-8" />
+        <meta
+          name="viewport"
+          content="initial-scale=1.0,user-scalable=no,maximum-scale=1,width=device-width"
+        />
 
         <meta name="description" content="서니즈 - 패션 정보 매거진" />
 

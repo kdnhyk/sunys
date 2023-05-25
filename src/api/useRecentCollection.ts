@@ -10,27 +10,18 @@ import {
   where,
 } from "firebase/firestore";
 import { useRecoilState } from "recoil";
-import {
-  lastVisibleSelector,
-  recentCollectionSelector,
-} from "@/store/collection";
-import { useState } from "react";
+import { recentCollectionSelector } from "@/store/collection";
 
 export const getRecentCollectionInit = async () => {
   const q = query(
     collection(store, "collection"),
     where("isVisible", "==", true),
     orderBy("createdTime", "desc"),
-    limit(2)
+    limit(6)
   );
 
   console.log("FireStore Access");
   const querySnapshot = await getDocs(q);
-
-  // let result: any[] = [];
-  // querySnapshot.forEach((doc) => {
-  //   result.push({ ...doc.data(), id: doc.id });
-  // });
 
   return querySnapshot;
 };
@@ -41,16 +32,11 @@ const getRecentCollection = async (pageParam: any) => {
     where("isVisible", "==", true),
     orderBy("createdTime", "desc"),
     startAfter(pageParam),
-    limit(2)
+    limit(6)
   );
 
   console.log("FireStore Access");
   const querySnapshot = await getDocs(q);
-
-  // let result: any[] = [];
-  // querySnapshot.forEach((doc) => {
-  //   result.push({ ...doc.data(), id: doc.id });
-  // });
 
   return querySnapshot;
 };
@@ -59,8 +45,6 @@ const useRecentCollection = () => {
   const [recentCollection, setRecentCollection] = useRecoilState(
     recentCollectionSelector
   );
-  const [lastVisible, setLastVisible] = useRecoilState(lastVisibleSelector);
-  const [result, setResult] = useState<any[]>();
 
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["recentCollection"],
@@ -75,15 +59,9 @@ const useRecentCollection = () => {
           result.push({ ...doc.data(), id: doc.id });
         });
 
-        // setRecentCollection((prev) => [...prev, ...result]);
-
-        // if (querySnapshot.size < 6) {
-        //   return undefined;
-        // }
         return lastPageParam;
       },
       onSuccess(data) {
-        console.log(data);
         let result: any[] = [];
         data.pages.slice(-1).forEach((doc) => {
           doc.forEach((e) => {
@@ -100,7 +78,6 @@ const useRecentCollection = () => {
   // console.log(data?.pages.map((e) => e.data()));
   return {
     recentCollection,
-    result,
     data,
     isLoading,
     fetchNextPage,

@@ -5,7 +5,7 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../Collection";
 import useBrandCollection from "@/api/useBrandCollection";
 import useLocationState from "@/hooks/useLocationState";
-import CreateBox from "../CreateBox";
+import CreateBoxCollection from "../CreateBoxCollection";
 
 interface IsCollectionArea {
   brandName: string;
@@ -65,7 +65,7 @@ export default function CollectionArea({ brandName }: IsCollectionArea) {
                 className="ColInner"
                 onClick={() => onClickCollectionSetting(brandName)}
               >
-                <CreateBox />
+                <CreateBoxCollection />
               </div>
               {currentCollection.map((e, i) => (
                 <div

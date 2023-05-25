@@ -40,7 +40,7 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
           <div className="Google" onClick={onGoogleLogin}>
             <p>LOGIN WITH GOOGLE</p>
           </div>
-          <NaverLogin />
+          {/* <NaverLogin /> */}
         </div>
 
         <Button onClick={exitModal} isActivated={false}>

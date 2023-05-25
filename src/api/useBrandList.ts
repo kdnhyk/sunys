@@ -28,7 +28,7 @@ export const getBrandList = async () => {
 
 const useBrandList = () => {
   const queryClient = useQueryClient();
-  const brandRef = collection(store, "brand");
+  const brandRef = collection(store, "brandList");
 
   const { data, isLoading } = useQuery(
     ["brandlist"],

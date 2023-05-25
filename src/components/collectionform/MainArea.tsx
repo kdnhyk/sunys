@@ -6,7 +6,7 @@ import Button from "../Button";
 import ImgageUploader from "../ImageUploader";
 import Input from "../Input";
 import { useImage } from "@/hooks/storage/useImage";
-import { toStringByFormatting } from "@/util";
+import { toCheckDateFormmat, toStringByFormatting } from "@/util";
 import VisibleToggle from "../VisibleToggle";
 import useMutationCollection from "@/api/useMutationCollection";
 import { IsArticle } from "@/types/article";
@@ -38,6 +38,8 @@ export default function MainArea({
     images: [],
 
     brandName,
+
+    isVisible: false,
   };
   const [input, setInput] = useState<IsCollection>(initCollection);
 
@@ -58,17 +60,6 @@ export default function MainArea({
       const { name, value } = e.target;
       await setInput((prev) => {
         return { ...prev, [name]: value };
-      });
-    },
-    []
-  );
-
-  const onChangeInputReleaseDate = useCallback(
-    async (date: Date | [Date | null, Date | null] | null) => {
-      const newDate = toStringByFormatting(date);
-
-      await setInput((prev) => {
-        return { ...prev, releaseDate: newDate };
       });
     },
     []
@@ -131,6 +122,7 @@ export default function MainArea({
     if (
       input.collectionName &&
       input.releaseDate &&
+      toCheckDateFormmat(input.releaseDate) &&
       (input.images[0] || logoFile)
     ) {
       setIsEnterButtonOn(() => true);
@@ -215,7 +207,7 @@ export default function MainArea({
         <Input
           name="releaseDate"
           value={input.releaseDate}
-          placeholder="Release Date"
+          placeholder="Release Date (2023-01-01)"
           onChange={onChange}
           disabled={currentCollection ? true : false}
         />

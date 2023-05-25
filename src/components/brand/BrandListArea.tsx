@@ -87,7 +87,7 @@ const BrandListAreaWrap = styled.div`
     .ScrapBrandInner {
       width: fit-content;
       display: flex;
-      margin-top: 8px;
+      margin-top: 10px;
       cursor: pointer;
       h3 {
         margin-right: 12px;

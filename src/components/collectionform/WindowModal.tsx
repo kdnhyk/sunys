@@ -7,6 +7,7 @@ import { useImage } from "../../hooks/storage/useImage";
 import { IsArticle } from "../../types/article";
 import { IsCollection } from "../../types/collection";
 import useMutationArticle from "@/api/useMutationArticle";
+import { toCheckPriceFormmat } from "@/util";
 
 interface IsWindowModal {
   exitModal: () => void;
@@ -34,10 +35,6 @@ export default function WindowModal({
     brandName: currentCollection.brandName,
     releaseDate: currentCollection.releaseDate,
   });
-
-  // const onResetInput = useCallback(() => {
-  //   setInput(() => initState);
-  // }, [initState]);
 
   const onChangeInput = async (
     e: ChangeEvent<HTMLInputElement> | ChangeEvent<HTMLTextAreaElement>
@@ -72,7 +69,7 @@ export default function WindowModal({
   };
 
   useEffect(() => {
-    if (input.articleName && input.price && image) {
+    if (input.articleName && toCheckPriceFormmat(input.price) && image) {
       setIsEnterButtonOn(() => true);
     } else {
       setIsEnterButtonOn(() => false);
@@ -123,7 +120,11 @@ export default function WindowModal({
           placeholder="Price"
         />
 
-        <Button onClick={onSubmit} isActivated={isEnterButtonOn}>
+        <Button
+          onClick={onSubmit}
+          isActivated={isEnterButtonOn}
+          disable={!isEnterButtonOn}
+        >
           CONFIRM
         </Button>
       </div>

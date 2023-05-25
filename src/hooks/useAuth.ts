@@ -42,7 +42,10 @@ export const useAuth = () => {
         return;
       });
     }
-  }, [currentUser, getCloudUser, setCloudUser, setUser, successs, user.uid]);
+
+    setSuccess(() => false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [successs]);
 
   const updateUser = (username: string) => {
     if (!auth.currentUser) return;

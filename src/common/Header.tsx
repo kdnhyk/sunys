@@ -56,7 +56,10 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     flex-direction: column;
 
     align-items: center;
-    transition: border 0.1s ease-out;
+    border-top: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
+
+    /* transition: border 0.1s ease-out; */
 
     background-color: #fcfcfc;
 
@@ -65,6 +68,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
       css`
         position: fixed;
         top: 0px;
+        border-top: none;
       `}
   }
 

@@ -5,7 +5,6 @@ interface IsTextarea {
   value: string;
   placeholder: string;
   onChange: (e: React.ChangeEvent<HTMLTextAreaElement>) => void;
-  isActivated: boolean;
 }
 
 export default function Textarea({
@@ -13,7 +12,6 @@ export default function Textarea({
   value,
   placeholder,
   onChange,
-  isActivated,
 }: IsTextarea) {
   return (
     <TextareaWrap
@@ -21,18 +19,13 @@ export default function Textarea({
       value={value}
       placeholder={placeholder}
       onChange={onChange}
-      isActivated={isActivated}
     ></TextareaWrap>
   );
 }
 
-interface IsTextareaWrap {
-  isActivated?: boolean;
-}
-
-const TextareaWrap = styled.textarea<IsTextareaWrap>`
+const TextareaWrap = styled.textarea`
   width: 100%;
-  height: 120px;
+  height: 80px;
   background-color: inherit;
   color: black;
   border: 1px solid grey;
@@ -44,12 +37,4 @@ const TextareaWrap = styled.textarea<IsTextareaWrap>`
   &:focus {
     outline: none;
   }
-  ${({ isActivated }) =>
-    isActivated &&
-    css`
-      background-color: black;
-      color: white;
-      border: none;
-      cursor: pointer;
-    `}
 `;

@@ -39,7 +39,15 @@ const toSortRestBrandList = (
 };
 
 const toCheckDateFormmat = (input: string) => {
-  const reg = /[0-9]{8}$/;
+  const reg = /^[0-9]{4}-[0-9]{2}-[0-9]{2}$/;
+  if (reg.test(input)) {
+    return true;
+  }
+  return false;
+};
+
+const toCheckPriceFormmat = (input: string) => {
+  const reg = /^[0-9]{4,8}$/;
   if (reg.test(input)) {
     return true;
   }
@@ -51,4 +59,5 @@ export {
   toSortBrandList,
   toSortRestBrandList,
   toCheckDateFormmat,
+  toCheckPriceFormmat,
 };

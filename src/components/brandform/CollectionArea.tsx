@@ -6,6 +6,7 @@ import Collection from "../Collection";
 import useBrandCollection from "@/api/useBrandCollection";
 import useLocationState from "@/hooks/useLocationState";
 import CreateBoxCollection from "../CreateBoxCollection";
+import { useAuth } from "@/hooks/useAuth";
 
 interface IsCollectionArea {
   brandName: string;
@@ -13,9 +14,14 @@ interface IsCollectionArea {
 
 export default function CollectionArea({ brandName }: IsCollectionArea) {
   const width = window.innerWidth;
-  const { currentCollection, fetchNextPage, hasNextPage } =
-    useBrandCollection(brandName);
+  const {
+    currentCollection,
+    fetchNextPage,
+    hasNextPage,
+    getBrandCollectionAdmin,
+  } = useBrandCollection(brandName);
   const { onClickCollectionSetting } = useLocationState();
+  const { user } = useAuth();
 
   const [onLoad, setOnLoad] = useState(false);
 
@@ -25,6 +31,10 @@ export default function CollectionArea({ brandName }: IsCollectionArea) {
 
   useEffect(() => {
     fetchNextPage();
+    if (user.admin) {
+      getBrandCollectionAdmin();
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [fetchNextPage]);
 
   useEffect(() => {

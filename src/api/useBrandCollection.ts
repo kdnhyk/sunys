@@ -17,6 +17,28 @@ const useBrandCollection = (brandName: string) => {
     currentColletionSelector
   );
 
+  const getBrandCollectionAdmin = async () => {
+    const q = query(
+      collection(store, "collection"),
+      where("brandName", "==", brandName),
+      where("isVisible", "==", false),
+      orderBy("createdTime", "desc"),
+      limit(12)
+    );
+
+    console.log("FireStore Access");
+    const querySnapshot = await getDocs(q);
+
+    let result: any[] = [];
+    querySnapshot.forEach((doc) => {
+      result.push({ ...doc.data(), id: doc.id });
+    });
+
+    setCurrentCollection((prev) => [...result, ...prev]);
+
+    return;
+  };
+
   const getBrandCollectionInit = async () => {
     const q = query(
       collection(store, "collection"),
@@ -80,7 +102,12 @@ const useBrandCollection = (brandName: string) => {
     }
   );
 
-  return { currentCollection, fetchNextPage, hasNextPage };
+  return {
+    currentCollection,
+    fetchNextPage,
+    hasNextPage,
+    getBrandCollectionAdmin,
+  };
 };
 
 export default useBrandCollection;

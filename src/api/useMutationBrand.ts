@@ -7,6 +7,16 @@ const useMutationBrand = (brandName: string) => {
   const queryClient = useQueryClient();
   const brandRef = collection(store, "brand");
 
+  const addBrand = useMutation(
+    ({ id, brand }: { id: string; brand: IsBrand }) => addDoces(id, brand),
+    {
+      onMutate() {},
+      onSuccess() {
+        queryClient.invalidateQueries(["brand", brandName]);
+      },
+    }
+  );
+
   const updateBrand = useMutation(
     ({ id, brand }: { id: string; brand: IsBrand }) => updateDocs(id, brand),
     {
@@ -24,6 +34,19 @@ const useMutationBrand = (brandName: string) => {
     },
   });
 
+  const addDoces = async (id: string, brand: IsBrand) => {
+    const createdTime = timestamp.fromDate(new Date());
+
+    await setDoc(
+      doc(brandRef, id),
+      {
+        ...brand,
+        createdTime,
+      },
+      { merge: true }
+    );
+  };
+
   const updateDocs = async (id: string, brand: IsBrand) => {
     await setDoc(
       doc(brandRef, id),
@@ -39,7 +62,7 @@ const useMutationBrand = (brandName: string) => {
     await deleteDoc(doc(brandRef, id));
   };
 
-  return { updateBrand, deleteBrand };
+  return { addBrand, updateBrand, deleteBrand };
 };
 
 export default useMutationBrand;

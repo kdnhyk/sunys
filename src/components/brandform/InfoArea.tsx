@@ -11,7 +11,6 @@ import useBrand from "@/api/useBrand";
 import { useRouter } from "next/router";
 import useMutationBrand from "@/api/useMutationBrand";
 import useBrandList from "@/api/useBrandList";
-import Loading from "../Loading";
 import Textarea from "../Textarea";
 
 interface IsInfoArea {
@@ -22,7 +21,7 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   const router = useRouter();
   const { data, isLoading } = useBrand(brandName || "");
   const { upload } = useImage("logo");
-  const { updateBrand } = useMutationBrand(brandName || "");
+  const { addBrand, updateBrand } = useMutationBrand(brandName || "");
   const { data: brandList, addBrandList } = useBrandList();
 
   const [currentBrand, setCurrentBrand] = useState<IsBrand>(initBrand);
@@ -108,7 +107,7 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   useEffect(() => {
     if (
       currentBrand.brandName &&
-      (brandName
+      (!brandName
         ? !brandList
             .map((e: IsBrandName) => e.default.toLowerCase())
             .includes(currentBrand.brandName.toLowerCase())
@@ -124,57 +123,59 @@ export default function InfoArea({ brandName }: IsInfoArea) {
     } else {
       setIsEnterButton(false);
     }
-  }, [brandList, currentBrand, logoFile]);
+  }, [brandList, brandName, currentBrand, logoFile]);
 
   useEffect(() => {
     if (isUpload) {
-      updateBrand.mutate({
-        id: currentBrand.brandName,
-        brand: {
-          logo: currentBrand.logo,
-          officialUrl: currentBrand.officialUrl,
-          brandName: currentBrand.brandName,
-          brandNameKo: currentBrand.brandNameKo,
-          tag: currentBrand.tag,
-          scrapNum: currentBrand.scrapNum,
-          description: currentBrand.description,
-          saleName: currentBrand.saleName,
-          saleStartDate: currentBrand.saleName
-            ? currentBrand.saleStartDate
-            : "",
-          saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
-          officialStoreList: currentBrand.officialStoreList,
-          storeList: currentBrand.storeList,
-        },
-      });
+      if (brandName) {
+        updateBrand.mutate({
+          id: currentBrand.brandName,
+          brand: {
+            logo: currentBrand.logo,
+            officialUrl: currentBrand.officialUrl,
+            brandName: currentBrand.brandName,
+            brandNameKo: currentBrand.brandNameKo,
+            tag: currentBrand.tag,
+            scrapNum: currentBrand.scrapNum,
+            description: currentBrand.description,
+            saleName: currentBrand.saleName,
+            saleStartDate: currentBrand.saleName
+              ? currentBrand.saleStartDate
+              : "",
+            saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
+            officialStoreList: currentBrand.officialStoreList,
+            storeList: currentBrand.storeList,
+          },
+        });
+      } else if (!brandName) {
+        addBrand.mutate({
+          id: currentBrand.brandName,
+          brand: {
+            logo: currentBrand.logo,
+            officialUrl: currentBrand.officialUrl,
+            brandName: currentBrand.brandName,
+            brandNameKo: currentBrand.brandNameKo,
+            tag: currentBrand.tag,
+            scrapNum: currentBrand.scrapNum,
+            description: currentBrand.description,
+            saleName: currentBrand.saleName,
+            saleStartDate: currentBrand.saleName
+              ? currentBrand.saleStartDate
+              : "",
+            saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
+            officialStoreList: currentBrand.officialStoreList,
+            storeList: currentBrand.storeList,
+          },
+        });
 
-      updateBrand.mutate({
-        id: currentBrand.brandName,
-        brand: {
-          logo: currentBrand.logo,
-          officialUrl: currentBrand.officialUrl,
-          brandName: currentBrand.brandName,
-          brandNameKo: currentBrand.brandNameKo,
-          tag: currentBrand.tag,
-          scrapNum: currentBrand.scrapNum,
-          description: currentBrand.description,
-          saleName: currentBrand.saleName,
-          saleStartDate: currentBrand.saleName
-            ? currentBrand.saleStartDate
-            : "",
-          saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
-          officialStoreList: currentBrand.officialStoreList,
-          storeList: currentBrand.storeList,
-        },
-      });
-
-      addBrandList.mutate({
-        oldBrandList: brandList,
-        newBrand: {
-          default: currentBrand.brandName,
-          korean: currentBrand.brandNameKo,
-        },
-      });
+        addBrandList.mutate({
+          oldBrandList: brandList,
+          newBrand: {
+            default: currentBrand.brandName,
+            korean: currentBrand.brandNameKo,
+          },
+        });
+      }
 
       router.push("/brand", undefined, { shallow: true });
     }

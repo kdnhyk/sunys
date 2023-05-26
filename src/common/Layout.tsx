@@ -12,7 +12,7 @@ export default function Layout({ children }: IsLayout) {
     <LayoutWrap>
       <Header />
       <main>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </LayoutWrap>
   );
 }

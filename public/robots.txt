@@ -1,7 +1,11 @@
+# *
 User-agent: *
-Allow: /news
-Allow: /magazine
-Allow: /brand
-Allow: /collection
-
+Allow: /
+Disallow: /magazine
 Disallow: /account
+
+# Host
+Host: https://sunys.co.kr/
+
+# Sitemaps
+Sitemap: https://sunys.co.kr/sitemap.xml

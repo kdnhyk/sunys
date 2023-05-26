@@ -22,7 +22,7 @@ export default function Brand() {
   const { data } = useBrand(typeof id === "string" ? id : "");
 
   if (!data) {
-    return false;
+    return <Loading />;
   }
 
   return (
@@ -35,12 +35,12 @@ export default function Brand() {
         />
 
         <meta property="og:image" content={data.logo} />
+        <meta property="og:title" content={data.brandName} />
         <meta
           property="og:description"
           content={data.brandNameKo + " | " + data.description}
         />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={data.brandName} />
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
       <BrandWrap>

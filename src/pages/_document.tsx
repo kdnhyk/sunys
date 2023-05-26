@@ -10,16 +10,14 @@ export default function Document() {
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"
         />
 
-        <meta name="description" content="서니즈 | 브랜드 아카이브 매거진" />
-
         <link rel="icon" href="/favicon.ico" />
         <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/logo192.png" />
 
-        <meta
+        {/* <meta
           name="naver-site-verification"
           content="ad17f2a0cf5bc90c17029a9a38adc62de09b2ef0"
-        />
+        /> */}
       </Head>
       <body>
         <Main />

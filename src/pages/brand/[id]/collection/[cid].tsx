@@ -37,7 +37,7 @@ export default function Collection() {
   }, [data]);
 
   if (!data) {
-    return false;
+    return <Loading />;
   }
 
   return (
@@ -50,12 +50,12 @@ export default function Collection() {
         />
 
         <meta property="og:image" content={data.images[0]} />
+        <meta property="og:title" content={data.brandName} />
         <meta
           property="og:description"
           content={data.collectionName + " | " + data.releaseDate}
         />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={data.brandName} />
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
 

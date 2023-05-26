@@ -3,6 +3,22 @@ import BrandListArea from "@/components/brand/BrandListArea";
 import SearchInput from "@/components/brand/SearchInput";
 import Head from "next/head";
 import { media } from "@/media";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
+import { getBrandList } from "@/api/useBrandList";
+
+export async function getStaticProps() {
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(["brandlist"], () => getBrandList(), {
+    staleTime: Infinity,
+  });
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+}
 
 export default function BrandList() {
   return (

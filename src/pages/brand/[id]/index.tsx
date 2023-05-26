@@ -3,8 +3,9 @@ import { media } from "@/media";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import Loading from "@/components/Loading";
-import useBrand from "@/api/useBrand";
+import useBrand, { getBrandByBrandName } from "@/api/useBrand";
 import Head from "next/head";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 const InfoArea = dynamic(() => import("@/components/brand/InfoArea"), {
   ssr: false,
@@ -17,13 +18,30 @@ const CollectionArea = dynamic(
   }
 );
 
+export const getServerSideProps = async (context: {
+  query: { id: string };
+}) => {
+  const { id } = context.query;
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    ["brand", id],
+    () => getBrandByBrandName(id),
+    {
+      staleTime: Infinity,
+    }
+  );
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+};
+
 export default function Brand() {
   const { id } = useRouter().query;
   const { data } = useBrand(typeof id === "string" ? id : "");
-
-  if (!data) {
-    return <Loading />;
-  }
 
   return (
     <>

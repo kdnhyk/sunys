@@ -2,18 +2,39 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import useLocationState from "@/hooks/useLocationState";
-import useCollection from "@/api/useCollection";
+import useCollection, { getCollectionByCid } from "@/api/useCollection";
 import useArticle from "@/api/useArticle";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import Loading from "@/components/Loading";
 import dynamic from "next/dynamic";
 import { media } from "@/media";
+import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 const Article = dynamic(() => import("@/components/Article"), {
   ssr: false,
 });
+
+export const getServerSideProps = async (context: {
+  query: { cid: string };
+}) => {
+  const { cid } = context.query;
+  const queryClient = new QueryClient();
+
+  await queryClient.prefetchQuery(
+    ["collection", cid],
+    () => getCollectionByCid(cid),
+    {
+      staleTime: Infinity,
+    }
+  );
+
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+};
 
 export default function Collection() {
   const { cid } = useRouter().query;
@@ -35,10 +56,6 @@ export default function Collection() {
       )
     );
   }, [data]);
-
-  if (!data) {
-    return <Loading />;
-  }
 
   return (
     <>

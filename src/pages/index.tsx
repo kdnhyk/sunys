@@ -3,28 +3,30 @@ import styled from "styled-components";
 import Collection from "@/components/Collection";
 import { useEffect } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
-import useRecentCollection from "@/api/useRecentCollection";
+import useRecentCollection, {
+  getRecentCollectionInit,
+} from "@/api/useRecentCollection";
 import { useInView } from "react-intersection-observer";
 import Loading from "@/components/Loading";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
-// export const getStaticProps = async () => {
-//   const queryClient = new QueryClient();
+export const getServerSideProps = async () => {
+  const queryClient = new QueryClient();
 
-//   await queryClient.prefetchQuery(
-//     ["recentCollection"],
-//     () => getRecentCollectionInit(),
-//     {
-//       staleTime: Infinity,
-//     }
-//   );
+  await queryClient.prefetchInfiniteQuery(
+    ["recentCollection"],
+    () => getRecentCollectionInit(),
+    {
+      staleTime: Infinity,
+    }
+  );
 
-//   return {
-//     props: {
-//       dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-//     },
-//   };
-// };
+  return {
+    props: {
+      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
+    },
+  };
+};
 
 export default function News() {
   const { recentCollection, data, isLoading, fetchNextPage, hasNextPage } =
@@ -32,8 +34,10 @@ export default function News() {
   const [ref, inView] = useInView();
 
   useEffect(() => {
-    fetchNextPage();
-  }, [fetchNextPage]);
+    if (recentCollection.length === 0) {
+      fetchNextPage();
+    }
+  }, [fetchNextPage, recentCollection.length]);
 
   useEffect(() => {
     if (inView && hasNextPage) {
@@ -50,18 +54,6 @@ export default function News() {
       <Head>
         <title>SUNYS | 뉴스</title>
         <meta name="description" content="서니즈 | 브랜드 별 새로운 컬렉션" />
-
-        <meta
-          property="og:image"
-          content="https://firebasestorage.googleapis.com/v0/b/sunys-1dcf2.appspot.com/o/og_image.png?alt=media&token=adaa046e-ec2d-466a-9e40-828afe0bee71"
-        />
-        <meta
-          property="og:description"
-          content="서니즈 | 브랜드 아카이브 매거진"
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content="SUNYS" />
-        <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
       <NewsWrap>
         <div className="NewColArea">

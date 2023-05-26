@@ -2,24 +2,8 @@ import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
 import TitleBox from "../TitleBox";
 import useLocationState from "../../hooks/useLocationState";
-import Button from "../Button";
 import { toSortBrandList, toSortRestBrandList } from "@/util";
-import useBrandList, { getBrandList } from "@/api/useBrandList";
-import { QueryClient, dehydrate } from "@tanstack/react-query";
-
-export async function getStaticProps() {
-  const queryClient = new QueryClient();
-
-  await queryClient.prefetchQuery(["brandlist"], () => getBrandList(), {
-    staleTime: Infinity,
-  });
-
-  return {
-    props: {
-      dehydratedState: JSON.parse(JSON.stringify(dehydrate(queryClient))),
-    },
-  };
-}
+import useBrandList from "@/api/useBrandList";
 
 export default function BrandListArea() {
   const { user } = useAuth();
@@ -39,7 +23,7 @@ export default function BrandListArea() {
               xmlns="http://www.w3.org/2000/svg"
             >
               <rect x="0.5" y="0.5" width="23" height="23" stroke="black" />
-              <path d="M6 12H18M12 18V6" stroke="black" stroke-width="1.5" />
+              <path d="M6 12H18M12 18V6" stroke="black" strokeWidth="1.5" />
             </svg>
           </div>
         </div>

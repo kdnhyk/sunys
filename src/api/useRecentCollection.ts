@@ -49,9 +49,14 @@ const useRecentCollection = () => {
   const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
     ["recentCollection"],
     async ({ pageParam }) =>
-      pageParam ? getRecentCollection(pageParam) : getRecentCollectionInit(),
+      pageParam
+        ? await getRecentCollection(pageParam)
+        : await getRecentCollectionInit(),
     {
       getNextPageParam: (querySnapshot) => {
+        if (!querySnapshot.docs) {
+          return null;
+        }
         const lastPageParam = querySnapshot.docs[querySnapshot.docs.length - 1];
 
         let result: any[] = [];

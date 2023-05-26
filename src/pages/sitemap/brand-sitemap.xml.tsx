@@ -2,7 +2,7 @@ import { getBrandList } from "@/api/useBrandList";
 import { IsBrandName } from "@/types/brand";
 import { getServerSideSitemap, ISitemapField } from "next-sitemap";
 
-export const getServerSideProps = async (context: ISitemapField[]) => {
+export const getServerSideProps = async () => {
   const brandList = await getBrandList();
   const sitemapFields: ISitemapField[] = brandList.map(
     (brandName: IsBrandName) => {
@@ -15,5 +15,5 @@ export const getServerSideProps = async (context: ISitemapField[]) => {
     }
   );
 
-  return getServerSideSitemap(context, sitemapFields);
+  return getServerSideSitemap(sitemapFields);
 };

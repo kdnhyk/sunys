@@ -8,23 +8,20 @@ import { IsBrand, initBrand } from "@/types/brand";
 import { useEffect, useState } from "react";
 import useLocationState from "@/hooks/useLocationState";
 import useMutationBrand from "@/api/useMutationBrand";
-import useBrand from "@/api/useBrand";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
-import Head from "next/head";
 
 interface IsInfoArea {
-  brandName: string;
+  data: IsBrand;
 }
 
-export default function InfoArea({ brandName }: IsInfoArea) {
+export default function InfoArea({ data }: IsInfoArea) {
   const { onOpenModal } = useModal();
-  const { data, isLoading } = useBrand(brandName);
   const { user } = useAuth();
   const { updateScrapBrand } = useCloudUser();
   const { handleUseScrapList } = useUser();
   const { onClickBrandSetting } = useLocationState();
-  const { updateBrand } = useMutationBrand(brandName);
+  const { updateBrand } = useMutationBrand(data.brandName);
 
   const [currentBrand, setCurrentBrand] = useState<IsBrand>(initBrand);
   const isScrap = user.scrapBrandList.find(
@@ -84,29 +81,9 @@ export default function InfoArea({ brandName }: IsInfoArea) {
       };
     });
   };
-  console.log(currentBrand);
-  if (isLoading) {
-    return <div></div>;
-  }
 
   return (
     <>
-      <Head>
-        <title>{brandName}</title>
-        <meta
-          name="description"
-          content={currentBrand.brandNameKo + " | " + currentBrand.description}
-        />
-
-        <meta property="og:image" content={currentBrand.logo} />
-        <meta
-          property="og:description"
-          content={currentBrand.brandNameKo + " | " + currentBrand.description}
-        />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={data.brandName} />
-        <meta property="og:url" content="http://sunys.co.kr" />
-      </Head>
       <InfoAreaStyle>
         <div className="OfficialButtonWrap">
           {currentBrand.officialUrl && (

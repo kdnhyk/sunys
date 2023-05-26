@@ -5,16 +5,18 @@ import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../Collection";
 import useBrandCollection from "../../api/useBrandCollection";
 import { useRouter } from "next/router";
+import { IsBrand } from "@/types/brand";
 
 interface IsCollectionArea {
-  brandName: string;
+  data: IsBrand;
 }
 
-export default function CollectionArea({ brandName }: IsCollectionArea) {
+export default function CollectionArea({ data }: IsCollectionArea) {
   const router = useRouter();
   const width = typeof window !== "undefined" ? window.innerWidth : 0;
-  const { currentCollection, fetchNextPage, hasNextPage } =
-    useBrandCollection(brandName);
+  const { currentCollection, fetchNextPage, hasNextPage } = useBrandCollection(
+    data.brandName
+  );
 
   const [onLoad, setOnLoad] = useState(false);
 

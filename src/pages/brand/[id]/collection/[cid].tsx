@@ -180,6 +180,9 @@ const CollectionWrap = styled.div`
       .CollectionName {
         color: #8e8e8e;
       }
+      .Setting {
+        cursor: pointer;
+      }
     }
   }
 
@@ -214,6 +217,7 @@ const CollectionWrap = styled.div`
     width: calc(220px + 33.33% - 131.33px);
     border-right: 1px solid #dddddd;
     border-bottom: 1px solid #dddddd;
+    z-index: 10;
   }
   
   .Position {

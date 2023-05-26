@@ -34,10 +34,13 @@ const useMutationArticle = (cid: string) => {
   );
 
   const updateDocs = async (id: string, article: IsArticle) => {
+    const createdTime = timestamp.fromDate(new Date());
+
     await setDoc(
       doc(collectionRef, id),
       {
         ...article,
+        createdTime,
       },
       { merge: true }
     );

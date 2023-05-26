@@ -1,8 +1,9 @@
 import { getBrandList } from "@/api/useBrandList";
 import { IsBrandName } from "@/types/brand";
+import { GetServerSidePropsContext } from "next";
 import { getServerSideSitemap, ISitemapField } from "next-sitemap";
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (ctx: any) => {
   const brandList = await getBrandList();
   const sitemapFields: ISitemapField[] = brandList.map(
     (brandName: IsBrandName) => {
@@ -15,7 +16,7 @@ export const getServerSideProps = async () => {
     }
   );
 
-  return getServerSideSitemap(sitemapFields);
+  return getServerSideSitemap(ctx, sitemapFields);
 };
 
 // eslint-disable-next-line import/no-anonymous-default-export

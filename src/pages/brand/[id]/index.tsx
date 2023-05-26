@@ -18,11 +18,12 @@ const CollectionArea = dynamic(
 );
 
 export default function Brand() {
+  const isServerSide = typeof window === "undefined";
   const { id } = useRouter().query;
   const { data } = useBrand(typeof id === "string" ? id : "");
 
-  if (!data) {
-    return <Loading />;
+  if (!isServerSide && !data) {
+    return false;
   }
 
   return (

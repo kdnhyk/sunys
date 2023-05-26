@@ -38,7 +38,7 @@ export default function Collection() {
   }, [data]);
 
   if (!isServerSide && (isLoading || !data)) {
-    return <Loading />;
+    return false;
   }
 
   return (

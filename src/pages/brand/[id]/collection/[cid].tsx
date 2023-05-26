@@ -16,9 +16,8 @@ const Article = dynamic(() => import("@/components/Article"), {
 });
 
 export default function Collection() {
-  const isServerSide = typeof window === "undefined";
   const { cid } = useRouter().query;
-  const { data, isLoading } = useCollection(typeof cid === "string" ? cid : "");
+  const { data } = useCollection(typeof cid === "string" ? cid : "");
   const { user } = useAuth();
   const { data: articleData } = useArticle(typeof cid === "string" ? cid : "");
 
@@ -37,7 +36,7 @@ export default function Collection() {
     );
   }, [data]);
 
-  if (!isServerSide && (isLoading || !data)) {
+  if (!data) {
     return false;
   }
 

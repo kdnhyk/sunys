@@ -9,6 +9,7 @@ module.exports = {
   exclude: [
     "/magazine/**", // 페이지 주소 하나만 제외시키는 경우
     "/account/**", // 하위 주소 전체를 제외시키는 경우
+    "brandform/**",
   ],
   robotsTxtOptions: {
     // 정책 설정
@@ -19,6 +20,7 @@ module.exports = {
         disallow: [
           "/magazine", // exclude로 시작하는 페이지 주소 크롤링 금지
           "/account",
+          "/brandform",
         ],
       },
       // 추가 정책이 필요할 경우 배열 요소로 추가 작성

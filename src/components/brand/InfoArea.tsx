@@ -1,8 +1,6 @@
 import styled from "styled-components";
 import { useAuth } from "@/hooks/useAuth";
-import { useCloudUser } from "@/hooks/firestore/useCloudUser";
 import OfflineStore from "./OfflineStore";
-import { useUser } from "@/hooks/useUser";
 import Button from "../Button";
 import { IsBrand, initBrand } from "@/types/brand";
 import { useEffect, useState } from "react";
@@ -10,6 +8,7 @@ import useLocationState from "@/hooks/useLocationState";
 import useMutationBrand from "@/api/useMutationBrand";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
+import { useUser } from "@/api/useUser";
 
 interface IsInfoArea {
   data: IsBrand;
@@ -18,13 +17,13 @@ interface IsInfoArea {
 export default function InfoArea({ data }: IsInfoArea) {
   const { onOpenModal } = useModal();
   const { user } = useAuth();
-  const { updateScrapBrand } = useCloudUser();
-  const { handleUseScrapList } = useUser();
+  const { handleBrandScrap, handleCart } = useUser();
   const { onClickBrandSetting } = useLocationState();
   const { updateBrand } = useMutationBrand(data.brandName);
 
   const [currentBrand, setCurrentBrand] = useState<IsBrand>(initBrand);
-  const isScrap = user.scrapBrandList.find(
+
+  const isBeforeScraped = user.scrapBrandList.find(
     (e) => e.default === currentBrand.brandName
   )
     ? true
@@ -56,11 +55,7 @@ export default function InfoArea({ data }: IsInfoArea) {
       return;
     }
 
-    await updateScrapBrand(user.uid, user.scrapBrandList, {
-      default: currentBrand.brandName,
-      korean: currentBrand.brandNameKo,
-    });
-    handleUseScrapList({
+    const { isAdd } = await handleBrandScrap(user, {
       default: currentBrand.brandName,
       korean: currentBrand.brandNameKo,
     });
@@ -69,15 +64,23 @@ export default function InfoArea({ data }: IsInfoArea) {
       id: currentBrand.brandName,
       brand: {
         ...currentBrand,
-        scrapNum: isScrap
-          ? currentBrand.scrapNum - 1
-          : currentBrand.scrapNum + 1,
+        scrapNum:
+          isAdd && !isBeforeScraped
+            ? currentBrand.scrapNum + 1
+            : !isAdd && isBeforeScraped
+            ? currentBrand.scrapNum - 1
+            : currentBrand.scrapNum,
       },
     });
     setCurrentBrand((prev) => {
       return {
         ...prev,
-        scrapNum: isScrap ? prev.scrapNum - 1 : prev.scrapNum + 1,
+        scrapNum:
+          isAdd && !isBeforeScraped
+            ? currentBrand.scrapNum + 1
+            : !isAdd && isBeforeScraped
+            ? currentBrand.scrapNum - 1
+            : currentBrand.scrapNum,
       };
     });
   };

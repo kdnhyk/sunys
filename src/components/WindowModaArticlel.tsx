@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { IsArticle } from "../types/article";
 import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
-import { useCloudUser } from "../hooks/firestore/useCloudUser";
+import { useCloudUser } from "../api/useUser";
 import { useUser } from "../hooks/useUser";
 import Button from "./Button";
 import Image from "next/image";

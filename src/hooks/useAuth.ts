@@ -11,8 +11,8 @@ import { auth, provider } from "@/firebase";
 import { updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
-import { useCloudUser } from "./firestore/useCloudUser";
 import { userSelector } from "../store/user";
+import useCloudUser from "@/hooks/firestore/useCloudUser";
 
 //
 export const useAuth = () => {
@@ -21,20 +21,32 @@ export const useAuth = () => {
   const resetUser = useResetRecoilState(userSelector);
   const [successs, setSuccess] = useState(false);
   const [error, setError] = useState("");
-  const { getCloudUser, setCloudUser, delUser } = useCloudUser();
+  const { getCloudUser, addCloudUser, deleteCloudUser } = useCloudUser();
 
   useEffect(() => {
     const localUser = localStorage.getItem("user");
     if (localUser && !user.uid) {
-      setUser(JSON.parse(localUser));
-      return;
+      const user = JSON.parse(localUser);
+      console.log("get cloud");
+      getCloudUser(user.uid).then(async (cloudUser) => {
+        if (!cloudUser) return;
+
+        await setUser(cloudUser);
+        localStorage.setItem("user", JSON.stringify(cloudUser));
+        return;
+      });
     }
 
+    setSuccess(() => false);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
     if (currentUser && successs) {
       getCloudUser(currentUser.uid).then(async (cloudUser) => {
         if (!cloudUser) {
           console.log(currentUser.displayName);
-          await setCloudUser(currentUser.uid, currentUser.displayName || "");
+          await addCloudUser(currentUser.uid, currentUser.displayName || "");
           return;
         }
         await setUser(cloudUser);
@@ -42,7 +54,6 @@ export const useAuth = () => {
         return;
       });
     }
-
     setSuccess(() => false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [successs]);
@@ -62,7 +73,7 @@ export const useAuth = () => {
     if (!user) return;
     deleteUser(user)
       .then(() => {
-        delUser(user.uid);
+        deleteCloudUser(user.uid);
         // firestore user del
         resetUser();
       })

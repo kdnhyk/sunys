@@ -1,7 +1,7 @@
 import { useUser } from "../../hooks/useUser";
 import { IsArticle } from "../../types/article";
 import styled from "styled-components";
-import { useCloudUser } from "../../hooks/firestore/useCloudUser";
+import { useCloudUser } from "../../api/useUser";
 import { useEffect } from "react";
 import NotFound from "@/asset/NotFound.png";
 import useLocationState from "../../hooks/useLocationState";

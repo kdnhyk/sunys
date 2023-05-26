@@ -131,6 +131,7 @@ const SearchInputStyle = styled.div<{ value: string }>`
       background-color: #dfdfdf;
       padding: 0px 12px;
       border-radius: 8px;
+      /* font-size: 15px; */
 
       &:focus {
         outline: none;

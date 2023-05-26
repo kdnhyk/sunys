@@ -1,7 +1,6 @@
 import styled from "styled-components";
 import { media } from "@/media";
 import { useRouter } from "next/router";
-import Head from "next/head";
 import dynamic from "next/dynamic";
 
 const InfoArea = dynamic(() => import("@/components/brand/InfoArea"), {
@@ -24,13 +23,6 @@ export default function Brand() {
 
   return (
     <>
-      <Head>
-        <title>{typeof id === "string" ? id : ""}</title>
-        <meta
-          name="description"
-          content={typeof id === "string" ? id + "의 상세 정보" : ""}
-        />
-      </Head>
       <BrandWrap>
         <div className="InfoArea">
           <InfoArea brandName={typeof id === "string" ? id : ""} />

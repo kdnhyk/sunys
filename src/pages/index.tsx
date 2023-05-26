@@ -49,11 +49,7 @@ export default function News() {
     <>
       <Head>
         <title>SUNYS | 뉴스</title>
-        <meta name="description" content="브랜드 별 컬렉션 정보" />
-        <meta
-          name="viewport"
-          content="width=device-width, initial-scale=1.0, maximum-scale=6.0, user-scalable=0"
-        />
+        <meta name="description" content="브랜드 별 컬렉션" />
       </Head>
       <NewsWrap>
         <div className="NewColArea">

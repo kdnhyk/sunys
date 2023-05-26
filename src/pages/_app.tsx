@@ -52,7 +52,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <RecoilRoot>
-      <title>서니즈(SUNYS)</title>
+      <title>서니즈 | 패션 브랜드 아카이브 매거진</title>
       <Script
         async
         src={`https://www.googletagmanager.com/gtag/js?id=${gtag.GA_TRACKING_ID}`}
@@ -123,19 +123,19 @@ const GlobalStyle = createGlobalStyle`
   }
 
   h1 {
-    font-size: 16px;
+    font-size: 17px;
     font-weight: 500;
   }
   h2 {
-    font-size: 15px;
+    font-size: 16px;
     font-weight: 500;
   }
   h3 {
-    font-size: 14px;
+    font-size: 15px;
     font-weight: 400;
   }
   p {
-    font-size: 13px;
+    font-size: 14px;
   }
 
   @font-face {

@@ -43,8 +43,20 @@ export default function Collection() {
   return (
     <>
       <Head>
-        <title>{data.collectionName}</title>
-        <meta name="description" content="컬렉션 별 전체 상품" />
+        <title>{data.brandName + " | " + data.collectionName}</title>
+        <meta
+          name="description"
+          content={data.brandNameko + "의 " + data.collectionName + " 컬렉션"}
+        />
+
+        <meta property="og:image" content={data.images[0]} />
+        <meta
+          property="og:description"
+          content={data.collectionName + " | " + data.releaseDate}
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={data.brandName} />
+        <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
 
       <CollectionWrap>
@@ -230,7 +242,7 @@ const CollectionWrap = styled.div`
     width: 174px;
     height: 100%;
     flex-grow: 4;
-    min-height: calc(100vh - 160px)
+    min-height: calc(100vh - 168px)
   }
 `}
 `;

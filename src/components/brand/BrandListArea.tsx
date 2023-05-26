@@ -30,9 +30,18 @@ export default function BrandListArea() {
     <BrandListAreaWrap>
       {user.admin && (
         <div className="NewBrandWrap">
-          <Button onClick={() => onClickBrandSetting()} isActivated={true}>
-            NEW
-          </Button>
+          <div className="CreateBrand" onClick={() => onClickBrandSetting()}>
+            <svg
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <rect x="0.5" y="0.5" width="23" height="23" stroke="black" />
+              <path d="M6 12H18M12 18V6" stroke="black" stroke-width="1.5" />
+            </svg>
+          </div>
         </div>
       )}
       {user.uid && (
@@ -75,14 +84,22 @@ export default function BrandListArea() {
 const BrandListAreaWrap = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
   .NewBrandWrap {
-    width: 120px;
+    width: 100%;
+    height: 48px;
     padding: 12px;
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    border-bottom: 1px solid #dddddd;
+    .CreateBrand {
+      height: 24px;
+      cursor: pointer;
+    }
   }
 
   .ScrapBrandWrap {
-    padding: 0px 16px;
+    padding: 20px 16px 0px 16px;
 
     .ScrapBrandInner {
       width: fit-content;
@@ -117,7 +134,7 @@ const BrandListAreaWrap = styled.div`
   }
 
   .DefaultBrandWrap {
-    padding: 0px 16px;
+    padding: 20px 16px;
     padding-bottom: 16px;
     border-bottom: 1px solid #dddddd;
     .DefaultBrandInner {

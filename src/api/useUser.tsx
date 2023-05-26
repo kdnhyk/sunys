@@ -49,10 +49,9 @@ export const useUser = () => {
   };
 
   const handleCart = async (user: IsUser, newArticle: IsArticle) => {
-    const cloudUser: IsUser = await getCloudUser(user.uid);
-    const result = cloudUser.cart.find((e) => e.id === newArticle.id)
-      ? cloudUser.cart.filter((e) => e.id !== newArticle.id)
-      : cloudUser.cart.concat(newArticle);
+    const result = user.cart.find((e) => e.id === newArticle.id)
+      ? user.cart.filter((e) => e.id !== newArticle.id)
+      : user.cart.concat(newArticle);
 
     setUser((prev) => ({ ...prev, cart: result }));
 

@@ -1,12 +1,10 @@
 import styled from "styled-components";
 import { IsArticle } from "../types/article";
 import { useAuth } from "../hooks/useAuth";
-import { useEffect } from "react";
-import { useCloudUser } from "../api/useUser";
-import { useUser } from "../hooks/useUser";
 import Button from "./Button";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
+import { useUser } from "@/api/useUser";
 
 interface IsWindowModalArticle {
   exitModal: () => void;
@@ -18,8 +16,7 @@ export default function WindowModalArticle({
   article,
 }: IsWindowModalArticle) {
   const { user } = useAuth();
-  const { updateCart } = useCloudUser();
-  const { handleUserCart } = useUser();
+  const { handleCart } = useUser();
   const { onOpenModal } = useModal();
 
   const isInCart = user.cart.find((e) => e.id === article.id) ? true : false;
@@ -29,8 +26,7 @@ export default function WindowModalArticle({
       onOpenModal();
       return;
     }
-    updateCart(user.uid, user.cart, article);
-    handleUserCart(article);
+    handleCart(user, article);
   };
 
   // useEffect(() => {

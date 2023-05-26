@@ -1,34 +1,27 @@
-import { useUser } from "../../hooks/useUser";
 import { IsArticle } from "../../types/article";
 import styled from "styled-components";
-import { useCloudUser } from "../../api/useUser";
 import { useEffect } from "react";
 import NotFound from "@/asset/NotFound.png";
 import useLocationState from "../../hooks/useLocationState";
 import { useRouter } from "next/router";
 import Image from "next/image";
+import { useUser } from "@/api/useUser";
+import { useAuth } from "@/hooks/useAuth";
 
 interface IsCartArticle {
   article: IsArticle;
 }
 
 export default function CartArticle({ article }: IsCartArticle) {
-  const { user, handleUserCart } = useUser();
-  const { updateCart } = useCloudUser();
+  const { user } = useAuth();
+  const { handleCart } = useUser();
   const router = useRouter();
   const { onClickBarnd, onClickCollection } = useLocationState();
 
   const onRemoveArticle = () => {
     if (!user) return;
-    localStorage.setItem(
-      "user",
-      JSON.stringify({
-        ...user,
-        cart: user.cart.filter((e) => e.id !== article.id),
-      })
-    );
-    handleUserCart(article);
-    updateCart(user.uid, user.cart, article);
+
+    handleCart(user, article);
   };
 
   const onMoveCollection = () => {

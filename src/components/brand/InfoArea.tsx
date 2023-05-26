@@ -17,7 +17,7 @@ interface IsInfoArea {
 export default function InfoArea({ data }: IsInfoArea) {
   const { onOpenModal } = useModal();
   const { user } = useAuth();
-  const { handleBrandScrap, handleCart } = useUser();
+  const { handleBrandScrap } = useUser();
   const { onClickBrandSetting } = useLocationState();
   const { updateBrand } = useMutationBrand(data.brandName);
 

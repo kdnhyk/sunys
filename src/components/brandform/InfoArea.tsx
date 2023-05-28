@@ -81,7 +81,7 @@ export default function InfoArea({ brandName }: IsInfoArea) {
 
   useEffect(() => {
     if (!data) return;
-
+    console.log(data);
     setCurrentBrand(() => ({
       logo: data.logo,
       officialUrl: data.officialUrl,
@@ -99,9 +99,13 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   }, [data]);
 
   useEffect(() => {
-    if (!currentBrand.saleName) {
+    if (
+      (currentBrand.saleStartDate || currentBrand.saleEndDate) &&
+      !currentBrand.saleName
+    ) {
       onResetInputSaleDate();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentBrand.saleName]);
 
   useEffect(() => {

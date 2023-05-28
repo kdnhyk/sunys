@@ -232,6 +232,7 @@ const CollectionWrap = styled.div`
     width: calc(40%);
     
     overflow-y: auto;
+    border-right: 1px solid var(--line-color);
 
     &::-webkit-scrollbar {
       display: none;

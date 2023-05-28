@@ -41,11 +41,12 @@ const OfflineStoreWrap = styled.div`
     }
   }
   .ImageWrap {
+    position: relative;
     width: 200px;
     height: 200px;
     img {
-      border-radius: 8px;
-      object-fit: cover;
+      border-radius: 12px;
+      object-fit: contain;
     }
   }
   .TextlWrap {
@@ -70,7 +71,7 @@ const OfflineStoreWrap = styled.div`
     justify-content: center;
     align-items: center;
 
-    border-radius: 8px;
+    border-radius: 12px;
     p {
       display: none;
       position: absolute;

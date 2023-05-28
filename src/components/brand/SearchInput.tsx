@@ -21,7 +21,7 @@ export default function SearchInput({
   const handleFocus = () => {
     window.scrollTo({
       top: 50,
-      // behavior: "smooth",
+      behavior: "smooth",
     });
   };
 

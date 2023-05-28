@@ -201,15 +201,14 @@ export default function MainArea({
           value={input.collectionName}
           placeholder="Collection Name"
           onChange={onChange}
-          disabled={currentCollection ? true : false}
-          // disabled={articleList?.length !==0 || false}
+          disabled={articleList.length > 0 ? true : false}
         />
         <Input
           name="releaseDate"
           value={input.releaseDate}
           placeholder="Release Date (2023-01-01)"
           onChange={onChange}
-          disabled={currentCollection ? true : false}
+          disabled={articleList.length > 0 ? true : false}
         />
       </div>
 

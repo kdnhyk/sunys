@@ -1,16 +1,12 @@
 import styled from "styled-components";
-import { useEffect, useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
-import useLocationState from "@/hooks/useLocationState";
 import useCollection, { getCollectionByCid } from "@/api/useCollection";
 import useArticle from "@/api/useArticle";
-import Image from "next/image";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { media } from "@/media";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { SettingIcon } from "@/asset/Icon";
+import MainArea from "@/components/collection/MainArea";
 
 const Article = dynamic(() => import("@/components/Article"), {
   ssr: false,
@@ -40,23 +36,7 @@ export const getServerSideProps = async (context: {
 export default function Collection() {
   const { cid } = useRouter().query;
   const { data } = useCollection(typeof cid === "string" ? cid : "");
-  const { user } = useAuth();
   const { data: articleData } = useArticle(typeof cid === "string" ? cid : "");
-
-  const { onClickBarnd, onClickCollectionSetting } = useLocationState();
-
-  const [diff, setDiff] = useState(0);
-
-  useEffect(() => {
-    if (!data) return;
-
-    setDiff(() =>
-      Math.ceil(
-        (new Date(data.releaseDate).getTime() - new Date().getTime()) /
-          (1000 * 60 * 60 * 24)
-      )
-    );
-  }, [data]);
 
   return (
     <>
@@ -78,50 +58,8 @@ export default function Collection() {
       </Head>
 
       <CollectionWrap>
-        <div className="MainArea">
-          <div className="ImageWrap">
-            <Image
-              src={data.images[0]}
-              alt=""
-              width={600}
-              height={600}
-              priority
-            />
-
-            {diff > 0 && (
-              <div className="DDayWrap">
-                <p className="DDay">D - {diff}</p>
-              </div>
-            )}
-
-            <div className="DateWrap">
-              <p className="CollectionName">
-                {`${data.releaseDate.replaceAll("-", ". ")}`}
-              </p>
-            </div>
-          </div>
-
-          <div className="InfoWrap">
-            <div
-              className="BrandName"
-              onClick={() => onClickBarnd(data.brandName)}
-            >
-              <h1>{data.brandName}</h1>
-            </div>
-
-            <p className="CollectionName">{data.collectionName}</p>
-
-            {user.admin && (
-              <div
-                className="Setting"
-                onClick={() =>
-                  onClickCollectionSetting(data.brandName, data.id)
-                }
-              >
-                <SettingIcon />
-              </div>
-            )}
-          </div>
+        <div className="MainAreaWrap">
+          <MainArea collection={data} />
         </div>
 
         <div className="ArticleListWrap">
@@ -142,68 +80,7 @@ const CollectionWrap = styled.div`
 
   width: 100%;
 
-  .MainArea {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    .ImageWrap {
-      width: 100%;
-      height: auto;
-      position: relative;
-
-      img {
-        width: 100%;
-        height: auto;
-        object-fit: contain;
-      }
-      .DDayWrap {
-        position: absolute;
-        top: 0px;
-        left: 0px;
-
-        width: 100%;
-        height: calc(100% - 4px);
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background-color: rgba(0, 0, 0, 0.3);
-
-        .DDay {
-          font-weight: 500;
-          font-size: 20px;
-          color: white;
-        }
-      }
-
-      .DateWrap {
-        position: absolute;
-        bottom: 8px;
-        right: 4px;
-        background-color: white;
-        p {
-          color: #8e8e8e;
-        }
-      }
-    }
-    .InfoWrap {
-      width: 100%;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      padding-bottom: 10px;
-      /* border-bottom: 1px solid black; */
-      .BrandName {
-        cursor: pointer;
-      }
-      .CollectionName {
-        color: #8e8e8e;
-      }
-      .Setting {
-        cursor: pointer;
-      }
-    }
+  .MainAreaWrap {
   }
 
   .ArticleListWrap {
@@ -228,7 +105,7 @@ const CollectionWrap = styled.div`
   position: fixed;
   height: calc(100% - 50px);
 
-  .MainArea {
+  .MainAreaWrap {
     width: calc(40%);
     
     overflow-y: auto;

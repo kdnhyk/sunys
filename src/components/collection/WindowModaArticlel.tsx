@@ -1,10 +1,12 @@
 import styled from "styled-components";
-import { IsArticle } from "../types/article";
-import { useAuth } from "../hooks/useAuth";
-import Button from "./Button";
+import { IsArticle } from "../../types/article";
+import { useAuth } from "../../hooks/useAuth";
+import Button from "../Button";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
 import { useUser } from "@/api/useUser";
+import { useEffect } from "react";
+import { media } from "@/media";
 
 interface IsWindowModalArticle {
   exitModal: () => void;
@@ -29,30 +31,26 @@ export default function WindowModalArticle({
     handleCart(user, article);
   };
 
-  // useEffect(() => {
-  //   document.body.style.overflow = "hidden";
-  //   return () => {
-  //     document.body.style.overflow = "unset";
-  //   };
-  // }, []);
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
 
   return (
     <WindowModalArticleBlock>
       <div className="ModalInner">
         <div className="HeaderWrap">
-          <h2>{article.brandName}</h2>
-          <div className="ButtonWrap">
-            <div></div>
-            <div></div>
-            <div className="CloseBtn" onClick={exitModal}></div>
-          </div>
+          <h1>{article.brandName}</h1>
+        </div>
+
+        <div className="ImageWrap">
+          <Image src={article.images[0]} alt="" fill={true} />
         </div>
 
         <div className="MainWrap">
-          <div className="ImageWrap">
-            <Image src={article.images[0]} alt="" width={266} height={266} />
-          </div>
-          <h3>{article.articleName}</h3>
+          <h2>{article.articleName}</h2>
           <p>
             {Number(article.price).toLocaleString("ko-KR", {
               maximumFractionDigits: 4,
@@ -67,7 +65,7 @@ export default function WindowModalArticle({
             >
               Cart
             </Button>
-            <Button onClick={exitModal} isActivated={false} width="100px">
+            <Button onClick={exitModal} isActivated={false} width="120px">
               Cancel
             </Button>
           </div>
@@ -90,71 +88,65 @@ const WindowModalArticleBlock = styled.div`
   z-index: 100;
 
   .ModalInner {
-    width: 300px;
+    position: absolute;
+    top: 51px;
+    width: 100%;
+    max-width: 300px;
     height: auto;
 
-    background-color: #fcfcfc;
+    background-color: var(--background-color);
 
     display: flex;
     flex-direction: column;
     justify-content: center;
 
-    border-width: 1px 1px 1px 1px;
-    border-color: grey;
-    border-style: solid;
-
+    border: 1px solid var(--line-color);
+    overflow-y: auto;
     z-index: 100;
 
     .HeaderWrap {
-      padding: 10px 10px 10px 16px;
+      padding: 12px;
       border-bottom: 1px solid grey;
       display: flex;
-      justify-content: space-between;
-      background-color: #fcfcfc;
+      justify-content: center;
+
+      border-bottom: 1px solid var(--line-color);
+      background-color: var(--background-color);
       z-index: 100;
-      h2 {
-        font-weight: 400;
+
+      h1 {
+        font-family: montserrat;
       }
-      .ButtonWrap {
-        display: flex;
-        align-items: center;
-        gap: 6px;
-        div {
-          width: 12px;
-          height: 12px;
-          background-color: #666666;
-          border-radius: 20px;
-        }
-        .CloseBtn {
-          background-color: #f35e5e;
-          cursor: pointer;
-        }
+    }
+
+    .ImageWrap {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      overflow: hidden;
+
+      border-bottom: 1px solid var(--line-color);
+      img {
+        object-fit: cover;
       }
     }
 
     .MainWrap {
-      padding: 16px 16px;
       display: flex;
       flex-direction: column;
       gap: 6px;
-      background-color: #fcfcfc;
+      background-color: var(--background-color);
+
+      padding: 8px 12px 12px 12px;
+
       z-index: 10;
 
-      .ImageWrap {
-        position: relative;
-        width: 100%;
-        height: 100%;
-        img {
-          width: 100%;
-          height: 100%;
-          object-fit: cover;
-        }
-      }
-      h3 {
+      h2 {
+        font-family: montserrat;
       }
       p {
-        color: #8e8e8e;
-        margin-bottom: 12px;
+        margin-bottom: 8px;
+        font-family: montserrat;
       }
       .ButtonWrap {
         display: flex;
@@ -169,5 +161,12 @@ const WindowModalArticleBlock = styled.div`
     left: 0px;
     width: 100%;
     height: 100%;
+    background-color: rgba(1, 1, 1, 0.2);
   }
+
+  ${media.desktop`
+    .ModalInner {
+      position: static;
+    }
+  `}
 `;

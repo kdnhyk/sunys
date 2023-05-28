@@ -145,6 +145,7 @@ export const useAuth = () => {
     if (!user) return;
     deleteUser(user)
       .then(() => {
+        // 스크랩한 브랜드 다 -1 해야함
         localStorage.removeItem("user");
         deleteCloudUser(user.uid);
         resetUser();

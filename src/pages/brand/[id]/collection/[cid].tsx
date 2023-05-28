@@ -8,7 +8,7 @@ import { media } from "@/media";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import MainArea from "@/components/collection/MainArea";
 
-const Article = dynamic(() => import("@/components/Article"), {
+const Article = dynamic(() => import("@/components/collection/Article"), {
   ssr: false,
 });
 
@@ -81,6 +81,7 @@ const CollectionWrap = styled.div`
   width: 100%;
 
   .MainAreaWrap {
+    padding-bottom: 40px;
   }
 
   .ArticleListWrap {
@@ -89,7 +90,7 @@ const CollectionWrap = styled.div`
     align-items: start;
     row-gap: 10px;
     column-gap: 1px;
-    margin-bottom: 20px;
+    padding-bottom: 40px;
 
     @media (min-width: 900px) {
       grid-template-columns: repeat(3, 1fr);
@@ -119,9 +120,9 @@ const CollectionWrap = styled.div`
 
   .ArticleListWrap {
     width: calc(60%);
+    height: 100%;
     
     overflow: auto;
-    padding-bottom: 40px;
   }
 `}
 `;

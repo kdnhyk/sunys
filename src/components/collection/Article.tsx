@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { IsArticle } from "../types/article";
-import { useAuth } from "../hooks/useAuth";
+import { IsArticle } from "../../types/article";
+import { useAuth } from "../../hooks/useAuth";
 import { useState } from "react";
 import WindowModalArticle from "./WindowModaArticlel";
 import Image from "next/image";

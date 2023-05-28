@@ -44,6 +44,7 @@ const ButtonWrap = styled.button<IsButtonWrap>`
   color: black;
   border: 1px solid black;
   font-size: 14px;
+  font-family: montserrat;
   transition: all 0.16s ease-out;
   ${({ isActivated }) =>
     isActivated &&

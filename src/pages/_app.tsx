@@ -105,7 +105,7 @@ const GlobalStyle = createGlobalStyle`
     padding: 0;
     margin: 0;
     font-size: 16px;
-    background-color: #fcfcfc;
+    background-color: var(--background-color);
   }
 
   * {
@@ -129,7 +129,7 @@ const GlobalStyle = createGlobalStyle`
   }
 
   button {
-    background-color: white;
+    background-color: var(--background-color);
     border: none;
   }
 

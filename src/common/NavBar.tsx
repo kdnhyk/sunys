@@ -44,16 +44,16 @@ export default function NavBar() {
     <NavBarBlock>
       {menu.map((e, i) => (
         <Link href={e.path} key={i} onClick={() => scrollToTop(e.path)}>
-          <h3>{e.name}</h3>
+          <h2>{e.name}</h2>
         </Link>
       ))}
       {!user.uid ? (
         <div className="AccountButtonWrap" onClick={onOpenModal}>
-          <h3>로그인</h3>
+          <h2>로그인</h2>
         </div>
       ) : (
         <Link href="/account" onClick={() => scrollToTop("/account")}>
-          <h3>프로필</h3>
+          <h2>프로필</h2>
         </Link>
       )}
       <Link
@@ -86,7 +86,8 @@ const NavBarBlock = styled.nav`
     border-right: 1px solid var(--line-color);
     cursor: pointer;
 
-    h3 {
+    h2 {
+      font-size: 14px;
     }
   }
 

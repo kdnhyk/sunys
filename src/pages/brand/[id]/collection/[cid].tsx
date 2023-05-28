@@ -81,7 +81,6 @@ const CollectionWrap = styled.div`
   width: 100%;
 
   .MainAreaWrap {
-    padding-bottom: 40px;
   }
 
   .ArticleListWrap {
@@ -111,6 +110,7 @@ const CollectionWrap = styled.div`
     
     overflow-y: auto;
     border-right: 1px solid var(--line-color);
+    padding-bottom: 40px;
 
     &::-webkit-scrollbar {
       display: none;

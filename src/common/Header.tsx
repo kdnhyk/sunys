@@ -76,7 +76,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     .EmptyArea {
       position: absolute;
       right: 1px;
-      width: 50.25px;
+      width: 50px;
       height: 50px;
 
       border-left: 1px solid var(--line-color);

@@ -50,7 +50,7 @@ export default function WindowModalArticle({
         </div>
 
         <div className="MainWrap">
-          <h2>{article.articleName}</h2>
+          <h3>{article.articleName}</h3>
           <p>
             {Number(article.price).toLocaleString("ko-KR", {
               maximumFractionDigits: 4,
@@ -141,7 +141,7 @@ const WindowModalArticleBlock = styled.div`
 
       z-index: 10;
 
-      h2 {
+      h3 {
         font-family: montserrat;
       }
       p {

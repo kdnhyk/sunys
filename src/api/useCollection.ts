@@ -28,7 +28,7 @@ export const getCollectionByCid = async (cid: string) => {
 };
 
 const useCollection = (cid: string) => {
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["collection", cid],
     async () => await getCollectionByCid(cid),
     {
@@ -39,7 +39,7 @@ const useCollection = (cid: string) => {
     }
   );
 
-  return { data, isLoading };
+  return { data };
 };
 
 export default useCollection;

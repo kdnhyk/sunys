@@ -7,7 +7,6 @@ import useRecentCollection, {
   getRecentCollectionInit,
 } from "@/api/useRecentCollection";
 import { useInView } from "react-intersection-observer";
-import Loading from "@/components/Loading";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 export const getServerSideProps = async () => {
@@ -29,7 +28,7 @@ export const getServerSideProps = async () => {
 };
 
 export default function News() {
-  const { recentCollection, data, isLoading, fetchNextPage, hasNextPage } =
+  const { recentCollection, fetchNextPage, hasNextPage } =
     useRecentCollection();
   const [ref, inView] = useInView();
 
@@ -44,10 +43,6 @@ export default function News() {
       fetchNextPage();
     }
   }, [fetchNextPage, hasNextPage, inView]);
-
-  if (isLoading || !recentCollection) {
-    return <Loading />;
-  }
 
   return (
     <>
@@ -98,7 +93,6 @@ const NewsWrap = styled.div`
   padding: 9px 0px 24px 0px;
   .NewColArea {
     padding: 0px 6px 24px 6px;
-    border-bottom: 1px solid #dddddd;
 
     .ColInner {
       padding: 6px;

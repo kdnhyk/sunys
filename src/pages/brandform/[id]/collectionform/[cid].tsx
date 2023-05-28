@@ -4,16 +4,13 @@ import ArticleArea from "@/components/collectionform/ArticleArea";
 import { useRouter } from "next/router";
 import useCollection from "@/api/useCollection";
 import useArticle from "@/api/useArticle";
-import Loading from "@/components/Loading";
 
 export default function CollectionForm() {
   const { cid } = useRouter().query;
-  const { data, isLoading } = useCollection(typeof cid === "string" ? cid : "");
-  const { data: articleList, isLoading: isArticleLoading } = useArticle(
-    typeof cid === "string" ? cid : ""
-  );
+  const { data } = useCollection(typeof cid === "string" ? cid : "");
+  const { data: articleList } = useArticle(typeof cid === "string" ? cid : "");
 
-  if (isLoading || !articleList) return <Loading />;
+  if (!articleList) return false;
 
   return (
     <CollectionFormWrap>

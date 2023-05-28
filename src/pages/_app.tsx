@@ -8,11 +8,12 @@ import {
 import { RecoilRoot, RecoilEnv } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import Script from "next/script";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import Loading from "@/components/Loading";
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
@@ -33,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
-            // suspense: true,
+            suspense: true,
           },
         },
       })
@@ -52,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   return (
-    <>
+    <Suspense fallback={<Loading />}>
       <Head>
         <meta
           name="viewport"
@@ -89,11 +90,17 @@ export default function App({ Component, pageProps }: AppProps) {
           </Hydrate>
         </QueryClientProvider>
       </RecoilRoot>
-    </>
+    </Suspense>
   );
 }
 
 const GlobalStyle = createGlobalStyle`
+  :root {
+    --line-color: #666666;
+    --border-color: #dddddd;
+    --placeholder-color: #8E8E8E;
+    --background-color: #fcfcfc;
+    }
   body {
     padding: 0;
     margin: 0;
@@ -105,7 +112,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: montserrat;
+    font-family: pretendard;
   }
 
   a {
@@ -132,7 +139,7 @@ const GlobalStyle = createGlobalStyle`
 
   h1 {
     font-size: 17px;
-    font-weight: 500;
+    font-weight: 600;
   }
   h2 {
     font-size: 16px;
@@ -149,6 +156,12 @@ const GlobalStyle = createGlobalStyle`
   @font-face {
       font-family: "montserrat";
       src: url("/font/Montserrat-VariableFont_wght.ttf");
+      font-display: swap;
+    }
+
+    @font-face {
+      font-family: "pretendard";
+      src: url("/font/PretendardVariable.woff2");
       font-display: swap;
     }
 `;

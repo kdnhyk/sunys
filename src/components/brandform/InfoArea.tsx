@@ -19,7 +19,7 @@ interface IsInfoArea {
 
 export default function InfoArea({ brandName }: IsInfoArea) {
   const router = useRouter();
-  const { data, isLoading } = useBrand(brandName || "");
+  const { data } = useBrand(brandName || "");
   const { upload } = useImage("logo");
   const { addBrand, updateBrand } = useMutationBrand(brandName || "");
   const { data: brandList, addBrandList } = useBrandList();

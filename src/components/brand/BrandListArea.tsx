@@ -1,20 +1,25 @@
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
-import TitleBox from "../TitleBox";
 import useLocationState from "../../hooks/useLocationState";
 import { toSortBrandList, toSortRestBrandList } from "@/util";
 import useBrandList from "@/api/useBrandList";
+import { useState } from "react";
 
 export default function BrandListArea() {
   const { user } = useAuth();
   const { onClickBarnd, onClickBrandSetting } = useLocationState();
   const { data } = useBrandList();
 
+  const [searchInput, setSearchInput] = useState("");
+
   return (
     <BrandListAreaWrap>
       {user.admin && (
-        <div className="NewBrandWrap">
-          <div className="CreateBrand" onClick={() => onClickBrandSetting()}>
+        <div className="CreateBrandButtonwrap">
+          <div
+            className="CreateBrandButton"
+            onClick={() => onClickBrandSetting()}
+          >
             <svg
               width="24"
               height="24"
@@ -28,15 +33,23 @@ export default function BrandListArea() {
           </div>
         </div>
       )}
+
       {user.uid && (
         <>
           <div className="ScrapBrandWrap">
-            <TitleBox>스크랩 브랜드</TitleBox>
+            <div className="BrandTitle">
+              <h1>스크랩 브랜드</h1>
+            </div>
             {toSortBrandList(user.scrapBrandList).map((e, i) => (
               <div
-                className="ScrapBrandInner"
+                className="BrandInner"
                 onClick={() => onClickBarnd(e.default)}
                 key={i}
+                style={
+                  i === user.scrapBrandList.length - 1
+                    ? { borderBottom: "1px solid black" }
+                    : {}
+                }
               >
                 <h3>{e.default}</h3>
                 <p>{e.korean}</p>
@@ -46,13 +59,15 @@ export default function BrandListArea() {
         </>
       )}
 
-      <div className="DefaultBrandWrap">
-        <TitleBox>전체 브랜드</TitleBox>
+      <div className="AllBrandWrap">
+        <div className="BrandTitle">
+          <h1>전체 브랜드</h1>
+        </div>
 
         {data &&
           toSortRestBrandList(data, user.scrapBrandList).map((e, i) => (
             <div
-              className="DefaultBrandInner"
+              className="BrandInner"
               key={i}
               onClick={() => onClickBarnd(e.default)}
             >
@@ -68,63 +83,47 @@ export default function BrandListArea() {
 const BrandListAreaWrap = styled.div`
   display: flex;
   flex-direction: column;
-  .NewBrandWrap {
+  padding-bottom: 40px;
+
+  .CreateBrandButtonwrap {
     width: 100%;
-    height: 48px;
-    padding: 12px;
+    height: 50px;
     display: flex;
     justify-content: end;
     align-items: center;
-    border-bottom: 1px solid #dddddd;
-    .CreateBrand {
+
+    padding: 0px 12px;
+    border-bottom: 1px solid var(--line-color);
+
+    .CreateBrandButton {
       height: 24px;
       cursor: pointer;
     }
   }
 
-  .ScrapBrandWrap {
-    padding: 20px 16px 0px 16px;
-
-    .ScrapBrandInner {
-      width: fit-content;
-      display: flex;
-      margin-top: 10px;
-      cursor: pointer;
-      h3 {
-        margin-right: 12px;
-      }
-      p {
-        color: #8e8e8e;
-      }
-    }
-    .AllBrand {
-      margin-top: 24px;
-      p {
-        font-weight: 500;
-        color: #8e8e8e;
-      }
-    }
-    .More {
-      display: flex;
+  .ScrapBrandWrap,
+  .AllBrandWrap {
+    .BrandTitle {
       width: 100%;
-
-      justify-content: center;
-      margin-top: 12px;
-
-      cursor: pointer;
-
-      // More
-    }
-  }
-
-  .DefaultBrandWrap {
-    padding: 20px 16px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid #dddddd;
-    .DefaultBrandInner {
-      width: fit-content;
+      height: 50px;
       display: flex;
-      margin-top: 8px;
+      align-items: center;
+      padding: 0px 16px;
+      border-bottom: 1px solid var(--line-color);
+      h1 {
+      }
+    }
+
+    .BrandInner {
+      width: 100%;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      padding: 0px 16px;
+      border-bottom: 1px solid var(--border-color);
+
+      &:hover {
+      }
 
       cursor: pointer;
       h3 {

@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import { useAuth } from "../hooks/useAuth";
-import { media } from "@/media";
 import { useEffect } from "react";
 import LoginModal from "./LoginModal";
 import { useRouter } from "next/router";
@@ -43,19 +42,18 @@ export default function NavBar() {
 
   return (
     <NavBarBlock>
-      <div className="Empty"></div>
       {menu.map((e, i) => (
         <Link href={e.path} key={i} onClick={() => scrollToTop(e.path)}>
-          <p>{e.name}</p>
+          <h3>{e.name}</h3>
         </Link>
       ))}
       {!user.uid ? (
         <div className="AccountButtonWrap" onClick={onOpenModal}>
-          <p>로그인</p>
+          <h3>로그인</h3>
         </div>
       ) : (
         <Link href="/account" onClick={() => scrollToTop("/account")}>
-          <p>프로필</p>
+          <h3>프로필</h3>
         </Link>
       )}
       <Link
@@ -74,48 +72,30 @@ export default function NavBar() {
 
 const NavBarBlock = styled.nav`
   width: 100%;
-  height: 48px;
+  height: 50px;
   display: flex;
-  color: black;
 
-  .Empty {
-    height: 48px;
-    display: none;
-    flex-grow: 2;
-    border-right: 1px solid #dddddd;
-    ${media.desktop`
-      display: block
-    `}
-  }
   a,
   .AccountButtonWrap {
-    height: 48px;
-    flex-grow: 1;
+    height: 50px;
+    flex: 1;
     display: flex;
-    flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
 
-    border-right: 1px solid #dddddd;
+    border-right: 1px solid var(--line-color);
     cursor: pointer;
 
-    &:hover {
-      background-color: #eeeeee;
-    }
-
-    P {
-      font-size: 13px;
-      font-weight: 500;
+    h3 {
     }
   }
 
   .CartWrap {
-    flex-basis: 48px;
-    flex-grow: 0;
+    flex: 0 50px;
     border-right: none;
     .Cart {
-      width: 24px;
-      height: 24px;
+      width: 30px;
+      height: 30px;
       border: 1px solid black;
       display: flex;
       justify-content: center;

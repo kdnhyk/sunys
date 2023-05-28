@@ -37,11 +37,13 @@ export default function BrandList() {
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
       <BrandListStyle>
-        <div className="BrandListArea">
+        <div className="LeftArea">
           <div className="SearchInputWrap">
             <SearchInput placeholder="Search By Brand" />
           </div>
-          <BrandListArea />
+          <div className="BrandList">
+            <BrandListArea />
+          </div>
         </div>
         <div className="RightArea"></div>
       </BrandListStyle>
@@ -53,29 +55,47 @@ const BrandListStyle = styled.div`
   display: flex;
   flex-direction: column;
 
-  .BrandListArea {
-    padding-top: 20px;
+  width: 100%;
+
+  .LeftArea {
     .SearchInputWrap {
-      padding: 0px 16px;
-      padding-bottom: 24px;
-      border-bottom: 1px solid #dddddd;
+      position: sticky;
+      top: 50px;
+      padding: 20px;
+
+      border-bottom: 1px solid var(--line-color);
       display: flex;
       justify-content: center;
+
+      background-color: var(--background-color);
+    }
+
+    .BrandList {
     }
   }
   ${media.desktop`
-  flex-direction: row;
-  .BrandListArea {
-    position: relative;
-    width: 220px;
-    flex-grow: 2;
-    border-right: 1px solid #dddddd;
-  }
+    flex-direction: row;
 
-  .RightArea {
-    width: 174px;
-    height: 100%;
-    flex-grow: 4;
-  }
+    position: fixed;
+    height: calc(100% - 50px);
+
+    .LeftArea {
+      position: relative;
+      width: 40%;
+
+      border-right: 1px solid var(--line-color);
+
+      .SearchInputWrap {
+
+      }
+      .BrandList {
+        height: calc(100% - 81px);
+        overflow-y: auto;
+      }
+    }
+
+    .RightArea {
+      width: 60%;
+    }
   `}
 `;

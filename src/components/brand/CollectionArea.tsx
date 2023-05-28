@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { More } from "../../asset/Icon";
+import { BottomArrow } from "../../asset/Icon";
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../Collection";
@@ -67,8 +67,8 @@ export default function CollectionArea({ data }: IsCollectionArea) {
             </Masonry>
           </ResponsiveMasonry>
           {currentCollection.length > 0 && (
-            <div className="More" onClick={handleLoad}>
-              <More />
+            <div className="BottomArrow" onClick={handleLoad}>
+              <BottomArrow />
             </div>
           )}
         </div>
@@ -83,13 +83,12 @@ const CollectionAreaStyle = styled.div`
     height: 100%;
     position: relative;
     padding: 8px 8px 0px 8px;
-    border-bottom: 1px solid #dddddd;
 
     .ColInner {
       padding: 8px;
     }
 
-    .More {
+    .BottomArrow {
       display: flex;
       justify-content: center;
       padding-bottom: 16px;

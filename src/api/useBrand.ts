@@ -21,7 +21,7 @@ export const getBrandByBrandName = async (brandName: string) => {
 };
 
 const useBrand = (brandName: string) => {
-  const { data, isLoading } = useQuery(
+  const { data } = useQuery(
     ["brand", brandName],
     async () => await getBrandByBrandName(brandName),
     {
@@ -32,7 +32,7 @@ const useBrand = (brandName: string) => {
     }
   );
 
-  return { data, isLoading };
+  return { data };
 };
 
 export default useBrand;

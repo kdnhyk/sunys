@@ -12,19 +12,16 @@ export default function Layout({ children }: IsLayout) {
     <LayoutWrap>
       <Header />
       <main>{children}</main>
-      <Footer />
+      {/* <Footer /> */}
     </LayoutWrap>
   );
 }
 
 const LayoutWrap = styled.div`
-  width: 100%;
-
-  color: black;
   main {
     padding-top: 0px;
     ${media.desktop`
-      padding-top: 48px;
+      padding-top: 50px;
     `}
   }
 `;

@@ -45,7 +45,7 @@ const OfflineStoreWrap = styled.div`
     height: 200px;
     img {
       border-radius: 8px;
-      object-fit: cover;
+      object-fit: contain;
     }
   }
   .TextlWrap {

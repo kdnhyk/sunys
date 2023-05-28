@@ -2,7 +2,6 @@ import styled from "styled-components";
 import { media } from "@/media";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import Loading from "@/components/Loading";
 import useBrand, { getBrandByBrandName } from "@/api/useBrand";
 import Head from "next/head";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
@@ -77,18 +76,17 @@ export default function Brand() {
 const BrandWrap = styled.div`
   display: flex;
   flex-direction: column;
+
   ${media.desktop`
     flex-direction: row;
+
     .InfoArea {
-      width: 220px;
-      flex-grow: 2;
-      border-right: 1px solid #dddddd;
-      .SaleWrap {
-      }
+      width: 40%;
+      border-right: 1px solid var(--line-color);
     }
     .CollectionArea {
-      width: 174px;
-      flex-grow: 4;
+      width: 60%;
+      border-bottom: 1px solid var(--line-color);
     }
   `}
 `;

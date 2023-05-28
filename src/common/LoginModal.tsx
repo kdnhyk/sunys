@@ -22,8 +22,6 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
     }
   }, [exitModal, successs]);
 
-  // if (isLoading) return <div>...</div>;
-
   return (
     <LoginModalBlock>
       <div className="HeaderWrap">
@@ -35,7 +33,7 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
         </div>
       </div>
       <div className="MainWrap">
-        <TitleBox>LOGIN</TitleBox>
+        <h1>LOGIN</h1>
         <div className="LoginWrap">
           <div className="Google" onClick={onGoogleLogin}>
             <p>LOGIN WITH GOOGLE</p>
@@ -106,6 +104,10 @@ const LoginModalBlock = styled.form`
     gap: 10px;
     background-color: #fcfcfc;
     z-index: 1000;
+
+    h1 {
+      margin-bottom: 20px;
+    }
     .LoginWrap {
       width: 100%;
       margin-bottom: 30px;

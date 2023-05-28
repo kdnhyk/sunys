@@ -3,7 +3,6 @@ import { media } from "@/media";
 import InfoArea from "../../../components/brandform/InfoArea";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import Loading from "@/components/Loading";
 
 const CollectionArea = dynamic(
   () => import("@/components/brandform/CollectionArea"),
@@ -17,7 +16,7 @@ export default function BrandForm() {
   const { id } = useRouter().query;
 
   if (!id) {
-    return <Loading />;
+    return false;
   }
 
   return (

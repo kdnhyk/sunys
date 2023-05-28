@@ -118,7 +118,7 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
 
 const SearchInputStyle = styled.div<{ value: string }>`
   position: relative;
-  height: 44px;
+  height: 40px;
   width: 100%;
   .InputWrap {
     position: relative;
@@ -127,11 +127,13 @@ const SearchInputStyle = styled.div<{ value: string }>`
     .SearchInput {
       transition: width 0.1s ease-out;
       width: 100%;
-      height: 100%;
+      height: 40px;
       background-color: #dfdfdf;
       padding: 0px 12px;
-      border-radius: 8px;
+      border-radius: 12px;
       /* font-size: 15px; */
+      background-color: var(--background-color);
+      border: 1px solid var(--line-color);
 
       &:focus {
         outline: none;
@@ -140,7 +142,7 @@ const SearchInputStyle = styled.div<{ value: string }>`
     .DeleteBtn {
       position: absolute;
       right: 12px;
-      top: 14px;
+      top: 12px;
       cursor: pointer;
     }
   }

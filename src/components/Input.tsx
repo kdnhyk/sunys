@@ -1,9 +1,4 @@
-import {
-  ChangeEvent,
-  ComponentProps,
-  HTMLInputTypeAttribute,
-  LegacyRef,
-} from "react";
+import { ChangeEvent, ComponentProps, HTMLInputTypeAttribute } from "react";
 import styled, { css } from "styled-components";
 
 interface IsInput extends ComponentProps<"input"> {
@@ -12,8 +7,6 @@ interface IsInput extends ComponentProps<"input"> {
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
   type?: HTMLInputTypeAttribute;
   placeholder: string;
-  autoComplete?: string;
-  ref?: LegacyRef<HTMLInputElement>;
   isRed?: boolean;
   disabled?: boolean;
 }
@@ -24,8 +17,6 @@ export default function Input({
   onChange,
   type,
   placeholder,
-  autoComplete,
-  ref,
   isRed,
   disabled,
 }: IsInput) {
@@ -39,8 +30,6 @@ export default function Input({
         value={value}
         onChange={onChange}
         type={type ? type : "text"}
-        autoComplete={autoComplete}
-        ref={ref}
         disabled={disabled}
       ></input>
       <p className="Placeholder">{placeholder}</p>

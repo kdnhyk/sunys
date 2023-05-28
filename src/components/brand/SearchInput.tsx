@@ -19,20 +19,13 @@ export default function SearchInput({
   const { data: brandList } = useBrandList();
 
   const handleFocus = () => {
-    if (width < 600) {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    } else {
-      window.scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
   };
 
-  if (!brandList) return false;
+  if (!brandList) return <></>;
 
   return (
     <SearchInputStyle value={value}>

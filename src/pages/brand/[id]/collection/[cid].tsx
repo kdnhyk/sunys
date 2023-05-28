@@ -214,13 +214,7 @@ const CollectionWrap = styled.div`
     column-gap: 1px;
     margin-bottom: 20px;
 
-    @media (min-width: 600px) {
-      grid-template-columns: repeat(1, 1fr);
-    }
-    @media (min-width: 680px) {
-      grid-template-columns: repeat(2, 1fr);
-    }
-    @media (min-width: 940px) {
+    @media (min-width: 900px) {
       grid-template-columns: repeat(3, 1fr);
     }
     @media (min-width: 1320px) {

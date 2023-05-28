@@ -92,7 +92,7 @@ const NavBarBlock = styled.nav`
   }
 
   .CartWrap {
-    flex: 0 50px;
+    flex: 0 0 50px;
     border-right: none;
     .Cart {
       width: 30px;

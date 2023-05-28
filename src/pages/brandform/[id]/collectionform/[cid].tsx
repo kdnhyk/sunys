@@ -10,7 +10,7 @@ export default function CollectionForm() {
   const { data } = useCollection(typeof cid === "string" ? cid : "");
   const { data: articleList } = useArticle(typeof cid === "string" ? cid : "");
 
-  if (!articleList) return false;
+  if (!articleList) return <></>;
 
   return (
     <CollectionFormWrap>

@@ -45,10 +45,16 @@ export const useAuth = () => {
     if (currentUser && successs) {
       getCloudUser(currentUser.uid).then(async (cloudUser) => {
         if (!cloudUser) {
-          console.log(currentUser.displayName);
-          await addCloudUser(currentUser.uid, currentUser.displayName || "");
+          const newUser = await addCloudUser(
+            currentUser.uid,
+            currentUser.displayName || ""
+          );
+
+          await setUser(newUser);
+          localStorage.setItem("user", JSON.stringify(newUser));
           return;
         }
+
         await setUser(cloudUser);
         localStorage.setItem("user", JSON.stringify(cloudUser));
         return;
@@ -65,21 +71,6 @@ export const useAuth = () => {
     })
       .then(() => {})
       .catch((error) => {});
-  };
-
-  const removeUser = () => {
-    const user = auth.currentUser;
-    console.log(user);
-    if (!user) return;
-    deleteUser(user)
-      .then(() => {
-        deleteCloudUser(user.uid);
-        // firestore user del
-        resetUser();
-      })
-      .catch((error) => {
-        console.log(error.message);
-      });
   };
 
   const loginWithGoogle = () => {
@@ -137,7 +128,7 @@ export const useAuth = () => {
       });
   };
 
-  const signout = () => {
+  const logout = () => {
     signOut(auth)
       .then(() => {
         localStorage.removeItem("user");
@@ -148,10 +139,25 @@ export const useAuth = () => {
       });
   };
 
+  const removeUser = () => {
+    const user = auth.currentUser;
+    console.log(user);
+    if (!user) return;
+    deleteUser(user)
+      .then(() => {
+        localStorage.removeItem("user");
+        deleteCloudUser(user.uid);
+        resetUser();
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
+
   return {
     user,
     setUser,
-    signout,
+    logout,
     updateUser,
     removeUser,
     loginWithGoogle,

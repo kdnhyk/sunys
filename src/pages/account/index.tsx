@@ -5,15 +5,16 @@ import { useRouter } from "next/router";
 import Head from "next/head";
 
 export default function Account() {
-  const { user, signout } = useAuth();
+  const { user, logout, removeUser } = useAuth();
   const router = useRouter();
 
-  const onSignout = () => {
-    signout();
+  const onLogout = () => {
+    logout();
     router.push("/");
   };
 
-  const exitPage = () => {
+  const onDeleteUser = () => {
+    removeUser();
     router.push("/");
   };
 
@@ -31,8 +32,11 @@ export default function Account() {
       </Head>
       <AccountBlock>
         <p>{user.username}</p>
-        <p className="Logout" onClick={onSignout}>
-          Logout
+        <p className="Logout" onClick={onLogout}>
+          로그아웃
+        </p>
+        <p className="Signout" onClick={onDeleteUser}>
+          회원탈퇴
         </p>
       </AccountBlock>
     </>
@@ -46,7 +50,7 @@ const AccountBlock = styled.div`
   align-items: center;
   gap: 16px;
 
-  .Logout {
+  .Signout {
     color: #f33131;
     cursor: pointer;
   }

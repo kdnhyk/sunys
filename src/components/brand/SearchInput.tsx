@@ -15,13 +15,12 @@ export default function SearchInput({
   onChange,
   onReset,
 }: IsSearchInput) {
-  const width = typeof window !== "undefined" ? window.innerWidth : 0;
   const { data: brandList } = useBrandList();
 
   const handleFocus = () => {
     window.scrollTo({
       top: 50,
-      behavior: "smooth",
+      // behavior: "smooth",
     });
   };
 

@@ -16,20 +16,44 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
   const { onClickBarnd, onClickBrandSetting } = useLocationState();
   const { data: brandList } = useBrandList();
 
-  const resultBrandList = useMemo(
+  const resultBrandList: IsBrandName[] = useMemo(
     () =>
       brandList
-        ? brandList.filter((e: IsBrandName) => {
-            return (
-              e.default
-                .replace(" ", "")
-                .toLocaleLowerCase()
-                .includes(searchInput.toLocaleLowerCase().replace(" ", "")) ||
-              e.korean
-                .replace(" ", "")
-                .includes(searchInput.toLocaleLowerCase().replace(" ", ""))
-            );
-          })
+        ? brandList
+            .filter((e: IsBrandName) => {
+              return (
+                e.default
+                  .replace(" ", "")
+                  .toLocaleLowerCase()
+                  .startsWith(
+                    searchInput.toLocaleLowerCase().replace(" ", "")
+                  ) ||
+                e.korean
+                  .replace(" ", "")
+                  .startsWith(searchInput.toLocaleLowerCase().replace(" ", ""))
+              );
+            })
+            .concat(
+              brandList.filter((e: IsBrandName) => {
+                const lowerList = e.default
+                  .replace(" ", "")
+                  .toLocaleLowerCase();
+                const lowerListKo = e.korean
+                  .replace(" ", "")
+                  .toLocaleLowerCase();
+
+                return (
+                  (!lowerList.startsWith(
+                    searchInput.toLocaleLowerCase().replace(" ", "")
+                  ) &&
+                    lowerList.includes(searchInput)) ||
+                  (!lowerListKo.startsWith(
+                    searchInput.toLocaleLowerCase().replace(" ", "")
+                  ) &&
+                    lowerListKo.includes(searchInput))
+                );
+              })
+            )
         : [],
     [brandList, searchInput]
   );
@@ -50,16 +74,11 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
       {searchInput ? (
         <>
           <div className="SearchBrandWrap">
-            {toSortBrandList(resultBrandList).map((e, i) => (
+            {resultBrandList.map((e, i) => (
               <div
                 className="BrandInner"
                 onClick={() => onClickBarnd(e.default)}
                 key={i}
-                style={
-                  i === user.scrapBrandList.length - 1
-                    ? { borderBottom: "1px solid black" }
-                    : {}
-                }
               >
                 <h3>{e.default}</h3>
                 <p>{e.korean}</p>
@@ -69,7 +88,7 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
         </>
       ) : (
         <>
-          {user.uid && (
+          {user.uid && user.scrapBrandList.length > 0 && (
             <>
               <div className="ScrapBrandWrap">
                 <div className="BrandTitle">

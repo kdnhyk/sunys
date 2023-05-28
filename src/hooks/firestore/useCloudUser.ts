@@ -30,13 +30,17 @@ const useCloudUser = () => {
 
   const addCloudUser = async (uid: string, username: string) => {
     const createdTime = timestamp.fromDate(new Date());
-    setDoc(doc(collectionRef, uid), {
+    const initUser = {
       uid,
       username,
       scrapBrandList: [],
       cart: [],
       createdTime,
+    };
+    setDoc(doc(collectionRef, uid), {
+      ...initUser,
     });
+    return initUser;
   };
 
   const deleteCloudUser = async (uid: string) => {

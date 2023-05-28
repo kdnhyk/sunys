@@ -34,7 +34,7 @@ export default function App({ Component, pageProps }: AppProps) {
         defaultOptions: {
           queries: {
             refetchOnWindowFocus: false,
-            suspense: true,
+            // suspense: true,
           },
         },
       })
@@ -53,7 +53,7 @@ export default function App({ Component, pageProps }: AppProps) {
   }, [router.events]);
 
   return (
-    <Suspense fallback={<Loading />}>
+    <>
       <Head>
         <meta
           name="viewport"
@@ -90,7 +90,7 @@ export default function App({ Component, pageProps }: AppProps) {
           </Hydrate>
         </QueryClientProvider>
       </RecoilRoot>
-    </Suspense>
+    </>
   );
 }
 

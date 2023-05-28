@@ -16,7 +16,7 @@ export default function BrandForm() {
   const { id } = useRouter().query;
 
   if (!id) {
-    return false;
+    return <></>;
   }
 
   return (

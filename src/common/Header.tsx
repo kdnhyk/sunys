@@ -53,6 +53,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
   z-index: 100;
 
   .LogoArea {
+    position: relative;
     width: 100%;
     height: 50px;
     display: flex;
@@ -61,10 +62,9 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     z-index: 100;
 
     a {
-      flex: 3;
+      flex: 4;
       display: flex;
       justify-content: center;
-      border-right: 1px solid var(--line-color);
 
       cursor: pointer;
       svg {
@@ -74,7 +74,12 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     }
 
     .EmptyArea {
-      flex: 1 0 50.25px;
+      position: absolute;
+      right: 1px;
+      width: 50.25px;
+      height: 50px;
+
+      border-left: 1px solid var(--line-color);
     }
   }
 
@@ -127,12 +132,13 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
         align-items: center;
         flex: 0 0 220px;
         svg {
-          height: 28px;
-          width: auto;
         }
       }
 
       .EmptyArea {
+        position: static;
+        width: auto;
+        right: none;
         flex: 1 0 0;
       }
     }

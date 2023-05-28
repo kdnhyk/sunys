@@ -8,6 +8,7 @@ import useRecentCollection, {
 } from "@/api/useRecentCollection";
 import { useInView } from "react-intersection-observer";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
+import Loading from "@/components/Loading";
 
 export const getServerSideProps = async () => {
   const queryClient = new QueryClient();
@@ -43,6 +44,8 @@ export default function News() {
       fetchNextPage();
     }
   }, [fetchNextPage, hasNextPage, inView]);
+
+  if (recentCollection.length === 0) return <Loading />;
 
   return (
     <>

@@ -118,6 +118,21 @@ const UpArrow = () => {
   );
 };
 
+const AddIcon = () => {
+  return (
+    <svg
+      width="25"
+      height="25"
+      viewBox="0 0 25 25"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path d="M24.5 0.5H0.5V24.5H24.5V0.5Z" stroke="black" />
+      <path d="M6.5 12.5H18.5M12.5 18.5V6.5" stroke="black" />
+    </svg>
+  );
+};
+
 export {
   SettingIcon,
   Search,
@@ -126,4 +141,5 @@ export {
   NotFoundImage,
   BottomArrow,
   UpArrow,
+  AddIcon,
 };

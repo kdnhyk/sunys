@@ -53,7 +53,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
   z-index: 100;
 
   .LogoArea {
-    width: calc(100% - 50px);
+    width: calc(100% - 50.5px);
     height: 50px;
     display: flex;
     justify-content: center;

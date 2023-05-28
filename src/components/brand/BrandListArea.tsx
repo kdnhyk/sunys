@@ -3,14 +3,36 @@ import { useAuth } from "../../hooks/useAuth";
 import useLocationState from "../../hooks/useLocationState";
 import { toSortBrandList, toSortRestBrandList } from "@/util";
 import useBrandList from "@/api/useBrandList";
-import { useState } from "react";
+import { AddIcon } from "@/asset/Icon";
+import { IsBrandName } from "@/types/brand";
+import { useMemo } from "react";
 
-export default function BrandListArea() {
+interface IsBrandList {
+  searchInput: string;
+}
+
+export default function BrandListArea({ searchInput }: IsBrandList) {
   const { user } = useAuth();
   const { onClickBarnd, onClickBrandSetting } = useLocationState();
-  const { data } = useBrandList();
+  const { data: brandList } = useBrandList();
 
-  const [searchInput, setSearchInput] = useState("");
+  const resultBrandList = useMemo(
+    () =>
+      brandList
+        ? brandList.filter((e: IsBrandName) => {
+            return (
+              e.default
+                .replace(" ", "")
+                .toLocaleLowerCase()
+                .includes(searchInput.toLocaleLowerCase().replace(" ", "")) ||
+              e.korean
+                .replace(" ", "")
+                .includes(searchInput.toLocaleLowerCase().replace(" ", ""))
+            );
+          })
+        : [],
+    [brandList, searchInput]
+  );
 
   return (
     <BrandListAreaWrap>
@@ -20,27 +42,15 @@ export default function BrandListArea() {
             className="CreateBrandButton"
             onClick={() => onClickBrandSetting()}
           >
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <rect x="0.5" y="0.5" width="23" height="23" stroke="black" />
-              <path d="M6 12H18M12 18V6" stroke="black" strokeWidth="1.5" />
-            </svg>
+            <AddIcon />
           </div>
         </div>
       )}
 
-      {user.uid && (
+      {searchInput ? (
         <>
-          <div className="ScrapBrandWrap">
-            <div className="BrandTitle">
-              <h1>스크랩 브랜드</h1>
-            </div>
-            {toSortBrandList(user.scrapBrandList).map((e, i) => (
+          <div className="SearchBrandWrap">
+            {toSortBrandList(resultBrandList).map((e, i) => (
               <div
                 className="BrandInner"
                 onClick={() => onClickBarnd(e.default)}
@@ -57,25 +67,53 @@ export default function BrandListArea() {
             ))}
           </div>
         </>
-      )}
-
-      <div className="AllBrandWrap">
-        <div className="BrandTitle">
-          <h1>전체 브랜드</h1>
-        </div>
-
-        {data &&
-          toSortRestBrandList(data, user.scrapBrandList).map((e, i) => (
-            <div
-              className="BrandInner"
-              key={i}
-              onClick={() => onClickBarnd(e.default)}
-            >
-              <h3>{e.default}</h3>
-              <p>{e.korean}</p>
+      ) : (
+        <>
+          {user.uid && (
+            <>
+              <div className="ScrapBrandWrap">
+                <div className="BrandTitle">
+                  <h1>스크랩 브랜드</h1>
+                </div>
+                {toSortBrandList(user.scrapBrandList).map((e, i) => (
+                  <div
+                    className="BrandInner"
+                    onClick={() => onClickBarnd(e.default)}
+                    key={i}
+                    style={
+                      i === user.scrapBrandList.length - 1
+                        ? { borderBottom: "1px solid black" }
+                        : {}
+                    }
+                  >
+                    <h3>{e.default}</h3>
+                    <p>{e.korean}</p>
+                  </div>
+                ))}
+              </div>
+            </>
+          )}
+          <div className="AllBrandWrap">
+            <div className="BrandTitle">
+              <h1>전체 브랜드</h1>
             </div>
-          ))}
-      </div>
+
+            {brandList &&
+              toSortRestBrandList(brandList, user.scrapBrandList).map(
+                (e, i) => (
+                  <div
+                    className="BrandInner"
+                    key={i}
+                    onClick={() => onClickBarnd(e.default)}
+                  >
+                    <h3>{e.default}</h3>
+                    <p>{e.korean}</p>
+                  </div>
+                )
+              )}
+          </div>
+        </>
+      )}
     </BrandListAreaWrap>
   );
 }
@@ -100,7 +138,7 @@ const BrandListAreaWrap = styled.div`
       cursor: pointer;
     }
   }
-
+  .SearchBrandWrap,
   .ScrapBrandWrap,
   .AllBrandWrap {
     .BrandTitle {

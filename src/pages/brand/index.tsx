@@ -5,6 +5,7 @@ import Head from "next/head";
 import { media } from "@/media";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import { getBrandList } from "@/api/useBrandList";
+import { ChangeEvent, useState } from "react";
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();
@@ -21,6 +22,17 @@ export async function getStaticProps() {
 }
 
 export default function BrandList() {
+  const [searchInput, setSearchInput] = useState("");
+
+  const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setSearchInput(() => value);
+  };
+
+  const onResetSearchInput = () => {
+    setSearchInput(() => "");
+  };
+
   return (
     <>
       <Head>
@@ -39,10 +51,15 @@ export default function BrandList() {
       <BrandListStyle>
         <div className="LeftArea">
           <div className="SearchInputWrap">
-            <SearchInput placeholder="Search By Brand" />
+            <SearchInput
+              placeholder="Search By Brand"
+              value={searchInput}
+              onChange={onChangeSearchInput}
+              onReset={onResetSearchInput}
+            />
           </div>
           <div className="BrandList">
-            <BrandListArea />
+            <BrandListArea searchInput={searchInput} />
           </div>
         </div>
         <div className="RightArea"></div>

@@ -1,90 +1,51 @@
 import styled from "styled-components";
-import { ChangeEvent, useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import { ChangeEvent } from "react";
 import useBrandList from "@/api/useBrandList";
-import { IsBrandName } from "@/types/brand";
 
 interface IsSearchInput {
   placeholder: string;
+  value: string;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  onReset: () => void;
 }
 
-export default function SearchInput({ placeholder }: IsSearchInput) {
+export default function SearchInput({
+  placeholder,
+  value,
+  onChange,
+  onReset,
+}: IsSearchInput) {
   const width = typeof window !== "undefined" ? window.innerWidth : 0;
-  const router = useRouter();
   const { data: brandList } = useBrandList();
 
-  const [isOpenModal, setIsOpenModal] = useState(false);
-  const [searchInput, setSearchInput] = useState("");
-
-  const onOpenModal = () => {
-    setIsOpenModal(() => true);
-  };
-
-  const onCloseModal = () => {
-    setIsOpenModal(() => false);
-  };
-
-  const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const { value } = e.target;
-    setSearchInput(() => value);
-  };
-
-  const onResetSearchInput = () => {
-    setSearchInput(() => "");
-  };
-
-  const resultBrandList = brandList
-    ? brandList.filter((e: IsBrandName) => {
-        return (
-          e.default
-            .replace(" ", "")
-            .toLocaleLowerCase()
-            .includes(searchInput.toLocaleLowerCase().replace(" ", "")) ||
-          e.korean
-            .replace(" ", "")
-            .includes(searchInput.toLocaleLowerCase().replace(" ", ""))
-        );
-      })
-    : [];
-
-  useEffect(() => {
-    if (searchInput) {
-      onOpenModal();
-    } else if (!searchInput) {
-      onCloseModal();
+  const handleFocus = () => {
+    if (width < 600) {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    } else {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
     }
-  }, [searchInput]);
+  };
 
-  useEffect(() => {
-    if (isOpenModal) {
-      if (width < 600) {
-        window.scrollTo({
-          top: 81,
-          behavior: "smooth",
-        });
-      } else {
-        window.scrollTo({
-          top: 0,
-          behavior: "smooth",
-        });
-      }
-    }
-  }, [isOpenModal, width]);
+  if (!brandList) return false;
 
-  if (!brandList) return <div></div>;
   return (
-    <SearchInputStyle value={searchInput}>
+    <SearchInputStyle value={value}>
       <div className="InputWrap">
         <input
           className="SearchInput"
           placeholder={placeholder}
-          value={searchInput}
-          onChange={onChangeSearchInput}
-          onClick={onOpenModal}
-          onBlur={onCloseModal}
+          value={value}
+          onChange={onChange}
+          onFocus={handleFocus}
         ></input>
-        {searchInput && (
-          <div className="DeleteBtn" onClick={onResetSearchInput}>
+        {value && (
+          <div className="DeleteBtn" onClick={onReset}>
             <svg
               width="17"
               height="17"
@@ -100,18 +61,6 @@ export default function SearchInput({ placeholder }: IsSearchInput) {
           </div>
         )}
       </div>
-      {isOpenModal && (
-        <div className="ModalWrap">
-          {resultBrandList.map((e: IsBrandName, i: number) => (
-            <div className="BrandNameInner" key={i}>
-              <div onMouseDown={() => router.push(`/brand/${e.default}`)}>
-                <p className="Default">{e.default}</p>
-                <p className="Korean">{e.korean}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      )}
     </SearchInputStyle>
   );
 }
@@ -144,48 +93,6 @@ const SearchInputStyle = styled.div<{ value: string }>`
       right: 12px;
       top: 12px;
       cursor: pointer;
-    }
-  }
-
-  .ModalWrap {
-    display: ${({ value }) => (value ? "block" : "none")};
-    position: absolute;
-    top: 44px;
-    width: 100%;
-    height: fit-content;
-    max-height: 200px;
-    background-color: #ffffff;
-    overflow-y: auto;
-    z-index: 20;
-    &::-webkit-scrollbar {
-      display: none;
-    }
-    .BrandNameInner {
-      height: 44px;
-      border-bottom: 1px solid #dfdfdf;
-
-      padding: 0px 12px;
-      cursor: pointer;
-      &:hover {
-        background-color: #dfdfdf;
-      }
-
-      div {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-
-        .Default {
-          font-size: 14px;
-          margin-bottom: 2px;
-        }
-        .Korean {
-          font-size: 12px;
-          color: #8e8e8e;
-        }
-      }
     }
   }
 `;

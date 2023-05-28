@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { More } from "@/asset/Icon";
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../Collection";
@@ -7,6 +6,7 @@ import useBrandCollection from "@/api/useBrandCollection";
 import useLocationState from "@/hooks/useLocationState";
 import CreateBoxCollection from "../CreateBoxCollection";
 import { useAuth } from "@/hooks/useAuth";
+import { BottomArrow } from "@/asset/Icon";
 
 interface IsCollectionArea {
   brandName: string;
@@ -89,8 +89,8 @@ export default function CollectionArea({ brandName }: IsCollectionArea) {
             </Masonry>
           </ResponsiveMasonry>
           {currentCollection.length > 0 && (
-            <div className="More" onClick={handleLoad}>
-              <More />
+            <div className="BottomArrowWrap" onClick={handleLoad}>
+              <BottomArrow />
             </div>
           )}
         </>
@@ -109,7 +109,7 @@ const CollectionAreaStyle = styled.div`
     padding: 8px;
   }
 
-  .More {
+  .BottomArrowWrap {
     display: flex;
     justify-content: center;
     padding-bottom: 16px;

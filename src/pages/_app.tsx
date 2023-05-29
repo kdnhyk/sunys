@@ -8,12 +8,11 @@ import {
 import { RecoilRoot, RecoilEnv } from "recoil";
 import { createGlobalStyle } from "styled-components";
 import Script from "next/script";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import Loading from "@/components/Loading";
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 

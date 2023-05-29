@@ -17,6 +17,5 @@ export const GET = async () => {
   return getServerSideSitemap(sitemapFields);
 };
 
-export default function Sitemap() {
-  //
-}
+const SitemapIndex = () => null;
+export default SitemapIndex;

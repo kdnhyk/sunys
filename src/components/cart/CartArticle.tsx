@@ -91,13 +91,16 @@ const CartArticleBlock = styled.div`
   flex-direction: row;
   gap: 16px;
   padding: 0px 0px 16px 0px;
-  border-bottom: 1px solid #dddddd;
+  border-bottom: 1px solid var(--border-color);
   .ImageWrap {
     width: 120px;
     height: 120px;
+
     img {
       border-radius: 8px;
       object-fit: cover;
+
+      border: 1px solid var(--line-color);
       cursor: pointer;
     }
   }

@@ -58,7 +58,9 @@ const ArticleWrap = styled.div<{ isInCart: boolean }>`
       display: flex;
       justify-content: center;
       align-items: center;
+
       margin-bottom: 4px;
+
       cursor: pointer;
       img {
         width: 100%;
@@ -78,7 +80,7 @@ const ArticleWrap = styled.div<{ isInCart: boolean }>`
         overflow: hidden;
       }
       p {
-        color: #8e8e8e;
+        color: var(--placeholder-color);
       }
     }
   }

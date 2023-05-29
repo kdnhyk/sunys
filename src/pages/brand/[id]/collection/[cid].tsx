@@ -86,9 +86,8 @@ const CollectionWrap = styled.div`
   .ArticleListWrap {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    align-items: start;
+    gap: 1px;
     row-gap: 10px;
-    column-gap: 1px;
     padding-bottom: 40px;
 
     @media (min-width: 900px) {
@@ -96,6 +95,9 @@ const CollectionWrap = styled.div`
     }
     @media (min-width: 1320px) {
       grid-template-columns: repeat(4, 1fr);
+    }
+
+    .ArticleWrap {
     }
   }
 
@@ -121,8 +123,11 @@ const CollectionWrap = styled.div`
   .ArticleListWrap {
     width: calc(60%);
     height: 100%;
-    
     overflow: auto;
+    align-content: start;
+
+    .ArticleWrap {
+    }
   }
 `}
 `;

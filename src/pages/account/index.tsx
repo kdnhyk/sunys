@@ -3,6 +3,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
+import { SettingIcon } from "@/asset/Icon";
+import { media } from "@/media";
 
 export default function Account() {
   const { user, logout, removeUser } = useAuth();
@@ -33,29 +35,98 @@ export default function Account() {
         <meta name="description" content="개인 계정 정보" />
       </Head>
       <AccountBlock>
-        <p>{user.username}</p>
-        <p className="Logout" onClick={onLogout}>
-          로그아웃
-        </p>
-        <p
-          className="Signout"
-          onClick={() => setIsOpenSignout((prev) => !prev)}
-        >
-          회원탈퇴
-        </p>
-        {isOpenSignout && <p>kdnhyk@gmail.com으로 연락 부탁드립니다</p>}
+        <div className="LeftArea">
+          <div className="InfoArea">
+            <div className="ImageWrap">{/* <Image /> */}</div>
+            <div className="NameWrap">
+              <h2>{user.username}</h2>
+            </div>
+          </div>
+          <div className="EmptyArea">
+            <div className="SettingWrap">
+              <SettingIcon />
+            </div>
+            <div className="Empty1">
+              <p className="Logout" onClick={onLogout}>
+                로그아웃
+              </p>
+              {/* <p
+                className="Signout"
+                onClick={() => setIsOpenSignout((prev) => !prev)}
+              >
+                회원탈퇴
+              </p> */}
+            </div>
+          </div>
+        </div>
+        <div className="RightArea"></div>
       </AccountBlock>
     </>
   );
 }
 
 const AccountBlock = styled.div`
-  padding: 40px 16px 24px 16px;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 16px;
 
+  .LeftArea {
+    display: flex;
+    gap: 16px;
+    padding: 16px;
+    .InfoArea {
+      .ImageWrap {
+        width: 180px;
+        height: 180px;
+
+        border: 1px solid var(--line-color);
+        border-radius: 12px;
+        margin-bottom: 16px;
+      }
+
+      .NameWrap {
+        width: 180px;
+        height: 70px;
+        border: 1px solid var(--line-color);
+        border-radius: 12px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        h2 {
+        }
+      }
+    }
+
+    .EmptyArea {
+      flex: 1;
+      height: 100%;
+      .SettingWrap {
+        float: right;
+        width: 24px;
+        height: 24px;
+        display: flex;
+        justify-content: end;
+        margin-bottom: 12px;
+
+        cursor: pointer;
+      }
+
+      .Empty1 {
+        width: 100%;
+        height: 280px;
+        border: 1px solid var(--line-color);
+        border-radius: 12px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        justify-content: center;
+        align-items: center;
+      }
+    }
+  }
   .Logout {
     cursor: pointer;
   }
@@ -64,4 +135,30 @@ const AccountBlock = styled.div`
     color: #f33131;
     cursor: pointer;
   }
+
+  ${media.desktop`
+  flex-direction: row;
+
+  position: fixed;
+  height: calc(100% - 50px);
+
+  .LeftArea {
+    width: calc(40%);
+    
+    overflow-y: auto;
+    border-right: 1px solid var(--line-color);
+    padding-bottom: 40px;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  
+
+  .RightArea {
+    width: calc(60%);
+    height: 100%;
+    overflow: auto;
+  }
+`}
 `;

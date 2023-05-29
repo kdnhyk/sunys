@@ -37,9 +37,13 @@ export default function Account() {
         <p className="Logout" onClick={onLogout}>
           로그아웃
         </p>
-        <p className="Signout" onClick={() => setIsOpenSignout(() => true)}>
+        <p
+          className="Signout"
+          onClick={() => setIsOpenSignout((prev) => !prev)}
+        >
           회원탈퇴
         </p>
+        {isOpenSignout && <p>kdnhyk@gmail.com으로 연락 부탁드립니다</p>}
       </AccountBlock>
     </>
   );
@@ -51,6 +55,10 @@ const AccountBlock = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 16px;
+
+  .Logout {
+    cursor: pointer;
+  }
 
   .Signout {
     color: #f33131;

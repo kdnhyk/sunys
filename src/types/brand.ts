@@ -1,4 +1,4 @@
-export const initBrand = {
+export const initBrand: IsBrand = {
   logo: "",
   officialUrl: "",
   brandName: "",

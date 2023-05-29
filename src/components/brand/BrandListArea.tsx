@@ -3,9 +3,9 @@ import { useAuth } from "../../hooks/useAuth";
 import useLocationState from "../../hooks/useLocationState";
 import { toSortBrandList, toSortRestBrandList } from "@/util";
 import useBrandList from "@/api/useBrandList";
-import { AddIcon } from "@/asset/Icon";
+import { AddIcon, BottomArrow, UpArrow } from "@/asset/Icon";
 import { IsBrandName } from "@/types/brand";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 
 interface IsBrandList {
   searchInput: string;
@@ -15,6 +15,8 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
   const { user } = useAuth();
   const { onClickBarnd, onClickBrandSetting } = useLocationState();
   const { data: brandList } = useBrandList();
+
+  const [isOpenAllBrandList, setIsOpenAllBrandList] = useState(true);
 
   const resultBrandList: IsBrandName[] = useMemo(
     () =>
@@ -112,12 +114,20 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
               </div>
             </>
           )}
+
           <div className="AllBrandWrap">
-            <div className="BrandTitle">
+            <div
+              className="BrandTitle"
+              onClick={() => setIsOpenAllBrandList((prev) => !prev)}
+            >
               <h1>전체 브랜드</h1>
+              <div className="ArrowWrap">
+                {isOpenAllBrandList ? <UpArrow /> : <BottomArrow />}
+              </div>
             </div>
 
             {brandList &&
+              isOpenAllBrandList &&
               toSortRestBrandList(brandList, user.scrapBrandList).map(
                 (e, i) => (
                   <div
@@ -165,10 +175,14 @@ const BrandListAreaWrap = styled.div`
       width: 100%;
       height: 50px;
       display: flex;
+      justify-content: space-between;
       align-items: center;
       padding: 0px 16px;
       border-bottom: 1px solid var(--line-color);
+
       h1 {
+      }
+      .ArrowWrap {
       }
     }
 
@@ -190,6 +204,12 @@ const BrandListAreaWrap = styled.div`
       p {
         color: #8e8e8e;
       }
+    }
+  }
+
+  .AllBrandWrap {
+    .BrandTitle {
+      cursor: pointer;
     }
   }
 `;

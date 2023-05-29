@@ -44,6 +44,7 @@ export default function Header() {
 }
 
 const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
+  position: relative;
   width: 100%;
   height: 100px;
   display: flex;
@@ -67,6 +68,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
       justify-content: center;
 
       cursor: pointer;
+
       svg {
         width: 100%;
         height: 80px;
@@ -74,12 +76,6 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     }
 
     .EmptyArea {
-      position: absolute;
-      right: 1px;
-      width: 50px;
-      height: 50px;
-
-      border-left: 1px solid var(--line-color);
     }
   }
 
@@ -91,7 +87,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     border-bottom: 1px solid var(--line-color);
 
     background-color: var(--background-color);
-    z-index: 200;
+    z-index: 100;
 
     ${({ isFixHeader }) =>
       isFixHeader &&
@@ -140,6 +136,9 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
         width: auto;
         right: none;
         flex: 1 0 0;
+        height: 50px;
+
+        border-left: 1px solid var(--line-color);
       }
     }
 

@@ -1,12 +1,14 @@
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 
 export default function Account() {
   const { user, logout, removeUser } = useAuth();
   const router = useRouter();
+
+  const [isOpenSignout, setIsOpenSignout] = useState(false);
 
   const onLogout = () => {
     logout();
@@ -35,7 +37,7 @@ export default function Account() {
         <p className="Logout" onClick={onLogout}>
           로그아웃
         </p>
-        <p className="Signout" onClick={onDeleteUser}>
+        <p className="Signout" onClick={() => setIsOpenSignout(() => true)}>
           회원탈퇴
         </p>
       </AccountBlock>

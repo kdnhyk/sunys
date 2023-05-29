@@ -25,7 +25,7 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
   return (
     <LoginModalBlock>
       <div className="HeaderWrap">
-        <h2>Signin</h2>
+        <h2>Login</h2>
         <div className="ButtonWrap">
           <div></div>
           <div></div>
@@ -33,7 +33,10 @@ export default function LoginModal({ exitModal }: IsLoginModal) {
         </div>
       </div>
       <div className="MainWrap">
-        <h1>LOGIN</h1>
+        <div className="TitleWrap">
+          <h1>SIGNIN</h1>
+        </div>
+
         <div className="LoginWrap">
           <div className="Google" onClick={onGoogleLogin}>
             <p>LOGIN WITH GOOGLE</p>
@@ -76,9 +79,11 @@ const LoginModalBlock = styled.form`
     justify-content: space-between;
     background-color: #fcfcfc;
     z-index: 100;
+
     h2 {
       font-weight: 400;
     }
+
     .ButtonWrap {
       display: flex;
       align-items: center;
@@ -105,8 +110,14 @@ const LoginModalBlock = styled.form`
     background-color: #fcfcfc;
     z-index: 1000;
 
-    h1 {
+    .TitleWrap {
+      border-bottom: 1px solid var(--line-color);
+      height: 28px;
+      padding: 0px 8px;
       margin-bottom: 20px;
+      h2 {
+        font-weight: 400;
+      }
     }
     .LoginWrap {
       width: 100%;

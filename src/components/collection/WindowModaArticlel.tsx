@@ -46,7 +46,7 @@ export default function WindowModalArticle({
         </div>
 
         <div className="ImageWrap">
-          <Image src={article.images[0]} alt="" fill={true} />
+          <Image src={article.images[0]} alt="" width={300} height={400} />
         </div>
 
         <div className="MainWrap">
@@ -85,7 +85,7 @@ const WindowModalArticleBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 20;
 
   .ModalInner {
     position: absolute;
@@ -102,7 +102,7 @@ const WindowModalArticleBlock = styled.div`
 
     border: 1px solid var(--line-color);
     overflow-y: auto;
-    z-index: 100;
+    z-index: 10;
 
     .HeaderWrap {
       padding: 12px;
@@ -112,7 +112,7 @@ const WindowModalArticleBlock = styled.div`
 
       border-bottom: 1px solid var(--line-color);
       background-color: var(--background-color);
-      z-index: 100;
+      z-index: 10;
 
       h1 {
         font-family: montserrat;
@@ -127,7 +127,7 @@ const WindowModalArticleBlock = styled.div`
 
       border-bottom: 1px solid var(--line-color);
       img {
-        object-fit: cover;
+        object-fit: contain;
       }
     }
 

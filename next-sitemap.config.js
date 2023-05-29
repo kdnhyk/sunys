@@ -10,7 +10,7 @@ module.exports = {
     "/magazine/**",
     "/account/**",
     "brandform/**",
-    "/server-sitemap-index.xml",
+    "/server-sitemap.xml",
   ],
   robotsTxtOptions: {
     policies: [
@@ -20,6 +20,6 @@ module.exports = {
         disallow: ["/magazine", "/account", "/brandform"],
       },
     ],
-    additionalSitemaps: ["https://sunys.co.kr/server-sitemap-index.xml"],
+    additionalSitemaps: ["https://sunys.co.kr/server-sitemap.xml"],
   },
 };

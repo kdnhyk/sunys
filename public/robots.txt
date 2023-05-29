@@ -10,4 +10,4 @@ Host: https://sunys.co.kr/
 
 # Sitemaps
 Sitemap: https://sunys.co.kr/sitemap.xml
-Sitemap: https://sunys.co.kr/server-sitemap-index.xml
+Sitemap: https://sunys.co.kr/server-sitemap.xml

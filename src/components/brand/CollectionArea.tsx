@@ -12,7 +12,6 @@ interface IsCollectionArea {
 }
 
 export default function CollectionArea({ data }: IsCollectionArea) {
-  const router = useRouter();
   const width = typeof window !== "undefined" ? window.innerWidth : 0;
   const { currentCollection, fetchNextPage, hasNextPage } = useBrandCollection(
     data.brandName

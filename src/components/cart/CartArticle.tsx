@@ -1,6 +1,5 @@
 import { IsArticle } from "../../types/article";
 import styled from "styled-components";
-import { useEffect } from "react";
 import NotFound from "@/asset/NotFound.png";
 import useLocationState from "../../hooks/useLocationState";
 import { useRouter } from "next/router";
@@ -24,10 +23,6 @@ export default function CartArticle({ article }: IsCartArticle) {
     handleCart(user, article);
   };
 
-  const onMoveCollection = () => {
-    router.push(`/collection/${article.collectionId}`);
-  };
-
   return (
     <CartArticleBlock>
       <div
@@ -41,7 +36,6 @@ export default function CartArticle({ article }: IsCartArticle) {
           src={article.images[0] || NotFound}
           width={110}
           height={110}
-          // onError={onErrorImg}
         />
       </div>
       <div className="InfoWrapper">
@@ -103,7 +97,7 @@ const CartArticleBlock = styled.div`
     height: 120px;
     img {
       border-radius: 8px;
-      object-fit: cover; //
+      object-fit: cover;
       cursor: pointer;
     }
   }

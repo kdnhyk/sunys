@@ -3,10 +3,11 @@ User-agent: *
 Allow: /
 Disallow: /magazine
 Disallow: /account
+Disallow: /brandform
 
 # Host
 Host: https://sunys.co.kr/
 
 # Sitemaps
 Sitemap: https://sunys.co.kr/sitemap.xml
-Sitemap: https://sunys.co.kr/sitemap/brand-sitemap.xml
+Sitemap: https://sunys.co.kr/server-sitemap-index.xml

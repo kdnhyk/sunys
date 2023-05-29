@@ -6,9 +6,7 @@ import useBrand, { getBrandByBrandName } from "@/api/useBrand";
 import Head from "next/head";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
-const InfoArea = dynamic(() => import("@/components/brand/InfoArea"), {
-  ssr: false,
-});
+import InfoArea from "@/components/brand/InfoArea";
 
 const CollectionArea = dynamic(
   () => import("@/components/brand/CollectionArea"),

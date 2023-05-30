@@ -290,11 +290,6 @@ const zoomControlOptions = {
   },
 };
 
-const customIcon = {
-  url: "/path/to/custom-icon.png", // 커스텀 아이콘 이미지 경로
-  scaledSize: new window.google.maps.Size(32, 32), // 아이콘 크기 조정
-};
-
 function MapComponent() {
   const center = useMemo(() => ({ lat: 37.545, lng: 127.01 }), []);
 
@@ -319,7 +314,6 @@ function MapComponent() {
             position={center}
             // icon={{ url: "/images/icons/map_marker.svg", scale: 5 }}
           />
-          <MarkerF position={center} icon={customIcon} />
         </GoogleMap>
       </LoadScriptNext>
     </Wrapper>

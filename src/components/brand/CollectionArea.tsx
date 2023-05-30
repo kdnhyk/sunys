@@ -6,6 +6,7 @@ import Collection from "../Collection";
 import useBrandCollection from "../../api/useBrandCollection";
 import { useRouter } from "next/router";
 import { IsBrand } from "@/types/brand";
+import { useInView } from "react-intersection-observer";
 
 interface IsCollectionArea {
   data: IsBrand;
@@ -16,23 +17,17 @@ export default function CollectionArea({ data }: IsCollectionArea) {
   const { currentCollection, fetchNextPage, hasNextPage } = useBrandCollection(
     data.brandName
   );
-
-  const [onLoad, setOnLoad] = useState(false);
-
-  const handleLoad = () => {
-    setOnLoad(true);
-  };
+  const [ref, inView] = useInView();
 
   useEffect(() => {
     fetchNextPage();
   }, [fetchNextPage]);
 
   useEffect(() => {
-    if (onLoad && hasNextPage) {
+    if (inView && hasNextPage) {
       fetchNextPage();
     }
-    setOnLoad(false);
-  }, [fetchNextPage, hasNextPage, onLoad]);
+  }, [fetchNextPage, hasNextPage, inView]);
 
   return (
     <CollectionAreaStyle>
@@ -42,18 +37,18 @@ export default function CollectionArea({ data }: IsCollectionArea) {
             columnsCountBreakPoints={
               width < 700
                 ? {
-                    180: 1,
-                    360: 2,
-                    540: 3,
-                    720: 4,
-                    900: 5,
-                    1080: 6,
+                    200: 1,
+                    400: 2,
+                    600: 3,
+                    800: 4,
+                    1000: 5,
+                    1200: 6,
                   }
                 : {
-                    540: 1,
-                    720: 2,
-                    900: 3,
-                    1080: 4,
+                    600: 1,
+                    800: 2,
+                    1000: 3,
+                    1200: 4,
                   }
             }
           >
@@ -66,9 +61,7 @@ export default function CollectionArea({ data }: IsCollectionArea) {
             </Masonry>
           </ResponsiveMasonry>
           {currentCollection.length > 0 && (
-            <div className="BottomArrow" onClick={handleLoad}>
-              <BottomArrow />
-            </div>
+            <div className="More" ref={ref}></div>
           )}
         </div>
       )}
@@ -87,11 +80,7 @@ const CollectionAreaStyle = styled.div`
       padding: 8px;
     }
 
-    .BottomArrow {
-      display: flex;
-      justify-content: center;
-      padding-bottom: 16px;
-      cursor: pointer;
+    .More {
     }
   }
 `;

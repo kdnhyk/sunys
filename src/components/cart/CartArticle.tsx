@@ -99,8 +99,6 @@ const CartArticleBlock = styled.div`
     img {
       border-radius: 8px;
       object-fit: cover;
-
-      border: 1px solid var(--line-color);
       cursor: pointer;
     }
   }

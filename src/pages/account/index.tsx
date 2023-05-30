@@ -39,7 +39,10 @@ export default function Account() {
           <div className="InfoArea">
             <div className="ImageWrap">{/* <Image /> */}</div>
             <div className="NameWrap">
-              <h2>{user.username}</h2>
+              <h3>{user.username}</h3>
+            </div>
+            <div className="LogoutWrap" onClick={onLogout}>
+              <p className="Logout">로그아웃</p>
             </div>
           </div>
           <div className="EmptyArea">
@@ -47,9 +50,6 @@ export default function Account() {
               <SettingIcon />
             </div>
             <div className="Empty1">
-              <p className="Logout" onClick={onLogout}>
-                로그아웃
-              </p>
               {/* <p
                 className="Signout"
                 onClick={() => setIsOpenSignout((prev) => !prev)}
@@ -57,6 +57,7 @@ export default function Account() {
                 회원탈퇴
               </p> */}
             </div>
+            <div className="Empty2"></div>
           </div>
         </div>
         <div className="RightArea"></div>
@@ -94,8 +95,23 @@ const AccountBlock = styled.div`
         justify-content: center;
         align-items: center;
 
-        h2 {
+        margin-bottom: 66px;
+
+        h3 {
         }
+      }
+
+      .LogoutWrap {
+        width: 180px;
+        height: 70px;
+        border: 1px solid var(--line-color);
+        border-radius: 12px;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        cursor: pointer;
       }
     }
 
@@ -124,16 +140,23 @@ const AccountBlock = styled.div`
         gap: 16px;
         justify-content: center;
         align-items: center;
+
+        margin-bottom: 16px;
+      }
+
+      .Empty2 {
+        width: 100%;
+        height: 240px;
+        border: 1px solid var(--line-color);
+        border-radius: 12px;
+
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        justify-content: center;
+        align-items: center;
       }
     }
-  }
-  .Logout {
-    cursor: pointer;
-  }
-
-  .Signout {
-    color: #f33131;
-    cursor: pointer;
   }
 
   ${media.desktop`

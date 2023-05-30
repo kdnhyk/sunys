@@ -32,8 +32,8 @@ export default function Collection({
         <Image
           src={collection.images[0]}
           alt=""
-          width={180}
-          height={240}
+          width={200}
+          height={200}
           priority
         />
         {diff > 0 && (
@@ -54,6 +54,15 @@ export default function Collection({
 const CollectionWrap = styled.div<{ isRed: boolean }>`
   position: relative;
   cursor: pointer;
+
+  /* &:hover {
+    .ImageWrap {
+      img {
+        transition: scale 0.2s ease-in-out;
+        scale: 0.98;
+      }
+    }
+  } */
 
   .ImageWrap {
     position: relative;

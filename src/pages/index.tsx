@@ -45,6 +45,7 @@ export default function News() {
     }
   }, [fetchNextPage, hasNextPage, inView]);
 
+  // recoil 때문에 SEO 안될거 같음
   if (recentCollection.length === 0) return <Loading />;
 
   return (
@@ -69,12 +70,12 @@ export default function News() {
         <div className="NewColArea">
           <ResponsiveMasonry
             columnsCountBreakPoints={{
-              180: 1,
-              360: 2,
-              540: 3,
-              720: 4,
-              900: 5,
-              1080: 6,
+              200: 1,
+              400: 2,
+              600: 3,
+              800: 4,
+              1000: 5,
+              1200: 6,
             }}
           >
             <Masonry>

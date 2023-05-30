@@ -10,11 +10,11 @@ import {
   where,
 } from "firebase/firestore";
 import { useRecoilState } from "recoil";
-import { currentColletionSelector } from "@/store/collection";
+import { brandColletionSelector } from "@/store/collection";
 
 const useBrandCollection = (brandName: string) => {
   const [currentCollection, setCurrentCollection] = useRecoilState(
-    currentColletionSelector
+    brandColletionSelector
   );
 
   const getBrandCollectionAdmin = async () => {

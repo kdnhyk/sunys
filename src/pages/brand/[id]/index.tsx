@@ -75,6 +75,10 @@ const BrandWrap = styled.div`
   display: flex;
   flex-direction: column;
 
+  .CollectionArea {
+    padding-bottom: 40px;
+  }
+
   ${media.desktop`
     flex-direction: row;
 
@@ -85,6 +89,8 @@ const BrandWrap = styled.div`
     .CollectionArea {
       width: 60%;
       border-bottom: 1px solid var(--line-color);
+
+
     }
   `}
 `;

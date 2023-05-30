@@ -1,23 +1,25 @@
 import { DefaultValue, atom, selector } from "recoil";
 import { IsCollection } from "../types/collection";
-import { DocumentData, QuerySnapshot } from "firebase/firestore";
 
 export const collectionState = atom<{
-  currentCollection: IsCollection[];
+  brandCollection: IsCollection[];
+  userCollection: IsCollection[];
   recentCollection: IsCollection[];
 }>({
   key: "collectionState",
   default: {
-    currentCollection: [] as IsCollection[],
+    brandCollection: [] as IsCollection[],
+    userCollection: [] as IsCollection[],
     recentCollection: [] as IsCollection[],
   },
 });
 
-export const currentColletionSelector = selector<IsCollection[]>({
-  key: "currentColletionSelector",
+// brand
+export const brandColletionSelector = selector<IsCollection[]>({
+  key: "brandColletionSelector",
   get: ({ get }) => {
     const originalState = get(collectionState);
-    return originalState.currentCollection;
+    return originalState.brandCollection;
   },
   set: ({ set, get }, newValue) => {
     const oldDocs = get(collectionState);
@@ -26,11 +28,31 @@ export const currentColletionSelector = selector<IsCollection[]>({
       collectionState,
       newValue instanceof DefaultValue
         ? oldDocs
-        : { ...oldDocs, currentCollection: newValue }
+        : { ...oldDocs, brandCollection: newValue }
     );
   },
 });
 
+// --
+export const userColletionSelector = selector<IsCollection[]>({
+  key: "userColletionSelector",
+  get: ({ get }) => {
+    const originalState = get(collectionState);
+    return originalState.userCollection;
+  },
+  set: ({ set, get }, newValue) => {
+    const oldDocs = get(collectionState);
+
+    set(
+      collectionState,
+      newValue instanceof DefaultValue
+        ? oldDocs
+        : { ...oldDocs, userCollection: newValue }
+    );
+  },
+});
+
+// news
 export const recentCollectionSelector = selector<IsCollection[]>({
   key: "recentCollectionSelector",
   get: ({ get }) => {

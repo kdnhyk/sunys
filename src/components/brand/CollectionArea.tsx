@@ -74,7 +74,7 @@ const CollectionAreaStyle = styled.div`
   .CollectionWrap {
     height: 100%;
     position: relative;
-    padding: 12px 6px 0px 6px;
+    padding: 9px 6px 0px 6px;
 
     .ColInner {
       padding: 6px;

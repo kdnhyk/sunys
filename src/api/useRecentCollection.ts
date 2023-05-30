@@ -20,9 +20,9 @@ export const getRecentCollectionInit = async () => {
     limit(6)
   );
 
-  console.log("FireStore Access");
+  console.log("SSR");
   const querySnapshot = await getDocs(q);
-
+  console.log(querySnapshot.docs[0]);
   return querySnapshot;
 };
 
@@ -46,45 +46,47 @@ const useRecentCollection = () => {
     recentCollectionSelector
   );
 
-  const { data, isLoading, fetchNextPage, hasNextPage } = useInfiniteQuery(
-    ["recentCollection"],
-    async ({ pageParam }) =>
-      pageParam
-        ? await getRecentCollection(pageParam)
-        : await getRecentCollectionInit(),
-    {
-      getNextPageParam: (querySnapshot) => {
-        if (!querySnapshot.docs) {
-          return null;
-        }
-        const lastPageParam = querySnapshot.docs[querySnapshot.docs.length - 1];
+  const { data, isLoading, isSuccess, fetchNextPage, hasNextPage } =
+    useInfiniteQuery(
+      ["recentCollection"],
+      async ({ pageParam }) => await getRecentCollection(pageParam),
+      {
+        getNextPageParam: (querySnapshot) => {
+          console.log(querySnapshot);
+          if (!querySnapshot.docs) {
+            return null;
+          }
+          const lastPageParam =
+            querySnapshot.docs[querySnapshot.docs.length - 1];
 
-        let result: any[] = [];
-        querySnapshot.forEach((doc) => {
-          result.push({ ...doc.data(), id: doc.id });
-        });
-
-        return lastPageParam;
-      },
-      onSuccess(data) {
-        let result: any[] = [];
-        data.pages.slice(-1).forEach((doc) => {
-          doc.forEach((e) => {
-            result.push({ ...e.data(), id: e.id });
+          let result: any[] = [];
+          querySnapshot.forEach((doc) => {
+            result.push({ ...doc.data(), id: doc.id });
           });
-        });
-        setRecentCollection((prev) => prev.concat(result));
-      },
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnWindowFocus: false,
-    }
-  );
-  // console.log(data?.pages.map((e) => e.data()));
+
+          return lastPageParam;
+        },
+        onSuccess(data) {
+          let result: any[] = [];
+          data.pages.slice(-1).forEach((doc) => {
+            doc.forEach((e) => {
+              result.push({ ...e.data(), id: e.id });
+            });
+          });
+          console.log("result");
+          setRecentCollection((prev) => prev.concat(result));
+        },
+        staleTime: Infinity,
+        cacheTime: Infinity,
+        refetchOnWindowFocus: false,
+      }
+    );
+
   return {
     recentCollection,
     data,
     isLoading,
+    isSuccess,
     fetchNextPage,
     hasNextPage,
   };

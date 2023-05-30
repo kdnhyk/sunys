@@ -247,12 +247,12 @@ const InfoAreaStyle = styled.div`
 
   .StoreWrap {
     width: 100%;
-    padding: 16px 16px;
+    padding: 12px;
     border-bottom: 1px solid var(--line-color);
     .StoreList {
       height: 240px;
       display: flex;
-      gap: 10px;
+      gap: 12px;
       overflow-x: auto;
 
       &::-webkit-scrollbar {

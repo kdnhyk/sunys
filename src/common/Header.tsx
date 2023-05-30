@@ -31,7 +31,7 @@ export default function Header() {
     <HeaderWrap isFixHeader={isFixHeader} ref={targetRef}>
       <div className="LogoArea">
         <Link href={"/"}>
-          <Image src={Logo} alt={""} width={129} height={44}></Image>
+          <Image src={Logo} alt={""} width={129} height={44} priority></Image>
         </Link>
         <div className="EmptyArea"></div>
       </div>
@@ -86,7 +86,8 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     border-top: 1px solid var(--line-color);
     border-bottom: 1px solid var(--line-color);
 
-    background-color: rgba(252, 252, 252, 0.9);
+    background-color: var(--background-color);
+
     z-index: 100;
 
     ${({ isFixHeader }) =>

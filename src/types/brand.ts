@@ -22,9 +22,12 @@ export interface IsOfficialStore {
 
 export interface IsStore {
   id?: string;
-  image: string;
+  images: string[];
   storeName: string;
-  storeUrl: string;
+  storeUrl?: string;
+  storeLocation?: string;
+  brandList: IsBrandName[];
+  description: string;
 }
 
 export interface IsBrandName {

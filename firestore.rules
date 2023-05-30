@@ -11,7 +11,7 @@ service cloud.firestore {
   	}
     match /user/{user} {
       allow write: if true;
-    	allow update: if true;
+    	allow update: if request.auth != null;
   	}
     match /brand/{brand} {
     	allow update: if request.auth != null;

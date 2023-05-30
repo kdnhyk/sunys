@@ -1,3 +1,4 @@
+import MapComponent from "@/components/store/MapComponent";
 import Head from "next/head";
 import styled from "styled-components";
 
@@ -21,15 +22,10 @@ export default function Magazine() {
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
       <MagazineWrap>
-        <p>준비중 입니다</p>
+        <MapComponent />
       </MagazineWrap>
     </>
   );
 }
 
-const MagazineWrap = styled.div`
-  padding-top: 40px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-`;
+const MagazineWrap = styled.div``;

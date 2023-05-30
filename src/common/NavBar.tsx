@@ -21,8 +21,8 @@ export default function NavBar() {
       path: "/brand",
     },
     {
-      name: "매거진",
-      path: "/magazine",
+      name: "스토어",
+      path: "/store",
     },
   ];
 

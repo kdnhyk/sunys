@@ -36,15 +36,21 @@ export default function Account() {
       </Head>
       <AccountBlock>
         <div className="LeftArea">
-          <div className="ImageWrap">{/* <Image /> */}</div>
+          <div className="SettingWrap">{/* <Image /> */}</div>
           <div className="NameWrap">
             <h3>{user.username}</h3>
           </div>
-          <div className="LogoutWrap" onClick={onLogout}>
-            <p className="Logout">로그아웃</p>
+          {/* <div className="MyBrandWrap">
+            {user.scrapBrandList.map((e, i) => (
+              <div key={i}>hi</div>
+            ))}
+          </div> */}
+        </div>
+        <div className="RightArea">
+          <div className="UserCollectionWrap">
+            
           </div>
         </div>
-        <div className="RightArea"></div>
       </AccountBlock>
     </>
   );
@@ -62,22 +68,10 @@ const AccountBlock = styled.div`
     gap: 16px;
     padding: 16px;
 
-    .ImageWrap {
-      width: 180px;
-      height: 180px;
-
-      border: 1px solid var(--line-color);
+    .SettingWrap {
     }
 
     .NameWrap {
-      width: 220px;
-      height: 70px;
-      border: 1px solid var(--line-color);
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
       h3 {
       }
     }

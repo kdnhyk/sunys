@@ -18,7 +18,7 @@ RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 declare global {
   interface Window {
-    Kakao: any;
+    google: any;
     naver: any;
     gtag: any;
   }

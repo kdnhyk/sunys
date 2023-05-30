@@ -13,7 +13,7 @@ export default function useLocationState() {
   };
 
   const onClickCollection = (brandName: string, cid: string) => {
-    router.push(`/brand/${brandName}/collection/${cid}`);
+    router.push(`/brand/${brandName}/${cid}`);
   };
 
   const onClickCollectionSetting = (brandName: string, cid?: string) => {

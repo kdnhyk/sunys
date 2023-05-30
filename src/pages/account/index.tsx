@@ -36,28 +36,12 @@ export default function Account() {
       </Head>
       <AccountBlock>
         <div className="LeftArea">
-          <div className="InfoArea">
-            <div className="ImageWrap">{/* <Image /> */}</div>
-            <div className="NameWrap">
-              <h3>{user.username}</h3>
-            </div>
-            <div className="LogoutWrap" onClick={onLogout}>
-              <p className="Logout">로그아웃</p>
-            </div>
+          <div className="ImageWrap">{/* <Image /> */}</div>
+          <div className="NameWrap">
+            <h3>{user.username}</h3>
           </div>
-          <div className="EmptyArea">
-            <div className="SettingWrap">
-              <SettingIcon />
-            </div>
-            <div className="Empty1">
-              {/* <p
-                className="Signout"
-                onClick={() => setIsOpenSignout((prev) => !prev)}
-              >
-                회원탈퇴
-              </p> */}
-            </div>
-            <div className="Empty2"></div>
+          <div className="LogoutWrap" onClick={onLogout}>
+            <p className="Logout">로그아웃</p>
           </div>
         </div>
         <div className="RightArea"></div>
@@ -73,89 +57,44 @@ const AccountBlock = styled.div`
 
   .LeftArea {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     gap: 16px;
     padding: 16px;
-    .InfoArea {
-      .ImageWrap {
-        width: 180px;
-        height: 180px;
 
-        border: 1px solid var(--line-color);
-        border-radius: 12px;
-        margin-bottom: 16px;
-      }
+    .ImageWrap {
+      width: 180px;
+      height: 180px;
 
-      .NameWrap {
-        width: 180px;
-        height: 70px;
-        border: 1px solid var(--line-color);
-        border-radius: 12px;
+      border: 1px solid var(--line-color);
+      border-radius: 12px;
+    }
 
-        display: flex;
-        justify-content: center;
-        align-items: center;
+    .NameWrap {
+      width: 220px;
+      height: 70px;
+      border: 1px solid var(--line-color);
+      border-radius: 12px;
 
-        margin-bottom: 66px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-        h3 {
-        }
-      }
-
-      .LogoutWrap {
-        width: 180px;
-        height: 70px;
-        border: 1px solid var(--line-color);
-        border-radius: 12px;
-
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        cursor: pointer;
+      h3 {
       }
     }
 
-    .EmptyArea {
-      flex: 1;
-      height: 100%;
-      .SettingWrap {
-        float: right;
-        width: 24px;
-        height: 24px;
-        display: flex;
-        justify-content: end;
-        margin-bottom: 12px;
+    .LogoutWrap {
+      width: 220px;
+      height: 70px;
+      border: 1px solid var(--line-color);
+      border-radius: 12px;
 
-        cursor: pointer;
-      }
+      display: flex;
+      justify-content: center;
+      align-items: center;
 
-      .Empty1 {
-        width: 100%;
-        height: 280px;
-        border: 1px solid var(--line-color);
-        border-radius: 12px;
-
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        justify-content: center;
-        align-items: center;
-
-        margin-bottom: 16px;
-      }
-
-      .Empty2 {
-        width: 100%;
-        height: 240px;
-        border: 1px solid var(--line-color);
-        border-radius: 12px;
-
-        display: flex;
-        flex-direction: column;
-        gap: 16px;
-        justify-content: center;
-        align-items: center;
-      }
+      cursor: pointer;
     }
   }
 

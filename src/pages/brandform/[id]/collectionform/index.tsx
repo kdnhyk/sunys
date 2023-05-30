@@ -6,7 +6,7 @@ export default function CollectionForm() {
   const { id } = useRouter().query;
 
   if (!id) {
-    return false;
+    return <></>;
   }
 
   return (

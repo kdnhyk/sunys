@@ -40,6 +40,9 @@ export default function Account() {
           <div className="NameWrap">
             <h3>{user.username}</h3>
           </div>
+          <div className="LogoutWrap">
+            <p>로그아웃</p>
+          </div>
           {/* <div className="MyBrandWrap">
             {user.scrapBrandList.map((e, i) => (
               <div key={i}>hi</div>
@@ -47,9 +50,7 @@ export default function Account() {
           </div> */}
         </div>
         <div className="RightArea">
-          <div className="UserCollectionWrap">
-            
-          </div>
+          <div className="UserCollectionWrap"></div>
         </div>
       </AccountBlock>
     </>
@@ -77,15 +78,10 @@ const AccountBlock = styled.div`
     }
 
     .LogoutWrap {
-      width: 220px;
-      height: 70px;
-      border: 1px solid var(--line-color);
-
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
       cursor: pointer;
+      p {
+        color: var(--red-color);
+      }
     }
   }
 

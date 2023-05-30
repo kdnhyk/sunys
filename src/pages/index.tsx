@@ -32,7 +32,6 @@ export default function News() {
   const { data, recentCollection, fetchNextPage, hasNextPage } =
     useRecentCollection();
   const [ref, inView] = useInView();
-  console.log(data);
 
   useEffect(() => {
     if (recentCollection.length === 0) {

@@ -42,6 +42,13 @@ export const useAuth = () => {
   }, []);
 
   useEffect(() => {
+    if (user.uid && !currentUser) {
+      localStorage.removeItem("user");
+      resetUser();
+    }
+  }, [currentUser, resetUser, user]);
+
+  useEffect(() => {
     if (currentUser && successs) {
       getCloudUser(currentUser.uid).then(async (cloudUser) => {
         if (!cloudUser) {

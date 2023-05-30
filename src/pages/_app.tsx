@@ -99,6 +99,7 @@ const GlobalStyle = createGlobalStyle`
     --border-color: #dddddd;
     --placeholder-color: #8E8E8E;
     --background-color: #fcfcfc;
+    --red-color: #F33131;
     }
   body {
     padding: 0;

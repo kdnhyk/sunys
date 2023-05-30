@@ -55,7 +55,6 @@ const useRecentCollection = () => {
           : await getRecentCollectionInit(),
       {
         getNextPageParam: (querySnapshot) => {
-          console.log(querySnapshot);
           if (!querySnapshot.docs) {
             return null;
           }
@@ -76,7 +75,6 @@ const useRecentCollection = () => {
               result.push({ ...e.data(), id: e.id });
             });
           });
-          console.log("result");
           setRecentCollection((prev) => prev.concat(result));
         },
         staleTime: Infinity,

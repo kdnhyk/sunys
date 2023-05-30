@@ -1,4 +1,3 @@
-import MapComponent from "@/components/store/MapComponent";
 import Head from "next/head";
 import styled from "styled-components";
 
@@ -21,9 +20,7 @@ export default function Magazine() {
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
-      <MagazineWrap>
-        <MapComponent />
-      </MagazineWrap>
+      <MagazineWrap></MagazineWrap>
     </>
   );
 }

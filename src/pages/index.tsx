@@ -34,20 +34,6 @@ export default function News() {
   const [ref, inView] = useInView();
   console.log(data);
 
-  // useEffect(() => {
-  //   if (data) {
-  //     console.log(data.pages[0]);
-  //     let result: any[] = [];
-  //     data?.pages.slice(-1).forEach((doc) => {
-  //       doc.forEach((e) => {
-  //         result.push({ ...e.data(), id: e.id });
-  //       });
-  //     });
-
-  //     console.log(result);
-  //   }
-  // }, [data]);
-
   useEffect(() => {
     if (recentCollection.length === 0) {
       fetchNextPage();

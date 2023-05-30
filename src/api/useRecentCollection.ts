@@ -22,7 +22,7 @@ export const getRecentCollectionInit = async () => {
 
   console.log("SSR");
   const querySnapshot = await getDocs(q);
-  console.log(querySnapshot.docs[0]);
+
   return querySnapshot;
 };
 
@@ -49,7 +49,10 @@ const useRecentCollection = () => {
   const { data, isLoading, isSuccess, fetchNextPage, hasNextPage } =
     useInfiniteQuery(
       ["recentCollection"],
-      async ({ pageParam }) => await getRecentCollection(pageParam),
+      async ({ pageParam }) =>
+        pageParam
+          ? await getRecentCollection(pageParam)
+          : await getRecentCollectionInit(),
       {
         getNextPageParam: (querySnapshot) => {
           console.log(querySnapshot);

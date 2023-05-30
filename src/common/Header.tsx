@@ -86,7 +86,7 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
     border-top: 1px solid var(--line-color);
     border-bottom: 1px solid var(--line-color);
 
-    background-color: var(--background-color);
+    background-color: rgba(252, 252, 252, 0.9);
     z-index: 100;
 
     ${({ isFixHeader }) =>

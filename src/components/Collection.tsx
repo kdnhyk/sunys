@@ -69,7 +69,6 @@ const CollectionWrap = styled.div<{ isRed: boolean }>`
     width: 100%;
     height: 100%;
     img {
-      border-radius: 12px;
       width: 100%;
       height: 100%;
       object-fit: cover;
@@ -87,8 +86,6 @@ const CollectionWrap = styled.div<{ isRed: boolean }>`
       display: flex;
       justify-content: center;
       align-items: center;
-
-      border-radius: 12px;
 
       p {
         color: white;

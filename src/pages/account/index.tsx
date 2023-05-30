@@ -67,14 +67,12 @@ const AccountBlock = styled.div`
       height: 180px;
 
       border: 1px solid var(--line-color);
-      border-radius: 12px;
     }
 
     .NameWrap {
       width: 220px;
       height: 70px;
       border: 1px solid var(--line-color);
-      border-radius: 12px;
 
       display: flex;
       justify-content: center;
@@ -88,7 +86,6 @@ const AccountBlock = styled.div`
       width: 220px;
       height: 70px;
       border: 1px solid var(--line-color);
-      border-radius: 12px;
 
       display: flex;
       justify-content: center;

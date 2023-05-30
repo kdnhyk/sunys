@@ -37,18 +37,18 @@ export default function CollectionArea({ data }: IsCollectionArea) {
             columnsCountBreakPoints={
               width < 700
                 ? {
-                    200: 1,
-                    400: 2,
-                    600: 3,
-                    800: 4,
-                    1000: 5,
-                    1200: 6,
+                    180: 1,
+                    360: 2,
+                    540: 3,
+                    720: 4,
+                    900: 5,
+                    1080: 6,
                   }
                 : {
-                    600: 1,
-                    800: 2,
-                    1000: 3,
-                    1200: 4,
+                    540: 1,
+                    720: 2,
+                    900: 3,
+                    1080: 4,
                   }
             }
           >
@@ -74,10 +74,10 @@ const CollectionAreaStyle = styled.div`
   .CollectionWrap {
     height: 100%;
     position: relative;
-    padding: 8px 8px 0px 8px;
+    padding: 12px 6px 0px 6px;
 
     .ColInner {
-      padding: 8px;
+      padding: 6px;
     }
 
     .More {

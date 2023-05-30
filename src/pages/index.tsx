@@ -70,12 +70,12 @@ export default function News() {
         <div className="NewColArea">
           <ResponsiveMasonry
             columnsCountBreakPoints={{
-              200: 1,
-              400: 2,
-              600: 3,
-              800: 4,
-              1000: 5,
-              1200: 6,
+              180: 1,
+              360: 2,
+              540: 3,
+              720: 4,
+              900: 5,
+              1080: 6,
             }}
           >
             <Masonry>
@@ -96,7 +96,7 @@ export default function News() {
 const NewsWrap = styled.div`
   padding: 9px 0px 24px 0px;
   .NewColArea {
-    padding: 0px 6px 24px 6px;
+    padding: 0px 6px 20px 6px;
 
     .ColInner {
       padding: 6px;

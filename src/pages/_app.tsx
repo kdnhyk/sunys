@@ -154,12 +154,6 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14px;
   }
 
-  @font-face {
-      font-family: "montserrat";
-      src: url("/font/Montserrat-VariableFont_wght.ttf");
-      font-display: swap;
-    }
-
     @font-face {
       font-family: "pretendard";
       src: url("/font/PretendardVariable.woff2");

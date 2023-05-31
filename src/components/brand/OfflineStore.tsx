@@ -69,7 +69,6 @@ const OfflineStoreWrap = styled.div`
     justify-content: center;
     align-items: center;
 
-    border-radius: 8px;
     p {
       display: none;
       position: absolute;

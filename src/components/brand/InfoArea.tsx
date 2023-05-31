@@ -231,7 +231,7 @@ const InfoAreaStyle = styled.div`
     width: 100%;
     height: 50px;
     display: flex;
-    padding: 0px 16px;
+    padding: 6px 16px;
     justify-content: space-between;
     align-items: center;
     border-bottom: 1px solid var(--line-color);

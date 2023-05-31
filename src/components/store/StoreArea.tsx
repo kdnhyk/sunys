@@ -1,6 +1,7 @@
 import useLocationState from "@/hooks/useLocationState";
 import { IsStore } from "@/types/brand";
 import Image from "next/image";
+import { useState } from "react";
 import styled from "styled-components";
 
 interface IsStoreArea {
@@ -9,6 +10,7 @@ interface IsStoreArea {
 
 export default function StoreArea({ store }: IsStoreArea) {
   const { onClickBarnd } = useLocationState();
+  const [isOpen, setIsOpen] = useState(false);
 
   return (
     <StoreAreaWrap>
@@ -58,9 +60,9 @@ const StoreAreaWrap = styled.div`
 
   .TextWrap {
     position: absolute;
-    padding: 16px;
+    padding: 18px;
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     align-items: center;
     justify-content: space-between;
 
@@ -74,6 +76,7 @@ const StoreAreaWrap = styled.div`
 
     h1 {
       opacity: 0;
+      font-size: 18px;
     }
 
     .BrandListWrap {
@@ -96,6 +99,7 @@ const StoreAreaWrap = styled.div`
 
     &:hover {
       background-color: rgba(1, 1, 1, 0.4);
+      backdrop-filter: blur(1.6px);
 
       h1,
       .BrandListWrap {

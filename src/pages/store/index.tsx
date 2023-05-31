@@ -105,21 +105,15 @@ const StoreWrap = styled.div`
     }
 
     .StoreListWrap {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
+      display: flex;
       gap: 12px;
-
+      justify-content: center;
+      flex-wrap: wrap;
       padding: 12px;
 
-      @media (min-width: 1100px) {
-        grid-template-columns: repeat(3, 1fr);
-      }
-      @media (min-width: 1560px) {
-        grid-template-columns: repeat(4, 1fr);
-      }
-
       .StoreWrap {
-        height: 160px;
+        width: 200px;
+        height: 200px;
         border: 1px solid var(--line-color);
       }
     }

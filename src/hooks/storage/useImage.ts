@@ -6,7 +6,7 @@ import {
   uploadBytes,
 } from "firebase/storage";
 
-type IsTransaction = "logo" | "store" | "collection" | "article";
+type IsTransaction = "logo" | "brandstore" | "store" | "collection" | "article";
 
 export const useImage = (transaction: IsTransaction) => {
   const upload = async (file: File | null, name: string, setImageURL: any) => {

@@ -7,7 +7,6 @@ import { toCheckDateFormmat, toStringByFormatting } from "@/util";
 import Button from "@/components/Button";
 import { useImage } from "@/hooks/storage/useImage";
 import StoreArea1 from "./StoreArea1";
-import useBrand from "@/api/useBrand";
 import { useRouter } from "next/router";
 import useMutationBrand from "@/api/useMutationBrand";
 import useBrandList from "@/api/useBrandList";
@@ -15,16 +14,18 @@ import Textarea from "../Textarea";
 
 interface IsInfoArea {
   brandName?: string;
+  lastBrand?: IsBrand;
 }
 
-export default function InfoArea({ brandName }: IsInfoArea) {
+export default function InfoArea({ brandName, lastBrand }: IsInfoArea) {
   const router = useRouter();
-  const { data } = useBrand(brandName || "");
   const { upload } = useImage("logo");
   const { addBrand, updateBrand } = useMutationBrand(brandName || "");
   const { data: brandList, addBrandList } = useBrandList();
 
-  const [currentBrand, setCurrentBrand] = useState<IsBrand>(initBrand);
+  const [currentBrand, setCurrentBrand] = useState<IsBrand>(
+    lastBrand || initBrand
+  );
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [isEnterButton, setIsEnterButton] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
@@ -80,25 +81,6 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   };
 
   useEffect(() => {
-    if (!data) return;
-    console.log(data);
-    setCurrentBrand(() => ({
-      logo: data.logo,
-      officialUrl: data.officialUrl,
-      brandName: data.brandName,
-      brandNameKo: data.brandNameKo,
-      tag: data.tag,
-      scrapNum: data.scrapNum || 0,
-      description: data.description,
-      saleName: data.saleName,
-      saleStartDate: data.saleStartDate,
-      saleEndDate: data.saleEndDate,
-      officialStoreList: data.officialStoreList,
-      storeList: data.storeList,
-    }));
-  }, [data]);
-
-  useEffect(() => {
     if (
       (currentBrand.saleStartDate || currentBrand.saleEndDate) &&
       !currentBrand.saleName
@@ -109,6 +91,8 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   }, [currentBrand.saleName]);
 
   useEffect(() => {
+    if (!brandList) return;
+
     if (
       currentBrand.brandName &&
       (!brandName
@@ -130,45 +114,19 @@ export default function InfoArea({ brandName }: IsInfoArea) {
   }, [brandList, brandName, currentBrand, logoFile]);
 
   useEffect(() => {
+    if (!brandList) return;
+
     if (isUpload) {
       if (brandName) {
         updateBrand.mutate({
           id: currentBrand.brandName,
-          brand: {
-            logo: currentBrand.logo,
-            officialUrl: currentBrand.officialUrl,
-            brandName: currentBrand.brandName,
-            brandNameKo: currentBrand.brandNameKo,
-            tag: currentBrand.tag,
-            scrapNum: currentBrand.scrapNum,
-            description: currentBrand.description,
-            saleName: currentBrand.saleName,
-            saleStartDate: currentBrand.saleName
-              ? currentBrand.saleStartDate
-              : "",
-            saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
-            officialStoreList: currentBrand.officialStoreList,
-            storeList: currentBrand.storeList,
-          },
+          brand: { ...currentBrand },
         });
       } else if (!brandName) {
         addBrand.mutate({
           id: currentBrand.brandName,
           brand: {
-            logo: currentBrand.logo,
-            officialUrl: currentBrand.officialUrl,
-            brandName: currentBrand.brandName,
-            brandNameKo: currentBrand.brandNameKo,
-            tag: currentBrand.tag,
-            scrapNum: currentBrand.scrapNum,
-            description: currentBrand.description,
-            saleName: currentBrand.saleName,
-            saleStartDate: currentBrand.saleName
-              ? currentBrand.saleStartDate
-              : "",
-            saleEndDate: currentBrand.saleName ? currentBrand.saleEndDate : "",
-            officialStoreList: currentBrand.officialStoreList,
-            storeList: currentBrand.storeList,
+            ...currentBrand,
           },
         });
 
@@ -271,9 +229,9 @@ export default function InfoArea({ brandName }: IsInfoArea) {
       </div>
 
       <div className="StoreWrap">
-        {data && (
+        {lastBrand && (
           <StoreArea1
-            input={data}
+            input={lastBrand}
             onRemoveInputOfficialStore={onRemoveInputOfficialStore}
           />
         )}

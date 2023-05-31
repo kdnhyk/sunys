@@ -30,7 +30,7 @@ const useBrandList = () => {
   const queryClient = useQueryClient();
   const brandRef = collection(store, "brandList");
 
-  const { data, isLoading } = useQuery(
+  const { data, isLoading } = useQuery<IsBrandName[]>(
     ["brandlist"],
     async () => await getBrandList(),
     {

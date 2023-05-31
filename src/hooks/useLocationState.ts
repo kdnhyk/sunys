@@ -9,7 +9,7 @@ export default function useLocationState() {
   };
 
   const onClickBrandSetting = (brandName?: string) => {
-    router.push(`/brandform/${brandName ? brandName : ""}`);
+    router.push(`/brandform/${brandName || ""}`);
   };
 
   const onClickCollection = (brandName: string, cid: string) => {
@@ -17,7 +17,15 @@ export default function useLocationState() {
   };
 
   const onClickCollectionSetting = (brandName: string, cid?: string) => {
-    router.push(`/brandform/${brandName}/collectionform/${cid ? cid : ""}`);
+    router.push(`/brandform/${brandName}/collectionform/${cid || ""}`);
+  };
+
+  const onClickStore = () => {
+    router.push("/store");
+  };
+
+  const onClickStoreSetting = (storeName?: string) => {
+    router.push(`/storeform/${storeName || ""}`);
   };
 
   return {
@@ -25,5 +33,7 @@ export default function useLocationState() {
     onClickBrandSetting,
     onClickCollection,
     onClickCollectionSetting,
+    onClickStore,
+    onClickStoreSetting,
   };
 }

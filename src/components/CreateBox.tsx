@@ -1,11 +1,13 @@
 import styled, { css } from "styled-components";
 import { IsBrand } from "../types/brand";
 
-interface IsCreateBoxStyle {}
+interface IsCreateBoxStyle {
+  width?: number;
+}
 
-export default function CreateBox({}: IsCreateBoxStyle) {
+export default function CreateBox({ width }: IsCreateBoxStyle) {
   return (
-    <CreateBoxWrap>
+    <CreateBoxWrap width={width || 200}>
       <div className="ImageWrap">
         <svg
           width="40"
@@ -24,7 +26,7 @@ export default function CreateBox({}: IsCreateBoxStyle) {
   );
 }
 
-const CreateBoxWrap = styled.div`
+const CreateBoxWrap = styled.div<{ width: number }>`
   position: relative;
   cursor: pointer;
   .ImageWrap {
@@ -32,8 +34,7 @@ const CreateBoxWrap = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #d9d9d9;
-    width: 200px;
-    height: 200px;
-    border-radius: 12px;
+    width: ${({ width }) => width + "px"};
+    height: ${({ width }) => width + "px"};
   }
 `;

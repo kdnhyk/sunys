@@ -1,3 +1,14 @@
+export const initCollection: IsCollection = {
+  id: "",
+  collectionName: "",
+  releaseDate: "",
+  images: [],
+
+  brandName: "",
+
+  isVisible: false,
+};
+
 export interface IsCollection {
   id?: string;
   collectionName: string;

@@ -4,7 +4,7 @@ import styled, { css } from "styled-components";
 interface IsInput extends ComponentProps<"input"> {
   name: string;
   value: string;
-  onChange?: (e: ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   type?: HTMLInputTypeAttribute;
   placeholder: string;
   isRed?: boolean;

@@ -22,7 +22,7 @@ export default function WindowModal1({ exitModal, input }: IsWindowModal1) {
   const [isEnterButton, setIsEnterButton] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
 
-  const { upload } = useImage("store");
+  const { upload } = useImage("brandstore");
   const { updateBrand } = useMutationBrand(input.brandName);
 
   const onChangeInput = async (

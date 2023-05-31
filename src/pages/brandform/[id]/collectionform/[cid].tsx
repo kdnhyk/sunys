@@ -10,16 +10,16 @@ export default function CollectionForm() {
   const { data } = useCollection(typeof cid === "string" ? cid : "");
   const { data: articleList } = useArticle(typeof cid === "string" ? cid : "");
 
-  if (!articleList) return <></>;
+  if (!articleList || !data) return <></>;
 
   return (
     <CollectionFormWrap>
       <MainArea
         brandName={data.brandName}
-        currentCollection={data}
+        lastCollection={data}
         articleList={articleList}
       />
-      <ArticleArea currentCollection={data} articleList={articleList} />
+      <ArticleArea lastCollection={data} articleList={articleList} />
     </CollectionFormWrap>
   );
 }

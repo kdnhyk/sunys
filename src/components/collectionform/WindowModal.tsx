@@ -11,29 +11,26 @@ import { toCheckPriceFormmat } from "@/util";
 
 interface IsWindowModal {
   exitModal: () => void;
-  currentCollection: IsCollection;
+  collection: IsCollection;
 }
 
-export default function WindowModal({
-  exitModal,
-  currentCollection,
-}: IsWindowModal) {
+export default function WindowModal({ exitModal, collection }: IsWindowModal) {
   const [image, setImage] = useState<File | null>(null);
   const [isEnterButtonOn, setIsEnterButtonOn] = useState(false);
   const [isUpload, setIsUpload] = useState(false);
 
   const { upload } = useImage("article");
-  const { updateArticle } = useMutationArticle(currentCollection.id || "");
+  const { updateArticle } = useMutationArticle(collection.id || "");
   const [input, setInput] = useState<IsArticle>({
     images: [],
     articleName: "",
     description: "",
     price: "",
-    collectionId: currentCollection.id || "",
-    collectionName: currentCollection.collectionName,
+    collectionId: collection.id || "",
+    collectionName: collection.collectionName,
 
-    brandName: currentCollection.brandName,
-    releaseDate: currentCollection.releaseDate,
+    brandName: collection.brandName,
+    releaseDate: collection.releaseDate,
   });
 
   const onChangeInput = async (

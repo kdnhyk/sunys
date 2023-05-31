@@ -3,6 +3,7 @@ import { media } from "@/media";
 import InfoArea from "../../../components/brandform/InfoArea";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
+import useBrand from "@/api/useBrand";
 
 const CollectionArea = dynamic(
   () => import("@/components/brandform/CollectionArea"),
@@ -14,19 +15,20 @@ const CollectionArea = dynamic(
 //
 export default function BrandForm() {
   const { id } = useRouter().query;
+  const { data } = useBrand(typeof id === "string" ? id : "");
 
-  if (!id) {
+  if (typeof id !== "string") {
     return <></>;
   }
 
   return (
     <BrandWrap>
       <div className="InfoWrap">
-        <InfoArea brandName={typeof id === "string" ? id : ""} />
+        <InfoArea brandName={id} lastBrand={data} />
       </div>
 
       <div className="CollectionWrap">
-        <CollectionArea brandName={typeof id === "string" ? id : ""} />
+        <CollectionArea brandName={id} />
       </div>
     </BrandWrap>
   );

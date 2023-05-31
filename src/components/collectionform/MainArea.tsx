@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import UnderLineBox from "../TitleBox";
 import { ChangeEvent, useCallback, useEffect, useState } from "react";
-import { IsCollection } from "@/types/collection";
+import { IsCollection, initCollection } from "@/types/collection";
 import Button from "../Button";
 import ImgageUploader from "../ImageUploader";
 import Input from "../Input";
@@ -14,34 +14,28 @@ import useLocationState from "@/hooks/useLocationState";
 
 interface IsMainWrap {
   brandName: string;
-  currentCollection?: IsCollection;
+  lastCollection?: IsCollection;
   articleList?: IsArticle[];
 }
 
 export default function MainArea({
   brandName,
-  currentCollection,
+  lastCollection,
   articleList = [],
 }: IsMainWrap) {
   const { updateCollection, addCollection } = useMutationCollection();
-  const { upload } = useImage("collection");
+  const { upload, deleteImage } = useImage("collection");
   const { deleteCollection } = useMutationCollection();
   const { onClickCollection, onClickBrandSetting } = useLocationState();
 
   const [logoFile, setLogoFile] = useState<File | null>(null);
   const [isUpload, setIsUpload] = useState(false);
-  const [isEnterButtonOn, setIsEnterButtonOn] = useState(false);
-  const initCollection: IsCollection = {
-    id: "",
-    collectionName: "",
-    releaseDate: "",
-    images: [],
-
-    brandName,
-
-    isVisible: false,
-  };
-  const [input, setInput] = useState<IsCollection>(initCollection);
+  const [isEnterButtonOn, setIsEnterButtonOn] = useState(
+    lastCollection ? true : false
+  );
+  const [input, setInput] = useState<IsCollection>(
+    lastCollection || initCollection
+  );
 
   const setImageUrl = useCallback(async (url: string) => {
     await setInput((prev) => {
@@ -82,40 +76,23 @@ export default function MainArea({
   };
 
   const onDeleteCollection = () => {
-    if (!currentCollection?.id) {
+    if (!lastCollection?.id) {
       alert("생성중엔 삭제할 수 없습니다");
       return;
     }
 
     if (articleList.length > 0) {
-      alert("제품 먼저 삭제 해야합니다");
+      alert("상품 먼저 삭제 해야합니다");
       return;
     }
 
     deleteCollection.mutate({
-      id: currentCollection.id,
-      imageUrl: currentCollection.images[0],
+      id: lastCollection.id,
+      imageUrl: lastCollection.images[0],
     });
 
     onClickBrandSetting(brandName);
   };
-
-  // Get CurrentCollection Data
-  useEffect(() => {
-    if (!currentCollection) return;
-    setInput(() => ({
-      id: currentCollection.id,
-      collectionName: currentCollection.collectionName,
-      releaseDate: currentCollection.releaseDate,
-      images: currentCollection.images,
-
-      brandName: currentCollection.brandName,
-
-      isVisible: currentCollection.isVisible,
-    }));
-
-    setIsEnterButtonOn(() => true);
-  }, [brandName, currentCollection]);
 
   // Check Confirm Button
   useEffect(() => {
@@ -134,9 +111,9 @@ export default function MainArea({
   // Update & Upload
   useEffect(() => {
     if (isUpload) {
-      if (currentCollection) {
+      if (lastCollection) {
         updateCollection.mutate({
-          id: currentCollection.id || "",
+          id: lastCollection.id || "",
           collection: {
             collectionName: input.collectionName,
             releaseDate: input.releaseDate,
@@ -146,13 +123,13 @@ export default function MainArea({
             isVisible: input.isVisible,
           },
         });
-        onClickCollection(brandName, currentCollection.id || "");
+        onClickCollection(brandName, lastCollection.id || "");
 
-        // if (currentCollection.images[0] !== input.images[0]) {
-        //   console.log("Delete last image");
-        //   deleteImage(currentCollection?.images[0]);
-        // }
-      } else if (!currentCollection) {
+        if (lastCollection.images[0] !== input.images[0]) {
+          console.log("Delete last image");
+          deleteImage(lastCollection.images[0]);
+        }
+      } else if (!lastCollection) {
         addCollection.mutate({
           collectionName: input.collectionName,
           releaseDate: input.releaseDate,
@@ -170,7 +147,7 @@ export default function MainArea({
   return (
     <MainAreaWrap>
       <div className="InfoWrap">
-        {currentCollection?.id && (
+        {lastCollection?.id && (
           <div className="DeleteWrap" onClick={onDeleteCollection}>
             <svg
               width="22"
@@ -193,7 +170,7 @@ export default function MainArea({
         />
         <UnderLineBox>{brandName}</UnderLineBox>
         <ImgageUploader
-          defaultImageUrl={currentCollection?.images[0] || ""}
+          defaultImageUrl={lastCollection?.images[0] || ""}
           setImageFile={setImageFile}
         />
         <Input

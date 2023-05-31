@@ -168,6 +168,7 @@ const BrandListAreaWrap = styled.div`
       cursor: pointer;
     }
   }
+
   .SearchBrandWrap,
   .ScrapBrandWrap,
   .AllBrandWrap {

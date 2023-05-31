@@ -20,12 +20,19 @@ export interface IsOfficialStore {
   storeLocation: string; // 네이버 지도로 연결
 }
 
+export const initStore: IsStore = {
+  images: [],
+  storeName: "",
+  storeUrl: "",
+  storeLocation: "",
+  brandList: [],
+  description: "",
+};
 export interface IsStore {
-  id?: string;
   images: string[];
   storeName: string;
-  storeUrl?: string;
-  storeLocation?: string;
+  storeUrl: string;
+  storeLocation: string;
   brandList: IsBrandName[];
   description: string;
 }

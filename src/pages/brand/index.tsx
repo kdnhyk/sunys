@@ -49,7 +49,7 @@ export default function BrandList() {
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
       <BrandListStyle>
-        <div className="LeftArea">
+        <div className="LeftSide">
           <div className="SearchInputWrap">
             <SearchInput
               placeholder="Search By Brand"
@@ -62,7 +62,7 @@ export default function BrandList() {
             <BrandListArea searchInput={searchInput} />
           </div>
         </div>
-        <div className="RightArea"></div>
+        <div className="RightSide"></div>
       </BrandListStyle>
     </>
   );
@@ -74,7 +74,7 @@ const BrandListStyle = styled.div`
 
   width: 100%;
 
-  .LeftArea {
+  .LeftSide {
     .SearchInputWrap {
       position: sticky;
       top: 50px;
@@ -96,7 +96,7 @@ const BrandListStyle = styled.div`
     position: fixed;
     height: calc(100% - 50px);
 
-    .LeftArea {
+    .LeftSide {
       position: relative;
       width: 40%;
 
@@ -111,7 +111,7 @@ const BrandListStyle = styled.div`
       }
     }
 
-    .RightArea {
+    .RightSide {
       width: 60%;
     }
   `}

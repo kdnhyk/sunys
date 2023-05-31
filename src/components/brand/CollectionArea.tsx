@@ -35,7 +35,7 @@ export default function CollectionArea({ data }: IsCollectionArea) {
         <div className="CollectionWrap">
           <ResponsiveMasonry
             columnsCountBreakPoints={
-              width < 700
+              width < 768
                 ? {
                     180: 1,
                     360: 2,

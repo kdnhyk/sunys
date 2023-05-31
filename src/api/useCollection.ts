@@ -8,6 +8,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
+import { IsCollection } from "@/types/collection";
 
 export const getCollectionByCid = async (cid: string) => {
   const q = query(
@@ -28,7 +29,7 @@ export const getCollectionByCid = async (cid: string) => {
 };
 
 const useCollection = (cid: string) => {
-  const { data } = useQuery(
+  const { data } = useQuery<IsCollection>(
     ["collection", cid],
     async () => await getCollectionByCid(cid),
     {

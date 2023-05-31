@@ -97,7 +97,6 @@ const CartArticleBlock = styled.div`
     height: 120px;
 
     img {
-      border-radius: 8px;
       object-fit: cover;
       cursor: pointer;
     }

@@ -31,8 +31,6 @@ const BrandWrap = styled.div`
     height: 200px;
     width: 200px;
     padding: 16px;
-    background-color: white;
-    border-radius: 8px;
     cursor: pointer;
     img {
       object-fit: contain;

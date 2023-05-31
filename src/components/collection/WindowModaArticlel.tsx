@@ -85,7 +85,7 @@ const WindowModalArticleBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 20;
+  z-index: 100;
 
   .ModalInner {
     position: absolute;
@@ -102,7 +102,7 @@ const WindowModalArticleBlock = styled.div`
 
     border: 1px solid var(--line-color);
     overflow-y: auto;
-    z-index: 10;
+    z-index: 100;
 
     .HeaderWrap {
       padding: 12px;
@@ -112,10 +112,9 @@ const WindowModalArticleBlock = styled.div`
 
       border-bottom: 1px solid var(--line-color);
       background-color: var(--background-color);
-      z-index: 10;
+      z-index: 100;
 
       h1 {
-        font-family: montserrat;
       }
     }
 
@@ -142,11 +141,9 @@ const WindowModalArticleBlock = styled.div`
       z-index: 10;
 
       h3 {
-        font-family: montserrat;
       }
       p {
         margin-bottom: 8px;
-        font-family: montserrat;
       }
       .ButtonWrap {
         display: flex;

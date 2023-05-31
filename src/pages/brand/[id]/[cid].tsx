@@ -38,13 +38,15 @@ export default function Collection() {
   const { data } = useCollection(typeof cid === "string" ? cid : "");
   const { data: articleData } = useArticle(typeof cid === "string" ? cid : "");
 
+  if (!data) return <></>;
+
   return (
     <>
       <Head>
         <title>{data.brandName + " | " + data.collectionName}</title>
         <meta
           name="description"
-          content={data.brandNameko + "의 " + data.collectionName + " 컬렉션"}
+          content={data.brandName + " | " + data.collectionName}
         />
 
         <meta property="og:image" content={data.images[0]} />

@@ -4,7 +4,7 @@ import { css, CSSObject, SimpleInterpolation } from "styled-components";
 type DeviceType = "desktop";
 
 const sizes: Record<DeviceType, number> = {
-  desktop: 700,
+  desktop: 768,
   // tablet: 768,
   // phone: 600,
 };

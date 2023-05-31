@@ -7,6 +7,8 @@ import Head from "next/head";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import InfoArea from "@/components/brand/InfoArea";
+import { getBrandList } from "@/api/useBrandList";
+import { IsBrandName } from "@/types/brand";
 
 const CollectionArea = dynamic(
   () => import("@/components/brand/CollectionArea"),
@@ -15,10 +17,22 @@ const CollectionArea = dynamic(
   }
 );
 
-export const getServerSideProps = async (context: {
-  query: { id: string };
-}) => {
-  const { id } = context.query;
+export const getStaticPaths = async () => {
+  const brandList = await getBrandList();
+  const paths = brandList.map((e: IsBrandName) => ({
+    params: {
+      id: e.default,
+    },
+  }));
+
+  return {
+    paths,
+    fallback: false,
+  };
+};
+
+export const getStaticProps = async ({ params }: { params: any }) => {
+  const { id } = params.id;
   const queryClient = new QueryClient();
 
   await queryClient.prefetchQuery(
@@ -39,6 +53,8 @@ export const getServerSideProps = async (context: {
 export default function Brand() {
   const { id } = useRouter().query;
   const { data } = useBrand(typeof id === "string" ? id : "");
+
+  if (!data) return;
 
   return (
     <>

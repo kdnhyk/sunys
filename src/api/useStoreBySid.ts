@@ -1,12 +1,19 @@
 import { useQuery } from "@tanstack/react-query";
 import { store } from "@/firebase";
-import { collection, getDocs, limit, query, where } from "firebase/firestore";
-import { IsBrand } from "@/types/brand";
+import {
+  collection,
+  documentId,
+  getDocs,
+  limit,
+  query,
+  where,
+} from "firebase/firestore";
+import { IsStore } from "@/types/brand";
 
-export const getBrandByBrandName = async (brandName: string) => {
+export const getCollectionBySid = async (sid: string) => {
   const q = query(
-    collection(store, "brand"),
-    where("brandName", "==", brandName),
+    collection(store, "store"),
+    where(documentId(), "==", sid),
     limit(1)
   );
 
@@ -21,12 +28,12 @@ export const getBrandByBrandName = async (brandName: string) => {
   return result[0];
 };
 
-const useBrand = (brandName: string) => {
-  const { data } = useQuery<IsBrand>(
-    ["brand", brandName],
-    async () => await getBrandByBrandName(brandName),
+const useStoreBySid = (sid: string) => {
+  const { data } = useQuery<IsStore>(
+    ["store", sid],
+    async () => await getCollectionBySid(sid),
     {
-      enabled: !!brandName,
+      enabled: !!sid,
       staleTime: Infinity,
       cacheTime: Infinity,
       refetchOnWindowFocus: false,
@@ -36,4 +43,4 @@ const useBrand = (brandName: string) => {
   return { data };
 };
 
-export default useBrand;
+export default useStoreBySid;

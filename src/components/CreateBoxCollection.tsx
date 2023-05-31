@@ -35,6 +35,5 @@ const CreateBoxCollectionWrap = styled.div`
     justify-content: center;
     align-items: center;
     background-color: #d9d9d9;
-    border-radius: 12px;
   }
 `;

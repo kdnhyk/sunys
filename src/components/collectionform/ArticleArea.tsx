@@ -8,15 +8,15 @@ import Article from "./Article";
 import useMutationArticle from "@/api/useMutationArticle";
 
 interface IsArticleArea {
-  currentCollection: IsCollection;
+  lastCollection: IsCollection;
   articleList: IsArticle[];
 }
 
 export default function ArticleArea({
-  currentCollection,
+  lastCollection,
   articleList,
 }: IsArticleArea) {
-  const { deleteArticle } = useMutationArticle(currentCollection.id || "");
+  const { deleteArticle } = useMutationArticle(lastCollection.id || "");
 
   const [isOpenModal, setIsOpenModal] = useState(false);
 
@@ -56,7 +56,7 @@ export default function ArticleArea({
       {isOpenModal && (
         <WindowModal
           exitModal={handleIsOpenModal}
-          currentCollection={currentCollection}
+          collection={lastCollection}
         />
       )}
     </ArticleAreaWrap>

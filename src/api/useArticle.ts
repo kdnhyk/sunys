@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { store } from "@/firebase";
 import { collection, getDocs, limit, query, where } from "firebase/firestore";
+import { IsArticle } from "@/types/article";
 
-const getArticleByCid = async (cid: string) => {
+const getArticleListByCid = async (cid: string) => {
   const q = query(
     collection(store, "article"),
     where("collectionId", "==", cid),
@@ -21,9 +22,9 @@ const getArticleByCid = async (cid: string) => {
 };
 
 const useArticle = (cid: string) => {
-  const { data } = useQuery(
-    ["collectionArticle", cid],
-    async () => await getArticleByCid(cid),
+  const { data } = useQuery<IsArticle[]>(
+    ["collectionArticleList", cid],
+    async () => await getArticleListByCid(cid),
     {
       enabled: !!cid,
       staleTime: Infinity,

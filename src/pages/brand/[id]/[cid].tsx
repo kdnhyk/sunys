@@ -1,6 +1,8 @@
 import styled from "styled-components";
-import useCollection, { getCollectionByCid } from "@/api/useCollection";
-import useArticle from "@/api/useArticle";
+import useCollection, {
+  getCollectionByCid,
+} from "@/api/collection/useCollection";
+import useArticle from "@/api/article/useArticle";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import dynamic from "next/dynamic";
@@ -90,7 +92,6 @@ const CollectionWrap = styled.div`
     grid-template-columns: repeat(2, 1fr);
     gap: 1px;
     row-gap: 10px;
-    padding-bottom: 40px;
 
     @media (min-width: 900px) {
       grid-template-columns: repeat(3, 1fr);

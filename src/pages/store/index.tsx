@@ -2,12 +2,15 @@ import useRecentStoreList, {
   getRecentStoreList,
 } from "@/api/useRecentStoreList";
 import { AddIcon } from "@/asset/Icon";
+import MainStoreArea from "@/components/store/MainStoreArea";
 import StoreArea from "@/components/store/StoreArea";
 import { useAuth } from "@/hooks/useAuth";
 import useLocationState from "@/hooks/useLocationState";
 import { media } from "@/media";
+import { IsStore } from "@/types/brand";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import Head from "next/head";
+import { useState } from "react";
 import styled from "styled-components";
 
 export const getStaticProps = async () => {
@@ -32,6 +35,13 @@ export default function Store() {
   const { user } = useAuth();
   const { onClickStoreSetting } = useLocationState();
   const { data } = useRecentStoreList();
+  const { onClickBarnd } = useLocationState();
+
+  const [selectedStore, setSelectedStore] = useState<IsStore | null>(null);
+
+  const onClickStore = (store: IsStore) => {
+    setSelectedStore(() => store);
+  };
 
   if (!data) return <></>;
 
@@ -62,10 +72,15 @@ export default function Store() {
               </div>
             </div>
           )}
+
           <div className="StoreListWrap">
             {data.map((e, i) => {
               return (
-                <div className="StoreWrap" key={i}>
+                <div
+                  className="StoreWrap"
+                  onClick={() => onClickStore(e)}
+                  key={i}
+                >
                   <StoreArea store={e} />
                 </div>
               );
@@ -109,12 +124,20 @@ const StoreWrap = styled.div`
       gap: 12px;
       justify-content: center;
       flex-wrap: wrap;
-      padding: 12px;
+      padding: 20px 12px;
 
       .StoreWrap {
-        width: 200px;
-        height: 200px;
+        width: 160px;
+        height: 160px;
         border: 1px solid var(--line-color);
+      }
+    }
+
+    .MainStoreWrap {
+      .ImageWrap {
+        img {
+          object-fit: contain;
+        }
       }
     }
   }

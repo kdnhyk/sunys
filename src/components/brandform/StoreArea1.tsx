@@ -5,7 +5,7 @@ import WindowModal1 from "./WindowModal1";
 import CreateBox from "../CreateBox";
 import OfflineStore from "../brand/OfflineStore";
 import { useImage } from "@/hooks/storage/useImage";
-import useMutationBrand from "@/api/useMutationBrand";
+import useMutationBrand from "@/api/brand/useMutationBrand";
 
 interface IsStoreArea1 {
   input: IsBrand;

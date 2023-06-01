@@ -3,7 +3,7 @@ import { media } from "@/media";
 import InfoArea from "../../../components/brandform/InfoArea";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import useBrand from "@/api/useBrand";
+import useBrand from "@/api/brand/useBrand";
 
 const CollectionArea = dynamic(
   () => import("@/components/brandform/CollectionArea"),

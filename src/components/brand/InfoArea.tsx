@@ -4,7 +4,7 @@ import OfflineStore from "./OfflineStore";
 import Button from "../Button";
 import { IsBrand } from "@/types/brand";
 import useLocationState from "@/hooks/useLocationState";
-import useMutationBrand from "@/api/useMutationBrand";
+import useMutationBrand from "@/api/brand/useMutationBrand";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
 import { useUser } from "@/api/useUser";

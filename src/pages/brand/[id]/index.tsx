@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { media } from "@/media";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import useBrand, { getBrandByBrandName } from "@/api/useBrand";
+import useBrand, { getBrandByBrandName } from "@/api/brand/useBrand";
 import Head from "next/head";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
@@ -92,7 +92,6 @@ const BrandWrap = styled.div`
   flex-direction: column;
 
   .CollectionArea {
-    padding-bottom: 40px;
   }
 
   ${media.desktop`

@@ -6,7 +6,7 @@ import Button from "../Button";
 import { useImage } from "../../hooks/storage/useImage";
 import { IsArticle } from "../../types/article";
 import { IsCollection } from "../../types/collection";
-import useMutationArticle from "@/api/useMutationArticle";
+import useMutationArticle from "@/api/article/useMutationArticle";
 import { toCheckPriceFormmat } from "@/util";
 
 interface IsWindowModal {
@@ -27,10 +27,8 @@ export default function WindowModal({ exitModal, collection }: IsWindowModal) {
     description: "",
     price: "",
     collectionId: collection.id || "",
-    collectionName: collection.collectionName,
 
     brandName: collection.brandName,
-    releaseDate: collection.releaseDate,
   });
 
   const onChangeInput = async (

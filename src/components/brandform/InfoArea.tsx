@@ -8,7 +8,7 @@ import Button from "@/components/Button";
 import { useImage } from "@/hooks/storage/useImage";
 import StoreArea1 from "./StoreArea1";
 import { useRouter } from "next/router";
-import useMutationBrand from "@/api/useMutationBrand";
+import useMutationBrand from "@/api/brand/useMutationBrand";
 import useBrandList from "@/api/useBrandList";
 import Textarea from "../Textarea";
 

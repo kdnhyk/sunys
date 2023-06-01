@@ -2,9 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useAuth } from "@/hooks/useAuth";
 import useLocationState from "@/hooks/useLocationState";
-import useCollection from "@/api/useCollection";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import { SettingIcon } from "@/asset/Icon";
 import { IsCollection } from "@/types/collection";
 
@@ -62,7 +60,7 @@ export default function MainArea({ collection }: IsMainArea) {
           <h1>{collection.brandName}</h1>
         </div>
 
-        <p className="CollectionName">{collection.collectionName}</p>
+        <h2 className="CollectionName">{collection.collectionName}</h2>
 
         {user.admin && (
           <div
@@ -83,14 +81,15 @@ const MainAreaWrap = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+
   .ImageWrap {
     width: 100%;
-    height: auto;
+    height: 100%;
     position: relative;
 
     img {
       width: 100%;
-      height: auto;
+      height: 100%;
       object-fit: contain;
     }
     .DDayWrap {
@@ -119,7 +118,7 @@ const MainAreaWrap = styled.div`
       right: 4px;
       background-color: white;
       p {
-        color: #8e8e8e;
+        color: var(--placeholder-color);
       }
     }
   }
@@ -128,14 +127,16 @@ const MainAreaWrap = styled.div`
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding-bottom: 10px;
+    gap: 16px;
+    padding: 10px 16px 20px 16px;
     /* border-bottom: 1px solid black; */
     .BrandName {
+      color: var(--placeholder-color);
       cursor: pointer;
     }
     .CollectionName {
-      color: #8e8e8e;
+      font-size: 20px;
+      text-align: center;
     }
     .Setting {
       cursor: pointer;

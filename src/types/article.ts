@@ -4,10 +4,8 @@ export const initState: IsArticle = {
   description: "",
   price: "",
   collectionId: "",
-  collectionName: "",
 
   brandName: "",
-  releaseDate: "",
 };
 
 export interface IsArticle {
@@ -20,6 +18,4 @@ export interface IsArticle {
 
   brandName: string;
   collectionId: string;
-  collectionName: string;
-  releaseDate: string;
 }

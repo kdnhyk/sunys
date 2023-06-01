@@ -13,7 +13,9 @@ export const useImage = (transaction: IsTransaction) => {
     if (!file) return;
 
     console.log(transaction, name);
-    const storageRef = ref(storage, `${transaction}/${name}`);
+    const newName = name.replaceAll(/\//g, "");
+
+    const storageRef = ref(storage, `${transaction}/${newName}`);
 
     if (file === null) {
       console.log("File is not found");

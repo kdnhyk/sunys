@@ -61,4 +61,6 @@ export interface IsBrand {
   storeList: IsStore[];
 
   isVisible?: boolean;
+
+  createdTime?: { seconds: number; nanoseconds: number };
 }

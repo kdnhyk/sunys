@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../Collection";
-import useBrandCollection from "@/api/useBrandCollection";
+import useBrandCollection from "@/api/collection/useBrandCollection";
 import useLocationState from "@/hooks/useLocationState";
 import CreateBoxCollection from "../CreateBoxCollection";
 import { useAuth } from "@/hooks/useAuth";

@@ -2,8 +2,8 @@ import styled from "styled-components";
 import MainArea from "@/components/collectionform/MainArea";
 import ArticleArea from "@/components/collectionform/ArticleArea";
 import { useRouter } from "next/router";
-import useCollection from "@/api/useCollection";
-import useArticle from "@/api/useArticle";
+import useCollection from "@/api/collection/useCollection";
+import useArticle from "@/api/article/useArticle";
 
 export default function CollectionForm() {
   const { cid } = useRouter().query;

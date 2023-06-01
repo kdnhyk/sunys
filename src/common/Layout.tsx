@@ -19,6 +19,7 @@ export default function Layout({ children }: IsLayout) {
 
 const LayoutWrap = styled.div`
   main {
+    padding-bottom: 40px;
     padding-top: 0px;
     ${media.desktop`
       padding-top: 50px;

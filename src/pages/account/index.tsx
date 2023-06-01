@@ -41,7 +41,7 @@ export default function Account() {
             <h3>{user.username}</h3>
           </div>
           <div className="LogoutWrap">
-            <p>로그아웃</p>
+            <p onClick={onLogout}>로그아웃</p>
           </div>
           {/* <div className="MyBrandWrap">
             {user.scrapBrandList.map((e, i) => (

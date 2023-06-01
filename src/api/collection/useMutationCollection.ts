@@ -1,6 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { store, timestamp } from "@/firebase";
-import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
+import {
+  Timestamp,
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import { IsCollection } from "@/types/collection";
 import { useImage } from "@/hooks/storage/useImage";
 
@@ -12,7 +19,7 @@ const useMutationCollection = () => {
   const addCollection = useMutation(
     (collection: IsCollection) => addDocs(collection),
     {
-      onMutate() {},
+      onMutate: () => {},
       onSuccess: () => {
         queryClient.invalidateQueries(["brandCollection"]);
       },
@@ -24,9 +31,10 @@ const useMutationCollection = () => {
     ({ id, collection }: { id: string; collection: IsCollection }) =>
       updateDocs(id, collection),
     {
-      onMutate() {},
-      onSuccess() {
+      onMutate: () => {},
+      onSuccess: (data, { id }) => {
         queryClient.invalidateQueries(["brandCollection"]);
+        queryClient.invalidateQueries(["collection", id]);
       },
     }
   );
@@ -55,10 +63,17 @@ const useMutationCollection = () => {
   };
 
   const updateDocs = async (id: string, collection: IsCollection) => {
+    if (!collection.createdTime) return
+    const createdTime = new Timestamp(
+      collection.createdTime.seconds,
+      collection.createdTime?.nanoseconds
+    );
+
     await setDoc(
       doc(CollectionRef, id),
       {
         ...collection,
+        createdTime,
       },
       { merge: true }
     );

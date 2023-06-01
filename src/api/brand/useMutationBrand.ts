@@ -1,6 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { store, timestamp } from "@/firebase";
-import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
+import {
+  Timestamp,
+  addDoc,
+  collection,
+  deleteDoc,
+  doc,
+  setDoc,
+} from "firebase/firestore";
 import { IsBrand } from "@/types/brand";
 
 const useMutationBrand = (brandName: string) => {
@@ -48,10 +55,16 @@ const useMutationBrand = (brandName: string) => {
   };
 
   const updateDocs = async (id: string, brand: IsBrand) => {
+    if (!brand.createdTime) return;
+    const createdTime = new Timestamp(
+      brand.createdTime.seconds,
+      brand.createdTime?.nanoseconds
+    );
     await setDoc(
       doc(brandRef, id),
       {
         ...brand,
+        createdTime,
       },
       { merge: true }
     );

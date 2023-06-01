@@ -44,8 +44,7 @@ export default function Collection({
       </div>
 
       <div className="TextlWrap">
-        <h3>{collection.brandName}</h3>
-        <p>{collection.collectionName}</p>
+        <h3>{collection.collectionName}</h3>
       </div>
     </CollectionWrap>
   );
@@ -55,14 +54,12 @@ const CollectionWrap = styled.div<{ isRed: boolean }>`
   position: relative;
   cursor: pointer;
 
-  /* &:hover {
-    .ImageWrap {
-      img {
-        transition: scale 0.2s ease-in-out;
-        scale: 0.98;
+  &:hover {
+    .TextlWrap {
+      h3 {
       }
     }
-  } */
+  }
 
   .ImageWrap {
     position: relative;
@@ -98,15 +95,10 @@ const CollectionWrap = styled.div<{ isRed: boolean }>`
     height: fit-content;
 
     h3 {
-      margin-bottom: 4px;
-      color: ${({ isRed }) => isRed && "#F33131"};
-    }
-    p {
-      color: #8e8e8e;
-      display: -webkit-box;
+      /* display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;
-      overflow: hidden;
+      overflow: hidden; */
     }
   }
 `;

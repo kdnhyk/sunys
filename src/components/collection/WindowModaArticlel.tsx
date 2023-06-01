@@ -45,9 +45,7 @@ export default function WindowModalArticle({
           <h1>{article.brandName}</h1>
         </div>
 
-        <div className="ImageWrap">
-          <Image src={article.images[0]} alt="" width={300} height={400} />
-        </div>
+        <Image src={article.images[0]} alt="" width={300} height={400} />
 
         <div className="MainWrap">
           <h3>{article.articleName}</h3>
@@ -63,10 +61,10 @@ export default function WindowModalArticle({
               disable={isInCart}
               isActivated={!isInCart}
             >
-              Cart
+              저장
             </Button>
             <Button onClick={exitModal} isActivated={false} width="120px">
-              Cancel
+              취소
             </Button>
           </div>
         </div>
@@ -105,7 +103,7 @@ const WindowModalArticleBlock = styled.div`
     z-index: 100;
 
     .HeaderWrap {
-      padding: 12px;
+      padding: 8px 12px;
       border-bottom: 1px solid grey;
       display: flex;
       justify-content: center;
@@ -118,16 +116,10 @@ const WindowModalArticleBlock = styled.div`
       }
     }
 
-    .ImageWrap {
-      position: relative;
+    img {
       width: 100%;
-      height: 400px;
-      overflow: hidden;
-
-      border-bottom: 1px solid var(--line-color);
-      img {
-        object-fit: contain;
-      }
+      height: 100%;
+      object-fit: contain;
     }
 
     .MainWrap {

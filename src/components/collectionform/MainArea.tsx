@@ -6,9 +6,9 @@ import Button from "../Button";
 import ImgageUploader from "../ImageUploader";
 import Input from "../Input";
 import { useImage } from "@/hooks/storage/useImage";
-import { toCheckDateFormmat, toStringByFormatting } from "@/util";
+import { toCheckDateFormmat } from "@/util";
 import VisibleToggle from "../VisibleToggle";
-import useMutationCollection from "@/api/useMutationCollection";
+import useMutationCollection from "@/api/collection/useMutationCollection";
 import { IsArticle } from "@/types/article";
 import useLocationState from "@/hooks/useLocationState";
 
@@ -67,9 +67,10 @@ export default function MainArea({
 
   const onSubmit = async () => {
     if (!isEnterButtonOn) return;
+
     await upload(
       logoFile,
-      `${input.brandName}-${input.collectionName}-${input.releaseDate}`,
+      `${input.brandName}_${input.collectionName}_${input.releaseDate}`,
       setImageUrl
     );
     setIsUpload(true);
@@ -114,30 +115,17 @@ export default function MainArea({
       if (lastCollection) {
         updateCollection.mutate({
           id: lastCollection.id || "",
-          collection: {
-            collectionName: input.collectionName,
-            releaseDate: input.releaseDate,
-            images: input.images,
-
-            brandName: input.brandName,
-            isVisible: input.isVisible,
-          },
+          collection: input,
         });
-        onClickCollection(brandName, lastCollection.id || "");
 
         if (lastCollection.images[0] !== input.images[0]) {
           console.log("Delete last image");
           deleteImage(lastCollection.images[0]);
         }
-      } else if (!lastCollection) {
-        addCollection.mutate({
-          collectionName: input.collectionName,
-          releaseDate: input.releaseDate,
-          images: input.images,
 
-          brandName: input.brandName,
-          isVisible: input.isVisible,
-        });
+        onClickCollection(brandName, lastCollection.id || "");
+      } else if (!lastCollection) {
+        addCollection.mutate(input);
         onClickBrandSetting(brandName);
       }
     }
@@ -178,14 +166,14 @@ export default function MainArea({
           value={input.collectionName}
           placeholder="Collection Name"
           onChange={onChange}
-          disabled={articleList.length > 0 ? true : false}
+          disabled={false}
         />
         <Input
           name="releaseDate"
           value={input.releaseDate}
           placeholder="Release Date (2023-01-01)"
           onChange={onChange}
-          disabled={articleList.length > 0 ? true : false}
+          disabled={false}
         />
       </div>
 

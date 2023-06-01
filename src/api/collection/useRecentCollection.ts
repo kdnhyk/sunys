@@ -20,7 +20,7 @@ export const getRecentCollectionInit = async () => {
     limit(6)
   );
 
-  console.log("SSR");
+  console.log("FireStore Access");
   const querySnapshot = await getDocs(q);
 
   return querySnapshot;

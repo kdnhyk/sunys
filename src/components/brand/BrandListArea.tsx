@@ -150,7 +150,6 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
 const BrandListAreaWrap = styled.div`
   display: flex;
   flex-direction: column;
-  padding-bottom: 40px;
   min-height: calc(100vh - 131px);
 
   .CreateBrandButtonwrap {

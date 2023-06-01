@@ -3,7 +3,7 @@ import { BottomArrow } from "../../asset/Icon";
 import { useEffect, useState } from "react";
 import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import Collection from "../Collection";
-import useBrandCollection from "../../api/useBrandCollection";
+import useBrandCollection from "../../api/collection/useBrandCollection";
 import { useRouter } from "next/router";
 import { IsBrand } from "@/types/brand";
 import { useInView } from "react-intersection-observer";

@@ -50,7 +50,7 @@ const HeaderWrap = styled.div<{ isVisibleHeader: boolean }>`
   flex-direction: column;
 
   background-color: var(--background-color);
-  z-index: 100;
+  z-index: 10;
 
   .LogoArea {
     position: relative;
@@ -59,7 +59,7 @@ const HeaderWrap = styled.div<{ isVisibleHeader: boolean }>`
     display: flex;
     justify-content: center;
 
-    z-index: 100;
+    z-index: 10;
 
     a {
       flex: 4;
@@ -87,7 +87,7 @@ const HeaderWrap = styled.div<{ isVisibleHeader: boolean }>`
 
     background-color: var(--background-color);
 
-    z-index: 100;
+    z-index: 10;
 
     ${({ isVisibleHeader }) =>
       isVisibleHeader &&
@@ -147,7 +147,7 @@ const HeaderWrap = styled.div<{ isVisibleHeader: boolean }>`
 
     .NavBarArea {
       position: relative;
-      border-top: none;
+      /* border-top: none; */
 
       width: 60%;
     }

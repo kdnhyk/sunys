@@ -1,10 +1,10 @@
 import styled from "styled-components";
-import { useAuth } from "../hooks/useAuth";
 import { useEffect } from "react";
 import LoginModal from "./LoginModal";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useModal from "@/hooks/useModal";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function NavBar() {
   const { user } = useAuth();

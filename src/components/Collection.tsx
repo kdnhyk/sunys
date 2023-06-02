@@ -31,7 +31,7 @@ export default function Collection({
       <div className="ImageWrap">
         <Image
           src={collection.images[0]}
-          alt=""
+          alt={collection.collectionName}
           width={200}
           height={200}
           priority

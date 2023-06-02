@@ -62,11 +62,11 @@ export default function Collection() {
       </Head>
 
       <CollectionStyle>
-        <div className="MainAreaWrap">
+        <div className="LeftSide">
           <MainArea collection={data} />
         </div>
 
-        <div className="ArticleListWrap">
+        <div className="RightSide">
           {articleData?.map((article, i) => (
             <div className="ArticleWrap" key={i}>
               <Article article={article} />
@@ -84,10 +84,10 @@ const CollectionStyle = styled.div`
 
   width: 100%;
 
-  .MainAreaWrap {
+  .LeftSide {
   }
 
-  .ArticleListWrap {
+  .RightSide {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 1px;
@@ -110,7 +110,7 @@ const CollectionStyle = styled.div`
   position: fixed;
   height: calc(100% - 50px);
 
-  .MainAreaWrap {
+  .LeftSide {
     width: calc(40%);
     
     overflow-y: auto;
@@ -123,11 +123,13 @@ const CollectionStyle = styled.div`
   }
   
 
-  .ArticleListWrap {
+  .RightSide {
     width: calc(60%);
     height: 100%;
     overflow: auto;
     align-content: start;
+
+    padding-bottom: 40px;
 
     .ArticleWrap {
     }

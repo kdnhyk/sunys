@@ -37,6 +37,7 @@ export default function BrandList() {
     <>
       <Head>
         <title>SUNYS | 전체 브랜드</title>
+        <meta name="keywords" content="브랜드, brand" />
         <meta name="description" content="전체 브랜드 모음" />
 
         <meta

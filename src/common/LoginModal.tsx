@@ -1,9 +1,7 @@
 import styled from "styled-components";
-import { useAuth } from "../hooks/useAuth";
-import TitleBox from "../components/TitleBox";
-import Button from "../components/Button";
-import NaverLogin from "../components/NaverLogin";
 import { useEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import Button from "@/components/Button";
 
 interface IsLoginModal {
   exitModal: () => void;

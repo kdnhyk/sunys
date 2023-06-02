@@ -1,4 +1,3 @@
-import Layout from "@/common/Layout";
 import * as gtag from "@/lib/gtag";
 import {
   Hydrate,
@@ -13,6 +12,7 @@ import { useRouter } from "next/router";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProps } from "next/app";
 import Head from "next/head";
+import Layout from "@/common/Layout";
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 

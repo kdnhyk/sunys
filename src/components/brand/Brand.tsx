@@ -10,7 +10,12 @@ export default function Brand({ brand }: IsBrandStyle) {
   return (
     <BrandWrap>
       <div className="ImageWrap">
-        <Image src={brand.logo} alt="" width={168} height={168} />
+        <Image
+          src={brand.logo}
+          alt={brand.brandName}
+          width={168}
+          height={168}
+        />
       </div>
 
       <div className="TextlWrap">

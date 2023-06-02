@@ -4,7 +4,7 @@ import { ChangeEvent, useCallback, useEffect, useState } from "react";
 import styled from "styled-components";
 import ImgageUploader from "../ImageUploader";
 import Input from "../Input";
-import useMutationStore from "@/api/useMutationStore";
+import useMutationStore from "@/api/store/useMutationStore";
 import useLocationState from "@/hooks/useLocationState";
 import Button from "../Button";
 

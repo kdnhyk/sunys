@@ -2,10 +2,10 @@ import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
 import useLocationState from "../../hooks/useLocationState";
 import { toSortBrandList, toSortRestBrandList } from "@/util";
-import useBrandList from "@/api/useBrandList";
 import { AddIcon, BottomArrow, UpArrow } from "@/asset/Icon";
 import { IsBrandName } from "@/types/brand";
 import { useMemo, useState } from "react";
+import useBrandList from "@/api/brandList/useBrandList";
 
 interface IsBrandList {
   searchInput: string;

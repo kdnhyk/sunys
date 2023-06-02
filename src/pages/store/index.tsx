@@ -1,6 +1,6 @@
 import useRecentStoreList, {
   getRecentStoreList,
-} from "@/api/useRecentStoreList";
+} from "@/api/store/useRecentStoreList";
 import { AddIcon } from "@/asset/Icon";
 import MainStoreArea from "@/components/store/MainStoreArea";
 import StoreArea from "@/components/store/StoreArea";

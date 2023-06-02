@@ -61,7 +61,7 @@ export default function Collection() {
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
 
-      <CollectionWrap>
+      <CollectionStyle>
         <div className="MainAreaWrap">
           <MainArea collection={data} />
         </div>
@@ -73,12 +73,12 @@ export default function Collection() {
             </div>
           ))}
         </div>
-      </CollectionWrap>
+      </CollectionStyle>
     </>
   );
 }
 
-const CollectionWrap = styled.div`
+const CollectionStyle = styled.div`
   display: flex;
   flex-direction: column;
 

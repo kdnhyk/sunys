@@ -4,8 +4,8 @@ import SearchInput from "@/components/brand/SearchInput";
 import Head from "next/head";
 import { media } from "@/media";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import { getBrandList } from "@/api/useBrandList";
 import { ChangeEvent, useState } from "react";
+import { getBrandList } from "@/api/brandList/useBrandList";
 
 export async function getStaticProps() {
   const queryClient = new QueryClient();

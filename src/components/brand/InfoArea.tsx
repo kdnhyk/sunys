@@ -7,7 +7,7 @@ import useLocationState from "@/hooks/useLocationState";
 import useMutationBrand from "@/api/brand/useMutationBrand";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
-import { useUser } from "@/api/useUser";
+import { useUser } from "@/api/user/useUser";
 import { SettingIcon } from "@/asset/Icon";
 
 interface IsInfoArea {

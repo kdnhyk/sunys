@@ -56,7 +56,8 @@ const useMutationBrand = (brandName: string) => {
 
   const updateDocs = async (id: string, brand: IsBrand) => {
     if (!brand.createdTime) return;
-    const createdTime = new Timestamp(
+
+    const createdTime = new timestamp(
       brand.createdTime.seconds,
       brand.createdTime?.nanoseconds
     );

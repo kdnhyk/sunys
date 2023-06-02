@@ -9,8 +9,8 @@ import { useImage } from "@/hooks/storage/useImage";
 import StoreArea1 from "./StoreArea1";
 import { useRouter } from "next/router";
 import useMutationBrand from "@/api/brand/useMutationBrand";
-import useBrandList from "@/api/useBrandList";
 import Textarea from "../Textarea";
+import useBrandList from "@/api/brandList/useBrandList";
 
 interface IsInfoArea {
   brandName?: string;

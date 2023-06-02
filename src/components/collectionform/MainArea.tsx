@@ -11,6 +11,7 @@ import VisibleToggle from "../VisibleToggle";
 import useMutationCollection from "@/api/collection/useMutationCollection";
 import { IsArticle } from "@/types/article";
 import useLocationState from "@/hooks/useLocationState";
+import Textarea from "../Textarea";
 
 interface IsMainWrap {
   brandName: string;
@@ -174,6 +175,12 @@ export default function MainArea({
           placeholder="Release Date (2023-01-01)"
           onChange={onChange}
           disabled={false}
+        />
+        <Textarea
+          name="text"
+          value={input.text}
+          placeholder="text"
+          onChange={onChange}
         />
       </div>
 

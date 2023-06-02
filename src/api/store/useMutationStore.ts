@@ -34,7 +34,11 @@ const useMutationStore = (storeName: string) => {
   );
 
   const updateDocs = async (storeName: string, store: IsStore) => {
-    const createdTime = timestamp.fromDate(new Date());
+    if (!store.createdTime) return;
+    const createdTime = new timestamp(
+      store.createdTime.seconds,
+      store.createdTime?.nanoseconds
+    );
 
     await setDoc(
       doc(collectionRef, storeName),

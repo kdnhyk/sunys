@@ -4,7 +4,7 @@ import NotFound from "@/asset/NotFound.png";
 import useLocationState from "../../hooks/useLocationState";
 import { useRouter } from "next/router";
 import Image from "next/image";
-import { useUser } from "@/api/useUser";
+import { useUser } from "@/api/user/useUser";
 import { useAuth } from "@/hooks/useAuth";
 
 interface IsCartArticle {

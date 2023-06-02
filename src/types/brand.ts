@@ -35,6 +35,7 @@ export interface IsStore {
   storeLocation: string;
   brandList: IsBrandName[];
   description: string;
+  createdTime?: { seconds: number; nanoseconds: number };
 }
 
 export interface IsBrandName {

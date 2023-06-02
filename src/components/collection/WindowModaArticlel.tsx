@@ -4,7 +4,7 @@ import { useAuth } from "../../hooks/useAuth";
 import Button from "../Button";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
-import { useUser } from "@/api/useUser";
+import { useUser } from "@/api/user/useUser";
 import { useEffect } from "react";
 import { media } from "@/media";
 

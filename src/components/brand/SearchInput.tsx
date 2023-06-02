@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { ChangeEvent } from "react";
-import useBrandList from "@/api/useBrandList";
+import useBrandList from "@/api/brandList/useBrandList";
 
 interface IsSearchInput {
   placeholder: string;

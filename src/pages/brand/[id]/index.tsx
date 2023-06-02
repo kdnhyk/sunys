@@ -7,8 +7,8 @@ import Head from "next/head";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
 import InfoArea from "@/components/brand/InfoArea";
-import { getBrandList } from "@/api/useBrandList";
 import { IsBrandName } from "@/types/brand";
+import { getBrandList } from "@/api/brandList/useBrandList";
 
 const CollectionArea = dynamic(
   () => import("@/components/brand/CollectionArea"),
@@ -54,7 +54,7 @@ export default function Brand() {
   const { id } = useRouter().query;
   const { data } = useBrand(typeof id === "string" ? id : "");
 
-  if (!data) return;
+  if (!data) return <></>;
 
   return (
     <>
@@ -75,11 +75,11 @@ export default function Brand() {
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
       <BrandWrap>
-        <div className="InfoArea">
+        <div className="LeftSide">
           <InfoArea data={data} />
         </div>
 
-        <div className="CollectionArea">
+        <div className="RightSide">
           <CollectionArea data={data} />
         </div>
       </BrandWrap>
@@ -91,17 +91,14 @@ const BrandWrap = styled.div`
   display: flex;
   flex-direction: column;
 
-  .CollectionArea {
-  }
-
   ${media.desktop`
     flex-direction: row;
 
-    .InfoArea {
+    .LeftSide {
       width: 40%;
       border-right: 1px solid var(--line-color);
     }
-    .CollectionArea {
+    .RightSide {
       width: 60%;
       border-bottom: 1px solid var(--line-color);
 

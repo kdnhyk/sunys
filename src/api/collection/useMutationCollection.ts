@@ -1,13 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { store, timestamp } from "@/firebase";
-import {
-  Timestamp,
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { addDoc, collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { IsCollection } from "@/types/collection";
 import { useImage } from "@/hooks/storage/useImage";
 
@@ -63,8 +56,8 @@ const useMutationCollection = () => {
   };
 
   const updateDocs = async (id: string, collection: IsCollection) => {
-    if (!collection.createdTime) return
-    const createdTime = new Timestamp(
+    if (!collection.createdTime) return;
+    const createdTime = new timestamp(
       collection.createdTime.seconds,
       collection.createdTime?.nanoseconds
     );

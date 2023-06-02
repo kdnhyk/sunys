@@ -7,16 +7,15 @@ import Logo from "@/asset/Logo.png";
 import Image from "next/image";
 
 export default function Header() {
-  const [isFixHeader, setIsFixHeader] = useState(false);
-  const [currentY, setCurrentY] = useState(0);
-
-  const targetRef = useRef(null);
+  const [isVisibleHeader, setIsVisibleHeader] = useState(false);
 
   const handleScroll = useCallback(() => {
-    if (window.scrollY >= 50) {
-      setIsFixHeader(() => true);
+    const currentY = window.scrollY;
+
+    if (currentY >= 50) {
+      setIsVisibleHeader(() => true);
     } else {
-      setIsFixHeader(() => false);
+      setIsVisibleHeader(() => false);
     }
   }, []);
 
@@ -28,7 +27,7 @@ export default function Header() {
   }, [handleScroll]);
 
   return (
-    <HeaderWrap isFixHeader={isFixHeader} ref={targetRef}>
+    <HeaderWrap isVisibleHeader={isVisibleHeader}>
       <div className="LogoArea">
         <Link href={"/"}>
           <Image src={Logo} alt={""} width={129} height={44} priority></Image>
@@ -43,7 +42,7 @@ export default function Header() {
   );
 }
 
-const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
+const HeaderWrap = styled.div<{ isVisibleHeader: boolean }>`
   position: relative;
   width: 100%;
   height: 100px;
@@ -90,13 +89,12 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
 
     z-index: 100;
 
-    ${({ isFixHeader }) =>
-      isFixHeader &&
+    ${({ isVisibleHeader }) =>
+      isVisibleHeader &&
       css`
         position: fixed;
         top: 0px;
-        /* animation: slideNav 0.2s ease-in-out;
-        /* border-top: none; */
+
         @keyframes slideNav {
           0% {
             top: -50px;
@@ -104,7 +102,9 @@ const HeaderWrap = styled.div<{ isFixHeader: boolean }>`
           100% {
             top: 0px;
           }
-        } */
+        }
+
+        border-top: none;
       `}
   }
 

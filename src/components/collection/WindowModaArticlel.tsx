@@ -87,7 +87,7 @@ const WindowModalArticleBlock = styled.div`
 
   .ModalInner {
     position: absolute;
-    top: 51px;
+    top: 101px;
     width: 100%;
     max-width: 300px;
     height: auto;

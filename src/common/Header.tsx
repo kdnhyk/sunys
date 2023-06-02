@@ -103,8 +103,6 @@ const HeaderWrap = styled.div<{ isVisibleHeader: boolean }>`
             top: 0px;
           }
         }
-
-        border-top: none;
       `}
   }
 
@@ -147,7 +145,6 @@ const HeaderWrap = styled.div<{ isVisibleHeader: boolean }>`
 
     .NavBarArea {
       position: relative;
-      /* border-top: none; */
 
       width: 60%;
     }

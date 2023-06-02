@@ -8,7 +8,7 @@ export const getServerSideProps = async () => {
     loc: `https://sunys.co.kr/brand/${brandName.default}`,
     lastmod: new Date().toISOString(),
     changefreq: "daily",
-    priority: 1,
+    priority: 2,
   }));
 
   const sitemap = getServerSideSitemap(sitemapFields);

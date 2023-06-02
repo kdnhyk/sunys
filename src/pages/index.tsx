@@ -52,6 +52,7 @@ export default function News() {
     <>
       <Head>
         <title>SUNYS | 뉴스</title>
+        <meta name="keywords" content="패션, 브랜드, 웹, 매거진" />
         <meta
           name="description"
           content="서니즈는 세상의 모든 패션 브랜드를 소개하는 웹 매거진입니다. 최신 브랜드 컬렉션 뉴스를 받아보세요."

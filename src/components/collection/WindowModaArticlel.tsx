@@ -83,7 +83,7 @@ const WindowModalArticleBlock = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 100;
+  z-index: 10;
 
   .ModalInner {
     position: absolute;
@@ -130,7 +130,7 @@ const WindowModalArticleBlock = styled.div`
 
       padding: 8px 12px 12px 12px;
 
-      z-index: 10;
+      z-index: 100;
 
       h3 {
       }

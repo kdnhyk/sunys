@@ -68,7 +68,7 @@ const LoginModalBlock = styled.form`
 
   color: black;
 
-  z-index: 1000;
+  z-index: 200;
 
   .HeaderWrap {
     padding: 10px 10px 10px 16px;
@@ -106,7 +106,7 @@ const LoginModalBlock = styled.form`
     align-items: center;
     gap: 10px;
     background-color: #fcfcfc;
-    z-index: 1000;
+    z-index: 200;
 
     .TitleWrap {
       border-bottom: 1px solid var(--line-color);

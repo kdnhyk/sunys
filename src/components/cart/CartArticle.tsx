@@ -2,7 +2,6 @@ import { IsArticle } from "../../types/article";
 import styled from "styled-components";
 import NotFound from "@/asset/NotFound.png";
 import useLocationState from "../../hooks/useLocationState";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import { useUser } from "@/api/user/useUser";
 import { useAuth } from "@/hooks/useAuth";
@@ -14,7 +13,7 @@ interface IsCartArticle {
 export default function CartArticle({ article }: IsCartArticle) {
   const { user } = useAuth();
   const { handleCart } = useUser();
-  const router = useRouter();
+
   const { onClickBarnd, onClickCollection } = useLocationState();
 
   const onRemoveArticle = () => {

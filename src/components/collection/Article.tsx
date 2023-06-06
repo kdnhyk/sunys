@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { IsArticle } from "../../types/article";
 import { useAuth } from "../../hooks/useAuth";
 import Image from "next/image";
-import { AddIconWhite } from "@/asset/Icon";
+import { AddCartIcon, RemoveCartIcon } from "@/asset/Icon";
+import { useUser } from "@/api/user/useUser";
+import useModal from "@/hooks/useModal";
 
 interface IsArticleWrap {
   article: IsArticle;
@@ -10,15 +12,27 @@ interface IsArticleWrap {
 
 export default function Article({ article }: IsArticleWrap) {
   const { user } = useAuth();
+  const { handleCart } = useUser();
+  const { onOpenModal } = useModal();
 
   const isInCart = user.cart.find((e) => e.id === article.id) ? true : false;
+
+  const onClickCart = () => {
+    if (!user.uid) {
+      onOpenModal();
+      return;
+    }
+    handleCart(user, article);
+  };
 
   return (
     <ArticleWrap isInCart={isInCart}>
       <div className="ImageWrap">
         <Image src={article.images[0]} alt="" width={200} height={200} />
         <div className="HoverWap">
-          <AddIconWhite />
+          <div className="CartWrap" onClick={onClickCart}>
+            {isInCart ? <AddCartIcon /> : <RemoveCartIcon />}
+          </div>
         </div>
       </div>
       <div className="TextWrap">
@@ -67,6 +81,7 @@ const ArticleWrap = styled.div<{ isInCart: boolean }>`
       display: flex;
       justify-content: center;
       align-items: center;
+
       transition: all 0.3s ease-in-out;
       background-color: rgba(1, 1, 1, 0.4);
 

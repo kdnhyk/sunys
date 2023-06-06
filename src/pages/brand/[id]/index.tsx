@@ -72,7 +72,7 @@ export default function Brand() {
           content={data.brandNameKo + " | " + data.description}
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://sunys.co.kr" />
+        <meta property="og:url" content="http://sunys.co.kr/brand/*" />
       </Head>
       <BrandWrap>
         <div className="LeftSide">

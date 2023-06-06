@@ -162,6 +162,52 @@ const XIcon = () => {
   );
 };
 
+const AddCartIcon = () => {
+  return (
+    <svg
+      width="36"
+      height="36"
+      viewBox="0 0 36 36"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <path
+        d="M35 2V34C35 34.5523 34.5523 35 34 35H2C1.44772 35 1 34.5523 1 34V2C1 1.44772 1.44772 1 2 1H10C10.5523 1 11 1.44772 11 2V12.5C11 14.1569 12.3431 15.5 14 15.5H22C23.6569 15.5 25 14.1569 25 12.5V2C25 1.44772 25.4477 1 26 1H34C34.5523 1 35 1.44772 35 2Z"
+        stroke="white"
+        stroke-width="2"
+      />
+    </svg>
+  );
+};
+
+const RemoveCartIcon = () => {
+  return (
+    <svg
+      width="36"
+      height="36"
+      viewBox="0 0 36 36"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <rect
+        x="1"
+        y="1"
+        width="34"
+        height="34"
+        rx="1"
+        stroke="white"
+        stroke-width="2"
+      />
+      <path
+        d="M34 34L2 2"
+        stroke="white"
+        stroke-width="2"
+        stroke-linecap="round"
+      />
+    </svg>
+  );
+};
+
 export {
   SettingIcon,
   Search,
@@ -173,4 +219,6 @@ export {
   AddIcon,
   AddIconWhite,
   XIcon,
+  AddCartIcon,
+  RemoveCartIcon,
 };

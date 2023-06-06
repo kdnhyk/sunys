@@ -47,7 +47,7 @@ export default function BrandList() {
         <meta property="og:title" content="SUNYS" />
         <meta property="og:description" content="서니즈 | 전체 브랜드" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://sunys.co.kr" />
+        <meta property="og:url" content="http://sunys.co.kr/brand" />
       </Head>
       <BrandListStyle>
         <div className="LeftSide">

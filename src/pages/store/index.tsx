@@ -58,7 +58,7 @@ export default function Store() {
         <meta property="og:title" content="SUNYS" />
         <meta property="og:description" content="서니즈 | 스토어" />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://sunys.co.kr" />
+        <meta property="og:url" content="http://sunys.co.kr/store" />
       </Head>
       <StoreWrap>
         <div className="LeftSide">

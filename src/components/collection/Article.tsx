@@ -31,7 +31,7 @@ export default function Article({ article }: IsArticleWrap) {
         <Image src={article.images[0]} alt="" width={200} height={200} />
         <div className="HoverWap">
           <div className="CartWrap" onClick={onClickCart}>
-            {isInCart ? <AddCartIcon /> : <RemoveCartIcon />}
+            {!isInCart ? <AddCartIcon /> : <RemoveCartIcon />}
           </div>
         </div>
       </div>

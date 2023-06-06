@@ -1,6 +1,5 @@
+import NewsList from "@/components/news/newsList";
 import Head from "next/head";
-import NewsList from "@/components/news/NewsList";
-import NewsHeader from "@/components/account/UserFilter";
 
 export default function News() {
   return (

@@ -64,7 +64,11 @@ export default function WindowModal({ exitModal, collection }: IsWindowModal) {
   };
 
   useEffect(() => {
-    if (input.articleName && toCheckPriceFormmat(input.price) && image) {
+    if (
+      input.articleName &&
+      (!input.price || toCheckPriceFormmat(input.price)) &&
+      image
+    ) {
       setIsEnterButtonOn(() => true);
     } else {
       setIsEnterButtonOn(() => false);

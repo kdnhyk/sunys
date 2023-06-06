@@ -62,6 +62,8 @@ export default function MainArea({ collection }: IsMainArea) {
 
         <h2 className="CollectionName">{collection.collectionName}</h2>
 
+        <p className="Text">{collection.text}</p>
+
         {user.admin && (
           <div
             className="Setting"
@@ -136,6 +138,9 @@ const MainAreaWrap = styled.div`
     }
     .CollectionName {
       font-size: 20px;
+      text-align: center;
+    }
+    .Text {
       text-align: center;
     }
     .Setting {

@@ -81,16 +81,6 @@ export default function InfoArea({ brandName, lastBrand }: IsInfoArea) {
   };
 
   useEffect(() => {
-    if (
-      (currentBrand.saleStartDate || currentBrand.saleEndDate) &&
-      !currentBrand.saleName
-    ) {
-      onResetInputSaleDate();
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentBrand.saleName]);
-
-  useEffect(() => {
     if (!brandList) return;
 
     if (
@@ -101,11 +91,7 @@ export default function InfoArea({ brandName, lastBrand }: IsInfoArea) {
             .includes(currentBrand.brandName.toLowerCase())
         : true) &&
       currentBrand.brandNameKo &&
-      (currentBrand.logo || logoFile) &&
-      (currentBrand.saleName
-        ? toCheckDateFormmat(currentBrand.saleStartDate) &&
-          toCheckDateFormmat(currentBrand.saleEndDate)
-        : true)
+      (currentBrand.logo || logoFile)
     ) {
       setIsEnterButton(true);
     } else {
@@ -200,34 +186,6 @@ export default function InfoArea({ brandName, lastBrand }: IsInfoArea) {
         </div>
       </div>
 
-      <div className="SaleWrap">
-        <div className="SaleNameWrap">
-          <Input
-            name="saleName"
-            value={currentBrand.saleName}
-            placeholder="Sale Name"
-            onChange={onChangeInput}
-          />
-        </div>
-
-        <div className="SaleDatePickerWrap">
-          <Input
-            name="saleStartDate"
-            value={currentBrand.saleStartDate}
-            placeholder="Sale Start Date"
-            onChange={onChangeInput}
-            disabled={!currentBrand.saleName ? true : false}
-          />
-          <Input
-            name="saleEndDate"
-            value={currentBrand.saleEndDate}
-            placeholder="Sale End Date"
-            onChange={onChangeInput}
-            disabled={!currentBrand.saleName ? true : false}
-          />
-        </div>
-      </div>
-
       <div className="StoreWrap">
         {lastBrand && (
           <StoreArea1
@@ -290,26 +248,6 @@ const InfoAreaStyle = styled.div`
     .BrandName {
     }
     .BrandNameKo {
-    }
-  }
-  .SaleWrap {
-    width: 100%;
-    height: fit-content;
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    justify-content: center;
-    padding: 12px 16px;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #dddddd;
-
-    .SaleNameWrap {
-    }
-
-    .SaleDatePickerWrap {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
     }
   }
 

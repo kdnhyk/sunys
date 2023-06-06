@@ -6,9 +6,6 @@ export const initBrand: IsBrand = {
   description: "",
   tag: [],
   scrapNum: 0,
-  saleName: "",
-  saleStartDate: "",
-  saleEndDate: "",
   officialStoreList: [],
   storeList: [],
 };
@@ -53,10 +50,6 @@ export interface IsBrand {
   description: string;
   tag: string[];
   scrapNum: number;
-
-  saleName: string;
-  saleStartDate: string;
-  saleEndDate: string;
 
   officialStoreList: IsOfficialStore[];
   storeList: IsStore[];

@@ -6,6 +6,7 @@ import useCloudUser from "@/hooks/firestore/useCloudUser";
 import { IsUser } from "@/types/user";
 import { useRecoilState } from "recoil";
 import { userSelector } from "@/store/user";
+import { useQuery } from "@tanstack/react-query";
 
 export const useUser = () => {
   const collectionRef = collection(store, "user");

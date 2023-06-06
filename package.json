@@ -12,7 +12,6 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
-    "@react-google-maps/api": "^2.18.1",
     "@tanstack/react-query": "^4.29.7",
     "@tanstack/react-query-devtools": "^4.29.7",
     "@types/node": "20.2.3",

@@ -3,14 +3,16 @@ import { useAuth } from "../../hooks/useAuth";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
-import { SettingIcon } from "@/asset/Icon";
+import { SettingIcon, XIcon } from "@/asset/Icon";
 import { media } from "@/media";
+import UserColllectoinList from "@/components/account/UserCollectionList";
+import NewsHeader from "@/components/account/UserFilter";
 
 export default function Account() {
   const { user, logout, removeUser } = useAuth();
   const router = useRouter();
 
-  const [isOpenSignout, setIsOpenSignout] = useState(false);
+  const [isOpenSetting, setIsOpenSetting] = useState(false);
 
   const onLogout = () => {
     logout();
@@ -28,6 +30,8 @@ export default function Account() {
   //   }
   // }, []);
 
+  if (!user.uid) return <></>;
+
   return (
     <>
       <Head>
@@ -36,18 +40,32 @@ export default function Account() {
       </Head>
       <AccountBlock>
         <div className="LeftArea">
-          <div className="SettingWrap">{/* <Image /> */}</div>
-          <div className="NameWrap">
+          <div
+            className="SettingButtonWrap"
+            onClick={() => setIsOpenSetting((prev) => !prev)}
+          >
+            {isOpenSetting ? <XIcon /> : <SettingIcon />}
+          </div>
+          <div className="TitleWrap">
             <h3>{user.username}</h3>
+            <p>스크랩 브랜드 | {user.scrapBrandList.length}</p>
           </div>
-          <div className="LogoutWrap">
-            <p onClick={onLogout}>로그아웃</p>
-          </div>
-          {/* <div className="MyBrandWrap">
-            {user.scrapBrandList.map((e, i) => (
-              <div key={i}>hi</div>
-            ))}
-          </div> */}
+
+          {!isOpenSetting ? (
+            <div className="ScrapBrandCollectionListWrap">
+              <NewsHeader />
+              <UserColllectoinList user={user} />
+            </div>
+          ) : (
+            <div className="SettingWrap">
+              {/* <div className="SettingHeader">
+                <h3>설정</h3>
+              </div> */}
+              <div className="LogoutWrap">
+                <p onClick={onLogout}>로그아웃</p>
+              </div>
+            </div>
+          )}
         </div>
         <div className="RightArea">
           <div className="UserCollectionWrap"></div>
@@ -65,23 +83,61 @@ const AccountBlock = styled.div`
   .LeftArea {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    gap: 16px;
-    padding: 16px;
+    align-items: end;
 
-    .SettingWrap {
+    padding: 16px 0px;
+
+    .SettingButtonWrap {
+      padding-right: 16px;
+      cursor: pointer;
+      svg {
+      }
     }
 
-    .NameWrap {
+    .TitleWrap {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 16px;
+
+      padding-bottom: 46px;
+      border-bottom: 1px solid var(--line-color);
       h3 {
       }
     }
 
-    .LogoutWrap {
-      cursor: pointer;
-      p {
-        color: var(--red-color);
+    .SettingWrap {
+      width: 100%;
+
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      justify-content: center;
+      align-items: center;
+
+      padding: 16px 0px;
+
+      .SettingHeader {
+        width: 100%;
+        border-bottom: 1px solid var(--line-color);
+
+        padding: 0px 16px 16px 16px;
+        h3 {
+        }
       }
+
+      .LogoutWrap {
+        p {
+          color: var(--red-color);
+          cursor: pointer;
+        }
+      }
+    }
+
+    .ScrapBrandCollectionListWrap {
+      width: 100%;
+      height: 100%;
     }
   }
 

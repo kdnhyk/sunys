@@ -1,15 +1,16 @@
 import Head from "next/head";
-import NewsList from "@/components/news/newsList";
+import NewsList from "@/components/news/NewsList";
+import NewsHeader from "@/components/account/UserFilter";
 
 export default function News() {
   return (
     <>
       <Head>
         <title>SUNYS | 뉴스</title>
-        <meta name="keywords" content="패션, 브랜드, 웹, 매거진" />
+        <meta name="keywords" content="패션, 브랜드, 뉴스, 웹 매거진" />
         <meta
           name="description"
-          content="서니즈는 세상의 모든 패션 브랜드를 소개하는 웹 매거진입니다. 최신 브랜드 컬렉션 뉴스를 받아보세요."
+          content="서니즈는 패션 브랜드의 최신 정보를 제공하는 웹 서비스입니다. 브랜드별 컬렉션 뉴스를 확인해 보세요."
         />
 
         <meta
@@ -19,11 +20,12 @@ export default function News() {
         <meta property="og:title" content="SUNYS | 서니즈 매거진" />
         <meta
           property="og:description"
-          content="서니즈는 세상의 모든 패션 브랜드를 소개하는 웹 매거진입니다. 최신 브랜드 컬렉션 뉴스를 받아보세요."
+          content="서니즈는 패션 브랜드의 최신 정보를 제공하는 웹 서비스입니다. 브랜드별 컬렉션 뉴스를 확인해 보세요."
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
+
       <NewsList />
     </>
   );

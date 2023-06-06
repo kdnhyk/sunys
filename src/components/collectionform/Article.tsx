@@ -16,9 +16,10 @@ export default function Article({ article }: IsArticleWrap) {
 
       <div className="PriceWrap">
         <p>
-          {Number(article.price).toLocaleString("ko-KR", {
-            maximumFractionDigits: 4,
-          }) + " KRW"}
+          {article.price &&
+            Number(article.price).toLocaleString("ko-KR", {
+              maximumFractionDigits: 4,
+            }) + " KRW"}
         </p>
       </div>
     </ArticleWrap>

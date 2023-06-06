@@ -149,6 +149,8 @@ const HeaderWrap = styled.div<{ isVisibleHeader: boolean }>`
       position: relative;
 
       width: 60%;
+
+      border-top: none;
     }
   `}
 `;

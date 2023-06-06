@@ -57,6 +57,7 @@ export default function InfoArea({ data: currentBrand }: IsInfoArea) {
 
   return (
     <InfoAreaStyle>
+      <div className="Header"></div>
       <div className="OfficialButtonWrap">
         {currentBrand.officialUrl && (
           <a
@@ -113,14 +114,7 @@ export default function InfoArea({ data: currentBrand }: IsInfoArea) {
           </div>
         )}
       </div>
-      {currentBrand.saleStartDate && currentBrand.saleEndDate && (
-        <div className="SaleWrap">
-          <h3 className="SaleName">{currentBrand.saleName.toUpperCase()}</h3>
-          <p className="SaleText">{`${currentBrand.saleStartDate.slice(
-            2
-          )} ~ ${currentBrand.saleEndDate.slice(2)}`}</p>
-        </div>
-      )}
+
       {currentBrand.officialStoreList.length > 0 && (
         <div className="StoreWrap">
           <div className="StoreList">

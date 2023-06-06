@@ -39,7 +39,7 @@ export default function UserColllectoinList({ user }: IsUserCollectionList) {
       <div className="NewColArea">
         <ResponsiveMasonry
           columnsCountBreakPoints={
-            width < 768
+            width > 768
               ? {
                   180: 1,
                   360: 2,

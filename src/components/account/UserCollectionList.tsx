@@ -38,23 +38,10 @@ export default function UserColllectoinList({ user }: IsUserCollectionList) {
     <UserColllectoinListStyle>
       <div className="NewColArea">
         <ResponsiveMasonry
-          columnsCountBreakPoints={
-            width > 768
-              ? {
-                  180: 1,
-                  360: 2,
-                  540: 3,
-                  800: 4,
-                  1000: 5,
-                  1200: 6,
-                }
-              : {
-                  600: 1,
-                  800: 2,
-                  1000: 3,
-                  1200: 4,
-                }
-          }
+          columnsCountBreakPoints={{
+            180: 1,
+            360: 2,
+          }}
         >
           <Masonry>
             {userCollection.map((e, i) => (

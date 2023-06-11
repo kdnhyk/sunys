@@ -1,16 +1,16 @@
 import styled from "styled-components";
 import useCollection, {
   getCollectionByCid,
-} from "@/api/collection/useCollection";
-import useArticle from "@/api/article/useArticle";
+} from "@/api/collection/useCollectionByCid";
+import useArticle from "@/api/article/useArticleByCid";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import dynamic from "next/dynamic";
 import { media } from "@/media";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
-import MainArea from "@/components/collection/MainArea";
+import MainArea from "@/containers/collection/MainArea";
 
-const Article = dynamic(() => import("@/components/collection/Article"), {
+const Article = dynamic(() => import("@/containers/collection/Article"), {
   ssr: false,
 });
 
@@ -58,7 +58,7 @@ export default function Collection() {
           content={data.collectionName + " | " + data.releaseDate}
         />
         <meta property="og:type" content="website" />
-        <meta property="og:url" content="http://sunys.co.kr" />
+        <meta property="og:url" content="http://sunys.co.kr/brand/*" />
       </Head>
 
       <CollectionStyle>
@@ -89,6 +89,7 @@ const CollectionStyle = styled.div`
 
   .RightSide {
     display: grid;
+    align-items: start;
     grid-template-columns: repeat(2, 1fr);
     gap: 1px;
     row-gap: 10px;

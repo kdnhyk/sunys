@@ -1,13 +1,6 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { store, timestamp } from "@/firebase";
-import {
-  Timestamp,
-  addDoc,
-  collection,
-  deleteDoc,
-  doc,
-  setDoc,
-} from "firebase/firestore";
+import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { IsBrand } from "@/types/brand";
 
 const useMutationBrand = (brandName: string) => {

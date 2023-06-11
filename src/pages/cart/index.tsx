@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
-import CartArticle from "@/components/cart/CartArticle";
+import CartArticle from "@/containers/cart/CartArticle";
 import Head from "next/head";
+import Footer from "@/components/common/Footer";
 
 export default function Cart() {
   const { user } = useAuth();
@@ -16,6 +17,7 @@ export default function Cart() {
     user.cart.map((item) => {
       result += Number(item.price);
     });
+
     setTotal(result);
 
     return () => {
@@ -45,7 +47,7 @@ export default function Cart() {
         {user.cart.length !== 0 ? (
           <>
             <div className="CartMain">
-              {user.cart.map((article, i) => {
+              {[...user.cart].reverse().map((article, i) => {
                 return <CartArticle key={i} article={article} />;
               })}
             </div>
@@ -56,7 +58,9 @@ export default function Cart() {
                 <span>
                   {total.toLocaleString("ko-KR", {
                     maximumFractionDigits: 4,
-                  }) + " KRW"}
+                  }) +
+                    // " + α" +
+                    " KRW"}
                 </span>
               </p>
               {/* <Button onClick={onCheckout}>Check out</Button> */}
@@ -67,6 +71,7 @@ export default function Cart() {
             <p>Your cart is currently empty.</p>
           </div>
         )}
+        <Footer />
       </CartBlock>
     </>
   );

@@ -2,16 +2,16 @@ import styled from "styled-components";
 import { media } from "@/media";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import useBrand, { getBrandByBrandName } from "@/api/brand/useBrand";
+import useBrand, { getBrandByBrandName } from "@/api/brand/useBrandByBrandName";
 import Head from "next/head";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 
-import InfoArea from "@/components/brand/InfoArea";
+import InfoArea from "@/containers/brand/InfoArea";
 import { IsBrandName } from "@/types/brand";
 import { getBrandList } from "@/api/brandList/useBrandList";
 
 const CollectionArea = dynamic(
-  () => import("@/components/brand/CollectionArea"),
+  () => import("@/containers/brand/CollectionArea"),
   {
     ssr: false,
   }

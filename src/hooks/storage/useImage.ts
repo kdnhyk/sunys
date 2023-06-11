@@ -9,7 +9,11 @@ import {
 type IsTransaction = "logo" | "brandstore" | "store" | "collection" | "article";
 
 export const useImage = (transaction: IsTransaction) => {
-  const upload = async (file: File | null, name: string, setImageURL: any) => {
+  const upload = async (
+    file: File | Blob | null,
+    name: string,
+    setImageURL: any
+  ) => {
     if (!file) return;
 
     console.log(transaction, name);

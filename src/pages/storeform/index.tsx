@@ -1,4 +1,4 @@
-import InfoArea from "@/components/storeform/InfoArea";
+import InfoArea from "@/containers/storeform/InfoArea";
 import { useAuth } from "@/hooks/useAuth";
 import { media } from "@/media";
 import styled from "styled-components";
@@ -38,8 +38,6 @@ const StoreFormWrap = styled.div`
       width: 40%;
 
       border-right: 1px solid var(--line-color);
-
-
     }
 
     .RightSide {

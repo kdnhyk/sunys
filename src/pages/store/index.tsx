@@ -2,12 +2,11 @@ import useRecentStoreList, {
   getRecentStoreList,
 } from "@/api/store/useRecentStoreList";
 import { AddIcon } from "@/asset/Icon";
-import MainStoreArea from "@/components/store/MainStoreArea";
-import StoreArea from "@/components/store/StoreArea";
+import StoreArea from "@/containers/store/StoreArea";
 import { useAuth } from "@/hooks/useAuth";
 import useLocationState from "@/hooks/useLocationState";
 import { media } from "@/media";
-import { IsStore } from "@/types/brand";
+import { IsStore } from "@/types/store";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import Head from "next/head";
 import { useState } from "react";

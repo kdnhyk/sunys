@@ -12,17 +12,19 @@ import { updateProfile } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { useRecoilState, useResetRecoilState } from "recoil";
 import { userSelector } from "../store/user";
-import useCloudUser from "@/hooks/firestore/useCloudUser";
+import useCloudUser from "@/api/user/useCloudUser";
 
 //
 export const useAuth = () => {
   const currentUser = auth.currentUser;
   const [user, setUser] = useRecoilState(userSelector);
   const resetUser = useResetRecoilState(userSelector);
+
   const [successs, setSuccess] = useState(false);
   const [error, setError] = useState("");
   const { getCloudUser, addCloudUser, deleteCloudUser } = useCloudUser();
 
+  // 새로고침
   useEffect(() => {
     const localUser = localStorage.getItem("user");
     if (localUser && !user.uid) {
@@ -41,6 +43,7 @@ export const useAuth = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
+  // 만료
   useEffect(() => {
     if (user.uid && !currentUser) {
       localStorage.removeItem("user");
@@ -48,6 +51,7 @@ export const useAuth = () => {
     }
   }, [currentUser, resetUser, user]);
 
+  // 로그인
   useEffect(() => {
     if (currentUser && successs) {
       getCloudUser(currentUser.uid).then(async (cloudUser) => {

@@ -12,7 +12,7 @@ import { useRouter } from "next/router";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import Layout from "@/common/Layout";
+import Layout from "@/components/common/Layout";
 
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
@@ -32,6 +32,7 @@ export default function App({ Component, pageProps }: AppProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
+            staleTime: Infinity,
             refetchOnWindowFocus: false,
             refetchOnReconnect: true,
             // suspense: true,
@@ -154,9 +155,9 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14px;
   }
 
-    @font-face {
-      font-family: "pretendard";
-      src: url("/font/PretendardVariable.woff2");
-      font-display: swap;
-    }
+  @font-face {
+    font-family: "pretendard";
+    src: url("/font/PretendardVariable.woff2");
+    font-display: swap;
+  }
 `;

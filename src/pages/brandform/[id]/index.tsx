@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { media } from "@/media";
-import InfoArea from "../../../components/brandform/InfoArea";
+import InfoArea from "../../../containers/brandform/InfoArea";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
-import useBrand from "@/api/brand/useBrand";
+import useBrand from "@/api/brand/useBrandByBrandName";
 
 const CollectionArea = dynamic(
-  () => import("@/components/brandform/CollectionArea"),
+  () => import("@/containers/brandform/CollectionArea"),
   {
     ssr: false,
   }

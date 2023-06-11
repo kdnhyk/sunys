@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import MainArea from "@/components/collectionform/MainArea";
+import MainArea from "@/containers/collectionform/MainArea";
 import { useRouter } from "next/router";
 
 export default function CollectionForm() {

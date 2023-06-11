@@ -1,5 +1,4 @@
-import styled, { css } from "styled-components";
-import { IsBrand } from "../types/brand";
+import styled from "styled-components";
 
 interface IsCreateBoxStyle {
   width?: number;

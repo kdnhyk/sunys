@@ -1,5 +1,5 @@
 import useStoreBySid from "@/api/store/useStoreBySid";
-import InfoArea from "@/components/storeform/InfoArea";
+import InfoArea from "@/containers/storeform/InfoArea";
 import { media } from "@/media";
 import { useRouter } from "next/router";
 import styled from "styled-components";

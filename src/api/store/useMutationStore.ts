@@ -2,7 +2,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { store, timestamp } from "@/firebase";
 import { collection, deleteDoc, doc, setDoc } from "firebase/firestore";
 import { useImage } from "@/hooks/storage/useImage";
-import { IsStore } from "@/types/brand";
+import { IsStore } from "@/types/store";
 
 const useMutationStore = (storeName: string) => {
   const queryClient = useQueryClient();

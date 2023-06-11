@@ -2,7 +2,7 @@ import { collection, doc, setDoc } from "firebase/firestore";
 import { store } from "@/firebase";
 import { IsArticle } from "@/types/article";
 import { IsBrandName } from "@/types/brand";
-import useCloudUser from "@/hooks/firestore/useCloudUser";
+import useCloudUser from "@/api/user/useCloudUser";
 import { IsUser } from "@/types/user";
 import { useRecoilState } from "recoil";
 import { userSelector } from "@/store/user";

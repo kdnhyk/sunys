@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { media } from "@/media";
-import InfoArea from "@/components/brandform/InfoArea";
+import InfoArea from "@/containers/brandform/InfoArea";
 
 //
 export default function BrandForm() {

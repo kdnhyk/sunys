@@ -15,7 +15,7 @@ const useMutationArticle = (cid: string) => {
     {
       onMutate() {},
       onSuccess() {
-        queryClient.invalidateQueries(["collectionArticle", cid]);
+        queryClient.invalidateQueries(["collectionArticleList", cid]);
       },
     }
   );
@@ -28,7 +28,7 @@ const useMutationArticle = (cid: string) => {
     {
       onMutate() {},
       onSuccess() {
-        queryClient.invalidateQueries(["collectionArticle", cid]);
+        queryClient.invalidateQueries(["collectionArticleList", cid]);
       },
     }
   );

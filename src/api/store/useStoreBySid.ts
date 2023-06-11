@@ -8,7 +8,7 @@ import {
   query,
   where,
 } from "firebase/firestore";
-import { IsStore } from "@/types/brand";
+import { IsStore } from "@/types/store";
 
 export const getCollectionBySid = async (sid: string) => {
   const q = query(

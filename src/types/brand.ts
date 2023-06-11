@@ -1,3 +1,5 @@
+import { IsStore } from "./store";
+
 export const initBrand: IsBrand = {
   logo: "",
   officialUrl: "",
@@ -15,24 +17,6 @@ export interface IsOfficialStore {
   image: string;
   storeName: string;
   storeLocation: string; // 네이버 지도로 연결
-}
-
-export const initStore: IsStore = {
-  images: [],
-  storeName: "",
-  storeUrl: "",
-  storeLocation: "",
-  brandList: [],
-  description: "",
-};
-export interface IsStore {
-  images: string[];
-  storeName: string;
-  storeUrl: string;
-  storeLocation: string;
-  brandList: IsBrandName[];
-  description: string;
-  createdTime?: { seconds: number; nanoseconds: number };
 }
 
 export interface IsBrandName {
@@ -55,6 +39,9 @@ export interface IsBrand {
   storeList: IsStore[];
 
   isVisible?: boolean;
+
+  crawlUrl?: string;
+  crawlSelector?: string;
 
   createdTime?: { seconds: number; nanoseconds: number };
 }

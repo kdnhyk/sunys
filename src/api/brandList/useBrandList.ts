@@ -1,9 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { store, timestamp } from "@/firebase";
+import { store } from "@/firebase";
 import {
-  addDoc,
   collection,
-  deleteDoc,
   doc,
   getDocs,
   limit,

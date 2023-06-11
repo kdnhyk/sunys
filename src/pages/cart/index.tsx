@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
-import CartArticle from "@/components/cart/CartArticle";
+import CartArticle from "@/containers/cart/CartArticle";
 import Head from "next/head";
-import Footer from "@/common/Footer";
+import Footer from "@/components/common/Footer";
 
 export default function Cart() {
   const { user } = useAuth();
@@ -47,7 +47,7 @@ export default function Cart() {
         {user.cart.length !== 0 ? (
           <>
             <div className="CartMain">
-              {user.cart.map((article, i) => {
+              {[...user.cart].reverse().map((article, i) => {
                 return <CartArticle key={i} article={article} />;
               })}
             </div>

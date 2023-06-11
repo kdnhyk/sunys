@@ -21,7 +21,7 @@ const getBrandByBrandNameList = async (brandNameList: string[]) => {
   return result[0];
 };
 
-const useBrand = (brandNameList: string[]) => {
+const useUserBrand = (brandNameList: string[]) => {
   const { data } = useQuery(
     ["userBrand"],
     async () => await getBrandByBrandNameList(brandNameList),
@@ -36,4 +36,4 @@ const useBrand = (brandNameList: string[]) => {
   return { data };
 };
 
-export default useBrand;
+export default useUserBrand;

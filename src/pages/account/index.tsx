@@ -1,12 +1,12 @@
 import styled from "styled-components";
 import { useAuth } from "../../hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useRouter } from "next/router";
 import Head from "next/head";
 import { SettingIcon, XIcon } from "@/asset/Icon";
 import { media } from "@/media";
-import UserColllectoinList from "@/components/account/UserCollectionList";
-import NewsHeader from "@/components/account/UserFilter";
+import UserColllectoinList from "@/containers/account/UserCollectionList";
+import NewsHeader from "@/containers/account/UserFilter";
 
 export default function Account() {
   const { user, logout, removeUser } = useAuth();
@@ -116,7 +116,7 @@ const AccountBlock = styled.div`
       justify-content: center;
       align-items: center;
 
-      padding: 16px 0px;
+      padding: 36px 0px;
 
       .SettingHeader {
         width: 100%;

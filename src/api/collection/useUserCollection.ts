@@ -22,6 +22,7 @@ const useUserCollection = (brandList: string[]) => {
       collection(store, "collection"),
       where("isVisible", "==", true),
       where("brandName", "in", brandList),
+      orderBy("createdTime", "desc"),
       limit(6)
     );
 
@@ -36,6 +37,7 @@ const useUserCollection = (brandList: string[]) => {
       collection(store, "collection"),
       where("isVisible", "==", true),
       where("brandName", "in", brandList),
+      orderBy("createdTime", "desc"),
       startAfter(pageParam),
       limit(6)
     );

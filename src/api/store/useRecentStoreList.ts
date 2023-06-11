@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { store } from "@/firebase";
 import { collection, getDocs, limit, query } from "firebase/firestore";
-import { IsStore } from "@/types/brand";
+import { IsStore } from "@/types/store";
 
 export const getRecentStoreList = async () => {
   const q = query(collection(store, "store"), limit(10));

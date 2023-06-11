@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import BrandListArea from "@/components/brand/BrandListArea";
-import SearchInput from "@/components/brand/SearchInput";
+import BrandListArea from "@/containers/brand/BrandListArea";
+import SearchInput from "@/containers/brand/SearchInput";
 import Head from "next/head";
 import { media } from "@/media";
 import { QueryClient, dehydrate } from "@tanstack/react-query";

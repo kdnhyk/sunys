@@ -1,29 +1,13 @@
 import { useEffect } from "react";
 import { useCallback, useRef, useState } from "react";
 import styled from "styled-components";
-import imageCompression from "browser-image-compression";
 import Image from "next/image";
+import { handleImage } from "@/util/file";
 
 interface IsImageUploader {
   defaultImageUrl: string;
   setImageFile: (file: File | null) => void;
 }
-
-const handleImage = async (file: File) => {
-  const options = {
-    maxSizeMB: 2,
-    maxWidthOrHeight: 1920,
-    useWebWorker: true,
-  };
-
-  const newFile = await imageCompression(file, options);
-  const result = new File([newFile], file.name.split(".")[0] + ".webp", {
-    type: "image/webp",
-    lastModified: new Date().getTime(),
-  });
-
-  return result;
-};
 
 export default function ImgageUploader({
   defaultImageUrl,

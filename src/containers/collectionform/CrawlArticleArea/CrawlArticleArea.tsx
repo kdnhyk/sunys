@@ -21,13 +21,19 @@ export default function CrawlArticleArea({
   return (
     <CrawlArticleAreaWrap>
       <div className="ArticleListWrap">
-        {data.map((e, i) => {
-          return (
-            <div className="ArticleInner" key={i}>
-              <CrawlArticle data={e} lastCollection={lastCollection} />
-            </div>
-          );
-        })}
+        {data.length === 0 ? (
+          <div className="NoDataWrap">
+            <h1>No data</h1>
+          </div>
+        ) : (
+          data.map((e, i) => {
+            return (
+              <div className="ArticleInner" key={i}>
+                <CrawlArticle data={e} lastCollection={lastCollection} />
+              </div>
+            );
+          })
+        )}
       </div>
     </CrawlArticleAreaWrap>
   );
@@ -36,6 +42,8 @@ export default function CrawlArticleArea({
 const CrawlArticleAreaWrap = styled.div`
   padding-bottom: 40px;
   .ArticleListWrap {
+    position: relative;
+
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: center;
@@ -48,6 +56,12 @@ const CrawlArticleAreaWrap = styled.div`
     }
     @media (min-width: 1165px) {
       grid-template-columns: repeat(4, 1fr);
+    }
+
+    .NoDataWrap {
+      position: absolute;
+      top: 150px;
+      left: 46%;
     }
 
     .ArticleInner {

@@ -12,7 +12,12 @@ const nextConfig = {
     NEXT_PUBLIC_GA_ID: process.env.NEXT_PUBLIC_GA_ID,
   },
   images: {
-    domains: ["firebasestorage.googleapis.com", "cdn.shopify.com"],
+    domains: [
+      "firebasestorage.googleapis.com",
+      "cdn.shopify.com",
+      "matinkim.com",
+      "amomento.co",
+    ],
   },
 };
 

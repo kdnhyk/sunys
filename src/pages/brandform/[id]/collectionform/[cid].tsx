@@ -6,6 +6,7 @@ import useArticleByCid from "@/api/article/useArticleByCid";
 import ArticleArea from "@/containers/collectionform/ArticleArea";
 import CrawlArticleArea from "@/containers/collectionform/CrawlArticleArea/CrawlArticleArea";
 import MainArea from "@/containers/collectionform/MainArea";
+import useCheckAdmin from "@/hooks/useCheckAdmin";
 
 export default function CollectionForm() {
   const { cid } = useRouter().query;
@@ -13,6 +14,7 @@ export default function CollectionForm() {
   const { data: articleList } = useArticleByCid(
     typeof cid === "string" ? cid : ""
   );
+  const router = useCheckAdmin();
 
   if (!articleList || !data) return <></>;
 

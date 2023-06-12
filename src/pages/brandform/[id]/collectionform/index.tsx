@@ -1,9 +1,12 @@
 import styled from "styled-components";
 import MainArea from "@/containers/collectionform/MainArea";
 import { useRouter } from "next/router";
+import useCheckAdmin from "@/hooks/useCheckAdmin";
 
 export default function CollectionForm() {
   const { id } = useRouter().query;
+
+  const router = useCheckAdmin();
 
   if (!id) {
     return <></>;

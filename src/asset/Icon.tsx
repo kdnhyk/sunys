@@ -202,7 +202,7 @@ const RemoveCartIcon = () => {
         d="M34 34L2 2"
         stroke="white"
         strokeWidth="2"
-        stroke-linecap="round"
+        strokeLinecap="round"
       />
     </svg>
   );

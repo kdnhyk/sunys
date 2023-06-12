@@ -17,9 +17,12 @@ import Layout from "@/components/common/Layout";
 RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 declare global {
-  const google: any;
+  interface Window {
+    naver: any;
+    gtag: any;
+    google: any;
+  }
   const naver: any;
-  const gtag: any;
 }
 
 export default function App({ Component, pageProps }: AppProps) {

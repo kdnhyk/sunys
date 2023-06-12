@@ -1,10 +1,13 @@
 import InfoArea from "@/containers/storeform/InfoArea";
 import { useAuth } from "@/hooks/useAuth";
+import useCheckAdmin from "@/hooks/useCheckAdmin";
 import { media } from "@/media";
 import styled from "styled-components";
 
 export default function StoreForm() {
   const { user } = useAuth();
+
+  const router = useCheckAdmin();
 
   return (
     <StoreFormWrap>

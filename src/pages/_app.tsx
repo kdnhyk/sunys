@@ -18,10 +18,11 @@ RecoilEnv.RECOIL_DUPLICATE_ATOM_KEY_CHECKING_ENABLED = false;
 
 declare global {
   interface Window {
-    google: any;
     naver: any;
     gtag: any;
+    google: any;
   }
+  const naver: any;
 }
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -80,6 +81,10 @@ export default function App({ Component, pageProps }: AppProps) {
         }}
       />
       <Script src="https://static.nid.naver.com/js/naveridlogin_js_sdk_2.0.2.js"></Script>
+      <Script
+        type="text/javascript"
+        src={`https://openapi.map.naver.com/openapi/v3/maps.js?ncpClientId=${process.env.NEXT_PUBLIC_NAVER_CLOUD_CLIENT_ID}`}
+      ></Script>
       <RecoilRoot>
         <QueryClientProvider client={client}>
           <ReactQueryDevtools />

@@ -1,5 +1,6 @@
 import useStoreBySid from "@/api/store/useStoreBySid";
 import InfoArea from "@/containers/storeform/InfoArea";
+import useCheckAdmin from "@/hooks/useCheckAdmin";
 import { media } from "@/media";
 import { useRouter } from "next/router";
 import styled from "styled-components";
@@ -7,6 +8,8 @@ import styled from "styled-components";
 export default function StoreForm() {
   const { sid } = useRouter().query;
   const { data } = useStoreBySid(typeof sid === "string" ? sid : "");
+
+  const router = useCheckAdmin();
 
   if (!data) return <></>;
 

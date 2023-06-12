@@ -8,9 +8,14 @@ import useLocationState from "@/hooks/useLocationState";
 import { media } from "@/media";
 import { IsStore } from "@/types/store";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
+import dynamic from "next/dynamic";
 import Head from "next/head";
 import { useState } from "react";
 import styled from "styled-components";
+
+const NaverMap = dynamic(() => import("@/containers/store/NaverMap"), {
+  ssr: false,
+});
 
 export const getStaticProps = async () => {
   const queryClient = new QueryClient();
@@ -86,7 +91,9 @@ export default function Store() {
             })}
           </div>
         </div>
-        <div className="RightSide"></div>
+        <div className="RightSide">
+          <NaverMap />
+        </div>
       </StoreWrap>
     </>
   );

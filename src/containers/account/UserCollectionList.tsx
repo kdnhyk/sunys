@@ -60,7 +60,7 @@ export default function UserColllectoinList({ user }: IsUserCollectionList) {
 const UserColllectoinListStyle = styled.div`
   padding: 0px 0px 24px 0px;
   .NewColArea {
-    padding: 0px 6px 20px 6px;
+    padding: 6px 6px 20px 6px;
 
     .ColInner {
       padding: 6px;

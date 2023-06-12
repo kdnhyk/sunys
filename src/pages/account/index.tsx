@@ -101,7 +101,7 @@ const AccountBlock = styled.div`
       align-items: center;
       gap: 16px;
 
-      padding-bottom: 46px;
+      padding-bottom: 36px;
       border-bottom: 1px solid var(--line-color);
       h3 {
       }

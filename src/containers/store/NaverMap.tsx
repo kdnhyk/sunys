@@ -85,7 +85,7 @@ export const NaverMap = ({}: IsNaverMap) => {
     return () => {
       mapRef.current.destroy();
     };
-  }, []);
+  }, [currentLocation.latitude, currentLocation.longitude]);
 
   return (
     <NaverMapStyle>

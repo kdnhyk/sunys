@@ -128,7 +128,6 @@ const CollectionStyle = styled.div`
     width: calc(60%);
     height: 100%;
     overflow: auto;
-    align-content: start;
 
     padding-bottom: 40px;
 

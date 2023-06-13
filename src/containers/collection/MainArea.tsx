@@ -1,17 +1,17 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useAuth } from "@/hooks/useAuth";
 import useLocationState from "@/hooks/useLocationState";
 import Image from "next/image";
 import { SettingIcon } from "@/asset/Icon";
 import { IsCollection } from "@/types/collection";
+import useUser from "@/hooks/useUser";
 
 interface IsMainArea {
   collection: IsCollection;
 }
 
 export default function MainArea({ collection }: IsMainArea) {
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const { onClickBarnd, onClickCollectionSetting } = useLocationState();
 

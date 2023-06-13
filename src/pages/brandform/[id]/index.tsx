@@ -4,8 +4,6 @@ import InfoArea from "../../../containers/brandform/InfoArea";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import useBrand from "@/api/brand/useBrandByBrandName";
-import { useAuth } from "@/hooks/useAuth";
-import { useEffect } from "react";
 import useCheckAdmin from "@/hooks/useCheckAdmin";
 
 const CollectionArea = dynamic(
@@ -20,7 +18,7 @@ export default function BrandForm() {
   const { id } = useRouter().query;
   const { data } = useBrand(typeof id === "string" ? id : "");
 
-  const router = useCheckAdmin();
+  useCheckAdmin();
 
   if (typeof id !== "string") {
     return <></>;

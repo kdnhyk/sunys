@@ -6,7 +6,7 @@ import useCheckAdmin from "@/hooks/useCheckAdmin";
 export default function CollectionForm() {
   const { id } = useRouter().query;
 
-  const router = useCheckAdmin();
+  useCheckAdmin();
 
   if (!id) {
     return <></>;

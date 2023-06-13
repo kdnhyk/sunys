@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
-import { useAuth } from "../../hooks/useAuth";
 import CartArticle from "@/containers/cart/CartArticle";
 import Head from "next/head";
 import Footer from "@/components/common/Footer";
+import useUser from "@/hooks/useUser";
 
 export default function Cart() {
-  const { user } = useAuth();
+  const { user } = useUser();
   const [total, setTotal] = useState(0);
 
   useEffect(() => {

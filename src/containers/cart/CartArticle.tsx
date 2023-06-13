@@ -3,16 +3,16 @@ import styled from "styled-components";
 import NotFound from "@/asset/NotFound.png";
 import useLocationState from "../../hooks/useLocationState";
 import Image from "next/image";
-import { useUser } from "@/api/user/useUser";
-import { useAuth } from "@/hooks/useAuth";
+import { useHandleUser } from "@/api/user/useHandleUser";
+import useUser from "@/hooks/useUser";
 
 interface IsCartArticle {
   article: IsArticle;
 }
 
 export default function CartArticle({ article }: IsCartArticle) {
-  const { user } = useAuth();
-  const { handleCart } = useUser();
+  const { user } = useUser();
+  const { handleCart } = useHandleUser();
 
   const { onClickBarnd, onClickCollection } = useLocationState();
 

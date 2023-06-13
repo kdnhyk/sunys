@@ -68,9 +68,13 @@ const ArticleAreaWrap = styled.div`
   .ArticleListWrap {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    align-items: center;
+    align-items: start;
     row-gap: 20px;
     column-gap: 10px;
     margin-top: 20px;
+
+    .CreateArticleWrap {
+      height: calc(100% - 32px);
+    }
   }
 `;

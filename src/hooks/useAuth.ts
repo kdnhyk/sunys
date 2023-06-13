@@ -168,7 +168,6 @@ export const useAuth = () => {
 
   return {
     user,
-    setUser,
     logout,
     updateUser,
     removeUser,

@@ -28,10 +28,11 @@ export default function CreateArticle({}: IsCreateArticleStyle) {
 }
 
 const CreateArticleWrap = styled.div`
+  width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
 
   position: relative;
   cursor: pointer;
@@ -43,7 +44,7 @@ const CreateArticleWrap = styled.div`
 
     padding: 80px 0px;
     width: 100%;
-    height: auto;
+    height: 100%;
     svg {
     }
   }

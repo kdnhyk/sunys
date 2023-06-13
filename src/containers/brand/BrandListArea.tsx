@@ -1,18 +1,18 @@
 import styled from "styled-components";
-import { useAuth } from "../../hooks/useAuth";
 import useLocationState from "../../hooks/useLocationState";
 import { toSortBrandList, toSortRestBrandList } from "@/util";
 import { AddIcon, BottomArrow, UpArrow } from "@/asset/Icon";
 import { IsBrandName } from "@/types/brand";
 import { useMemo, useState } from "react";
 import useBrandList from "@/api/brandList/useBrandList";
+import useUser from "@/hooks/useUser";
 
 interface IsBrandList {
   searchInput: string;
 }
 
 export default function BrandListArea({ searchInput }: IsBrandList) {
-  const { user } = useAuth();
+  const { user } = useUser();
   const { onClickBarnd, onClickBrandSetting } = useLocationState();
   const { data: brandList } = useBrandList();
 
@@ -151,6 +151,8 @@ const BrandListAreaWrap = styled.div`
   display: flex;
   flex-direction: column;
   min-height: calc(100vh - 131px);
+  // !!CHECK
+  overscroll-behavior: none;
 
   .CreateBrandButtonwrap {
     width: 100%;

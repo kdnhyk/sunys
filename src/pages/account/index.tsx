@@ -7,9 +7,11 @@ import { SettingIcon, XIcon } from "@/asset/Icon";
 import { media } from "@/media";
 import UserColllectoinList from "@/containers/account/UserCollectionList";
 import NewsHeader from "@/containers/account/UserFilter";
+import useUser from "@/hooks/useUser";
 
 export default function Account() {
-  const { user, logout, removeUser } = useAuth();
+  const { logout, removeUser } = useAuth();
+  const { user } = useUser();
   const router = useRouter();
 
   const [isOpenSetting, setIsOpenSetting] = useState(false);

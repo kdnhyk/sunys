@@ -8,7 +8,7 @@ import { useRecoilState } from "recoil";
 import { userSelector } from "@/store/user";
 import { useQuery } from "@tanstack/react-query";
 
-export const useUser = () => {
+export const useHandleUser = () => {
   const collectionRef = collection(store, "user");
   const { getCloudUser } = useCloudUser();
   const [, setUser] = useRecoilState(userSelector);

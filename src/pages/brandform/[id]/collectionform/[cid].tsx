@@ -14,7 +14,7 @@ export default function CollectionForm() {
   const { data: articleList } = useArticleByCid(
     typeof cid === "string" ? cid : ""
   );
-  const router = useCheckAdmin();
+  useCheckAdmin();
 
   if (!articleList || !data) return <></>;
 

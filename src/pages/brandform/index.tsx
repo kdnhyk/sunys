@@ -2,12 +2,12 @@ import styled from "styled-components";
 import { media } from "@/media";
 import InfoArea from "@/containers/brandform/InfoArea";
 import { useEffect } from "react";
-import { useAuth } from "@/hooks/useAuth";
 import { useRouter } from "next/router";
+import useUser from "@/hooks/useUser";
 
 //
 export default function BrandForm() {
-  const { user } = useAuth();
+  const { user } = useUser();
   const router = useRouter();
 
   useEffect(() => {

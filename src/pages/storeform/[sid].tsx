@@ -9,7 +9,7 @@ export default function StoreForm() {
   const { sid } = useRouter().query;
   const { data } = useStoreBySid(typeof sid === "string" ? sid : "");
 
-  const router = useCheckAdmin();
+  useCheckAdmin();
 
   if (!data) return <></>;
 

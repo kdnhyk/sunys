@@ -2,7 +2,7 @@ import { IsArticle } from "./article";
 import { IsBrandName } from "./brand";
 
 export interface IsUser {
-  uid: string;
+  uid: string | null;
   username: string;
 
   scrapBrandList: IsBrandName[];

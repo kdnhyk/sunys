@@ -49,7 +49,6 @@ const CrawlArticleAreaWrap = styled.div`
     align-items: center;
     row-gap: 20px;
     column-gap: 10px;
-    margin-top: 20px;
 
     @media (min-width: 885px) {
       grid-template-columns: repeat(3, 1fr);

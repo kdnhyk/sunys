@@ -2,15 +2,16 @@ import useRecentStoreList, {
   getRecentStoreList,
 } from "@/api/store/useRecentStoreList";
 import { AddIcon } from "@/asset/Icon";
+import SearchInput from "@/containers/brand/SearchInput";
 import StoreArea from "@/containers/store/StoreArea";
-import { useAuth } from "@/hooks/useAuth";
 import useLocationState from "@/hooks/useLocationState";
+import useUser from "@/hooks/useUser";
 import { media } from "@/media";
 import { IsStore } from "@/types/store";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
 import dynamic from "next/dynamic";
 import Head from "next/head";
-import { useState } from "react";
+import { ChangeEvent, useState } from "react";
 import styled from "styled-components";
 
 const NaverMap = dynamic(() => import("@/containers/store/NaverMap"), {
@@ -36,12 +37,22 @@ export const getStaticProps = async () => {
 };
 
 export default function Store() {
-  const { user } = useAuth();
+  const { user } = useUser();
   const { onClickStoreSetting } = useLocationState();
   const { data } = useRecentStoreList();
   const { onClickBarnd } = useLocationState();
 
+  const [searchInput, setSearchInput] = useState("");
   const [selectedStore, setSelectedStore] = useState<IsStore | null>(null);
+
+  const onChangeSearchInput = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    setSearchInput(() => value);
+  };
+
+  const onResetSearchInput = () => {
+    setSearchInput(() => "");
+  };
 
   const onClickStore = (store: IsStore) => {
     setSelectedStore(() => store);
@@ -66,6 +77,15 @@ export default function Store() {
       </Head>
       <StoreWrap>
         <div className="LeftSide">
+          <div className="SearchInputWrap">
+            <SearchInput
+              placeholder="Search by store"
+              value={searchInput}
+              onChange={onChangeSearchInput}
+              onReset={onResetSearchInput}
+            />
+          </div>
+
           {user.admin && (
             <div className="CreateStoreButtonwrap">
               <div
@@ -101,13 +121,18 @@ export default function Store() {
 
 const StoreWrap = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column-reverse;
 
   width: 100%;
 
   .LeftSide {
     display: flex;
     flex-direction: column;
+
+    .SearchInputWrap {
+      padding: 20px;
+      border-bottom: 1px solid var(--line-color);
+    }
 
     .CreateStoreButtonwrap {
       width: 100%;
@@ -146,6 +171,11 @@ const StoreWrap = styled.div`
         }
       }
     }
+  }
+
+  .RightSide {
+    width: 100%;
+    height: 100vh;
   }
 
   ${media.desktop`

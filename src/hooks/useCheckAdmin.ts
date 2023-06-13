@@ -1,10 +1,11 @@
 import { useRouter } from "next/router";
-import { useAuth } from "./useAuth";
 import { useEffect } from "react";
+import { useRecoilState } from "recoil";
+import { userSelector } from "@/store/user";
 
 //
 export default function useCheckAdmin() {
-  const { user } = useAuth();
+  const [user] = useRecoilState(userSelector);
   const router = useRouter();
 
   console.log("Check admin");
@@ -14,6 +15,4 @@ export default function useCheckAdmin() {
       router.push("/");
     }
   }, [router, user.admin]);
-
-  return router;
 }

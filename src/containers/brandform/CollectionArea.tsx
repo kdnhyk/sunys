@@ -5,8 +5,8 @@ import Collection from "../../components/Collection";
 import useBrandCollection from "@/api/collection/useBrandCollection";
 import useLocationState from "@/hooks/useLocationState";
 import CreateBoxCollection from "../../components/CreateBoxCollection";
-import { useAuth } from "@/hooks/useAuth";
 import { BottomArrow } from "@/asset/Icon";
+import useUser from "@/hooks/useUser";
 
 interface IsCollectionArea {
   brandName: string;
@@ -21,7 +21,7 @@ export default function CollectionArea({ brandName }: IsCollectionArea) {
     getBrandCollectionAdmin,
   } = useBrandCollection(brandName);
   const { onClickCollectionSetting } = useLocationState();
-  const { user } = useAuth();
+  const { user } = useUser();
 
   const [onLoad, setOnLoad] = useState(false);
 

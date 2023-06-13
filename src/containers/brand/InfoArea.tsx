@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { useAuth } from "@/hooks/useAuth";
 import OfflineStore from "./OfflineStore";
 import Button from "../../components/Button";
 import { IsBrand } from "@/types/brand";
@@ -7,8 +6,9 @@ import useLocationState from "@/hooks/useLocationState";
 import useMutationBrand from "@/api/brand/useMutationBrand";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
-import { useUser } from "@/api/user/useUser";
+import { useHandleUser } from "@/api/user/useHandleUser";
 import { SettingIcon } from "@/asset/Icon";
+import useUser from "@/hooks/useUser";
 
 interface IsInfoArea {
   data: IsBrand;
@@ -16,8 +16,8 @@ interface IsInfoArea {
 
 export default function InfoArea({ data: currentBrand }: IsInfoArea) {
   const { onOpenModal } = useModal();
-  const { user } = useAuth();
-  const { handleBrandScrap } = useUser();
+  const { user } = useUser();
+  const { handleBrandScrap } = useHandleUser();
   const { onClickBrandSetting } = useLocationState();
   const { updateBrand } = useMutationBrand(currentBrand.brandName);
 

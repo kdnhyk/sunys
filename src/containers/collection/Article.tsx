@@ -1,18 +1,18 @@
 import styled from "styled-components";
 import { IsArticle } from "../../types/article";
-import { useAuth } from "../../hooks/useAuth";
 import Image from "next/image";
 import { AddCartIcon, RemoveCartIcon } from "@/asset/Icon";
-import { useUser } from "@/api/user/useUser";
+import { useHandleUser } from "@/api/user/useHandleUser";
 import useModal from "@/hooks/useModal";
+import useUser from "@/hooks/useUser";
 
 interface IsArticleWrap {
   article: IsArticle;
 }
 
 export default function Article({ article }: IsArticleWrap) {
-  const { user } = useAuth();
-  const { handleCart } = useUser();
+  const { user } = useUser();
+  const { handleCart } = useHandleUser();
   const { onOpenModal } = useModal();
 
   const isInCart = user.cart.find((e) => e.id === article.id) ? true : false;

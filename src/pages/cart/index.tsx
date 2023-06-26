@@ -3,7 +3,7 @@ import styled from "styled-components";
 import CartArticle from "@/containers/cart/CartArticle";
 import Head from "next/head";
 import Footer from "@/components/common/Footer";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 
 export default function Cart() {
   const { user } = useUser();
@@ -14,7 +14,7 @@ export default function Cart() {
     // document.body.style.overflow = "hidden";
 
     let result = 0;
-    user.cart.map((item) => {
+    user?.cart.map((item) => {
       result += Number(item.price);
     });
 
@@ -23,7 +23,7 @@ export default function Cart() {
     return () => {
       // document.body.style.overflow = "unset";
     };
-  }, [user.cart]);
+  }, [user?.cart]);
 
   return (
     <>
@@ -44,7 +44,7 @@ export default function Cart() {
         <meta property="og:url" content="http://sunys.co.kr" />
       </Head>
       <CartBlock>
-        {user.cart.length !== 0 ? (
+        {user && user.cart.length !== 0 ? (
           <>
             <div className="CartMain">
               {[...user.cart].reverse().map((article, i) => {

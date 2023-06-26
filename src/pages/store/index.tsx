@@ -5,7 +5,7 @@ import { AddIcon } from "@/asset/Icon";
 import SearchInput from "@/containers/brand/SearchInput";
 import StoreArea from "@/containers/store/StoreArea";
 import useLocationState from "@/hooks/useLocationState";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 import { media } from "@/media";
 import { IsStore } from "@/types/store";
 import { QueryClient, dehydrate } from "@tanstack/react-query";
@@ -86,7 +86,7 @@ export default function Store() {
             />
           </div>
 
-          {user.admin && (
+          {user?.admin && (
             <div className="CreateStoreButtonwrap">
               <div
                 className="CreateStoreButton"

@@ -9,71 +9,13 @@ import {
 } from "firebase/auth";
 import { auth, provider } from "@/firebase";
 import { updateProfile } from "firebase/auth";
-import { useEffect, useState } from "react";
-import { useRecoilState, useResetRecoilState } from "recoil";
-import { userSelector } from "../store/user";
-import useCloudUser from "@/api/user/useCloudUser";
+import { useState } from "react";
+import useMutationUser from "@/api/user/useMutationUser";
 
 //
 export const useAuth = () => {
-  const currentUser = auth.currentUser;
-  const [user, setUser] = useRecoilState(userSelector);
-  const resetUser = useResetRecoilState(userSelector);
-
   const [successs, setSuccess] = useState(false);
-  const [error, setError] = useState("");
-  const { getCloudUser, addCloudUser, deleteCloudUser } = useCloudUser();
-
-  // 새로고침
-  useEffect(() => {
-    const localUser = localStorage.getItem("user");
-    if (localUser && !user.uid) {
-      const user = JSON.parse(localUser);
-      console.log("get cloud");
-      getCloudUser(user.uid).then(async (cloudUser) => {
-        if (!cloudUser) return;
-
-        await setUser(cloudUser);
-        localStorage.setItem("user", JSON.stringify(cloudUser));
-        return;
-      });
-    }
-
-    setSuccess(() => false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  // 만료
-  useEffect(() => {
-    if (user.uid && !currentUser) {
-      localStorage.removeItem("user");
-      resetUser();
-    }
-  }, [currentUser, resetUser, user]);
-
-  // 로그인
-  useEffect(() => {
-    if (currentUser && successs) {
-      getCloudUser(currentUser.uid).then(async (cloudUser) => {
-        if (!cloudUser) {
-          const newUser = await addCloudUser(
-            currentUser.uid,
-            currentUser.displayName || ""
-          );
-
-          await setUser(newUser);
-          localStorage.setItem("user", JSON.stringify(newUser));
-          return;
-        }
-
-        await setUser(cloudUser);
-        localStorage.setItem("user", JSON.stringify(cloudUser));
-        return;
-      });
-    }
-    setSuccess(() => false);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [successs]);
+  const { onAddCloudUser, onDeleteCloudUser } = useMutationUser();
 
   const updateUser = (username: string) => {
     if (!auth.currentUser) return;
@@ -92,6 +34,12 @@ export const useAuth = () => {
         const user = result.user;
 
         console.log(user);
+
+        onAddCloudUser.mutate({
+          uid: user.uid,
+          userName: user.displayName || "",
+        });
+
         setSuccess(true);
       })
       .catch((error) => {
@@ -128,6 +76,11 @@ export const useAuth = () => {
                 console.log(err)
               );
 
+              onAddCloudUser.mutate({
+                uid: user.uid,
+                userName: user.displayName || "",
+              });
+
               console.log("New User");
               setSuccess(true);
             })
@@ -143,7 +96,6 @@ export const useAuth = () => {
     signOut(auth)
       .then(() => {
         localStorage.removeItem("user");
-        resetUser();
       })
       .catch((error) => {
         console.log(error);
@@ -158,8 +110,7 @@ export const useAuth = () => {
       .then(() => {
         // 스크랩한 브랜드 다 -1 해야함
         localStorage.removeItem("user");
-        deleteCloudUser(user.uid);
-        resetUser();
+        onDeleteCloudUser.mutate({ uid: user.uid });
       })
       .catch((error) => {
         console.log(error.message);
@@ -167,13 +118,11 @@ export const useAuth = () => {
   };
 
   return {
-    user,
     logout,
     updateUser,
     removeUser,
     loginWithGoogle,
     loginWithEmailAndPassword,
-    error,
     successs,
   };
 };

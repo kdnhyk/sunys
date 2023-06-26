@@ -30,7 +30,13 @@ export default function Header() {
     <HeaderWrap isVisibleHeader={isVisibleHeader}>
       <div className="LogoArea">
         <Link href={"/"}>
-          <Image src={Logo} alt={""} width={129} height={44} priority></Image>
+          <Image
+            src={Logo}
+            alt={""}
+            width={129}
+            height={44}
+            priority={true}
+          ></Image>
         </Link>
         <div className="EmptyArea"></div>
       </div>

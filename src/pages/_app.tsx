@@ -32,7 +32,8 @@ export default function App({ Component, pageProps }: AppProps) {
       new QueryClient({
         defaultOptions: {
           queries: {
-            staleTime: Infinity,
+            staleTime: 0,
+            cacheTime: Infinity,
             refetchOnWindowFocus: false,
             refetchOnReconnect: true,
             // suspense: true,
@@ -103,7 +104,7 @@ const GlobalStyle = createGlobalStyle`
     --placeholder-color: #8E8E8E;
     --background-color: #fcfcfc;
     --red-color: #F33131;
-    }
+  }
   body {
     padding: 0;
     margin: 0;

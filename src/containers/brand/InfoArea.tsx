@@ -6,20 +6,23 @@ import useLocationState from "@/hooks/useLocationState";
 import useMutationBrand from "@/api/brand/useMutationBrand";
 import Image from "next/image";
 import useModal from "@/hooks/useModal";
-import { useHandleUser } from "@/api/user/useHandleUser";
+import { useHandleUser } from "@/hooks/useHandleUser";
 import { SettingIcon } from "@/asset/Icon";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 
 interface IsInfoArea {
   data: IsBrand;
+  refetch: any;
 }
 
-export default function InfoArea({ data: currentBrand }: IsInfoArea) {
+export default function InfoArea({ data: currentBrand, refetch }: IsInfoArea) {
   const { onOpenModal } = useModal();
   const { user } = useUser();
   const { handleBrandScrap } = useHandleUser();
+  const { updateBrandScrapNum } = useMutationBrand(currentBrand.brandName);
   const { onClickBrandSetting } = useLocationState();
-  const { updateBrand } = useMutationBrand(currentBrand.brandName);
+
+  if (!user) return <></>;
 
   const isBeforeScraped = user.scrapBrandList.find(
     (e) => e.default === currentBrand.brandName
@@ -33,25 +36,18 @@ export default function InfoArea({ data: currentBrand }: IsInfoArea) {
       return;
     }
 
-    // user scrapBrandList 확인 후 isAdd 반환
-    const { isAdd } = await handleBrandScrap(user, {
+    handleBrandScrap({
       default: currentBrand.brandName,
       korean: currentBrand.brandNameKo,
     });
 
-    // 기존 user scrapBrandList와 비교하여 brand 업데이트
-    // !! 다시 brand로 나갔다 올 경우 최신 데이터 반환 x !!
-    updateBrand.mutate({
+    await refetch();
+
+    updateBrandScrapNum.mutate({
       id: currentBrand.brandName,
-      brand: {
-        ...currentBrand,
-        scrapNum:
-          isAdd && !isBeforeScraped
-            ? currentBrand.scrapNum + 1
-            : !isAdd && isBeforeScraped
-            ? currentBrand.scrapNum - 1
-            : currentBrand.scrapNum,
-      },
+      newScrapNum: !isBeforeScraped
+        ? currentBrand.scrapNum + 1
+        : currentBrand.scrapNum - 1,
     });
   };
 
@@ -78,7 +74,7 @@ export default function InfoArea({ data: currentBrand }: IsInfoArea) {
             alt=""
             width={160}
             height={160}
-            priority
+            priority={true}
           />
         )}
       </div>

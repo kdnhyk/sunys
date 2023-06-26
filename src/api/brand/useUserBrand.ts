@@ -27,9 +27,6 @@ const useUserBrand = (brandNameList: string[]) => {
     async () => await getBrandByBrandNameList(brandNameList),
     {
       enabled: !!brandNameList,
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnWindowFocus: false,
     }
   );
 

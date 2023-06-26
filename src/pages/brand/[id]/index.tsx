@@ -52,35 +52,35 @@ export const getStaticProps = async ({ params }: { params: any }) => {
 
 export default function Brand() {
   const { id } = useRouter().query;
-  const { data } = useBrand(typeof id === "string" ? id : "");
+  const { brand, refetch } = useBrand(typeof id === "string" ? id : "");
 
-  if (!data) return <></>;
+  if (!brand) return <></>;
 
   return (
     <>
       <Head>
-        <title>{data.brandName}</title>
+        <title>{brand.brandName}</title>
         <meta
           name="description"
-          content={data.brandNameKo + " | " + data.description}
+          content={brand.brandNameKo + " | " + brand.description}
         />
 
-        <meta property="og:image" content={data.logo} />
-        <meta property="og:title" content={data.brandName} />
+        <meta property="og:image" content={brand.logo} />
+        <meta property="og:title" content={brand.brandName} />
         <meta
           property="og:description"
-          content={data.brandNameKo + " | " + data.description}
+          content={brand.brandNameKo + " | " + brand.description}
         />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://sunys.co.kr/brand/*" />
       </Head>
       <BrandWrap>
         <div className="LeftSide">
-          <InfoArea data={data} />
+          <InfoArea data={brand} refetch={refetch} />
         </div>
 
         <div className="RightSide">
-          <CollectionArea data={data} />
+          <CollectionArea data={brand} />
         </div>
       </BrandWrap>
     </>

@@ -34,7 +34,7 @@ export default function Collection({
           alt={collection.collectionName}
           width={200}
           height={200}
-          priority
+          priority={true}
         />
         {diff > 0 && (
           <div className="DDayWrap">

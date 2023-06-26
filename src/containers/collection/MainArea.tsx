@@ -4,7 +4,7 @@ import useLocationState from "@/hooks/useLocationState";
 import Image from "next/image";
 import { SettingIcon } from "@/asset/Icon";
 import { IsCollection } from "@/types/collection";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 
 interface IsMainArea {
   collection: IsCollection;
@@ -36,7 +36,7 @@ export default function MainArea({ collection }: IsMainArea) {
           alt=""
           width={600}
           height={600}
-          priority
+          priority={true}
         />
 
         {diff > 0 && (
@@ -64,7 +64,7 @@ export default function MainArea({ collection }: IsMainArea) {
 
         <p className="Text">{collection.text}</p>
 
-        {user.admin && (
+        {user?.admin && (
           <div
             className="Setting"
             onClick={() =>

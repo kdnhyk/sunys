@@ -22,18 +22,15 @@ export const getBrandByBrandName = async (brandName: string) => {
 };
 
 const useBrandByBrandName = (brandName: string) => {
-  const { data } = useQuery<IsBrand>(
+  const { data:brand, refetch } = useQuery<IsBrand>(
     ["brand", brandName],
     async () => await getBrandByBrandName(brandName),
     {
       enabled: !!brandName,
-      staleTime: Infinity,
-      cacheTime: Infinity,
-      refetchOnWindowFocus: false,
     }
   );
 
-  return { data };
+  return { brand,refetch };
 };
 
 export default useBrandByBrandName;

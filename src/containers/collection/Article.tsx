@@ -2,9 +2,9 @@ import styled from "styled-components";
 import { IsArticle } from "../../types/article";
 import Image from "next/image";
 import { AddCartIcon, RemoveCartIcon } from "@/asset/Icon";
-import { useHandleUser } from "@/api/user/useHandleUser";
+import { useHandleUser } from "@/hooks/useHandleUser";
 import useModal from "@/hooks/useModal";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 
 interface IsArticleWrap {
   article: IsArticle;
@@ -15,14 +15,14 @@ export default function Article({ article }: IsArticleWrap) {
   const { handleCart } = useHandleUser();
   const { onOpenModal } = useModal();
 
-  const isInCart = user.cart.find((e) => e.id === article.id) ? true : false;
+  const isInCart = user?.cart.find((e) => e.id === article.id) ? true : false;
 
   const onClickCart = () => {
-    if (!user.uid) {
+    if (!user?.uid) {
       onOpenModal();
       return;
     }
-    handleCart(user, article);
+    handleCart(article);
   };
 
   return (

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import NotFound from "@/asset/NotFound.png";
 import useLocationState from "../../hooks/useLocationState";
 import Image from "next/image";
-import { useHandleUser } from "@/api/user/useHandleUser";
-import useUser from "@/hooks/useUser";
+import { useHandleUser } from "@/hooks/useHandleUser";
+import useUser from "@/api/user/useUser";
 
 interface IsCartArticle {
   article: IsArticle;
@@ -19,7 +19,7 @@ export default function CartArticle({ article }: IsCartArticle) {
   const onRemoveArticle = () => {
     if (!user) return;
 
-    handleCart(user, article);
+    handleCart(article);
   };
 
   return (

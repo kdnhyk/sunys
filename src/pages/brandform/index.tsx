@@ -3,7 +3,7 @@ import { media } from "@/media";
 import InfoArea from "@/containers/brandform/InfoArea";
 import { useEffect } from "react";
 import { useRouter } from "next/router";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 
 //
 export default function BrandForm() {
@@ -11,10 +11,10 @@ export default function BrandForm() {
   const router = useRouter();
 
   useEffect(() => {
-    if (!user.admin) {
+    if (!user?.admin) {
       router.push("/login"); // 로그인 페이지로 리다이렉션
     }
-  }, [router, user.admin]);
+  }, [router, user?.admin]);
 
   return (
     <BrandWrap>

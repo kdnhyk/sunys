@@ -6,7 +6,7 @@ import useBrandCollection from "@/api/collection/useBrandCollection";
 import useLocationState from "@/hooks/useLocationState";
 import CreateBoxCollection from "../../components/CreateBoxCollection";
 import { BottomArrow } from "@/asset/Icon";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 
 interface IsCollectionArea {
   brandName: string;
@@ -31,7 +31,7 @@ export default function CollectionArea({ brandName }: IsCollectionArea) {
 
   useEffect(() => {
     fetchNextPage();
-    if (user.admin) {
+    if (user?.admin) {
       getBrandCollectionAdmin();
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps

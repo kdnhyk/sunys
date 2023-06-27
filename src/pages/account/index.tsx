@@ -7,7 +7,7 @@ import { SettingIcon, XIcon } from "@/asset/Icon";
 import { media } from "@/media";
 import UserColllectoinList from "@/containers/account/UserCollectionList";
 import NewsHeader from "@/containers/account/UserFilter";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 
 export default function Account() {
   const { logout, removeUser } = useAuth();
@@ -32,7 +32,7 @@ export default function Account() {
   //   }
   // }, []);
 
-  if (!user.uid) return <></>;
+  if (!user?.uid) return <></>;
 
   return (
     <>

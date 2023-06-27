@@ -16,9 +16,9 @@ const CollectionArea = dynamic(
 //
 export default function BrandForm() {
   const { id } = useRouter().query;
-  const { data } = useBrand(typeof id === "string" ? id : "");
+  const { brand } = useBrand(typeof id === "string" ? id : "");
 
-  useCheckAdmin();
+  // useCheckAdmin();
 
   if (typeof id !== "string") {
     return <></>;
@@ -27,7 +27,7 @@ export default function BrandForm() {
   return (
     <BrandWrap>
       <div className="InfoWrap">
-        <InfoArea brandName={id} lastBrand={data} />
+        <InfoArea brandName={id} lastBrand={brand} />
       </div>
 
       <div className="CollectionWrap">

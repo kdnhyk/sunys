@@ -4,10 +4,10 @@ import LoginModal from "./LoginModal";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import useModal from "@/hooks/useModal";
-import { useAuth } from "@/hooks/useAuth";
+import useUser from "@/api/user/useUser";
 
 export default function NavBar() {
-  const { user } = useAuth();
+  const { user } = useUser();
   const { isModal, onOpenModal, onCloseModal } = useModal();
   const path = useRouter().pathname.split("/")[1] || "news";
 
@@ -47,7 +47,7 @@ export default function NavBar() {
           <h3>{e.name}</h3>
         </Link>
       ))}
-      {!user.uid ? (
+      {!user?.uid ? (
         <div className="AccountButtonWrap" onClick={onOpenModal}>
           <h3>로그인</h3>
         </div>
@@ -62,7 +62,7 @@ export default function NavBar() {
         className="CartWrap"
       >
         <div className="Cart">
-          <p>{user.cart.length}</p>
+          <p>{user?.cart.length}</p>
         </div>
       </Link>
       {isModal && <LoginModal exitModal={onCloseModal} />}

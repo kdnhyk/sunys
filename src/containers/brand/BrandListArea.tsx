@@ -5,7 +5,7 @@ import { AddIcon, BottomArrow, UpArrow } from "@/asset/Icon";
 import { IsBrandName } from "@/types/brand";
 import { useMemo, useState } from "react";
 import useBrandList from "@/api/brandList/useBrandList";
-import useUser from "@/hooks/useUser";
+import useUser from "@/api/user/useUser";
 
 interface IsBrandList {
   searchInput: string;
@@ -62,7 +62,7 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
 
   return (
     <BrandListAreaWrap>
-      {user.admin && (
+      {user?.admin && (
         <div className="CreateBrandButtonwrap">
           <div
             className="CreateBrandButton"
@@ -90,7 +90,7 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
         </>
       ) : (
         <>
-          {user.uid && user.scrapBrandList.length > 0 && (
+          {user?.uid && user.scrapBrandList.length > 0 && (
             <>
               <div className="ScrapBrandWrap">
                 <div className="BrandTitle">
@@ -128,7 +128,7 @@ export default function BrandListArea({ searchInput }: IsBrandList) {
 
             {brandList &&
               isOpenAllBrandList &&
-              toSortRestBrandList(brandList, user.scrapBrandList).map(
+              toSortRestBrandList(brandList, user?.scrapBrandList || []).map(
                 (e, i) => (
                   <div
                     className="BrandInner"
